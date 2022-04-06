@@ -1,5 +1,5 @@
 {
-  "name": "universe",
+  "name": "polymorph-frontend",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -30,7 +30,7 @@
     "js-cookie": "^3.0.1",
     "mime-types": "^2.1.35",
     "moment": "^2.29.1",
-    "next": "^12.1.1",
+    "next": "^12.1.4",
     "next-compose-plugins": "^2.2.1",
     "next-images": "^1.8.2",
     "next-videos": "^1.4.0",
