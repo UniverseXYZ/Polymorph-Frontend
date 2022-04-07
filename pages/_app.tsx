@@ -107,7 +107,6 @@ import '../src/components/nft/NFTCard.scss';
 import '../src/components/popups/transferNFT/TransferNFTPopup.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
-import '../src/app/modules/marketplace/pages/sell-page/components/tab-summary/SummaryTab.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 import '../src/containers/collection/Collection.scss';
