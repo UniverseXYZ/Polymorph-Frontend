@@ -18,7 +18,7 @@ import ReviewIconActive from '../../assets/images/eye-review-disactive.svg';
 import SettingIconActive from '../../assets/images/settings-solid.svg';
 import SettingIcon from '../../assets/images/setting-solid-disactive.svg';
 import nftImage from '../../assets/images/marketplace/nfts/nft13.png';
-import { useMarketplaceContext } from '../../contexts/MarketplaceContext';
+// import { useMarketplaceContext } from '../../contexts/MarketplaceContext';
 import { useThemeContext } from '../../contexts/ThemeContext';
 
 const getContent = (type, data, setData) => {
@@ -30,7 +30,7 @@ const getContent = (type, data, setData) => {
 
 const NFTMarketplace = () => {
   const location = useLocation();
-  const { stepsData, setStepsData } = useMarketplaceContext();
+  // const { stepsData, setStepsData } = useMarketplaceContext();
   const { setDarkMode } = useThemeContext();
   const nftName = location.state?.name || 'NFT Name';
 
@@ -41,7 +41,7 @@ const NFTMarketplace = () => {
       iconActive: RewardIconActive,
       route: '/nft-marketplace/select-items',
       index: 0,
-      content: <SelectItemsMethodTab onSelect={setStepsData} data={stepsData} />,
+      // content: <SelectItemsMethodTab onSelect={setStepsData} data={stepsData} />,
       home: true,
     },
     {
@@ -50,7 +50,7 @@ const NFTMarketplace = () => {
       iconActive: selectSellMethodIconWhite,
       route: '/nft-marketplace/select-method',
       index: 1,
-      content: <SelectSellMethodTab onSelect={setStepsData} data={stepsData} />,
+      // content: <SelectSellMethodTab onSelect={setStepsData} data={stepsData} />,
       home: false,
     },
     {
@@ -59,7 +59,7 @@ const NFTMarketplace = () => {
       iconActive: SettingIconActive,
       route: '/nft-marketplace/settings',
       index: 2,
-      content: getContent(stepsData.selectedMethod, stepsData, setStepsData),
+      // content: getContent(stepsData.selectedMethod, stepsData, setStepsData),
       home: false,
     },
     {
@@ -68,7 +68,7 @@ const NFTMarketplace = () => {
       iconActive: ReviewIconActive,
       route: '/nft-marketplace/summary',
       index: 3,
-      content: <Summary nftImage={nftImage} data={stepsData} />,
+      // content: <Summary nftImage={nftImage} data={stepsData} />,
       home: false,
     },
   ];
