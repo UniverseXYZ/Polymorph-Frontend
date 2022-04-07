@@ -1,6 +1,6 @@
 import { Box, BoxProps, Image, ImageProps } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
+// import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
 import { NFTAssetFullscreen } from '../nft-asset-full-screen';
 import cogWheel from '../../../../../../../assets/images/cog.png';
 

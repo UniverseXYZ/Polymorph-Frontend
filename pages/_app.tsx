@@ -52,7 +52,6 @@ import '../src/components/general/LoadingImage.scss';
 import '../src/components/input/SearchField.scss';
 import '../src/components/input/SearchTokenIdField.scss';
 import '../src/components/marketplace/browseNFT/NFTsList.scss';
-import '../src/components/marketplaceNFT/BrokenNFT.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
 import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
 import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';

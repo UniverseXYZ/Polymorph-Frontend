@@ -15,8 +15,8 @@ import NFTCardHeader from './NFTCardHeader';
 import PendingPrevArrow from '../myNFTs/pendingDropdown/misc/PendingPrevArrow';
 import PendingNextArrow from '../myNFTs/pendingDropdown/misc/PendingNextArrow';
 import NftEditions from './NftEditions';
-import SVGImageLoader from '../marketplaceNFT/InlineSVG';
-import BrokenNFT from '../marketplaceNFT/BrokenNFT';
+// import SVGImageLoader from '../marketplaceNFT/InlineSVG';
+// import BrokenNFT from '../marketplaceNFT/BrokenNFT';
 import { useRouter } from 'next/router';
 
 const NFTCard = React.memo(
