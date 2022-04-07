@@ -78,7 +78,6 @@ import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
-import '../src/containers/marketplaceNFT/MarketplaceNFT.scss';
 import '../src/components/myNFTs/create/CreateNFT.scss';
 import '../src/components/myNFTs/create/CreateSingleNft.scss';
 import '../src/components/nft/SearchFilters.scss';
