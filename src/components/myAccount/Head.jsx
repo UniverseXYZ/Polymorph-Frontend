@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '../button/Button.jsx';
-import { useAuctionContext } from '../../contexts/AuctionContext';
 import { useAuthStore } from '../../stores/authStore';
 import { useRouter } from 'next/router';
 
@@ -10,10 +9,8 @@ const Head = () => {
     loggedInArtist: s.loggedInArtist,
   }));
   const router = useRouter();
-  const { editProfileButtonClick, setEditProfileButtonClick } = useAuctionContext();
 
   const handlePublicPage = () => {
-    setEditProfileButtonClick(true);
     if (
       loggedInArtist.name &&
       loggedInArtist.universePageAddress &&

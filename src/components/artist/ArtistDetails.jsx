@@ -10,7 +10,6 @@ import instagramIcon from '../../assets/images/instagram-outlined.svg';
 import pencilIcon from '../../assets/images/edit.svg';
 import copyIcon from '../../assets/images/copy.svg';
 import Button from '../button/Button';
-import { useAuctionContext } from '../../contexts/AuctionContext';
 import { shortenEthereumAddress } from '../../utils/helpers/format';
 import { useWindowSize } from 'react-use';
 import { useAuthStore } from '../../stores/authStore';
@@ -29,7 +28,6 @@ const ArtistDetails = ({ artistAddress, onArtist = {}, loading }) => {
 
   const history = useHistory();
 
-  const { setEditProfileButtonClick } = useAuctionContext();
   const address = useAuthStore(s => s.address)
 
   const [copied, setCopied] = useState(false);
@@ -87,7 +85,6 @@ const ArtistDetails = ({ artistAddress, onArtist = {}, loading }) => {
                     className="light-border-button"
                     onClick={() => {
                       history.push('/my-account');
-                      setEditProfileButtonClick(false);
                     }}
                   >
                     Edit <img src={pencilIcon} alt="Pencil" />

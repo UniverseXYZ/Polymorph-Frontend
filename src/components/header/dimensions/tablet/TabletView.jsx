@@ -48,7 +48,6 @@ import {
   shortenEthereumAddress,
   toFixed,
 } from '../../../../utils/helpers/format';
-import { useAuctionContext } from '../../../../contexts/AuctionContext';
 import supportIcon from '../../../../assets/images/supportIcon.svg';
 import Badge from '../../../badge/Badge';
 import { useUserBalanceStore } from '../../../../stores/balanceStore';
@@ -77,7 +76,6 @@ const TabletView = (props) => {
 
   const { yourBalance, usdEthBalance } = useUserBalanceStore(state => ({yourBalance: state.yourBalance, usdEthBalance: state.usdEthBalance}));
 
-  const { editProfileButtonClick } = useAuctionContext();
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);

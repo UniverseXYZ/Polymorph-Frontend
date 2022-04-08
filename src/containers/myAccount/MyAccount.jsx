@@ -6,7 +6,7 @@ import Head from '../../components/myAccount/Head.jsx';
 import CongratsProfilePopup from '../../components/popups/CongratsProfilePopup.jsx';
 import LoadingPopup from '../../components/popups/LoadingPopup.jsx';
 import { saveProfileInfo, saveUserImage } from '../../utils/api/profile.js';
-import { useAuctionContext } from '../../contexts/AuctionContext.jsx';
+// import { useAuctionContext } from '../../contexts/AuctionContext.jsx';
 import { useRouter } from 'next/router';
 import { useAuthStore } from '../../stores/authStore';
 import { useErrorStore } from '../../stores/errorStore';
@@ -29,7 +29,7 @@ const MyAccount = () => {
     setErrorBody: s.setErrorBody
   }))
 
-  const { editProfileButtonClick, setEditProfileButtonClick } = useAuctionContext();
+  // const { editProfileButtonClick, setEditProfileButtonClick } = useAuctionContext();
   const setDarkMode = useThemeStore(s => s.setDarkMode);
   const history = useRouter();
   const [showLoading, setShowLoading] = useState(false);
@@ -70,7 +70,7 @@ const MyAccount = () => {
   const saveChanges = async () => {
     try {
       setShowLoading(true);
-      setEditProfileButtonClick(true);
+      // setEditProfileButtonClick(true);
       if (
         // !accountImage ||
         !accountName ||
@@ -126,6 +126,7 @@ const MyAccount = () => {
         instagramLink: instagramLink.replace('@', ''),
         twitterLink: twitterLink.replace('@', ''),
       });
+      console.log('asd')
 
       setTimeout(() => {
         if (accountName && accountImage && accountPage !== 'universe.xyz/your-address') {
@@ -171,7 +172,7 @@ const MyAccount = () => {
         setInstagramLink={setInstagramLink}
         saveChanges={saveChanges}
         cancelChanges={cancelChanges}
-        editProfileButtonClick={editProfileButtonClick}
+        // editProfileButtonClick={editProfileButtonClick}
         fetchedUserData={fetchedUserData}
       />
       <Popup closeOnDocumentClick={false} open={showCongrats}>
