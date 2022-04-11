@@ -73,8 +73,6 @@ import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
-import '../src/containers/marketplaceNFT/MarketplaceNFT.scss';
-import '../src/components/nft/SearchFilters.scss';
 import '../src/containers/collection/Collection.scss';
 import '../src/components/lobbyLobsters/donate/Donate.scss';
 import '../src/components/lobbyLobsters/helpUs/HelpUsBeHeard.scss';
