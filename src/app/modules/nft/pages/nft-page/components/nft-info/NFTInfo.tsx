@@ -17,7 +17,7 @@ import { UseMeasureRect } from 'react-use/lib/useMeasure';
 import { useRouter } from 'next/router';
 
 import { LineTabList, OpenGraph } from '../../../../../../components';
-import { NFTAssetImage, NFTAssetAudio, NFTBuySection, NFTAssetVideo } from '../';
+import { NFTAssetImage, NFTAssetAudio, NFTAssetVideo } from '../';
 import { useNFTPageData } from '../../NFTPage.context';
 import { isNFTAssetAudio, isNFTAssetImage, isNFTAssetVideo } from '../../../../helpers';
 import {
@@ -282,13 +282,6 @@ export const NFTInfo = () => {
                   </TabPanels>
                 </Tabs>
               </Box>
-              <NFTBuySection
-                NFT={NFT}
-                owner={owner}
-                order={order}
-                highestOffer={{ offer: highestOffer || ({} as IOrder), creator: highestOfferCreator || ({} as IUser) }}
-                onMeasureChange={(measure) => setBuySectionMeasure(measure)}
-              />
             </Box>
           </Box>
 
