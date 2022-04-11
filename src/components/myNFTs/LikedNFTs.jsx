@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 import AppContext from '../../ContextAPI';
-import NFTCard from '../nft/NFTCard';
+// import NFTCard from '../nft/NFTCard';
 import LoadMore from '../pagination/LoadMore';
 
 const LikedNFTs = () => {

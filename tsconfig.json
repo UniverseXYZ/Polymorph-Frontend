@@ -38,9 +38,6 @@
       ],
       "@app/account": [
         "src/app/modules/account/*"
-      ],
-      "@app/marketplace": [
-        "src/app/modules/marketplace/*"
       ]
     }
   },
