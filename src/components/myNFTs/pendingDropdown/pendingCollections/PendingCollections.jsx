@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 // import './PendingCollections.scss';
 import PropTypes from 'prop-types';
 import { SpinningLoader } from '../misc/SpinningLoader';

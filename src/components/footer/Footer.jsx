@@ -97,9 +97,6 @@ const Footer = () => {
                     NFT Marketplace
                     <Badge text="beta" />
                   </li>
-                  <li aria-hidden="true" onClick={() => history.push('/minting')}>
-                    Minting
-                  </li>
                   <li
                     className="disable"
                     // onClick={() =>
