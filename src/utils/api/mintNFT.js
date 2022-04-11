@@ -1,7 +1,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-debugger */
 /* eslint-disable no-useless-return */
-const SAVE_FOR_LATER_MINT_URL = `${process.env.REACT_APP_API_BASE_URL}/api/saved-nfts`;
 const GET_SAVED_NFTS_URL = `${process.env.REACT_APP_API_BASE_URL}/api/saved-nfts`;
 const GET_MY_MINTED_NFTS_URL = `${process.env.REACT_APP_API_BASE_URL}/api/pages/my-nfts`;
 const GET_MY_MINTING_NFTS_URL = `${process.env.REACT_APP_API_BASE_URL}/api/pages/my-nfts/pending`;
@@ -13,89 +12,11 @@ const GET_USER_COLLECTIONS = (address) =>
   `${process.env.REACT_APP_API_BASE_URL}/api/nfts/collections/${address}`;
 const GET_MY_MINTING_COLLECTIONS = `${process.env.REACT_APP_API_BASE_URL}/api/pages/my-collections/pending`;
 const GET_MY_MINTING_COLLECTIONS_COUNT = `${process.env.REACT_APP_API_BASE_URL}/api/pages/my-collections/pending/count`;
-const GET_SPECIFIC_COLLECTION = `${process.env.REACT_APP_API_BASE_URL}/api/pages/collection`;
-const EDIT_COLLECTION_URL = `${process.env.REACT_APP_API_BASE_URL}/api/collections`;
 const GET_NFT_INFO = `${process.env.REACT_APP_API_BASE_URL}/api/pages/nft`;
-const CREATE_MINTING_NFT = `${process.env.REACT_APP_API_BASE_URL}/api/minting-nfts`;
 const GET_NFT_SUMMARY = `${process.env.REACT_APP_API_BASE_URL}/api/pages/my-nfts/summary`;
 
-const EDIT_COLLECTION_COVER_URL = (id) =>
-  `${process.env.REACT_APP_API_BASE_URL}/api/collections/${id}/cover-image`;
-const EDIT_COLLECTION_BANNER_URL = (id) =>
-  `${process.env.REACT_APP_API_BASE_URL}/api/collections/${id}/banner-image`;
 const GET_USER_NFTS_URL = (username) =>
   `${process.env.REACT_APP_API_BASE_URL}/api/pages/user-profile/${username}/nfts`;
-
-/**
- * @param {Object} data
- * @param {string} data.name
- * @param {string} data.description
- * @param {string} data.editions
- * @param {array} data.properties
- * @param {string} data.percentAmount
- * @returns
- */
-export const saveNftForLater = async (data) => {
-  // Construct it in order to match the expected object keys at the BE
-  const requestData = {
-    name: data.name,
-    numberOfEditions: parseInt(data.editions, 10),
-  };
-
-  if (data.description) {
-    requestData.description = data.description;
-  }
-  if (data.propertiesParsed.length) {
-    requestData.properties = data.propertiesParsed;
-  }
-  if (data.royaltiesParsed.length) {
-    requestData.royalties = data.royaltiesParsed;
-  }
-
-  if (data.collectionId) requestData.collectionId = data.collectionId;
-
-  const request = await fetch(SAVE_FOR_LATER_MINT_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: JSON.stringify({
-      ...requestData,
-    }),
-  });
-
-  if (!request.ok && request.status !== 201) {
-    console.error(`Error while trying to save NFT data: ${request.statusText}`);
-  }
-
-  const result = await request.text().then((res) => JSON.parse(res));
-  return result;
-};
-
-/**
- * @param {Object} file image
- * @param {string} id id of the NFT
- */
-export const saveNftImage = async (file, id) => {
-  const UPLOAG_NFT_IMAGE_URL = `${process.env.REACT_APP_API_BASE_URL}/api/saved-nfts/${id}/file`;
-
-  const formData = new FormData();
-  formData.append('file', file, file.name);
-
-  const request = await fetch(UPLOAG_NFT_IMAGE_URL, {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: formData,
-  });
-
-  if (!request.ok) return false;
-
-  const result = await request.text().then((data) => JSON.parse(data));
-  return result;
-};
 
 /**
  * @returns {array} with saved NFTs
@@ -357,66 +278,6 @@ export const attachTxHashToCollection = (txHash, collectionId) => {
   return fetch(`${CREATE_COLLECTION_URL}/${collectionId}`, requestOptions);
 };
 
-export const removeSavedNft = (id) =>
-  fetch(`${process.env.REACT_APP_API_BASE_URL}/api/saved-nfts/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-  });
-
-export const updateSavedNft = async ({
-  name,
-  description,
-  editions,
-  properties,
-  royaltiesParsed,
-  txHash,
-  collectionId,
-  id,
-}) => {
-  const requestData = {
-    name,
-    description,
-    numberOfEditions: editions,
-    properties,
-    royalties: royaltiesParsed,
-    txHash,
-    collectionId: collectionId || null,
-  };
-
-  const request = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/saved-nfts/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: JSON.stringify({
-      ...requestData,
-    }),
-  });
-
-  if (!request.ok && request.status !== 201) {
-    console.error(`Error while trying to save NFT data: ${request.statusText}`);
-  }
-};
-
-export const getMyMintableCollections = async () => {
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-  };
-  const url = `${GET_MY_MINTED_COLLECTIONS}?mintable=true`;
-  const request = await fetch(url, requestOptions);
-  const result = await request.text().then((res) => JSON.parse(res));
-
-  return result;
-};
-
 export const getMyMintedCollections = async () => {
   const requestOptions = {
     method: 'GET',
@@ -473,95 +334,6 @@ export const getMyMintingCollectionsCount = async () => {
   return result.count;
 };
 
-export const getCollectionData = async (address, offset, perPage) => {
-  const URL = `${GET_SPECIFIC_COLLECTION}/${address}?start=${offset}&limit=${perPage}`;
-
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  };
-
-  const request = await fetch(URL, requestOptions);
-
-  if (!request.ok && request.status !== 201) {
-    console.error(`Error while trying to get collection data: ${request.statusText}`);
-  }
-
-  const result = await request.text().then((res) => JSON.parse(res));
-  return result;
-};
-
-export const editCollection = async (data) => {
-  const URL = `${EDIT_COLLECTION_URL}/${data.address}`;
-
-  const requestOptions = {
-    method: 'PATCH',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: JSON.stringify({
-      description: data.description || '',
-      siteLink: data.siteLink || '',
-      discordLink: data.discordLink || '',
-      instagramLink: data.instagramLink || '',
-      mediumLink: data.mediumLink || '',
-      telegramLink: data.telegramLink || '',
-      name: data.name || '',
-    }),
-  };
-
-  const request = await fetch(URL, requestOptions);
-
-  if (!request.ok && request.status !== 201) {
-    console.error(`Error while trying to get collection data: ${request.statusText}`);
-  }
-
-  const result = await request.text().then((res) => JSON.parse(res));
-  return result;
-};
-
-export const editCollectionImage = async (file, collectionId) => {
-  const URL = EDIT_COLLECTION_COVER_URL(collectionId);
-
-  const formData = new FormData();
-  formData.append('cover', file);
-
-  const request = await fetch(URL, {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: formData,
-  });
-
-  if (!request.ok) return false;
-
-  const result = await request.text().then((data) => JSON.parse(data));
-  return result;
-};
-
-export const editCollectionBanner = async (file, collectionAddress) => {
-  const URL = EDIT_COLLECTION_BANNER_URL(collectionAddress);
-
-  const formData = new FormData();
-  formData.append('banner', file);
-
-  const request = await fetch(URL, {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: formData,
-  });
-
-  // if (!request.ok) return false;
-
-  const result = await request.text().then((data) => JSON.parse(data));
-  return result;
-};
 
 export const getUserNfts = async (username) => {
   const URL = GET_USER_NFTS_URL(username);
@@ -582,26 +354,6 @@ export const getNftData = async (collectionAddress, tokenId) => {
   return result;
 };
 
-export const createMintingNFT = async (txHash, nftId, actualMintedCount) => {
-  const URL = `${CREATE_MINTING_NFT}/${nftId}`;
-
-  const request = await fetch(URL, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('xyz_access_token')}`,
-    },
-    body: JSON.stringify({
-      txHash,
-      numberOfEditions: actualMintedCount || 0,
-    }),
-  });
-
-  return true;
-  // const result = await request.text().then((data) => JSON.parse(data));
-  // console.log(result);
-  // return result;
-};
 
 export const getNftSummary = async () => {
   const request = await fetch(GET_NFT_SUMMARY, {

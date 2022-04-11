@@ -35,9 +35,6 @@ import { SelectEditionsDropdown } from '../../../select-editions-dropdown';
 import { useMarketplaceSellData } from '../../../../hooks';
 import { useStickyFooter } from '../../../../../../../../hooks';
 import { UncheckBundleEditionsModal } from './components';
-import { FilterCollectionsItems } from '../../../../../../mocks/filter-collections';
-import { FilterArtistsItems } from '../../../../../../mocks/filter-artists';
-import universeIcon from '../../../../../../../../../assets/images/universe-img.svg';
 import {
   isNFTAssetAudio,
   isNFTAssetImage,
@@ -45,7 +42,7 @@ import {
   mapBackendNft,
   mapBackendUser,
 } from '../../../../../../../nft';
-import { NFTItemFooter, NFTItemFooterEditionsLabel } from '../../../../../../../nft/components/nft-item/components';
+import { NFTItemFooter } from '../../../../../../../nft/components/nft-item/components';
 import { useAuthStore } from '../../../../../../../../../stores/authStore';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 

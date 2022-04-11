@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { utils, BigNumber, FixedNumber } from 'ethers';
 import Popup from 'reactjs-popup';
-import BondingCurve from '../../polymorphs/mint-polymorph/BondingCurve';
+// import BondingCurve from '../../polymorphs/mint-polymorph/BondingCurve';
 // import './MintLobbyLobsterSection.scss';
 import lobsterLoadingBg from '../../../assets/images/lobby-lobsters/img_placeholder.png';
 import AppContext from '../../../ContextAPI';
@@ -85,7 +85,7 @@ const MintLobbyLobsterSection = React.forwardRef((props, ref) => {
             be donated to groups focused on growing the Ethereum ecosystem. Mint a Lobby Lobster to
             become part of a community that will change the universe!
           </p>
-          <BondingCurve
+          {/* <BondingCurve
             title="You can mint 20 Lobby Lobsters at a time"
             price={0.1}
             value={sliderValue}
@@ -99,7 +99,7 @@ const MintLobbyLobsterSection = React.forwardRef((props, ref) => {
             trailingZeros={1}
             mintAction={mintLobsters}
             soldOut
-          />
+          /> */}
         </div>
       </div>
       <Popup closeOnDocumentClick={false} open={loading}>
