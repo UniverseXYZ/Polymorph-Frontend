@@ -47,7 +47,6 @@ jobs:
         REACT_APP_API_BASE_URL: "https://alpha.api.universe.xyz"
         REACT_APP_NETWORK_CHAIN_ID: "1"
         REACT_APP_NETWORK_NAME: "Mainnet"
-        REACT_APP_BATCH_MINTING_CHUNK_SIZE: "40"
         REACT_APP_POLYMORPHS_GRAPH_URL: "https://api.thegraph.com/subgraphs/name/strenev/polymorph"
         REACT_APP_LOBSTERS_GRAPH_URL: "https://api.thegraph.com/subgraphs/name/strenev/lobsters"
         REACT_APP_POLYMORPHS_CONTRACT_ADDRESS: "0x1cbb182322aee8ce9f4f1f98d7460173ee30af1f"
