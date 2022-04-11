@@ -35,7 +35,7 @@ import { NFTTransferPopup } from '../nft-transfer-popup';
 import { BigNumber as EthersBigNumber, utils } from 'ethers';
 import BigNumber from 'bignumber.js';
 import { sendRefreshMetadataRequest } from '../../../../../../../utils/api/marketplace';
-import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
+// import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
 import { NFTAssetBroken } from '../nft-asset-broken';
 import { IERC721AssetType, INFT, IOrder, IUser } from '../../../../types';
 import { GetUserApi } from '../../../../api';

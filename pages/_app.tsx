@@ -50,14 +50,10 @@ import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/general/LoadingImage.scss';
 import '../src/components/input/SearchField.scss';
 import '../src/components/input/SearchTokenIdField.scss';
-import '../src/components/marketplace/browseNFT/NFTsList.scss';
-import '../src/components/marketplaceNFT/BrokenNFT.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
 import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
 import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
 import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
-import '../src/components/nft/NFTCard.scss';
-import '../src/components/nft/SearchFilters.scss';
 import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
 
 import '../src/containers/homepage/Homepage.scss';
@@ -96,14 +92,11 @@ import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss'
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
 import '../src/components/lobbyLobsters/info/styles/LobstersInfoPage.scss';
-import '../src/components/marketplaceTabComponents/MarketplaceTabComponent.scss';
 
 import '../src/components/badge/Badge.scss';
-import '../src/components/nft/NFTCard.scss';
 import '../src/components/popups/transferNFT/TransferNFTPopup.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
-import '../src/app/modules/marketplace/pages/sell-page/components/tab-summary/SummaryTab.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 import '../src/containers/collection/Collection.scss';
