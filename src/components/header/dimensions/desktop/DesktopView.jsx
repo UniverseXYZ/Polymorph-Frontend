@@ -20,7 +20,6 @@ import whitepaperIcon from '../../../../assets/images/whitepaper.svg';
 import teamIcon from '../../../../assets/images/team.svg';
 import governanceIcon from '../../../../assets/images/governance.svg';
 import yieldFarmingIcon from '../../../../assets/images/yield-farming.svg';
-import mintingIcon from '../../../../assets/images/Minting.svg';
 import forumIcon from '../../../../assets/images/forum.svg';
 import signalIcon from '../../../../assets/images/signal.svg';
 import docsIcon from '../../../../assets/images/docs.svg';
@@ -107,10 +106,6 @@ const DesktopView = ({
                   NFT Marketplace <Badge text="beta" />
                 </span>
                 {/* <span className="tooltiptext">Coming soon</span> */}
-              </button>
-              <button type="button" onClick={() => history.push('/minting')}>
-                <img src={mintingIcon} alt="Minting" />
-                <span>Minting</span>
               </button>
               <button
                 type="button"

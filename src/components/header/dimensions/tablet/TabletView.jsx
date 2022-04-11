@@ -34,7 +34,6 @@ import yieldFarmingIcon from '../../../../assets/images/yield-farming.svg';
 import forumIcon from '../../../../assets/images/forum.svg';
 import signalIcon from '../../../../assets/images/signal.svg';
 import docsIcon from '../../../../assets/images/docs.svg';
-import mintingIcon from '../../../../assets/images/Minting.svg';
 import SubscribePopup from '../../../popups/SubscribePopup.jsx';
 import searchIcon from '../../../../assets/images/search-icon.svg';
 import img from '../../../../assets/images/search-gray.svg';
@@ -519,15 +518,6 @@ const TabletView = (props) => {
                         NFT Marketplace <Badge text="beta" />
                       </span>
                       {/* <span className="tooltiptext">Coming soon</span> */}
-                    </button>
-                  </div>
-                  <div>
-                    <button type="button" onClick={() => history.push('/minting')}>
-                      <img src={mintingIcon} alt="Minting" />
-                      <span>
-                        Minting
-                        <Badge text="new" />
-                      </span>
                     </button>
                   </div>
                   <div>

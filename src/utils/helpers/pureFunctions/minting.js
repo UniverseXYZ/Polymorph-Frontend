@@ -53,27 +53,6 @@ export const createContractInstancesFromAddresses = ({ nfts, helpers }) => {
  * @param {Object} data.nfts
  * @param data.nfts.collectionId
  * @param data.nfts.royalties
- * @param data.nfts.id
- * @returns {Object} { nfts: [] }
- */
-export const extractRequiredDataForMinting = ({ nfts }) => {
-  const nftsStripped = nfts.map((nft) => ({
-    collectionId: nft.collectionId ? nft.collectionId : 0,
-    royalties: nft.royalties,
-    id: nft.id,
-    numberOfEditions: nft.numberOfEditions,
-    name: nft.name,
-    description: nft.description,
-  }));
-
-  return { nfts: nftsStripped };
-};
-
-/**
- * @param {Object} data
- * @param {Object} data.nfts
- * @param data.nfts.collectionId
- * @param data.nfts.royalties
  * @param data.nfts.tokenUri
  * @returns {Object} { tokenURIsAndRoyaltiesObject: { collectionId: { token: [], royalties: [] } }, isSingle (bool) }
  */
@@ -137,29 +116,6 @@ export const formatRoyalties = ({ nfts }) => {
   }));
 
   return { nfts: formattedNfts };
-};
-
-/**
- * @param {Object} tokenURIsAndRoyaltiesEntry
- * @returns {Object} { tokensChunks[], royaltiesChunks[], chunksCount (int) }
- */
-export const parseDataForBatchMint = (tokenURIsAndRoyaltiesEntry) => {
-  const CHUNK_SIZE = parseInt(process.env.REACT_APP_BATCH_MINTING_CHUNK_SIZE, 10);
-
-  const { royaltiesArray, tokensArray, mintingIdArray } = formatTokenURIsAndRoyaltiesObject(
-    tokenURIsAndRoyaltiesEntry
-  );
-
-  const tokensChunks = chunkifyArray(tokensArray, CHUNK_SIZE);
-  const royaltiesChunks = chunkifyArray(royaltiesArray, CHUNK_SIZE);
-  const mintingIdChunks = chunkifyArray(mintingIdArray, CHUNK_SIZE);
-
-  return {
-    tokensChunks,
-    royaltiesChunks,
-    mintingIdChunks,
-    chunksCount: royaltiesChunks.length,
-  };
 };
 
 /**
