@@ -108,9 +108,6 @@ export const UserProfilePage: React.FC<IUserProfilePage> = ({ artistUsername }) 
             <Tabs padding={{ sm: '10px' }}>
               <TabList maxW={'1110px'} m={'auto'}>
                 <Tab>NFTs {totalNFTs && (<TabLabel>{totalNFTs}</TabLabel>)}</Tab>
-                {/*<Tab>Active auctions</Tab>*/}
-                {/*<Tab>Future auctions</Tab>*/}
-                {/*<Tab>Past auctions</Tab>*/}
               </TabList>
 
               <TabPanels>
