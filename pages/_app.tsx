@@ -73,6 +73,12 @@ import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
+<<<<<<< HEAD
+=======
+import '../src/components/myNFTs/create/CreateNFT.scss';
+import '../src/components/myNFTs/create/CreateSingleNft.scss';
+import '../src/components/nft/SearchFilters.scss';
+>>>>>>> d8acdbb5 (Deleted marketplaceNFT container from src/containers and its imports)
 import '../src/containers/collection/Collection.scss';
 import '../src/components/lobbyLobsters/donate/Donate.scss';
 import '../src/components/lobbyLobsters/helpUs/HelpUsBeHeard.scss';
