@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NFTsTab from './nfts/NFTsTab.jsx';
 import tabArrow from '../../../assets/images/tab-arrow.svg';
-import ActiveAuctionsTab from './activeAuctions/ActiveAuctionsTab.jsx';
-import FutureAuctionsTab from './futureAuctions/FutureAuctionsTab.jsx';
-import PastAuctionsTab from './pastAuctions/PastAuctionsTab.jsx';
 import { handleTabLeftScrolling, handleTabRightScrolling } from '../../../utils/scrollingHandlers';
 import { useWindowSize } from 'react-use';
 
@@ -42,27 +39,6 @@ const Tabs = ({ nfts }) => {
               >
                 {`NFTs (${nfts.length})`}
               </button>
-              {/* <button
-                type="button"
-                onClick={() => setSelectedTabIndex(1)}
-                className={selectedTabIndex === 1 ? 'active' : ''}
-              >
-                Active auctions
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedTabIndex(2)}
-                className={selectedTabIndex === 2 ? 'active' : ''}
-              >
-                Future auctions
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedTabIndex(3)}
-                className={selectedTabIndex === 3 ? 'active' : ''}
-              >
-                Past auctions
-              </button> */}
             </div>
           </div>
           <div className="tab__right__arrow">
@@ -76,9 +52,6 @@ const Tabs = ({ nfts }) => {
         </div>
         <div className="tab__content">
           {selectedTabIndex === 0 && <NFTsTab showMintPrompt={false} nftData={nfts} />}
-          {selectedTabIndex === 1 && <ActiveAuctionsTab showMintPrompt={false} />}
-          {selectedTabIndex === 2 && <FutureAuctionsTab showMintPrompt={false} />}
-          {selectedTabIndex === 3 && <PastAuctionsTab showMintPrompt={false} />}
         </div>
       </div>
     </div>

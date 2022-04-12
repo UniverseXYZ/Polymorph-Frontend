@@ -63,7 +63,6 @@ import {
   shortenEnsDomain,
   shortenEthereumAddress,
 } from '../../../../utils/helpers/format';
-import { useAuctionContext } from '../../../../contexts/AuctionContext';
 import supportIcon from '../../../../assets/images/supportIcon.svg';
 import Badge from '../../../badge/Badge';
 import { useUserBalanceStore } from '../../../../stores/balanceStore';
@@ -97,7 +96,6 @@ const MobileView = (props) => {
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
-  const { editProfileButtonClick } = useAuctionContext();
   const [showProducts, setShowProducts] = useState(false);
   const [showNFTDrops, setShowNFTDrops] = useState(false);
   const [showRarityCharts, setShowRarityCharts] = useState(false);

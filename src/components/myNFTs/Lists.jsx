@@ -8,7 +8,6 @@ import checkIcon from '../../assets/images/check-nft.svg';
 import nonSelecting from '../../assets/images/nonSelecting.svg';
 import vector from '../../assets/images/vector2.svg';
 import universeIcon from '../../assets/images/universe-img.svg';
-import { useAuctionContext } from '../../contexts/AuctionContext';
 
 const Lists = ({
   data,
@@ -23,7 +22,6 @@ const Lists = ({
   const location = useLocation();
   const isCreatingAction = location.pathname === '/create-tiers';
 
-  const { auction } = useAuctionContext();
   const [openEditions, setOpenEditions] = useState(null);
   const [hideIcon, setHideIcon] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);

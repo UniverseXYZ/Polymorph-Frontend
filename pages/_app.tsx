@@ -83,8 +83,6 @@ import '../src/components/popups/PopupStyle.scss';
 import '../src/components/popups/LobsterLoader.scss';
 import '../src/components/ui-elements/styles/HorizontalSlider.scss';
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
-import '../src/components/auctionsCard/ActiveAuctionsCard.scss';
-import '../src/components/auctionsCard/FutureAuctionsCard.scss';
 import '../src/containers/artist/Artist.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
@@ -109,7 +107,6 @@ import type { AppProps } from 'next/app'
 import React, { useCallback, useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
-import { AuctionContextProvider } from '../src/contexts/AuctionContext';
 import Header from '../src/components/header/Header';
 import Footer from '../src/components/footer/Footer';
 import { Popups } from '../src/app/components/AppPopups';
@@ -154,7 +151,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <AuctionContextProvider>
             <LayoutProvider>
               <Theme>
                 <div id="root">
@@ -165,7 +161,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </div>
               </Theme>
             </LayoutProvider>
-        </AuctionContextProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>
