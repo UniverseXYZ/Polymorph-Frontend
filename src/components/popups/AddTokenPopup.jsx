@@ -5,10 +5,8 @@ import Button from '../button/Button.jsx';
 import Input from '../input/Input.jsx';
 import AppContext from '../../ContextAPI';
 import backArrow from '../../assets/images/arrow.svg';
-import { useAuctionContext } from '../../contexts/AuctionContext.jsx';
 
 const AddTokenPopup = ({ setShowAddTokenPopup }) => {
-  const { setOptions } = useAuctionContext();
   const [token, setToken] = useState({
     value: '',
     name: '',
@@ -50,7 +48,7 @@ const AddTokenPopup = ({ setShowAddTokenPopup }) => {
 
   const handleAddToken = () => {
     if (token.name && EthereumAddress.isAddress(token.address) && token.subtitle) {
-      setOptions((prevValues) => [...prevValues, token]);
+      // setOptions((prevValues) => [...prevValues, token]);
     }
   };
 

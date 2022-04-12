@@ -13,7 +13,7 @@ import snxIcon from '../../assets/images/snx.svg';
 import priceIcon from '../../assets/images/marketplace/price-range.svg';
 import AppContext from '../../ContextAPI';
 import './styles/PriceRangeFilter.scss';
-import { useAuctionContext } from '../../contexts/AuctionContext';
+// import { useAuctionContext } from '../../contexts/AuctionContext';
 
 const bidTokens = [
   {
@@ -60,7 +60,7 @@ const validateMaxValue = (e, sliderValue, setSliderValue, setDisabledMax) => {
 const PriceRangeFilter = (props) => {
   const { getPrice, remove, onClear } = props;
   const [showPriceItems, setShowPriceItems] = useState(false);
-  const { selectedTokenIndex, setSelectedTokenIndex } = useAuctionContext();
+  // const { selectedTokenIndex, setSelectedTokenIndex } = useAuctionContext();
   const [sliderValue, setSliderValue] = useState({ min: 0, max: 4 });
   const [disabledMin, setDisabledMin] = useState(false);
   const [disabledMax, setDisabledMax] = useState(false);
@@ -98,12 +98,12 @@ const PriceRangeFilter = (props) => {
             onClick={() => setShowPriceItems(!showPriceItems)}
           >
             <div>
-              <img src={bidTokens[selectedTokenIndex].icon} alt="img" />
+              {/* <img src={bidTokens[selectedTokenIndex].icon} alt="img" /> */}
             </div>
             <div>
               <h6>
-                {bidTokens[selectedTokenIndex].title}
-                <p>({bidTokens[selectedTokenIndex].subtitle})</p>
+                {/* {bidTokens[selectedTokenIndex].title} */}
+                {/* <p>({bidTokens[selectedTokenIndex].subtitle})</p> */}
               </h6>
             </div>
             <div>
@@ -118,9 +118,9 @@ const PriceRangeFilter = (props) => {
                     aria-hidden="true"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedTokenIndex(index);
+                      // setSelectedTokenIndex(index);
                     }}
-                    style={{ display: selectedTokenIndex === index ? 'none' : 'flex' }}
+                    // style={{ display: selectedTokenIndex === index ? 'none' : 'flex' }}
                   >
                     <div>
                       <img src={token.icon} alt={token.title} />
@@ -183,7 +183,7 @@ const PriceRangeFilter = (props) => {
           <button
             type="button"
             className="light-button"
-            onClick={() => getPrice({ ...bidTokens[selectedTokenIndex], ...sliderValue })}
+            // onClick={() => getPrice({ ...bidTokens[selectedTokenIndex], ...sliderValue })}
           >
             Save
           </button>
