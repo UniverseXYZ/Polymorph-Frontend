@@ -45,7 +45,6 @@ import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
 import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
 
 import '../src/containers/homepage/Homepage.scss';
-import '../src/containers/team/Team.scss'
 import '../src/containers/polymorphs/Polymorphs.scss';
 import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
