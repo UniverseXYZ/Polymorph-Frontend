@@ -61,7 +61,6 @@ import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
-import '../src/containers/collection/Collection.scss';
 import '../src/components/lobbyLobsters/donate/Donate.scss';
 import '../src/components/lobbyLobsters/helpUs/HelpUsBeHeard.scss';
 import '../src/components/lobbyLobsters/heroSection/HeroSection.scss';
@@ -83,7 +82,6 @@ import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
-import '../src/containers/collection/Collection.scss';
 import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
 import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
 
