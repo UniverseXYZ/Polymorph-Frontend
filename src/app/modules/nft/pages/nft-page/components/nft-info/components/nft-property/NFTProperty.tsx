@@ -1,5 +1,4 @@
 import { Box, BoxProps, Text, TextProps } from '@chakra-ui/react';
-import properties from "../../../../../../../../../components/marketplaceTabComponents/Properties";
 import { INFTProperty } from '../../../../../../types';
 
 const PropertyContainerStyles: BoxProps = {

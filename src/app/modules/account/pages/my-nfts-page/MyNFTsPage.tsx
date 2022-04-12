@@ -14,8 +14,6 @@ import Wallet from '../../../../../components/myNFTs/Wallet';
 import DeployedCollections from '../../../../../components/myNFTs/DeployedCollections';
 import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
 import UniverseNFTs from '../../../../../components/myNFTs/UniverseNFTs';
-import HiddenNFTs from '../../../../../components/myNFTs/HiddenNFTs';
-import LikedNFTs from '../../../../../components/myNFTs/LikedNFTs';
 import NFTsActivity from '../../../../../components/myNFTs/NFTsActivity';
 import { WalletTab } from './components';
 import FiltersContextProvider from '../../../account/pages/my-nfts-page/components/search-filters/search-filters.context';
@@ -204,8 +202,6 @@ export const MyNFTsPage = () => {
           />
         )}
         {myNFTsSelectedTabIndex === 3 && <UniverseNFTs scrollContainer={scrollContainer} />}
-        {myNFTsSelectedTabIndex === 4 && <HiddenNFTs />}
-        {myNFTsSelectedTabIndex === 5 && <LikedNFTs />}
         {myNFTsSelectedTabIndex === 6 && <NFTsActivity />}
       </div>
     </>

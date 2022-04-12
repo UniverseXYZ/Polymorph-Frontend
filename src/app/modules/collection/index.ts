@@ -1,1 +1,0 @@
-export * from '../nft/pages/collection-page';

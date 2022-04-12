@@ -16,7 +16,8 @@ const LoadingImage = React.memo(({ placeholderImage, src, alt, className, showSp
   );
 
   return errored ? (
-    <BrokenNFT />
+    // <BrokenNFT />
+    <p>BrokenNFT</p>
   ) : (
     <>
       <img
