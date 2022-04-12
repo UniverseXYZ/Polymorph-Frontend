@@ -51,18 +51,13 @@ import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityCharsLoader.scss';
 import '../src/containers/myAccount/MyAccount.scss';
 import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
-import '../src/containers/rarityCharts/LobsterRarityCharts.scss';
+// import '../src/containers/rarityCharts/LobsterRarityCharts.scss';
 
 import '../src/components/rarityCharts/list/RarityLobsterList.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
-import '../src/components/lobbyLobsters/donate/Donate.scss';
-import '../src/components/lobbyLobsters/helpUs/HelpUsBeHeard.scss';
-import '../src/components/lobbyLobsters/heroSection/HeroSection.scss';
-import '../src/components/lobbyLobsters/mintSection/MintLobbyLobsterSection.scss';
-import '../src/components/lobbyLobsters/sliderSection/SliderSection.scss';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/popups/LobsterLoader.scss';
 import '../src/components/ui-elements/styles/HorizontalSlider.scss';
@@ -71,7 +66,6 @@ import '../src/containers/artist/Artist.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
-import '../src/components/lobbyLobsters/info/styles/LobstersInfoPage.scss';
 
 import '../src/components/badge/Badge.scss';
 import '../src/components/popups/transferNFT/TransferNFTPopup.scss';

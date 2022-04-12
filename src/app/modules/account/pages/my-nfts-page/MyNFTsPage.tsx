@@ -23,7 +23,6 @@ import { useAuthStore } from '../../../../../stores/authStore';
 import Contracts from '../../../../../contracts/contracts.json';
 import { useErrorStore } from '../../../../../stores/errorStore';
 import { useThemeStore } from 'src/stores/themeStore';
-import { useLobsterStore } from 'src/stores/lobsterStore';
 import { usePolymorphStore } from 'src/stores/polymorphStore';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 import { useQuery } from 'react-query';
@@ -49,7 +48,6 @@ export const MyNFTsPage = () => {
     setActiveTxHashes: s.setActiveTxHashes,
   }))
 
-  const userLobsters = useLobsterStore(s => s.userLobsters);
   const userPolymorphs = usePolymorphStore(s => s.userPolymorphs)
 
   const { signer, address } = useAuthStore(state => ({
@@ -79,7 +77,7 @@ export const MyNFTsPage = () => {
     { name: 'Wallet', amount: totalNfts },
     { name: 'Universe Collections', amount: nftSummary?.collections },
     { name: 'Saved NFTs', amount: nftSummary?.savedNfts },
-    { name: 'Universe NFTs', amount: (userLobsters.length || 0) + (userPolymorphs.length || 0) },
+    { name: 'Universe NFTs', amount: (userPolymorphs.length || 0) },
   ];
 
   // NEW
