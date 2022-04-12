@@ -12,7 +12,6 @@ import '../src/components/header/dimensions/mobile/MobileView.scss';
 import '../src/components/header/dimensions/tablet/TabletView.scss';
 import '../src/components/footer/Footer.scss';
 import '../src/components/button/Button.scss';
-import '../src/components/polymorphs/styles/About.scss';
 import '../src/components/polymorphs/styles/Characters.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivity.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivityTableRow.scss';
@@ -46,7 +45,6 @@ import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
 import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
 
 import '../src/containers/homepage/Homepage.scss';
-import '../src/containers/products/about/About.scss';
 import '../src/containers/team/Team.scss'
 import '../src/containers/polymorphs/Polymorphs.scss';
 import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
