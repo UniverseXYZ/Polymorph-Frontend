@@ -20,7 +20,6 @@ import {
 import React, { useCallback, useState } from 'react';
 
 import { SearchInput } from '../../../../components';
-import { NftLikes } from '../../../../mocks';
 import * as styles from './styles';
 
 import LinkSVG from './../../../../../assets/images/v2/link.svg';
