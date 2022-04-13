@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 // import './UniverseNFTs.scss';
 import PropTypes from 'prop-types';
 import MyPolymorphsChart from './MyPolymorphsChart';
-import MyLobstersChart from './MyLobstersChart';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 
 const UniverseNFTs = ({ scrollContainer }) => {
@@ -25,15 +24,6 @@ const UniverseNFTs = ({ scrollContainer }) => {
     if (collectionFilter === polymorphsFilter) {
       return (
         <MyPolymorphsChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
-      );
-    }
-    if (collectionFilter === lobstersFilter) {
-      return (
-        <MyLobstersChart
           isDropdownOpened={isDropdownOpened}
           setIsDropdownOpened={setIsDropdownOpened}
           scrollContainer={scrollContainer}
