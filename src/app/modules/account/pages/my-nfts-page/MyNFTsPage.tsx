@@ -11,7 +11,6 @@ import LoadingPopup from '../../../../../components/popups/LoadingPopup';
 import CongratsPopup from '../../../../../components/popups/CongratsPopup';
 import plusIcon from '../../../../../assets/images/plus.svg';
 import Wallet from '../../../../../components/myNFTs/Wallet';
-import DeployedCollections from '../../../../../components/myNFTs/DeployedCollections';
 import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
 import UniverseNFTs from '../../../../../components/myNFTs/UniverseNFTs';
 import NFTsActivity from '../../../../../components/myNFTs/NFTsActivity';
@@ -190,7 +189,7 @@ export const MyNFTsPage = () => {
           <WalletTab getTotalNfts={getTotalNfts} />
         </FiltersContextProvider>
       )}
-      <div className="container mynfts__page__body">
+      {/* <div className="container mynfts__page__body">
         {myNFTsSelectedTabIndex === 1 && <DeployedCollections scrollContainer={scrollContainer} />}
         {myNFTsSelectedTabIndex === 2 && (
           <SavedNFTs
@@ -203,7 +202,7 @@ export const MyNFTsPage = () => {
         )}
         {myNFTsSelectedTabIndex === 3 && <UniverseNFTs scrollContainer={scrollContainer} />}
         {myNFTsSelectedTabIndex === 6 && <NFTsActivity />}
-      </div>
+      </div> */}
     </>
   );
 

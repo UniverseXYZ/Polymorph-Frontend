@@ -58,7 +58,6 @@ import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityChartsLoader';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/popups/LobsterLoader.scss';
-import '../src/components/ui-elements/styles/HorizontalSlider.scss';
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
 import '../src/containers/artist/Artist.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
