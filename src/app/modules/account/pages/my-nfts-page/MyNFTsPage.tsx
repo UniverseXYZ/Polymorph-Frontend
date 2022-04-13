@@ -73,9 +73,9 @@ export const MyNFTsPage = () => {
 
   const tabs = [
     { name: 'Wallet', amount: totalNfts },
-    { name: 'Universe Collections', amount: nftSummary?.collections },
-    { name: 'Saved NFTs', amount: nftSummary?.savedNfts },
-    { name: 'Universe NFTs', amount: (userPolymorphs.length || 0) },
+    // { name: 'Universe Collections', amount: nftSummary?.collections },
+    // { name: 'Saved NFTs', amount: nftSummary?.savedNfts },
+    // { name: 'Universe NFTs', amount: (userPolymorphs.length || 0) },
   ];
 
   // NEW
@@ -148,7 +148,7 @@ export const MyNFTsPage = () => {
                 Polymorph rarity chart
               </button>
             )}
-            {myNFTsSelectedTabIndex !== 2 && (
+            {/* {myNFTsSelectedTabIndex !== 2 && (
               <button
                 type="button"
                 ref={createButtonRef}
@@ -179,7 +179,7 @@ export const MyNFTsPage = () => {
                   </div>
                 )}
               </button>
-            )}
+            )} */}
           </div>
         </div>
         {renderTabsWrapper()}
