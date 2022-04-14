@@ -1,9 +1,8 @@
 import '../styles/globals.css'
 
-import '../src/assets/scss/normalize.scss';
-import '../src/assets/scss/_variables.scss';
-
 import '../public/fonts/style.css';
+import '../src/assets/scss/normalize.scss'
+import '../src/assets/scss/_variables.scss'
 
 import '../src/components/input/Inputs.scss';
 import '../src/components/header/Header.scss';
@@ -59,7 +58,7 @@ import '../src/containers/rarityCharts/RarityChartsLoader';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/popups/LobsterLoader.scss';
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
-import '../src/containers/artist/Artist.scss';
+// import '../src/containers/artist/Artist.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
