@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useCallback, useState } from 'react';
 
-import { NFTReportPopup } from '../nft-report-popup';
+// import { NFTReportPopup } from '../nft-report-popup';
 import { MenuItem } from './components';
 import * as styles from './styles';
 
@@ -69,7 +69,7 @@ export const BundleMenu = (
           {showReport && (<MenuItem name={'Report'} icon={ReportIcon} redColor={true} onClick={handleReport} />)}
         </MenuList>
       </Menu>
-      <NFTReportPopup isOpen={isReportPopupOpened} onClose={() => setIsReportPopupOpened(false)} tokenId={tokenId} collectionAddress={collectionAddress} />
+      {/* <NFTReportPopup isOpen={isReportPopupOpened} onClose={() => setIsReportPopupOpened(false)} tokenId={tokenId} collectionAddress={collectionAddress} /> */}
       <NFTSharePopup isOpen={isSharePopupOpened} onClose={() => setIsSharePopupOpened(false)} />
     </>
   );

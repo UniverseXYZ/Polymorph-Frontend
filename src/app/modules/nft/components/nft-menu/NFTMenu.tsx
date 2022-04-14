@@ -23,7 +23,7 @@ import ReportIcon from '../../../../../assets/images/report.svg';
 import { MenuItem } from './components';
 import * as styles from './styles';
 import { ICollection, INFT, IUser } from '../../types';
-import { NFTReportPopup } from '../nft-report-popup';
+// import { NFTReportPopup } from '../nft-report-popup';
 import { NFTSharePopup } from '../nft-share-popup';
 import { useAuthStore } from '../../../../../stores/authStore';
 
@@ -160,7 +160,7 @@ export const NFTMenu = (
           {showReport && (<MenuItem name={'Report'} icon={ReportIcon} redColor={true} onClick={handleReport} />)}
         </MenuList>
       </Menu>
-      <NFTReportPopup isOpen={isReportPopupOpened} onClose={() => setIsReportPopupOpened(false)} collectionAddress={collectionAddress} tokenId={NFT.tokenId}/>
+      {/* <NFTReportPopup isOpen={isReportPopupOpened} onClose={() => setIsReportPopupOpened(false)} collectionAddress={collectionAddress} tokenId={NFT.tokenId}/> */}
       <NFTSharePopup isOpen={isSharePopupOpened} onClose={() => setIsSharePopupOpened(false)} />
     </>
   );
