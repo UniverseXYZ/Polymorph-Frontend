@@ -36,9 +36,9 @@ import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/general/LoadingImage.scss';
 // import '../src/components/input/SearchTokenIdField.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
 import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
 
 import '../src/containers/homepage/Homepage.scss';
@@ -65,8 +65,8 @@ import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
-import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
-import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
+// import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
+// import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

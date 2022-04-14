@@ -8,7 +8,6 @@ import useStateIfMounted from '../../../../../utils/hooks/useStateIfMounted';
 import { getNftSummary } from '../../../../../utils/api/mintNFT';
 import Tabs from '../../../../../components/tabs/Tabs';
 import LoadingPopup from '../../../../../components/popups/LoadingPopup';
-import CongratsPopup from '../../../../../components/popups/CongratsPopup';
 import plusIcon from '../../../../../assets/images/plus.svg';
 import Wallet from '../../../../../components/myNFTs/Wallet';
 import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
@@ -117,16 +116,6 @@ export const MyNFTsPage = () => {
           text="The transaction is in progress. Keep this window opened. Navigating away from the page will reset the current progress."
           onClose={() => setShowLoading(false)}
           contractInteraction
-        />
-      </Popup>
-      <Popup open={showCongratsMintedSavedForLater} closeOnDocumentClick={false}>
-        <CongratsPopup
-          showCreateMore
-          onClose={() => {
-            setMyNFTsSelectedTabIndex(0);
-            setShowCongratsMintedSavedForLater(false);
-          }}
-          message="Saved for later NFT was successfully minted and should be displayed in your wallet shortly"
         />
       </Popup>
     </>
