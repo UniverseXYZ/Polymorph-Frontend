@@ -10,7 +10,7 @@ import Tabs from '../../../../../components/tabs/Tabs';
 import LoadingPopup from '../../../../../components/popups/LoadingPopup';
 import plusIcon from '../../../../../assets/images/plus.svg';
 import Wallet from '../../../../../components/myNFTs/Wallet';
-import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
+// import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
 import UniverseNFTs from '../../../../../components/myNFTs/UniverseNFTs';
 import NFTsActivity from '../../../../../components/myNFTs/NFTsActivity';
 import { WalletTab } from './components';
