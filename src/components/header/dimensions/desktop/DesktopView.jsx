@@ -411,7 +411,7 @@ const DesktopView = ({
                 <button
                   type="button"
                   onClick={() => {
-                    history.push('/my-nfts');
+                    history.push('/my-polymorphs');
                     setIsAccountDropdownOpened(false);
                   }}
                 >

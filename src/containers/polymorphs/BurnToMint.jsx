@@ -54,7 +54,7 @@ const BurnToMint = () => {
         title="Burn To Mint"
         hintText="Burn your v1 Polymorph & mint a new one"
         btnText="Burn a Polymorph"
-        btnOnClick={() => history.push('/my-nfts')}
+        btnOnClick={() => history.push('/my-polymorphs')}
         ellipsesLeft={false}
         ellipsesRight={false}
         bgTextLeft

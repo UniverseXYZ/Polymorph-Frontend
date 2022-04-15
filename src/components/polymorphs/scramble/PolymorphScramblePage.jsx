@@ -175,7 +175,7 @@ const PolymorphScramblePage = () => {
       <div
         className="go--back--wrapper"
         aria-hidden="true"
-        onClick={() => router.push('/my-nfts')}
+        onClick={() => router.push('/my-polymorphs')}
       >
         <img src={backArrow} alt="go back" />
         <span>My NFTs</span>
