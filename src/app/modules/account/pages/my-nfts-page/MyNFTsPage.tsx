@@ -8,11 +8,9 @@ import useStateIfMounted from '../../../../../utils/hooks/useStateIfMounted';
 import { getNftSummary } from '../../../../../utils/api/mintNFT';
 import Tabs from '../../../../../components/tabs/Tabs';
 import LoadingPopup from '../../../../../components/popups/LoadingPopup';
-import CongratsPopup from '../../../../../components/popups/CongratsPopup';
 import plusIcon from '../../../../../assets/images/plus.svg';
 import Wallet from '../../../../../components/myNFTs/Wallet';
-import DeployedCollections from '../../../../../components/myNFTs/DeployedCollections';
-import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
+// import SavedNFTs from '../../../../../components/myNFTs/SavedNFTs';
 import UniverseNFTs from '../../../../../components/myNFTs/UniverseNFTs';
 import NFTsActivity from '../../../../../components/myNFTs/NFTsActivity';
 import { WalletTab } from './components';
@@ -73,9 +71,9 @@ export const MyNFTsPage = () => {
 
   const tabs = [
     { name: 'Wallet', amount: totalNfts },
-    { name: 'Universe Collections', amount: nftSummary?.collections },
-    { name: 'Saved NFTs', amount: nftSummary?.savedNfts },
-    { name: 'Universe NFTs', amount: (userPolymorphs.length || 0) },
+    // { name: 'Universe Collections', amount: nftSummary?.collections },
+    // { name: 'Saved NFTs', amount: nftSummary?.savedNfts },
+    // { name: 'Universe NFTs', amount: (userPolymorphs.length || 0) },
   ];
 
   // NEW
@@ -120,16 +118,6 @@ export const MyNFTsPage = () => {
           contractInteraction
         />
       </Popup>
-      <Popup open={showCongratsMintedSavedForLater} closeOnDocumentClick={false}>
-        <CongratsPopup
-          showCreateMore
-          onClose={() => {
-            setMyNFTsSelectedTabIndex(0);
-            setShowCongratsMintedSavedForLater(false);
-          }}
-          message="Saved for later NFT was successfully minted and should be displayed in your wallet shortly"
-        />
-      </Popup>
     </>
   );
 
@@ -148,7 +136,7 @@ export const MyNFTsPage = () => {
                 Polymorph rarity chart
               </button>
             )}
-            {myNFTsSelectedTabIndex !== 2 && (
+            {/* {myNFTsSelectedTabIndex !== 2 && (
               <button
                 type="button"
                 ref={createButtonRef}
@@ -179,7 +167,7 @@ export const MyNFTsPage = () => {
                   </div>
                 )}
               </button>
-            )}
+            )} */}
           </div>
         </div>
         {renderTabsWrapper()}
@@ -190,7 +178,7 @@ export const MyNFTsPage = () => {
           <WalletTab getTotalNfts={getTotalNfts} />
         </FiltersContextProvider>
       )}
-      <div className="container mynfts__page__body">
+      {/* <div className="container mynfts__page__body">
         {myNFTsSelectedTabIndex === 1 && <DeployedCollections scrollContainer={scrollContainer} />}
         {myNFTsSelectedTabIndex === 2 && (
           <SavedNFTs
@@ -203,7 +191,7 @@ export const MyNFTsPage = () => {
         )}
         {myNFTsSelectedTabIndex === 3 && <UniverseNFTs scrollContainer={scrollContainer} />}
         {myNFTsSelectedTabIndex === 6 && <NFTsActivity />}
-      </div>
+      </div> */}
     </>
   );
 

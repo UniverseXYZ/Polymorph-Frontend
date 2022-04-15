@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { IERC721AssetType, INFT, IOrder, IUser } from '../../../../../../types';
 import { NFTOffer } from './components/nft-offer/NFTOffer';
-import { LoadingPopup } from '../../../../../../../marketplace/components/popups/loading-popup';
+// import { LoadingPopup } from '../../../../../../../marketplace/components/popups/loading-popup';
 import { Contract } from 'ethers';
 import { useMutation, useQueryClient } from 'react-query';
 import { EncodeOrderApi } from '../../../../../../../../api';
@@ -152,13 +152,13 @@ export const TabOffers: React.FC<ITabOffersProps> = ({
           )
       )}
       {/*TODO: add support of bundle*/}
-      <LoadingPopup
+      {/* <LoadingPopup
         heading="Cancelling offer"
         text={offerCancelingText}
         isOpen={offerCanceling}
         onClose={() => setOfferCanceling(false)}
         transactions={[]}
-      />
+      /> */}
     </Box>
   );
 };

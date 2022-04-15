@@ -1,5 +1,5 @@
 import { Text, Box, Heading } from '@chakra-ui/react';
-import * as styles from '../nft-make-an-offer-popup/styles';
+import * as styles from './styles';
 
 interface CustomErrorProps {
     title: string;

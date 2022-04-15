@@ -84,7 +84,7 @@ export const WalletTab = ({ getTotalNfts }: IWalletTabProps) => {
           },
         }}
       >
-        <SearchFilters />
+        {/* <SearchFilters /> */}
       </Box>
 
       <div className="container mynfts__page__body">

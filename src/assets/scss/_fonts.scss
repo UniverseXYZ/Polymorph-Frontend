@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @font-face {
     font-family: 'Sharp Grotesk Medium';
-    src: url('../fonts/SharpGrotesk/SharpGroteskMedium.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/SharpGrotesk/SharpGroteskMedium.woff2') format('woff2'), /* Super Modern Browsers */
-        url('../fonts/SharpGrotesk/SharpGroteskMedium.woff') format('woff'), /* Pretty Modern Browsers */
+    src: url('../../../public/fonts/SharpGroteskMedium.eot'); /* IE9 Compat Modes */
+    src: url('../../../public/fonts/SharpGroteskMedium.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../../../public/fonts/SharpGroteskMedium.woff') format('woff'), /* Pretty Modern Browsers */
 }
 @font-face {
     font-family: 'Sharp Grotesk SemiBold';
-    src: url('../fonts/SharpGrotesk/SharpGroteskSmBold.eot'); /* IE9 Compat Modes */
-    src: url('../fonts/SharpGrotesk/SharpGroteskSmBold.woff2') format('woff2'), /* Super Modern Browsers */
-        url('../fonts/SharpGrotesk/SharpGroteskSmBold.woff') format('woff'), /* Pretty Modern Browsers */
+    src: url('../../../public/fonts/SharpGroteskSmBold.eot'); /* IE9 Compat Modes */
+    src: url('../../../public/fonts/SharpGroteskSmBold.woff2') format('woff2'), /* Super Modern Browsers */
+        url('../../../public/fonts/SharpGroteskSmBold.woff') format('woff'), /* Pretty Modern Browsers */
 }
 
 @font-face {
     font-family: 'Sharp Grotesk Bold';
-    src: url('../fonts/SharpGrotesk/SharpGroteskBold.woff2') format('woff2'); /* Super Modern Browsers */
+    src: url('../../../public/fonts/SharpGroteskBold.woff2') format('woff2'); /* Super Modern Browsers */
 }
