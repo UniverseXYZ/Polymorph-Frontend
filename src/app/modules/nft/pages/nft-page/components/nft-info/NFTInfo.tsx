@@ -17,7 +17,7 @@ import { UseMeasureRect } from 'react-use/lib/useMeasure';
 import { useRouter } from 'next/router';
 
 import { LineTabList, OpenGraph } from '../../../../../../components';
-import { NFTAssetImage, NFTAssetAudio, NFTBuySection, NFTAssetVideo } from '../';
+import { NFTAssetImage, NFTAssetAudio, NFTAssetVideo } from '../';
 import { useNFTPageData } from '../../NFTPage.context';
 import { isNFTAssetAudio, isNFTAssetImage, isNFTAssetVideo } from '../../../../helpers';
 import {
@@ -27,10 +27,10 @@ import {
   NFTPageCreatorRelation,
   NFTPageOwnerRelation,
 } from '../../../../components';
-import { TabBids, TabHistory, TabMetadata, TabOffers, TabOwners, TabProperties } from './components';
+import { TabHistory, TabMetadata, TabOffers, TabOwners, TabProperties } from './components';
 import { CollectionPageLoader } from '../../../../../../../containers/collection/CollectionPageLoader';
 import NotFound from '../../../../../../../components/notFound/NotFound';
-import { NFTItemContentWithPrice, NFTLike } from '../../../../components/nft-item/components';
+import { NFTItemContentWithPrice } from '../../../../components/nft-item/components';
 import { NFTTransferPopup } from '../nft-transfer-popup';
 import { BigNumber as EthersBigNumber, utils } from 'ethers';
 import BigNumber from 'bignumber.js';
@@ -282,13 +282,6 @@ export const NFTInfo = () => {
                   </TabPanels>
                 </Tabs>
               </Box>
-              <NFTBuySection
-                NFT={NFT}
-                owner={owner}
-                order={order}
-                highestOffer={{ offer: highestOffer || ({} as IOrder), creator: highestOfferCreator || ({} as IUser) }}
-                onMeasureChange={(measure) => setBuySectionMeasure(measure)}
-              />
             </Box>
           </Box>
 
@@ -300,7 +293,7 @@ export const NFTInfo = () => {
               onClose={() => setShowOfferPopup(false)}
             />
           )}
-          {moreFromCollection && (
+          {/* {moreFromCollection && (
             <Box {...styles.MoreNFTsWrapperStyle}>
               {moreFromCollection.length > 0 && (
                 <Heading {...styles.MoreNFTsTitleStyle}>More from this collection</Heading>
@@ -356,7 +349,7 @@ export const NFTInfo = () => {
                 View collection
               </Button>
             </Box>
-          )}
+          )} */}
           <NFTTransferPopup NFT={NFT} isOpen={isTransferOpened} onClose={() => setIsTransferOpened(false)} />
           <RefreshMetadataPopup
             status={refreshMetadataStatus}

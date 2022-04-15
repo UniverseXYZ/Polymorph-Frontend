@@ -1,7 +1,5 @@
-export * from './tab-bids';
 export * from './tab-history';
 export * from './tab-metadata';
-export * from './tab-offers';
 export * from './tab-owners';
 export * from './tab-properties';
 export * from './nft-property';
@@ -9,3 +7,4 @@ export * from './nft-property';
 export * from './polymorph-property';
 export * from './polymorph-property-trait';
 export * from './nft-tab-item-wrapper';
+export * from './tab-offers'
