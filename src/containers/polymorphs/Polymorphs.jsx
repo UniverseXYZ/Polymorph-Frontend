@@ -69,6 +69,7 @@ const Polymorphs = () => {
     // navigateToMyUniverseNFTsTab(polymorphsFilter);
     router.push('/my-nfts');
   };
+  
   return (
     <div className="polymorphs">
       <OpenGraph
