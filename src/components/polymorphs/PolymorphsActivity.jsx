@@ -41,7 +41,7 @@ const PolymorphsActivity = (props) => {
 
   return (
     <WrapperCenter className="polymorphs--activity--wrapper--center">
-      <h2>Recent Polymorphs Activity</h2>
+      <h2>Polymorph Activity</h2>
       {!mobile && (
         <PolymorphsActivityTable
           className="table--polymorphs--activity"

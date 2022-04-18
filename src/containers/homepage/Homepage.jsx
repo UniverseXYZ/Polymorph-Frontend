@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import OpenGraphImage from '@assets/images/open-graph/home-page.png'
 import { OpenGraph } from '@app/components';
@@ -12,11 +12,30 @@ import LatestFeaturesSection from '@legacy/polymorphUniverse/latestFeaturesSecti
 import AboutSection from '@legacy/polymorphUniverse/aboutSection/AboutSection.jsx';
 import BattlePolymorphSection from '@legacy/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.jsx';
 
+import PolymorphsActivity from '@legacy/polymorphs/PolymorphsActivity.jsx';
+import { morphedPolymorphs, queryPolymorphsGraph } from '../../utils/graphql/polymorphQueries'
+import { useGraphQueryHook } from '../../utils/hooks/useGraphQueryHook';
+import { useErc20PriceStore } from '../../stores/erc20PriceStore';
+import { useWindowSize } from 'react-use';
+
+
+
 const Homepage = () => {
+  
+  const { data } = useGraphQueryHook(queryPolymorphsGraph(morphedPolymorphs));
+  const ethUsdPrice = useErc20PriceStore(state => state.ethUsdPrice);
+  const [mobile, setMobile] = useState(false);
+  const windowSize = useWindowSize();
+
+  useEffect(() => {
+    if (+windowSize.width <= 575) setMobile(true);
+  }, [windowSize.width]);
+
   const setDarkMode = useThemeStore(s => s.setDarkMode);
   useEffect(() => {
     setDarkMode(true);
   }, []);
+
   return (
     <div className="homepage">
       <OpenGraph
@@ -38,6 +57,11 @@ const Homepage = () => {
       {/* <NonFungibleUniverse />
       <BuyUniverseNFTs /> */}
       <BattlePolymorphSection />
+      <PolymorphsActivity
+        ethPrice={`${ethUsdPrice}`}
+        mobile={false}
+        morphEntities={data?.tokenMorphedEntities}
+      />
     </div>
   );
 };
