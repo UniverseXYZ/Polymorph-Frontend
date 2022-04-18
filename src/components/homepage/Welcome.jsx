@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { AnimatedOnScroll } from 'react-animated-css-onscroll';
 import Popup from 'reactjs-popup';
@@ -11,7 +11,7 @@ import SubscribePopup from '../popups/SubscribePopup.jsx';
 const Welcome = () => {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef();
-  const history = useHistory();
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,28 +31,21 @@ const Welcome = () => {
       <div className="welcome__section__container">
         <div className="left">
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
-            <h1 className="title">Welcome to the NFT Universe Built on Ethereum</h1>
+            <h1 className="title">Polymorph Universe</h1>
           </AnimatedOnScroll>
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={400}>
             <p className="desc">
-              Launch your own community-driven NFT universe baked with social tools, media services,
-              and distribution - underpinned by the native $XYZ token.
+              The Polymorphs are a collection of morphing NFTs, with <b>11 base skins</b> and <b>200+ traits</b>.
             </p>
           </AnimatedOnScroll>
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={600}>
             <div className="links">
-              <Button className="light-button" onClick={() => history.push('/marketplace')}>
-                Marketplace
+              <Button className="light-button" onClick={() => router.push('/burn-to-mint')}>
+                Burn to Mint
               </Button>
-              <Popup
-                trigger={
-                  <button type="button" className="light-border-button">
-                    Join Newsletter
-                  </button>
-                }
-              >
-                {(close) => <SubscribePopup close={close} />}
-              </Popup>
+              <Button className="light-border-button" onClick={() => router.push('/polymorph-rarity')}>
+                Rarity Chart
+              </Button>
             </div>
           </AnimatedOnScroll>
         </div>
