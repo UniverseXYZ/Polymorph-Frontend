@@ -26,7 +26,7 @@ const PolymorphScrambleCongratulationPopup = ({ onClose, onOpenOptionsPopUp, pol
           className="light-button"
           onClick={() => {
             navigateToMyUniverseNFTsTab(polymorphsFilter);
-            router.push('/my-nfts');
+            router.push('/my-polymorphs');
           }}
         >
           My Polymorphs

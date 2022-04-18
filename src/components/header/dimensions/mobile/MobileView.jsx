@@ -504,7 +504,7 @@ const MobileView = (props) => {
                   <button
                     type="button"
                     onClick={() => {
-                      history.push('/my-nfts');
+                      history.push('/my-polymorphs');
                       setIsAccountDropdownOpened(!isAccountDropdownOpened);
                     }}
                   >
