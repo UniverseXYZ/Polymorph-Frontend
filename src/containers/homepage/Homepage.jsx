@@ -9,6 +9,8 @@ import BuyUniverseNFTs from '../../components/homepage/BuyUniverseNFTs.jsx';
 import NonFungibleUniverse from '../../components/homepage/NonFungibleUniverse.jsx';
 import Welcome from '../../components/homepage/Welcome.jsx';
 import LatestFeaturesSection from '@legacy/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.jsx';
+import AboutSection from '@legacy/polymorphUniverse/aboutSection/AboutSection.jsx';
+import BattlePolymorphSection from '@legacy/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.jsx';
 
 const Homepage = () => {
   const setDarkMode = useThemeStore(s => s.setDarkMode);
@@ -32,8 +34,10 @@ const Homepage = () => {
       <Welcome />
       {/* <About /> */}
       <LatestFeaturesSection />
-      <NonFungibleUniverse />
-      <BuyUniverseNFTs />
+      <AboutSection />
+      {/* <NonFungibleUniverse />
+      <BuyUniverseNFTs /> */}
+      <BattlePolymorphSection />
     </div>
   );
 };
