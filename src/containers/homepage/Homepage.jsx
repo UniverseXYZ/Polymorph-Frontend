@@ -8,6 +8,7 @@ import About from '../../components/homepage/About.jsx';
 import BuyUniverseNFTs from '../../components/homepage/BuyUniverseNFTs.jsx';
 import NonFungibleUniverse from '../../components/homepage/NonFungibleUniverse.jsx';
 import Welcome from '../../components/homepage/Welcome.jsx';
+import LatestFeaturesSection from '@legacy/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.jsx';
 
 const Homepage = () => {
   const setDarkMode = useThemeStore(s => s.setDarkMode);
@@ -29,7 +30,8 @@ const Homepage = () => {
         />
       </OpenGraph>
       <Welcome />
-      <About />
+      {/* <About /> */}
+      <LatestFeaturesSection />
       <NonFungibleUniverse />
       <BuyUniverseNFTs />
     </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 // import './LatestFeaturesSection.scss';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router'
 import arrowRight from '../../../assets/images/arrow-right.svg';
 import rarityChartIcon from '../../../assets/images/rarity-chart-icon.svg';
 import battleUniverseIcon from '../../../assets/images/battle-universe-icon.svg';
 import burnToMintIcon from '../../../assets/images/burn-to-mint-icon.svg';
 
 const LatestFeaturesSection = () => {
-  const history = useHistory();
+  const router = useRouter();
 
   return (
     <div className="latest--features--section">
@@ -21,16 +21,7 @@ const LatestFeaturesSection = () => {
               Compare your Polymorph’s ranking, scoring and information based on the rarity of its
               traits.
             </p>
-            <button type="button" onClick={() => history.push('/polymorph-rarity')}>
-              Explore
-              <img src={arrowRight} alt="Arrow right" />
-            </button>
-          </div>
-          <div>
-            <img src={battleUniverseIcon} alt="Battle universe" />
-            <h2>Battle universe</h2>
-            <p>Wager ETH and compete against other Polymorph owners around the world.</p>
-            <button type="button">
+            <button className='light-border-button' onClick={() => router.push('/polymorph-rarity')}>
               Explore
               <img src={arrowRight} alt="Arrow right" />
             </button>
@@ -42,9 +33,18 @@ const LatestFeaturesSection = () => {
               Say goodbye to the old version of your Polymorph forever and hello to your shiny new
               one.
             </p>
-            <button type="button" onClick={() => history.push('/burn-to-mint')}>
+            <button className='light-border-button' onClick={() => router.push('/burn-to-mint')}>
               Explore
               <img src={arrowRight} alt="Arrow right" />
+            </button>
+          </div>
+          <div>
+            <img src={battleUniverseIcon} alt="Battle universe" />
+            <h2>Battle universe</h2>
+            <p>Wager ETH and compete against other Polymorph owners around the world.</p>
+            <button className='button-disabled'>
+              Coming Soon
+              {/* <img src={arrowRight} alt="Arrow right" /> */}
             </button>
           </div>
         </div>
