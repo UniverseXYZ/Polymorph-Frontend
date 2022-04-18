@@ -66,8 +66,8 @@ const Polymorphs = () => {
   }, [windowSize.width]);
 
   const redirectToMyPolymorphs = () => {
-    // navigateToMyUniverseNFTsTab(polymorphsFilter);
-    router.push('/my-nfts');
+    navigateToMyUniverseNFTsTab(polymorphsFilter);
+    router.push('/my-polymorphs');
   };
   return (
     <div className="polymorphs">
