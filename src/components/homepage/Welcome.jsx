@@ -26,8 +26,8 @@ const Welcome = () => {
 
   return (
     <div className="welcome__section">
-      <img className="ellipse-l" src={ellipses} alt="Ellipses" />
-      <img className="ellipse-r" src={ellipses} alt="Ellipses" />
+      {/* <img className="ellipse-l" src={ellipses} alt="Ellipses" />
+      <img className="ellipse-r" src={ellipses} alt="Ellipses" /> */}
       <div className="welcome__section__container">
         <div className="left">
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
@@ -49,7 +49,7 @@ const Welcome = () => {
             </div>
           </AnimatedOnScroll>
         </div>
-        <AnimatedOnScroll animationIn="fadeIn">
+        {/* <AnimatedOnScroll animationIn="fadeIn">
           <div className="right">
             {!loaded && (
               <SkeletonTheme color="#202020" highlightColor="#444">
@@ -68,7 +68,7 @@ const Welcome = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-        </AnimatedOnScroll>
+        </AnimatedOnScroll> */}
       </div>
     </div>
   );
