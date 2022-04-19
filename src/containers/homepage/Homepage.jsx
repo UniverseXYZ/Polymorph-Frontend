@@ -18,6 +18,8 @@ import { useGraphQueryHook } from '../../utils/hooks/useGraphQueryHook';
 import { useErc20PriceStore } from '../../stores/erc20PriceStore';
 import { useWindowSize } from 'react-use';
 
+import SlickCarousel from '../../components/homepage/SlickCarousel'
+
 
 
 const Homepage = () => {
@@ -50,6 +52,7 @@ const Homepage = () => {
           content="Launch your own community-driven NFT universe baked with social tools, media services, and distribution - underpinned by the native $XYZ token."
         />
       </OpenGraph>
+
       <Welcome />
       {/* <About /> */}
       <LatestFeaturesSection />

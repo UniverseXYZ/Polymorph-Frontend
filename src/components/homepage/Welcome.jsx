@@ -7,6 +7,7 @@ import ellipses from '../../assets/images/ellipses.svg';
 import heroVideo from '../../assets/images/hero_video.mp4';
 import Button from '../button/Button.jsx';
 import SubscribePopup from '../popups/SubscribePopup.jsx';
+import SlickCarousel from './SlickCarousel';
 
 const Welcome = () => {
   const [loaded, setLoaded] = useState(false);
@@ -26,8 +27,9 @@ const Welcome = () => {
 
   return (
     <div className="welcome__section">
-      {/* <img className="ellipse-l" src={ellipses} alt="Ellipses" />
-      <img className="ellipse-r" src={ellipses} alt="Ellipses" /> */}
+      <div className='welcome__section__carousel'>
+        <SlickCarousel />
+      </div>
       <div className="welcome__section__container">
         <div className="left">
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
@@ -69,6 +71,7 @@ const Welcome = () => {
             </video>
           </div>
         </AnimatedOnScroll> */}
+        <div className='fade'>{" "}</div> 
       </div>
     </div>
   );
