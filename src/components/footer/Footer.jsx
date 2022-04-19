@@ -146,7 +146,7 @@ const Footer = () => {
             <span className="op-sourced">
               Polymorphs © {new Date().getFullYear()}. 
             </span>
-            <span className>
+            <span>
               Powered by <img src={appLightLogo}/>
             </span>
             {/* <span
