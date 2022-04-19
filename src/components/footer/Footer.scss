@@ -140,6 +140,10 @@
               max-width: none;
             }
           }
+          @include sm {
+            width: 100%;
+            margin-bottom: 2rem;
+          }
         }
 
         .universe-list {
@@ -228,10 +232,11 @@
             }
           }
           @include lg {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
           }
           @include sm {
             grid-template-columns: repeat(2, 1fr);
+            width: 100%;
           }
         }
         @include lg {
@@ -240,11 +245,15 @@
         @include md {
           grid-template-columns: 1fr;
         }
+        @include sm {
+          display: block;
+        }
       }
       @include md {
         padding: 60px 20px;
       }
     }
+
   }
   .footer__bottom {
     padding: 25px 60px;
@@ -256,9 +265,10 @@
       justify-content: space-between;
       align-items: center;
       .powered-by {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        width: 50%;
+        // display: grid;
+        // grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        max-width: 100%;
         .op-sourced {
           max-width: 200px;
           font-family: $spaceGroteskFont;
@@ -292,10 +302,15 @@
         }
         @include lg {
           grid-template-columns: 1fr;
+          flex-wrap: wrap;
+          flex-direction: column-reverse;
         }
         @include sm {
-          grid-template-columns: 1fr;
+          // grid-template-columns: 1fr;
+          flex-direction: row;
           margin-top: 30px;
+          width: 100%;
+          justify-content: space-between;
         }
       }
       .join__community {
@@ -320,7 +335,7 @@
             &:hover {
               background: rgba(255, 255, 255, 0.15);
             }
-            @include sm {
+            @include md {
               padding: 10px;
             }
           }
@@ -336,10 +351,13 @@
         }
         @include sm {
           grid-row: 1;
+          display: block;
+          width: 100%;
+          justify-content: space-between;
         }
       }
       @include md {
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
       }
       @include sm {
         display: grid;
