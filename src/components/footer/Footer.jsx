@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Popup from 'reactjs-popup';
 // import './Footer.scss';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router'
 import Logo from '../../assets/images/light.svg';
 import twitterIcon from '../../assets/images/twitter-icon.svg';
 import discordIcon from '../../assets/images/discord-icon.svg';
@@ -12,9 +12,11 @@ import mediumIcon from '../../assets/images/medium.svg';
 import SubscribePopup from '../popups/SubscribePopup.jsx';
 import { useLayout } from '../../app/providers';
 import Badge from '../badge/Badge';
+import appLightLogo from '../../assets/images/light.svg';
+
 
 const Footer = () => {
-  const history = useHistory();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const { footerRef } = useLayout();
 
@@ -60,7 +62,7 @@ const Footer = () => {
         {(close) => <SubscribePopup close={close} showCongrats />}
       </Popup>
       <div className="footer">
-        <div className="footer__top">
+        {/* <div className="footer__top">
           <div className="footer__top__container">
             <div className="universe">
               <div className="logo-div">
@@ -86,119 +88,51 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="footer__middle">
           <div className="footer__middle__container">
+            <div className="universe">
+              <div className="logo-div">
+                <img src={Logo} alt="logo" />
+              </div>
+              <p>
+              The Polymorphs are a collection of morphing NFTs, with 11 base skins and 200+ traits.
+              </p>
+            </div>
             <div className="universe-list">
               <div>
                 <ul>
-                  <li>Products</li>
-                  <li 
-                    // onClick={() => history.push('/marketplace')} aria-hidden="true"
-                  >
-                    NFT Marketplace
-                    <Badge text="beta" />
+                  <li>Polymorphs</li>
+                  <li onClick={() => router.push('/burn-to-mint')} aria-hidden="true">
+                    Burn to Mint
                   </li>
                   <li
-                    className="disable"
-                    // onClick={() =>
-                    //   history.push('/minting-and-auctions/marketplace/active-auctions')
-                    // }
+                    onClick={() => router.push('/my-polymorphs')}
                     aria-hidden="true"
                   >
-                    Auction House
-                    <span className="tooltiptext">Coming soon</span>
+                    My Polymorphs
                   </li>
-                  <li className="disable">
-                    Social Media
-                    <span className="tooltiptext">Coming soon</span>
+                  <li onClick={() => router.push('/polymorph-rarity')} aria-hidden="true">
+                    Rarity Chart
                   </li>
                 </ul>
               </div>
               <div>
                 <ul>
-                  <li>NFT Drops</li>
-                  <li onClick={() => history.push('/polymorphs')} aria-hidden="true">
-                    Polymorphs
-                  </li>
-                  <li onClick={() => history.push('/lobby-lobsters')} aria-hidden="true">
-                    Lobby Lobsters
-                  </li>
-                  <li
-                    className="disable"
-                    // onClick={() => history.push('/core-drops')}
-                    aria-hidden="true"
-                  >
-                    OG Planet Drop
-                    <span className="tooltiptext">Coming soon</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li>Rarity Charts</li>
-                  <li onClick={() => history.push('/polymorph-rarity')} aria-hidden="true">
-                    Polymorphs
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    onClick={() => window.open('https://rarity.tools/lobby-lobsters')}
-                  >
-                    Lobby Lobsters
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li>Info</li>
-                  <li onClick={() => history.push('/about')} aria-hidden="true">
-                    About
+                  <li>Universe</li>
+                  <li onClick={() => window.open('https://universe.xyz/')} aria-hidden="true">
+                    Home
                   </li>
                   <li
                     onClick={() =>
-                      window.open('https://github.com/UniverseXYZ/UniverseXYZ-Whitepaper')
+                      window.open('https://universe.xyz/marketplace/')
                     }
                     aria-hidden="true"
                   >
-                    Whitepaper
+                    Marketplace<Badge text='beta'/>
                   </li>
-                  <li onClick={() => history.push('/team')} aria-hidden="true">
-                    Team
-                  </li>
-                  <li aria-hidden="true" onClick={() => window.open('https://docs.universe.xyz/')}>
-                    Docs
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    onClick={() => window.open('https://universe.freshdesk.com/support/home')}
-                  >
-                    Support
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li>DAO</li>
-                  <li
-                    aria-hidden="true"
-                    onClick={() => window.open('https://dao.universe.xyz/governance')}
-                  >
-                    Governance
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    onClick={() => window.open('https://dao.universe.xyz/yield-farming')}
-                  >
-                    Yield Farming
-                  </li>
-                  <li aria-hidden="true" onClick={() => window.open('https://forum.universe.xyz/')}>
-                    Forum
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    onClick={() => window.open('https://signal.universe.xyz/#/')}
-                  >
-                    Signal
+                  <li onClick={() => window.open('https://dao.universe.xyz/')} aria-hidden="true">
+                    DAO
                   </li>
                 </ul>
               </div>
@@ -210,9 +144,12 @@ const Footer = () => {
         <div className="footer__bottom__container">
           <div className="powered-by">
             <span className="op-sourced">
-              Universe.xyz © {new Date().getFullYear()}. Open-sourced.
+              Polymorphs © {new Date().getFullYear()}. 
             </span>
-            <span
+            <span className>
+              Powered by <img src={appLightLogo}/>
+            </span>
+            {/* <span
               aria-hidden="true"
               onClick={() =>
                 window.open(
@@ -221,8 +158,8 @@ const Footer = () => {
               }
             >
               Add Liquidity to SushiSwap USDC/XYZ Pool
-            </span>
-            <span
+            </span> */}
+            {/* <span
               aria-hidden="true"
               onClick={() =>
                 window.open(
@@ -231,7 +168,7 @@ const Footer = () => {
               }
             >
               SushiSwap USDC/XYZ Market
-            </span>
+            </span> */}
           </div>
           <div className="join__community">
             <div className="icons">
