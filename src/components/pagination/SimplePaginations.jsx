@@ -43,8 +43,8 @@ const SimplePagination = ({ data, perPage, setOffset, page, setPage }) => {
       breakLabel="..."
       breakClassName="break-me"
       pageCount={pageCount}
-      marginPagesDisplayed={1}
-      pageRangeDisplayed={3}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={1}
       onPageChange={handlePageClick}
       containerClassName="pagination"
       subContainerClassName="pages pagination"
