@@ -118,9 +118,10 @@
       &__container {
         max-width: 1110px;
         margin: 0 auto;
-        display: grid;
-        grid-gap: 125px;
+        display: flex;
+        justify-content: space-between;
         .universe {
+          width: 50%;
           .logo-div {
             display: flex;
             align-items: center;
@@ -133,8 +134,8 @@
             font-weight: normal;
             font-size: 12px;
             line-height: 150%;
-            color: $white;
-            max-width: 255px;
+            color: rgb(255, 255, 255, 0.6) ;
+            max-width: 300px;
             @include md {
               max-width: none;
             }
@@ -143,9 +144,8 @@
 
         .universe-list {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          grid-gap: 20px;
-
+          grid-template-columns: repeat(2, 1fr);
+          width: 50%;
           li {
             position: relative;
             font-family: $spaceGroteskFont;
@@ -176,6 +176,7 @@
               cursor: unset;
               margin-bottom: 20px;
             }
+
             &.disable {
               color: rgba(255, 255, 255, 0.2);
               cursor: default;
@@ -249,14 +250,17 @@
     padding: 25px 60px;
     &__container {
       max-width: 1110px;
+      width: 100%;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
       .powered-by {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        width: 50%;
         .op-sourced {
+          max-width: 200px;
           font-family: $spaceGroteskFont;
           font-size: 12px;
           font-style: normal;
@@ -265,6 +269,8 @@
           color: rgba(255, 255, 255, 0.4);
         }
         span {
+          display: flex;
+          align-items: center;
           font-family: $spaceGroteskFont;
           font-size: 12px;
           font-style: normal;
@@ -293,6 +299,9 @@
         }
       }
       .join__community {
+        display: flex;
+        width: 50%;
+        justify-content: right;
         .icons {
           display: flex;
           align-items: center;
