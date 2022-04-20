@@ -8,20 +8,12 @@ const HeaderAvatar = ({ scale }) => {
 
   return (
     <>
-      {loggedInArtist.avatar ? (
-        <img
-          className={scale === 3 ? 'blockie-md' : 'blockie-lg'}
-          src={loggedInArtist.avatar}
-          alt="avatar"
-        />
-      ) : (
         <Blockies
           className={scale === 3 ? 'blockie-md' : 'blockie-lg'}
           seed={address}
           size={9}
           scale={scale}
         />
-      )}
     </>
   );
 };

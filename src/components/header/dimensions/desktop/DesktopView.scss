@@ -18,6 +18,7 @@
       line-height: 12px;
       padding: 10px 0;
       -webkit-perspective: 200;
+
       &:hover {
         .dropdown {
           transform: rotateX(0deg);
@@ -60,8 +61,8 @@
           box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset;
         }
       }
-      .signOut {
-        color: #ff4949;
+      .disconnect {
+        color: $black;
         &:hover {
           background: rgba(255, 73, 73, 0.05) !important;
         }
@@ -81,12 +82,25 @@
           transition: 0.5s ease;
         }
       }
+
       .myAccount {
-        padding-left: 30px;
+        justify-content: center;
+        border: 1px #FFFFFF33 solid;
+        padding: 4px;
+        padding-right: 12px;
+        border-radius: 10px;
       }
+
       .nav__link__title {
         margin: 0 12px;
         white-space: nowrap;
+        span {
+          color: black;
+          background-color: #FFFFFF;
+          border-radius: 4px;
+          padding: 2px 4px;
+          margin: 0 8px;
+        }
       }
       .dropdown {
         position: absolute;
@@ -215,9 +229,17 @@
         }
         &__body {
           padding: 6px;
+          height: 80px;
+          display: flex;
           button {
+            margin: auto;
+            vertical-align: middle;
+            background-image: linear-gradient(101deg, #bceb00, #00eaea);
+            box-shadow: 2px 1000px 1px #FFFFFF inset;
+            border: 1px solid transparent;
             display: flex;
             align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 15px 12px;
             background-color: $white;
@@ -228,6 +250,8 @@
             font-size: 14px;
             line-height: 140%;
             border-radius: 10px;
+            width: 80%;
+            height: 60%;
             &:hover {
               background: rgba(0, 0, 0, 0.05);
             }

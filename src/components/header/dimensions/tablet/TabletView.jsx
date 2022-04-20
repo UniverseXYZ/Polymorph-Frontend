@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Popup from 'reactjs-popup';
 import { Animated } from 'react-animated-css';
 // import './TabletView.scss';
@@ -82,12 +82,12 @@ const TabletView = (props) => {
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState('');
   const ref = useRef(null);
-  const history = useHistory();
+  const router = useRouter();
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (searchValue) {
-        history.push(`/search`, { query: searchValue });
+        router.push(`/search`, { query: searchValue });
         setSearchValue('');
         searchRef.current.blur();
         setShowSearch(false);
@@ -95,7 +95,7 @@ const TabletView = (props) => {
     }
   };
   const handleAllResults = () => {
-    history.push(`/search`, { query: searchValue });
+    router.push(`/search`, { query: searchValue });
     setSearchValue('');
     searchRef.current.blur();
     setShowSearch(false);
@@ -427,59 +427,14 @@ const TabletView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    onClick={() => {
-                      history.push('/my-account');
-                      setIsAccountDropdownOpened(false);
-                      // if (
-                      //   loggedInArtist.name &&
-                      //   loggedInArtist.universePageAddress &&
-                      //   loggedInArtist.avatar &&
-                      //   loggedInArtist.about &&
-                      //   editProfileButtonClick
-                      // ) {
-                      //   history.push(`/${loggedInArtist.universePageAddress}`, {
-                      //     id: loggedInArtist.id,
-                      //   });
-                      // } else {
-                      //   history.push('/my-account');
-                      // }
-                      // setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myProfileIcon} alt="My Profile" />
-                    Edit My Profile
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-nfts');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myNFTsIcon} alt="My NFTs" />
-                    My NTFs
-                  </button>
-                  {/* <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-auctions');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={auctionHouseIcon} alt="My Auctions" />
-                    My auctions
-                  </button> */}
-                  <button
-                    type="button"
                     className="signOut"
                     onClick={() => {
                       signOut();
-                      history.push('/');
+                      router.push('/');
                       setIsAccountDropdownOpened(false);
                     }}
                   >
-                    <img src={signOutIcon} alt="Sign out" />
-                    Sign out
+                    Disconnect
                   </button>
                 </div>
               </div>
@@ -500,54 +455,14 @@ const TabletView = (props) => {
           <ul className="nav__menu">
             <li>
               <div className="grid__menu">
-                <div>
-                  <p className="title">Products</p>
-                  <div>
-                    <button
-                      type="button"
-                      // className="disable"
-                      onClick={() => {
-                        setShowMenu(false);
-                        history.push('/marketplace');
-                      }}
-                    >
-                      <img src={marketplaceIcon} alt="NFT Marketplace" />
-                      <span>
-                        NFT Marketplace <Badge text="beta" />
-                      </span>
-                      {/* <span className="tooltiptext">Coming soon</span> */}
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      className="disable"
-                      onClick={() => {
-                        // setShowMenu(false);
-                        // history.push('/minting-and-auctions/marketplace/active-auctions');
-                      }}
-                    >
-                      <img src={auctionHouseIcon} alt="Auction House" />
-                      <span>Auction House</span>
-                      <span className="tooltiptext">Coming soon</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button type="button" className="disable">
-                      <img src={socialMediaIcon} alt="Social Media" />
-                      <span>Social Media</span>
-                      <span className="tooltiptext">Coming soon</span>
-                    </button>
-                  </div>
-                </div>
-                <div>
+                {/* <div>
                   <p className="title">NFT Drops</p>
                   <div>
                     <button
                       type="button"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/polymorphs');
+                        router.push('/polymorphs');
                       }}
                     >
                       <img src={polymorphsIcon} alt="Polymorphs" />
@@ -558,7 +473,7 @@ const TabletView = (props) => {
                     <button
                       type="button"
                       onClick={() => {
-                        history.push('/lobby-lobsters');
+                        router.push('/lobby-lobsters');
                       }}
                     >
                       <img src={lobbyLobstersIcon} alt="Lobby Lobsters" />
@@ -569,7 +484,7 @@ const TabletView = (props) => {
                     <button
                       type="button"
                       // onClick={() => {
-                      //   history.push('/core-drops');
+                      //   router.push('/core-drops');
                       // }}
                       className="disable"
                     >
@@ -578,39 +493,38 @@ const TabletView = (props) => {
                       <span className="tooltiptext">Coming soon</span>
                     </button>
                   </div>
-                </div>
+                </div> */}
                 <div>
-                  <p className="title">Rarity Charts</p>
-                  <div>
-                    <button
-                      type="button"
+                  <p className="title"                       
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/polymorph-rarity');
-                      }}
-                    >
-                      <img src={navChartIcon} alt="Polymorphs" />
-                      <span>Polymorphs</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://rarity.tools/lobby-lobsters')}
-                    >
-                      <img src={navChartIcon} alt="Lobby Lobsters" />
-                      <span>Lobby Lobsters</span>
-                    </button>
-                  </div>
+                        router.push('/burn-to-mint');
+                      }}>Burn to Mint</p>
                 </div>
                 <div>
+                  <p className="title"
+                      onClick={() => {
+                        setShowMenu(false);
+                        router.push('/polymorph-rarity');
+                      }}>Rarity Chart
+                  </p>
+                </div>
+                <div>
+                  <p className="title"
+                      onClick={() => {
+                        setShowMenu(false);
+                        router.push('/my-polymorphs');
+                      }}>My Polymorphs
+                  </p>
+                </div>
+                {/* <div>
                   <p className="title">Info</p>
                   <div>
                     <button
                       type="button"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/about');
+                        router.push('/about');
                       }}
                     >
                       <img src={aboutIcon} alt="About" />
@@ -634,7 +548,7 @@ const TabletView = (props) => {
                       className="team"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/team');
+                        router.push('/team');
                       }}
                     >
                       <img src={teamIcon} alt="Team" />
@@ -657,8 +571,8 @@ const TabletView = (props) => {
                       <span>Support</span>
                     </button>
                   </div>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <p className="title">DAO</p>
                   <div>
                     <button
@@ -696,7 +610,7 @@ const TabletView = (props) => {
                       <span>Signal</span>
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </li>
             {!isWalletConnected && (
