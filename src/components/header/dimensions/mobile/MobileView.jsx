@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Animated } from 'react-animated-css';
 import Popup from 'reactjs-popup';
@@ -67,6 +67,7 @@ import supportIcon from '../../../../assets/images/supportIcon.svg';
 import Badge from '../../../badge/Badge';
 import { useUserBalanceStore } from '../../../../stores/balanceStore';
 import { useAuthStore } from '../../../../stores/authStore';
+import arrowRight from '../../../../assets/images/marketplace/bundles-right-arrow.svg'
 
 const MobileView = (props) => {
   const {
@@ -92,7 +93,7 @@ const MobileView = (props) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const ref = useRef(null);
-  const history = useHistory();
+  const router = useRouter();
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState('');
   const [searchFocus, setSearchFocus] = useState(false);
@@ -108,7 +109,7 @@ const MobileView = (props) => {
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (searchValue) {
-        history.push(`/search`, { query: searchValue });
+        router.push(`/search`, { query: searchValue });
         setSearchValue('');
         searchRef.current.blur();
         setShowMobileSearch(false);
@@ -117,7 +118,7 @@ const MobileView = (props) => {
   };
 
   const handleAllResults = () => {
-    history.push(`/search`, { query: searchValue });
+    router.push(`/search`, { query: searchValue });
     setSearchValue('');
     searchRef.current.blur();
     setShowMobileSearch(false);
@@ -479,6 +480,7 @@ const MobileView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
+<<<<<<< HEAD
                     onClick={() => {
                       history.push('/my-account');
                       setIsAccountDropdownOpened(false);
@@ -523,14 +525,15 @@ const MobileView = (props) => {
                   </button> */}
                   <button
                     type="button"
+=======
+>>>>>>> 77a7a616 (Modified the mobile header design)
                     className="signOut"
                     onClick={() => {
                       signOut();
-                      history.push('/');
+                      router.push('/');
                       setIsAccountDropdownOpened(false);
                     }}
                   >
-                    <img src={signOutIcon} alt="Sign out" />
                     Sign out
                   </button>
                 </div>
@@ -554,274 +557,36 @@ const MobileView = (props) => {
               <>
                 <li>
                   <div className="grid__menu">
+                    
                     <div>
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => setShowProducts(!showProducts)}
+                        onClick={() => router.push('/burn-to-mint')}
                       >
-                        <p className="title">
-                          Products
-                          <Badge text="new" />
-                        </p>
-                        <img className={showProducts ? 'rotate' : ''} src={arrowDown} alt="arrow" />
+                        <p className="title">Burn to Mint</p>
+                        <img src={arrowRight} alt="arrow" />
                       </div>
-                      {showProducts ? (
-                        <>
-                          <div>
-                            <button
-                              type="button"
-                              // className="disable"
-                              onClick={() => {
-                                setShowMenu(false);
-                                history.push('/marketplace');
-                              }}
-                            >
-                              <img src={marketplaceIcon} alt="NFT Marketplace" />
-                              <span>
-                                NFT Marketplace <Badge text="beta" />
-                              </span>
-                              {/* <span className="tooltiptext">Coming soon</span> */}
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              className="disable"
-                              onClick={() => {
-                                // setShowMenu(false);
-                                // history.push('/minting-and-auctions/marketplace/active-auctions');
-                              }}
-                            >
-                              <img src={auctionHouseIcon} alt="Auction House" />
-                              <span>Auction House</span>
-                              <span className="tooltiptext">Coming soon</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button type="button" className="disable">
-                              <img src={socialMediaIcon} alt="Social Media" />
-                              <span>Social Media</span>
-                              <span className="tooltiptext">Coming soon</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
                     </div>
                     <div>
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => setShowNFTDrops(!showNFTDrops)}
+                        onClick={() => router.push('/polymorph-rarity')}
                       >
-                        <p className="title">NFT Drops</p>
-                        <img className={showNFTDrops ? 'rotate' : ''} src={arrowDown} alt="arrow" />
+                        <p className="title">Rarity Chart</p>
+                        <img src={arrowRight} alt="arrow" />
                       </div>
-                      {showNFTDrops ? (
-                        <>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setShowMenu(false);
-                                history.push('/polymorphs');
-                              }}
-                            >
-                              <img src={polymorphsIcon} alt="Polymorphs" />
-                              <span>Polymorphs</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                history.push('/lobby-lobsters');
-                              }}
-                            >
-                              <img src={lobbyLobstersIcon} alt="Lobby Lobsters" />
-                              <span>Lobby Lobsters</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              // onClick={() => {
-                              //   history.push('/core-drops');
-                              // }}
-                              className="disable"
-                            >
-                              <img src={coreDropsIcon} alt="Core drops" />
-                              <span>OG Planet Drop</span>
-                              <span className="tooltiptext">Coming soon</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
                     </div>
-                    <div ref={rarityChartsRef}>
+                    <div>
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => setShowRarityCharts(!showRarityCharts)}
+                        onClick={() => router.push('/my-polymorphs')}
                       >
-                        <p className="title">Rarity Charts</p>
-                        <img
-                          className={showRarityCharts ? 'rotate' : ''}
-                          src={arrowDown}
-                          alt="arrow"
-                        />
+                        <p className="title">My Polymorphs<span>16</span></p>
+                        <img src={arrowRight} alt="arrow" />
                       </div>
-                      {showRarityCharts ? (
-                        <>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setShowMenu(false);
-                                history.push('/polymorph-rarity');
-                              }}
-                            >
-                              <img src={navChartIcon} alt="Polymorphs" />
-                              <span>Polymorphs</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://rarity.tools/lobby-lobsters')}
-                            >
-                              <img src={navChartIcon} alt="Lobby Lobsters" />
-                              <span>Lobby Lobsters</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div ref={infoRef}>
-                      <div
-                        className="head"
-                        aria-hidden="true"
-                        onClick={() => setShowInfo(!showInfo)}
-                      >
-                        <p className="title">Info</p>
-                        <img className={showInfo ? 'rotate' : ''} src={arrowDown} alt="arrow" />
-                      </div>
-                      {showInfo ? (
-                        <>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setShowMenu(false);
-                                history.push('/about');
-                              }}
-                            >
-                              <img src={aboutIcon} alt="About" />
-                              About
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                window.open('https://github.com/UniverseXYZ/UniverseXYZ-Whitepaper')
-                              }
-                            >
-                              <img src={whitepaperIcon} alt="Whitepaper" />
-                              Whitepaper
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              className="team"
-                              onClick={() => {
-                                setShowMenu(false);
-                                history.push('/team');
-                              }}
-                            >
-                              <img src={teamIcon} alt="Team" />
-                              Team
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://docs.universe.xyz/')}
-                            >
-                              <img src={docsIcon} alt="Docs" />
-                              <span>Docs</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                window.open('https://universe.freshdesk.com/support/home')
-                              }
-                            >
-                              <img src={supportIcon} alt="Support" width="20px" height="15px" />
-                              <span>Support</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                    <div ref={daoRef}>
-                      <div className="head" aria-hidden="true" onClick={() => setShowDAO(!showDAO)}>
-                        <p className="title">DAO</p>
-                        <img className={showDAO ? 'rotate' : ''} src={arrowDown} alt="arrow" />
-                      </div>
-                      {showDAO ? (
-                        <>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://dao.universe.xyz/governance')}
-                            >
-                              <img src={governanceIcon} alt="Governance" />
-                              <span>Governance</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://dao.universe.xyz/yield-farming')}
-                            >
-                              <img src={yieldFarmingIcon} alt="Yield Farming" />
-                              <span>Yield Farming</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://forum.universe.xyz/')}
-                            >
-                              <img src={forumIcon} alt="Forum" />
-                              <span>Forum</span>
-                            </button>
-                          </div>
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => window.open('https://signal.universe.xyz/#/')}
-                            >
-                              <img src={signalIcon} alt="Signal" />
-                              <span>Signal</span>
-                            </button>
-                          </div>
-                        </>
-                      ) : (
-                        <></>
-                      )}
                     </div>
                   </div>
                 </li>
@@ -832,7 +597,7 @@ const MobileView = (props) => {
                       className="sign__in"
                       onClick={() => setShowSelectWallet(true)}
                     >
-                      {isAuthenticating ? 'Signing in...' : 'Sign in'}
+                      {isAuthenticating ? 'Signing in...' : 'Connect Wallet'}
                     </button>
                   </li>
                 )}
