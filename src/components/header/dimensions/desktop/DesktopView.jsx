@@ -53,7 +53,7 @@ const DesktopView = ({
   const [isAboutDropdownOpened, setIsAboutDropdownOpened] = useState(false);
   const [isDAODropdownOpened, setIsDAODropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
-  const history = useRouter();
+  const router = useRouter();
 
   // const location = useLocation();
   const {
@@ -81,197 +81,33 @@ const DesktopView = ({
           <button
             type="button"
             className="menu-li"
-            onClick={() => setIsMintingDropdownOpened(!isMintingDropdownOpened)}
+            onClick={() => router.push('/burn-to-mint')}
           >
-            <span className="nav__link__title">
-              Products
-              <Badge text="new" />
+              <span className="nav__link__title">Burn to Mint</span>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="menu-li"
+            onClick={() => router.push('/polymorph-rarity')}
+          >
+            <span className="nav__link__title">Rarity Chart</span>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="menu-li"
+            onClick={() => router.push('/my-polymorphs')}
+          >
+            <span className="nav__link__title">My Polymorphs
+              {/* Change the hardcoded value to the user's amount of polymorphs */}
+              <span>16</span>
             </span>
-            <img className="arrow" src={arrowUP} alt="arrow" />
           </button>
-          <div className="dropdown minting-drop">
-            <div className="dropdown__body">
-              <button
-                type="button"
-                // className="disable"
-                onClick={() => {
-                  setIsMintingDropdownOpened(false);
-                  if (history.asPath !== '/marketplace') {
-                    history.push('/marketplace');
-                  }
-                }}
-              >
-                <img src={marketplaceIcon} alt="NFT Marketplace" />
-                <span>
-                  NFT Marketplace <Badge text="beta" />
-                </span>
-                {/* <span className="tooltiptext">Coming soon</span> */}
-              </button>
-              <button
-                type="button"
-                className="disable"
-                onClick={() => {
-                  // history.push('/minting-and-auctions/marketplace/active-auctions');
-                  // setIsMintingDropdownOpened(false);
-                }}
-              >
-                <img src={auctionHouseIcon} alt="Auction House" />
-                <span>Auction House</span>
-                <span className="tooltiptext">Coming soon</span>
-              </button>
-              <button
-                type="button"
-                className="disable"
-                onClick={() => {
-                  setIsMintingDropdownOpened(false);
-                }}
-              >
-                <img src={socialMediaIcon} alt="Social Media" />
-                <span>Social Media</span>
-                <span className="tooltiptext">Coming soon</span>
-              </button>
-            </div>
-          </div>
         </li>
-        <li>
-          <button
-            type="button"
-            className="menu-li"
-            onClick={() => setIsPolymorphsDropdownOpened(!isPolymorphsDropdownOpened)}
-          >
-            <span className="nav__link__title">NFT Drops</span>
-            <img className="arrow" src={arrowUP} alt="arrow" />
-          </button>
-          <div className="dropdown minting-drop">
-            <div className="dropdown__body">
-              <button
-                type="button"
-                onClick={() => {
-                  history.push('/polymorphs');
-                }}
-              >
-                <img src={polymorphsIcon} alt="Polymorphs" />
-                <span>Polymorphs</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  history.push('/lobby-lobsters');
-                }}
-              >
-                <img src={lobbyLobstersIcon} alt="Lobby Lobsters" />
-                <span>Lobby Lobsters</span>
-              </button>
-              <button
-                className="disable"
-                type="button"
-                // onClick={() => {
-                //   history.push('/core-drops');
-                // }}
-              >
-                <img src={coreDropsIcon} alt="Core drops" />
-                <span>OG Planet Drop</span>
-                <span className="tooltiptext">Coming soon</span>
-              </button>
-            </div>
-          </div>
-        </li>
-        <li>
-          <button
-            type="button"
-            className="menu-li"
-            onClick={() => setIsPolymorphsDropdownOpened(!isPolymorphsDropdownOpened)}
-          >
-            <span className="nav__link__title">Rarity Charts</span>
-            <img className="arrow" src={arrowUP} alt="arrow" />
-          </button>
-          <div className="dropdown minting-drop">
-            <div className="dropdown__body">
-              <button
-                type="button"
-                onClick={() => {
-                  history.push('/polymorph-rarity');
-                }}
-              >
-                <img src={navChartIcon} alt="Polymorphs" />
-                <span>Polymorphs</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => window.open('https://rarity.tools/lobby-lobsters')}
-              >
-                <img src={navChartIcon} alt="Lobby Lobsters" />
-                <span>Lobby Lobsters</span>
-              </button>
-            </div>
-          </div>
-        </li>
-        <li>
-          <button
-            type="button"
-            className="menu-li"
-            onClick={() => setIsAboutDropdownOpened(!isAboutDropdownOpened)}
-          >
-            <span className="nav__link__title">Info</span>
-            <img className="arrow" src={arrowUP} alt="arrow" />
-          </button>
-          <div className="dropdown minting-drop">
-            <div className="dropdown__body">
-              <button
-                type="button"
-                onClick={() => {
-                  history.push('/about');
-                  setIsAboutDropdownOpened(false);
-                }}
-              >
-                <img src={aboutIcon} alt="About" />
-                About
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  window.open('https://github.com/UniverseXYZ/UniverseXYZ-Whitepaper');
-                  setIsAboutDropdownOpened(false);
-                }}
-              >
-                <img src={whitepaperIcon} alt="Whitepaper" />
-                Whitepaper
-              </button>
-              <button
-                type="button"
-                className="team"
-                onClick={() => {
-                  history.push('/team');
-                  setIsAboutDropdownOpened(false);
-                }}
-              >
-                <img src={teamIcon} alt="Team" />
-                Team
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://docs.universe.xyz/');
-                }}
-              >
-                <img src={docsIcon} alt="Docs" />
-                <span>Docs</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://universe.freshdesk.com/support/home');
-                }}
-              >
-                <img src={supportIcon} alt="Support" width="20px" height="15px" />
-                <span>Support</span>
-              </button>
-            </div>
-          </div>
-        </li>
-        <li>
+        {/* <li>
           <button
             type="button"
             className="menu-li"
@@ -324,17 +160,23 @@ const DesktopView = ({
               </button>
             </div>
           </div>
-        </li>
+        </li> */}
         {isWalletConnected && isAuthenticated ? (
           <li>
             <button
-              style={{ width: 200 }}
+              // style={{ width: 200 }}
               type="button"
               className="menu-li myAccount"
               onClick={() => setIsAccountDropdownOpened(!isAccountDropdownOpened)}
             >
-              <HeaderAvatar scale={4} />
-              <span className="nav__link__title">My account</span>
+              <HeaderAvatar scale={3} />
+              <span className="nav__link__title">
+                <div className="ethereum__address">
+                    {yourEnsDomain
+                      ? shortenEnsDomain(yourEnsDomain)
+                      : shortenEthereumAddress(ethereumAddress)}
+                </div>
+              </span>
               <img className="arrow" src={arrowUP} alt="arrow" />
             </button>
             <div className="dropdown drop-account">
@@ -349,7 +191,7 @@ const DesktopView = ({
                       const path = loggedInArtist.universePageAddress
                         ? loggedInArtist.universePageAddress
                         : address;
-                      history.push(`/${path}`, {
+                        router.push(`/${path}`, {
                         id: loggedInArtist.id,
                       });
 
@@ -400,45 +242,15 @@ const DesktopView = ({
               <div className="dropdown__body">
                 <button
                   type="button"
-                  onClick={() => {
-                    history.push('/my-account');
-                    setIsAccountDropdownOpened(false);
-                  }}
-                >
-                  <img src={myProfileIcon} alt="My Profile" />
-                  Edit My Profile
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    history.push('/my-polymorphs');
-                    setIsAccountDropdownOpened(false);
-                  }}
-                >
-                  <img src={myNFTsIcon} alt="My NFTs" />
-                  My NFTs
-                </button>
-                {/* <button
-                  type="button"
-                  onClick={() => {
-                    history.push('/my-auctions');
-                    setIsAccountDropdownOpened(false);
-                  }}
-                >
-                  <img src={auctionHouseIcon} alt="My Auctions" />
-                  My auctions
-                </button> */}
-                <button
-                  type="button"
-                  className="signOut"
+                  className="disconnect"
                   onClick={() => {
                     signOut();
-                    history.push('/');
+                    router.push('/');
                     setIsAccountDropdownOpened(false);
                   }}
                 >
-                  <img src={signOutIcon} alt="Sign out" />
-                  Sign out
+                  {/* <img src={signOutIcon} alt="Sign out" /> */}
+                  Disconnect
                 </button>
               </div>
             </div>
