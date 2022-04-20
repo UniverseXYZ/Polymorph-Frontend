@@ -80,6 +80,9 @@
                             height: 100%;
                         }
                     }
+                    @include md {
+                        padding: 8px 16px;
+                    }
                 }
                 .td--name {
                     font-style: normal;
@@ -112,7 +115,7 @@
                         justify-content: space-between;
                         align-items: center;
                         margin: 0 auto;
-                        width: 50%;
+                        // width: 50%;
                         @include lg {
                             justify-content: space-around;
                         }
@@ -149,9 +152,9 @@
                         .text--event {
                             padding-right: 10px;
                             text-align: left;
-                            @include lg {
-                                width: calc(100% - 40%);
-                            }
+                            // @include lg {
+                            //     width: calc(100% - 40%);
+                            // }
                         }
                     }  
                 }
@@ -185,6 +188,7 @@
     }
     .mobile--table--polymorphs--activity {
         min-height: 400px;
+        width: 100%;
     }
     .pagination__container {
         ul {

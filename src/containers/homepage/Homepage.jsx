@@ -31,6 +31,7 @@ const Homepage = () => {
 
   useEffect(() => {
     if (+windowSize.width <= 575) setMobile(true);
+    else setMobile(false);
   }, [windowSize.width]);
 
   const setDarkMode = useThemeStore(s => s.setDarkMode);
@@ -62,7 +63,7 @@ const Homepage = () => {
       <BattlePolymorphSection />
       <PolymorphsActivity
         ethPrice={`${ethUsdPrice}`}
-        mobile={false}
+        mobile={mobile}
         morphEntities={data?.tokenMorphedEntities}
       />
     </div>

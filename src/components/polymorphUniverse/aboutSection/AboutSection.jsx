@@ -88,7 +88,7 @@ const AboutSection = () => (
             <div className="images--charts--parent">
               <h2>Polymorph Rarity Chart</h2>
               <img src={imgRow2Chart} alt="img" className="row2-chart" />
-              <img src={imgRow2ChartMobile} alt="img" className="row2-chart-mobile" />
+              {/* <img src={imgRow2ChartMobile} alt="img" className="row2-chart-mobile" /> */}
             </div>
           </AnimatedOnScroll>
         }
