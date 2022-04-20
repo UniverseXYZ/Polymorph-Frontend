@@ -18,6 +18,7 @@ import imgMariguana from '../../assets/images/Mariguana-small.png';
 import imgPaul from '../../assets/images/Paul-small.png';
 import imgRagnar from '../../assets/images/Ragnar-small.png';
 import imgXYZBot from '../../assets/images/XYZbot-small.png';
+import ETHIcon from '../../assets/images/v2/tokens/ETH_white.svg'
 
 const characters = [
   'Diamond Paws',
@@ -101,14 +102,14 @@ const PolymorphsActivityTableRowMobile = (props) => {
           <span>{getSkinFromGenome(data.newGene)}</span>
         </p>
         <div className="event--block">
-          <div className="event--type--icon-block">
+          <div className={`event--type event--type--${getTypeEvent(data.eventType)}`}>
             <img alt="img" src={getTypeImage(getTypeEvent(data.eventType))} />
+            <span className="event--text">{getTypeEvent(data.eventType)}</span>
           </div>
-          <p className="event--text">{getTypeEvent(data.eventType)}</p>
         </div>
       </div>
       <div className="right--block price--block">
-        <p className="price--eth">{utils.formatEther(data.price)} ETH</p>
+        <p className="price--eth"><img src={ETHIcon}/>{utils.formatEther(data.price)}</p>
         <p className="price--usd">(${(ethPrice * utils.formatEther(data.price)).toFixed(2)})</p>
       </div>
     </div>
