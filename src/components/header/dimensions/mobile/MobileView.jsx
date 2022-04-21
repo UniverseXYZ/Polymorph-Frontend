@@ -480,53 +480,6 @@ const MobileView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-<<<<<<< HEAD
-                    onClick={() => {
-                      history.push('/my-account');
-                      setIsAccountDropdownOpened(false);
-                      // if (
-                      //   loggedInArtist.name &&
-                      //   loggedInArtist.universePageAddress &&
-                      //   loggedInArtist.avatar &&
-                      //   loggedInArtist.about &&
-                      //   editProfileButtonClick
-                      // ) {
-                      //   history.push(`/${loggedInArtist.universePageAddress}`, {
-                      //     id: loggedInArtist.id,
-                      //   });
-                      // } else {
-                      //   history.push('/my-account');
-                      // }
-                      // setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myProfileIcon} alt="My Profile" />
-                    Edit My Profile
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-polymorphs');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myNFTsIcon} alt="My NFTs" />
-                    My NFTs
-                  </button>
-                  {/* <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-auctions');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={auctionHouseIcon} alt="My Auctions" />
-                    My auctions
-                  </button> */}
-                  <button
-                    type="button"
-=======
->>>>>>> 77a7a616 (Modified the mobile header design)
                     className="signOut"
                     onClick={() => {
                       signOut();
