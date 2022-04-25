@@ -41,17 +41,17 @@ export default class AutoPlayMethods extends Component {
       
       return (
           <Slider {...settings}>
-            <div>
-              <img src={CharlesImage}/>{"."}
+            <div className='background--image background--image--charles'>
+              {'.'}
             </div>
-            <div>
-              <img src={AlienImage}/>{"."}
+            <div className='background--image background--image--alien'>
+              {'.'}
             </div>
-            <div>
-              <img src={SkeletonImage}/>{"."}
+            <div className='background--image background--image--skeleton'>
+              {'.'}
             </div>
-            <div>
-              <img src={GoldtoothImage}/>{"."}
+            <div className='background--image background--image--goldtooth'>
+              {'.'}
             </div>
           </Slider>
       );

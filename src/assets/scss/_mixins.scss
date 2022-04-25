@@ -28,6 +28,13 @@
   }
 }
 
+// Extra large tablets and desktops
+@mixin xxl {
+  @media (max-width: #{$screen-xxl-max}) {
+    @content;
+  }
+}
+
 // Custom Checkbox
 
 @mixin css-checkbox(
