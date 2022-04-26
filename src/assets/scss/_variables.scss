@@ -1,6 +1,8 @@
 // Colors
 $white: #ffffff;
+$white-transparent: rgba(255, 255, 255, 0.7);
 $black: #000000;
+$black-transparent: rgba(0, 0, 0, 0.7);
 $primary-bg-color: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
 
 // Fonts
@@ -20,3 +22,7 @@ $screen-lg-max: 992px;
 
 // Large tablets and desktops
 $screen-xl-max: 1230px;
+
+
+// Extra large desktops
+$screen-xxl-max: 1440px;

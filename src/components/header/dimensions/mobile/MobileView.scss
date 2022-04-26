@@ -336,6 +336,14 @@
           font-size: 12px;
           line-height: 22px;
           color: $black;
+          span {
+            margin-left: 8px;
+            font-size: 10px;
+            background-color: $black;
+            color: white;
+            padding: 4px;
+            border-radius: 4px;
+          }
         }
         img {
           transition: 0.1s ease-in-out;
@@ -623,6 +631,10 @@
           margin: 0px 12px;
         }
 
+        .group1 {
+          display: flex;
+        }
+
         .group1 > img,
         .group2 > img {
           margin: 0px 12px 0 0;
@@ -652,6 +664,10 @@
 
       &__body {
         padding: 6px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         button {
           display: flex;
           align-items: center;
@@ -668,10 +684,13 @@
             background: rgba(0, 0, 0, 0.05);
           }
           &.signOut {
-            color: #ff4949;
-            &:hover {
-              background: rgba(255, 73, 73, 0.05) !important;
-            }
+            color: $black;
+            justify-content: center;
+            background-image: linear-gradient(101deg, #bceb00, #00eaea);
+            box-shadow: 2px 1000px 1px #FFFFFF inset;
+            border: 1px solid transparent;
+            width: 85%;
+            height: 65%;
           }
           img {
             margin-right: 8px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { AnimatedOnScroll } from 'react-animated-css-onscroll';
 import Popup from 'reactjs-popup';
@@ -7,11 +7,13 @@ import ellipses from '../../assets/images/ellipses.svg';
 import heroVideo from '../../assets/images/hero_video.mp4';
 import Button from '../button/Button.jsx';
 import SubscribePopup from '../popups/SubscribePopup.jsx';
+import SlickCarousel from './SlickCarousel';
+import TestCarousel from './TestCarousel'
 
 const Welcome = () => {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef();
-  const history = useHistory();
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,37 +28,31 @@ const Welcome = () => {
 
   return (
     <div className="welcome__section">
-      <img className="ellipse-l" src={ellipses} alt="Ellipses" />
-      <img className="ellipse-r" src={ellipses} alt="Ellipses" />
+      <div className='welcome__section__carousel'>
+        <SlickCarousel />
+      </div>
       <div className="welcome__section__container">
         <div className="left">
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
-            <h1 className="title">Welcome to the NFT Universe Built on Ethereum</h1>
+            <h1 className="title">Polymorph Universe</h1>
           </AnimatedOnScroll>
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={400}>
             <p className="desc">
-              Launch your own community-driven NFT universe baked with social tools, media services,
-              and distribution - underpinned by the native $XYZ token.
+              The Polymorphs are a collection of morphing NFTs, with <b>11 base skins</b> and <b>200+ traits</b>.
             </p>
           </AnimatedOnScroll>
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={600}>
             <div className="links">
-              <Button className="light-button" onClick={() => history.push('/marketplace')}>
-                Marketplace
+              <Button className="light-button" onClick={() => router.push('/burn-to-mint')}>
+                Burn to Mint
               </Button>
-              <Popup
-                trigger={
-                  <button type="button" className="light-border-button">
-                    Join Newsletter
-                  </button>
-                }
-              >
-                {(close) => <SubscribePopup close={close} />}
-              </Popup>
+              <Button className="light-border-button" onClick={() => router.push('/polymorph-rarity')}>
+                Rarity Chart
+              </Button>
             </div>
           </AnimatedOnScroll>
         </div>
-        <AnimatedOnScroll animationIn="fadeIn">
+        {/* <AnimatedOnScroll animationIn="fadeIn">
           <div className="right">
             {!loaded && (
               <SkeletonTheme color="#202020" highlightColor="#444">
@@ -75,7 +71,8 @@ const Welcome = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-        </AnimatedOnScroll>
+        </AnimatedOnScroll> */}
+        <div className='fade'>{" "}</div> 
       </div>
     </div>
   );

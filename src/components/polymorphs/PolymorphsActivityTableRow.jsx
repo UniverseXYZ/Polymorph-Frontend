@@ -20,6 +20,8 @@ import imgRagnar from '../../assets/images/Ragnar-small.png';
 import imgXYZBot from '../../assets/images/XYZbot-small.png';
 import { useRouter } from 'next/router';
 // import './styles/PolymorphsActivityTableRow.scss';
+import ETHIcon from '../../assets/images/v2/tokens/ETH_white.svg'
+
 
 const characters = [
   'Diamond Paws',
@@ -117,16 +119,17 @@ const PolymorphsActivityTableRow = (props) => {
       </td>
       <td className="td--event">
         <span>
-          <div className="flex--event--block">
+          <div className={`flex--event--block`}>
             <div className={`event--type event--type--${getTypeEvent(data.eventType)}`}>
               <img alt="img" src={getTypeImage(getTypeEvent(data.eventType))} />
+              <span className="text--event">{getTypeEvent(data.eventType)}</span>
             </div>
-            <div className="text--event">{getTypeEvent(data.eventType)}</div>
           </div>
         </span>
       </td>
       <td className="td--price">
-        <span className="price--eth">{utils.formatEther(data.price)} ETH</span>
+        <img className="eth--icon" src={ETHIcon}/>
+        <span className="price--eth">{utils.formatEther(data.price)}</span>
         <span className="price--usd">
           {' '}
           (${(ethPrice * utils.formatEther(data.price)).toFixed(2)})
