@@ -4,6 +4,7 @@
 .latest--features--section {
     background-color: $black;
     padding: 90px 60px;
+    position: relative;
     &--container {
         max-width: 1110px;
         margin: 0 auto;
@@ -26,6 +27,15 @@
             grid-gap: 30px;
             > div {
                 position: relative;
+                border-radius: 12px;
+                // border: 1px solid transparent;
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: 2rem;
+
+                @include md {
+                    padding: 1rem;
+                }
+
                 h2 {
                     font-family: $sharpGroteskSemiBoldFont;
                     font-style: normal;
@@ -46,29 +56,42 @@
                     font-weight: normal;
                     font-size: 14px;
                     line-height: 160%;
-                    color: $white;
+                    color: $white-transparent;
                     max-width: 250px;
                     margin-bottom: 46px;
                     @include lg{
                         max-width: 100%; 
                     }
                 }
-                button {
+                .light-border-button {
+                    display: flex;
                     font-family: $spaceGroteskFont;
                     font-style: normal;
                     font-weight: normal;
                     font-size: 16px;
                     line-height: 20px;
+                    color: $white;                    
+                    box-shadow: 2px 1000px 1px #000 inset;
+                    background-image: linear-gradient(101deg, #bceb00, #00eaea);
+                    background-origin: border-box;
                     color: $white;
-                    background: none;
                     transition: .3s;
-                    position: absolute;
-                    bottom: 0;
+                    margin-top: 2rem;
                     img {
                         margin-left: 10px;
                     }
                     &:hover {
-                        transform: scale(1.1);
+                        transform: scale(1.05);
+                        box-shadow: 2px 1000px 1px #000 inset !important;
+                    }
+                }
+                .button-disabled {
+                    color: $white-transparent;
+                    border: 1px solid $white-transparent;
+                    border-radius: 12px;
+                    padding: 11px 26px;
+                    &:hover {
+                        cursor: default;
                     }
                 }
             }

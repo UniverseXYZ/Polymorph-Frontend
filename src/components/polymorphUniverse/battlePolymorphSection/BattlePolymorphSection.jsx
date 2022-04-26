@@ -14,7 +14,7 @@ const battlePolymorphSection = () => (
             from 6 quirky battlegrounds, each of them with a nod to popular culture and different
             entry fees.
           </p>
-          <Button className="light-button">Battle now</Button>
+          <Button className={'light-button'} disabled='true'>Coming Soon</Button>
         </div>
         <div>
           <h1 className="hidden-battle">Battle your Polymorph</h1>
