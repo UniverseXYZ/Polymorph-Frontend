@@ -11,6 +11,47 @@
     min-height: 720px;
     padding: 0 60px;
 
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      width: 100%;    
+
+      button:hover {
+        cursor: default;
+      }
+
+      .active--carousel--bar {
+
+        .active--carousel--span {
+          width: 0%;
+          background: linear-gradient(135deg, #BCEB00 15.57%, #00EAEA 84.88%);
+        }
+
+      }
+    }
+
+    .carousel-indicators [data-bs-target] {
+      position: relative;
+      width: 94px;
+      height: 4px;
+      border: none;
+      border-radius: 4px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 10px;
+    }
+    
+    .carousel-indicators [data-bs-target] span {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      // background: #7952b3;
+      border-radius: inherit;
+    }
+
     &__carousel {
       display: block;
       flex-direction: column;
