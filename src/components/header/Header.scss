@@ -79,6 +79,7 @@
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
+
     .mobile__nav {
       .mobile--search--box {
         background-color: transparent;
@@ -108,6 +109,14 @@
       &:hover {
         box-shadow: 2px 1000px 1px rgba(0, 0, 0, 0.9) inset;
       }
+    }
+
+    .tablet__nav .wallet__connected__tablet button .nav__link__title .ethereum__address__tablet {
+      color: white;
+    }
+
+    .tablet__nav .wallet__connected__tablet .dropdown__header .copy-div .ethereum__address{
+        color: $black;
     }
 
     .tablet__nav button.hamburger {

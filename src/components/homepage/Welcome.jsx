@@ -33,7 +33,7 @@ const Welcome = () => {
       <div className="welcome__section__container">
         <div className="left">
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
-            <h1 className="title">Polymorph Universe</h1>
+            <h1 className="title">Polymorph<br/> Universe</h1>
           </AnimatedOnScroll>
           <AnimatedOnScroll animationIn="fadeIn" animationInDelay={400}>
             <p className="desc">
