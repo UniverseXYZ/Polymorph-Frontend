@@ -84,6 +84,9 @@
                         transform: scale(1.05);
                         box-shadow: 2px 1000px 1px #000 inset !important;
                     }
+                    @include sm {
+                        width: 100%;
+                    }
                 }
                 .button-disabled {
                     color: $white-transparent;
@@ -92,6 +95,9 @@
                     padding: 11px 26px;
                     &:hover {
                         cursor: default;
+                    }
+                    @include sm {
+                        width: 100%;
                     }
                 }
             }

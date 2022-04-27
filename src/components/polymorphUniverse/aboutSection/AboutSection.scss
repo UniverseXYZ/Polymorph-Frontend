@@ -96,6 +96,8 @@
 .about--wrapper--row1 {
   min-height: 500px;
   width: 90%;
+  padding-top: 90px;
+  padding-bottom: 45px;
   @include lg {
     min-height: 355px;
   }
@@ -133,13 +135,13 @@
     h2{
       display: none;
       @include sm {
-      display: block;
+      display: none;
       font-family: $sharpGroteskSemiBoldFont;
       font-size: 26px;
       font-style: normal;
       font-weight: 600;
       line-height: 36px;
-      text-align: center;
+      // text-align: center;
     }
     }
   }
@@ -156,7 +158,8 @@
         font-size: 26px;
       }
       @include sm {
-        display: none;
+        // display: none;
+        max-width: 100%;
       }
       margin-top: 15px;
       font-family: $sharpGroteskSemiBoldFont;
@@ -173,8 +176,6 @@
       }
       @include sm {
         font-size: 14px;
-        text-align: center;
-        margin-top: unset;
       }
       max-width: 445px;
       margin-top: 30px;
@@ -190,12 +191,13 @@
   }
 }
 .about--wrapper--row2 {
+  padding-top: 45px;
+  padding-bottom: 90px;
   min-height: 500px;
   width: 90%;
   overflow: hidden;
   @include lg {
     min-height: 355px;
-    width: 100%;
   }
   @include sm {
     width: 100%;
@@ -221,7 +223,6 @@
     }
     @include sm {
       padding: 0;
-      text-align: center;
     }
     h2 {
       @include lg {
@@ -229,7 +230,7 @@
         max-width: 285px;
       }
       @include sm {
-        display: none;
+        max-width: 100%;
       }
       font-family: $sharpGroteskSemiBoldFont;
       font-size: 32px;
@@ -247,7 +248,6 @@
       @include sm {
         font-size: 14px;
         padding: 0;
-        text-align: center;
         max-width: unset;
         margin-top: 15px;
       }
@@ -263,7 +263,7 @@
     button {
       margin-top: 30px;
       @include sm{
-
+        width: 100%;
       }
     }
   }
@@ -320,7 +320,7 @@
       h2 {
         display: none;
         @include sm {
-          display: block;
+          display: none;
           font-size: 26px;
           font-family: $sharpGroteskSemiBoldFont;
           font-style: normal;
@@ -329,7 +329,7 @@
           text-align: left;
           text-align: center;
         }
-      }
+      } 
     }
   }
 }
