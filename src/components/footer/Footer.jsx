@@ -4,6 +4,7 @@ import Popup from 'reactjs-popup';
 // import './Footer.scss';
 import { useRouter } from 'next/router'
 import Logo from '../../assets/images/light.svg';
+import polymorphsLightLogo from '../../assets/images/polymorphs-logo-light.svg';
 import twitterIcon from '../../assets/images/twitter-icon.svg';
 import discordIcon from '../../assets/images/discord-icon.svg';
 import coinGesco from '../../assets/images/coingecko-icon.svg';
@@ -93,7 +94,7 @@ const Footer = () => {
           <div className="footer__middle__container">
             <div className="universe">
               <div className="logo-div">
-                <img src={Logo} alt="logo" />
+                <img src={polymorphsLightLogo} alt="logo" />
               </div>
               <p>
               The Polymorphs are a collection of morphing NFTs, with 11 base skins and 200+ traits.

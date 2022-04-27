@@ -18,6 +18,8 @@ import MobileView from './dimensions/mobile/MobileView.jsx';
 import AppContext from '../../ContextAPI';
 import appDarkLogo from '../../assets/images/dark.svg';
 import appLightLogo from '../../assets/images/light.svg';
+import polymorphsDarkLogo from '../../assets/images/polymorphs-logo-dark.svg';
+import polymorphsLightLogo from '../../assets/images/polymorphs-logo-light.svg';
 import searchIcon from '../../assets/images/search-gray.svg';
 import closeIcon from '../../assets/images/close-menu.svg';
 import mp3Icon from '../../assets/images/mp3-icon.png';
@@ -163,12 +165,13 @@ const Header = () => {
       <div className="app__logo">
         <Link href="/">
           <a className="dark">
-            <img src={appDarkLogo} alt="App Logo" />
+            <img src={polymorphsDarkLogo} alt="App Logo" />
           </a>
         </Link>
         <Link href="/">
           <a className="light">
-            <img src={appLightLogo} alt="App Logo" />
+            {/* <img src={appLightLogo} alt="App Logo" /> */}
+            <img src={polymorphsLightLogo} alt="App Logo" />
           </a>
         </Link>
         {/* <div className="search--field">
