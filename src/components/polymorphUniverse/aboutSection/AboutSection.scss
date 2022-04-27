@@ -263,7 +263,7 @@
     button {
       margin-top: 30px;
       @include sm{
-
+        width: 100%;
       }
     }
   }
@@ -329,7 +329,7 @@
           text-align: left;
           text-align: center;
         }
-      }
+      } 
     }
   }
 }

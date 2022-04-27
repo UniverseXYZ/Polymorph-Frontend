@@ -11,14 +11,13 @@ import Welcome from '../../components/homepage/Welcome.jsx';
 import LatestFeaturesSection from '@legacy/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.jsx';
 import AboutSection from '@legacy/polymorphUniverse/aboutSection/AboutSection.jsx';
 import BattlePolymorphSection from '@legacy/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.jsx';
+import BurnToMintSection from '../../components/polymorphUniverse/burnToMintSection/BurnToMintSection'
 
 import PolymorphsActivity from '@legacy/polymorphs/PolymorphsActivity.jsx';
 import { morphedPolymorphs, queryPolymorphsGraph } from '../../utils/graphql/polymorphQueries'
 import { useGraphQueryHook } from '../../utils/hooks/useGraphQueryHook';
 import { useErc20PriceStore } from '../../stores/erc20PriceStore';
 import { useWindowSize } from 'react-use';
-
-import SlickCarousel from '../../components/homepage/SlickCarousel'
 
 
 
@@ -60,6 +59,7 @@ const Homepage = () => {
       <AboutSection />
       {/* <NonFungibleUniverse />
       <BuyUniverseNFTs /> */}
+      <BurnToMintSection />
       <BattlePolymorphSection />
       <PolymorphsActivity
         ethPrice={`${ethUsdPrice}`}

@@ -29,7 +29,8 @@
                 }
                 @include sm{
                     font-size: 26px;
-                    display: none;
+                    text-align: left;
+                    // display: none;
                 }
             }
             p {
@@ -46,20 +47,19 @@
                     margin-bottom: 35px;
                 }
                 @include sm {
-                    margin-top: unset;    
+                    text-align: left;
+                    // margin-top: unset;    
+                }
+            }
+            button {
+                @include sm {
+                    width: 100%;
                 }
             }
             @include sm {
                 display: flex;
                 flex-flow: column-reverse;
                 width: 100%;
-            }
-            .hidden-battle{
-                display: none;
-              @include sm {
-                display: block;
-                text-align: center;
-            }
             }
         }
     }

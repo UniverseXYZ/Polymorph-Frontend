@@ -8,7 +8,6 @@ import heroVideo from '../../assets/images/hero_video.mp4';
 import Button from '../button/Button.jsx';
 import SubscribePopup from '../popups/SubscribePopup.jsx';
 import SlickCarousel from './SlickCarousel';
-import TestCarousel from './TestCarousel'
 
 const Welcome = () => {
   const [loaded, setLoaded] = useState(false);

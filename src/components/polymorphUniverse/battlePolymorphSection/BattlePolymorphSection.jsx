@@ -17,7 +17,6 @@ const battlePolymorphSection = () => (
           <Button className={'light-button'} disabled='true'>Coming Soon</Button>
         </div>
         <div>
-          <h1 className="hidden-battle">Battle your Polymorph</h1>
           <img src={battlePolymorphImage} alt="Battle polymorph" />
         </div>
       </div>
