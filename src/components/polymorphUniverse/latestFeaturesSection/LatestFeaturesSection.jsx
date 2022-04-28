@@ -5,6 +5,8 @@ import arrowRight from '../../../assets/images/arrow-right.svg';
 import rarityChartIcon from '../../../assets/images/rarity-chart-icon.svg';
 import battleUniverseIcon from '../../../assets/images/battle-universe-icon.svg';
 import burnToMintIcon from '../../../assets/images/burn-to-mint-icon.svg';
+import Button from '@legacy/button/Button';
+import PolymorphicFaces from '../../../assets/images/polymorphic-faces.png'
 
 const LatestFeaturesSection = () => {
   const router = useRouter();
@@ -47,6 +49,17 @@ const LatestFeaturesSection = () => {
               {/* <img src={arrowRight} alt="Arrow right" /> */}
             </button>
           </div>
+        </div>
+      </div>
+      <div className='polymorphic--faces--section--container'>
+        <img src={PolymorphicFaces}/>
+        <div>
+          <h2>Claim Your Polymorphic Faces for Free</h2>
+          <p>
+            Each V1 Polymorph burned grants a free Polymorphic Face claim! 
+            Polymorphic Faces are built to scramble and can only be obtained by burning V1 Polymorphs.
+          </p>
+          <button className='button-disabled'>Coming soon</button>
         </div>
       </div>
     </div>
