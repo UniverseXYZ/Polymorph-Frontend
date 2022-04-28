@@ -89,8 +89,8 @@
                     }
                 }
                 .button-disabled {
-                    color: $white-transparent;
-                    border: 1px solid $white-transparent;
+                    color: rgba(255, 255, 255, 0.2);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
                     border-radius: 12px;
                     padding: 11px 26px;
                     &:hover {
@@ -113,4 +113,67 @@
     @include sm {
         padding: 90px 20px;
     }
+
+
+    .polymorphic--faces--section--container {
+        display: flex;
+        align-items: center;
+        margin: 32px auto;
+        max-width: 1110px;
+        padding: 24px 32px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background-image: linear-gradient(130deg, #2AD0CA, #E1F664, #FEB0FE, #ABB3FC, #5DF7A4, #58C4F6);
+        box-shadow: 2px 1000px 1px #000 inset;
+        background-origin: border-box;
+
+        @include sm {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        div {   
+            margin: 0 48px;
+            width: 100%;
+            h2 {
+            font-family: 'Sharp Grotesk';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+            margin: 12px 0;
+            }
+
+            p {
+                font-family: 'Space Grotesk';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 22px;
+                color: rgba(255, 255, 255, 0.6);
+                margin: 12px 0;
+            }
+
+            .button-disabled {
+                color: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
+                padding: 11px 26px;
+                margin: 32px 0;
+                &:hover {
+                    cursor: default;
+                }
+                @include sm {
+                    width: 100%;
+                }
+            }
+
+            @include md {
+                margin: 0;
+            }
+        }
+
+    }
+
 }
