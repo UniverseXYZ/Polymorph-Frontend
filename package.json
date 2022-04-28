@@ -55,6 +55,7 @@
     "react-lottie": "^1.2.3",
     "react-moment": "^1.1.1",
     "react-paginate": "^7.1.2",
+    "react-player": "^2.10.0",
     "react-query": "^3.32.3",
     "react-read-more-less": "^0.1.6",
     "react-router": "^5.2.0",

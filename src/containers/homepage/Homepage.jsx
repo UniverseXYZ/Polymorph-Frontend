@@ -12,7 +12,7 @@ import LatestFeaturesSection from '@legacy/polymorphUniverse/latestFeaturesSecti
 import AboutSection from '@legacy/polymorphUniverse/aboutSection/AboutSection.jsx';
 import BattlePolymorphSection from '@legacy/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.jsx';
 import BurnToMintSection from '../../components/polymorphUniverse/burnToMintSection/BurnToMintSection'
-
+import PolymorphicTherapySection from '../../components/polymorphUniverse/polymorphicTherapySection/PolymorphicTherapySection'
 import PolymorphsActivity from '@legacy/polymorphs/PolymorphsActivity.jsx';
 import { morphedPolymorphs, queryPolymorphsGraph } from '../../utils/graphql/polymorphQueries'
 import { useGraphQueryHook } from '../../utils/hooks/useGraphQueryHook';
@@ -61,6 +61,7 @@ const Homepage = () => {
       <BuyUniverseNFTs /> */}
       <BurnToMintSection />
       <BattlePolymorphSection />
+      <PolymorphicTherapySection />
       <PolymorphsActivity
         ethPrice={`${ethUsdPrice}`}
         mobile={mobile}

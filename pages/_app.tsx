@@ -23,6 +23,7 @@ import '../src/components/ui-elements/styles/WelcomeWrapper.scss';
 import '../src/components/pagination/Pagination.scss';
 import '../src/components/polymorphUniverse/aboutSection/AboutSection.scss';
 import '../src/components/polymorphUniverse/burnToMintSection/BurnToMintSection.scss';
+import '../src/components/polymorphUniverse/polymorphicTherapySection/PolymorphicTherapySection.scss'
 import '../src/components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.scss';
 import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
