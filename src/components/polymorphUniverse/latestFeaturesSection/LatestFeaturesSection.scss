@@ -71,19 +71,39 @@
                     font-size: 16px;
                     line-height: 20px;
                     color: $white;                    
-                    box-shadow: 2px 1000px 1px #000 inset;
-                    background-image: linear-gradient(101deg, #bceb00, #00eaea);
-                    background-origin: border-box;
+                    position:relative;
+                    box-shadow: none;
+                    background-image: none;
                     color: $white;
-                    transition: .3s;
-                    margin-top: 2rem;
+                    
+                    &::before {
+                        content:"";
+                        background-image: none;
+                        box-shadow: none;
+                        position:absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        border-radius: 12px; 
+                        padding: 1px; 
+                        background: linear-gradient(101deg, #bceb00, #00eaea);
+                        -webkit-mask: 
+                            linear-gradient(#fff 0 0) content-box, 
+                            linear-gradient(#fff 0 0);
+                        -webkit-mask-composite: xor;
+                            mask-composite: exclude; 
+                    }
+        
                     img {
                         margin-left: 10px;
                     }
+                    
                     &:hover {
                         transform: scale(1.05);
-                        box-shadow: 2px 1000px 1px #000 inset !important;
+                        box-shadow: none;
                     }
+
                     @include sm {
                         width: 100%;
                     }
@@ -123,9 +143,30 @@
         padding: 24px 32px;
         border: 1px solid transparent;
         border-radius: 12px;
-        background-image: linear-gradient(130deg, #2AD0CA, #E1F664, #FEB0FE, #ABB3FC, #5DF7A4, #58C4F6);
-        box-shadow: 2px 1000px 1px #000 inset;
-        background-origin: border-box;
+        // background-image: linear-gradient(130deg, #2AD0CA, #E1F664, #FEB0FE, #ABB3FC, #5DF7A4, #58C4F6);
+        // box-shadow: 2px 1000px 1px #000 inset;
+        // background-origin: border-box;
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.1);
+
+        &::before {
+            content:"";
+            background-image: none;
+            box-shadow: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 12px; 
+            padding: 1px; 
+            background-image: linear-gradient(101deg, #bceb00, #00eaea);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                mask-composite: exclude; 
+        }
 
         @include sm {
             flex-direction: column;
