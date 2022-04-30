@@ -1,3 +1,3 @@
-import PolymorphUniverse from '../../src/containers/polymorphUniverse/PolymorphUniverse';
+export { PolymorphUniverse as default, getStaticProps } from '../../src/containers/polymorphUniverse/PolymorphUniverse';
 
-export default PolymorphUniverse;
+
