@@ -7,10 +7,13 @@ import LatestFeaturesSection from '../../components/polymorphUniverse/latestFeat
 import BurnPolymorphBg from '../../assets/images/BurnPolymorphBg.png';
 import Section4LeftBackground from '../../assets/images/Section4GroupImage.png';
 import BattlePolymorphSection from '../../components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection';
+import BurnToMint from '../../containers/polymorphs/BurnToMint'
+
 
 const PolymorphUniverse = () => (
   <div className="polymorph--universe--general--page">
-    <HeroSection />
+    {/* <HeroSection /> */}
+    <BurnToMint />
     <LatestFeaturesSection />
     <div className="content">
       <AboutSection />
