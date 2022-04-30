@@ -27,6 +27,7 @@ import '../src/components/polymorphUniverse/polymorphicTherapySection/Polymorphi
 import '../src/components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.scss';
 import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
+import '../src/containers/polymorphs/BurnToMint.scss'
 import '../src/components/notFound/NotFound.scss';
 import '../src/components/input/RaritySortByOrder.scss';
 import '../src/components/input/RaritySortBySelect.scss';
