@@ -16,8 +16,7 @@ import { AnimatedOnScroll } from 'react-animated-css-onscroll';
 import Button from '@legacy/button/Button';
 import { useThemeStore } from '../../../src/stores/themeStore'
 
-const BurnToMint = () => {
-  // const { setDarkMode } = useThemeContext();
+const BurnToMint = (props) => {
   const router = useRouter();
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -58,7 +57,7 @@ const BurnToMint = () => {
               <span>
                 {/* TO DO:  */}
                 {/* Value to be fetched and displayed here */}
-                <span>3000 </span><span>/ 10000</span>
+                <span>{props.burntCount} </span><span>/ 10000</span>
               </span>
             </div>
           <div className='progress--bar'></div>
