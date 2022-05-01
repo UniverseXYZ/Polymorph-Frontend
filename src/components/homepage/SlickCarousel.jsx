@@ -33,12 +33,17 @@ export default class AutoPlayMethods extends Component {
           clearInterval(intervalID);
           this.setState({ barLoading: index })
           intervalID = setInterval(() => {
-            i = i + 2;
-            document.getElementsByClassName("active--carousel--span")[index].style.width = i + "%";
-            if (i >= 100) {
-              i = 0;
+            try {
+              i = i + 2;
+              document.getElementsByClassName("active--carousel--span")[index].style.width = i + "%";
+              if (i >= 100) {
+                i = 0;
+                clearInterval(intervalID);
+                document.getElementsByClassName("active--carousel--span")[index].style.width = "0%";
+                this.setState({ barLoading: false});
+              }
+            } catch {
               clearInterval(intervalID);
-              document.getElementsByClassName("active--carousel--span")[index].style.width = "0%";
               this.setState({ barLoading: false});
             }
           }, 40);
