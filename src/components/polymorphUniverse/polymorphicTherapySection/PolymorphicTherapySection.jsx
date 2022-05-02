@@ -6,7 +6,6 @@ import YoutubeIcon from '../../../assets/images/youtube.svg'
 
 const PolymorphicTherapySection = () => {
     const [isClicked, setIsClicked] = useState(false);
-    console.log(isClicked)
     return (
         <div className='polymorphic--therapy--section'>
             <div className='polymorphic--therapy--section--container'>
