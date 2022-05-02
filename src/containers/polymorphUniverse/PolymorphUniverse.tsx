@@ -1,6 +1,7 @@
 import React from 'react';
 // import './PolymorphUniverse.scss';
-import BurnToMint from '../polymorphs/BurnToMint'
+import BurnToMint from '../polymorphs/BurnToMint';
+import WhatsNewSection from '../polymorphs/WhatsNewSection';
 
 import { GetStaticProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
@@ -10,6 +11,7 @@ import { collectionKeys, nftKeys } from '@app/utils/query-keys';
 export const PolymorphUniverse = ({ burntCount } : any) => (
   <div className="polymorph--universe--general--page">
     <BurnToMint burntCount={burntCount}/>
+    <WhatsNewSection />
   </div>
 );
 
