@@ -29,6 +29,7 @@ import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
 import '../src/containers/polymorphs/BurnToMint.scss';
 import '../src/containers/polymorphs/WhatsNewSection.scss';
+import '../src/components/charactersGrid/CharactersGrid.scss';
 import '../src/components/notFound/NotFound.scss';
 import '../src/components/input/RaritySortByOrder.scss';
 import '../src/components/input/RaritySortBySelect.scss';
