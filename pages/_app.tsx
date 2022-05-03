@@ -73,6 +73,9 @@ import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 // import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
 // import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
+import '../src/components/selectNFTs/SelectNfts.scss'
+import '../src/components/nft/SearchFilters.scss';
+
 
 import 'swiper/css';
 import 'swiper/css/navigation';
