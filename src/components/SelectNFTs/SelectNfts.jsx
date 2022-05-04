@@ -8,12 +8,17 @@ import mp3Icon from '../../assets/images/mp3-icon.png';
 import AppContext from '../../ContextAPI';
 // import SearchFilters from '../nft/SearchFilters';
 import RarityFilters from '../rarityCharts/filters/RarityFilters'
+import BurnRarityList from './BurnRarityList'
 import { useSearchPolymorphs } from '../../utils/hooks/useRarityDebouncer'
 import { categoriesArray } from '../../containers/rarityCharts/categories';
 import NFTCard from '../nft/NFTCard';
+import { useMyNftsStore } from 'src/stores/myNftsStore';
+import { WalletTab } from '@app/modules/account/pages/my-nfts-page/components';
+import FiltersContextProvider from '../../app/modules/account/pages/my-nfts-page/components/search-filters/search-filters.context'
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
+  const { myNFTs } = useMyNftsStore();
   const { stepData, setStepData, bundleData } = props;
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
@@ -39,6 +44,8 @@ const SelectNfts = (props) => {
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
   const [offset, setOffset] = useState(0);
+  const [totalNfts, getTotalNfts] = useState('-');
+  const [perPage, setPerPage] = useState(8);
 
 
   const handleCategoryFilterChange = (idx, traitIdx) => {
@@ -92,23 +99,45 @@ const SelectNfts = (props) => {
             You can burn up to 20 Polymorphs at a time.
             </p>
           </div>
-          <RarityFilters
-            setSortField={setSortField}
-            searchText={inputText}
-            setSearchText={setInputText}
-            setSortDir={setSortDir}
-            sortDir={sortDir}
-            setApiPage={setApiPage}
-            resetPagination={resetPagination}
-            categories={categories}
-            setCategories={setCategories}
-            categoriesIndexes={categoriesIndexes}
-            setCategoriesIndexes={setCategoriesIndexes}
-            resultsCount={results.length}
-            handleCategoryFilterChange={handleCategoryFilterChange}
-            setFilter={setFilter}
-            filter={filter}
-          />
+          <div className="rarity--charts--page--container">
+            <RarityFilters
+              setSortField={setSortField}
+              searchText={inputText}
+              setSearchText={setInputText}
+              setSortDir={setSortDir}
+              sortDir={sortDir}
+              setApiPage={setApiPage}
+              resetPagination={resetPagination}
+              categories={categories}
+              setCategories={setCategories}
+              categoriesIndexes={categoriesIndexes}
+              setCategoriesIndexes={setCategoriesIndexes}
+              resultsCount={results.length}
+              handleCategoryFilterChange={handleCategoryFilterChange}
+              setFilter={setFilter}
+              filter={filter}
+            />
+            <BurnRarityList
+              data={results}
+              isLastPage={isLastPage}
+              perPage={perPage}
+              offset={offset}
+              setOffset={setOffset}
+              setPerPage={setPerPage}
+              setApiPage={setApiPage}
+              setIsLastPage={setIsLastPage}
+              categories={categories}
+              setCategories={setCategories}
+              categoriesIndexes={categoriesIndexes}
+              setCategoriesIndexes={setCategoriesIndexes}
+              setFilter={setFilter}
+              filter={filter}
+              loading={search.loading}
+              results={results}
+              apiPage={apiPage}
+              handleCategoryFilterChange={handleCategoryFilterChange}
+            />          
+          </div>
           {/* {myNFTs.filter((nft) => !nft.hidden).length ? ( */}
             {/* <> */}
               {/* <SearchFilters data={myNFTs} /> */}
@@ -124,8 +153,11 @@ const SelectNfts = (props) => {
                       setSelectedNFTsIds={setSelectedNFTsIds}
                     />
                   ))}
-              </div> */}
-            {/* </> */}
+              </div>
+              <FiltersContextProvider defaultSorting={0} >
+                <WalletTab getTotalNfts={getTotalNfts} />
+             </FiltersContextProvider>             */}
+             {/* </> */}
           {/* ) : ( */}
             {/* <></> */}
           {/* )} */}

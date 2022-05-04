@@ -4,6 +4,21 @@
 .select--nfts--container {
     width: 100%;
     padding-bottom: 60px;
+    .rarity--charts--list {
+        display: grid;
+        grid-template-columns: none;
+        grid-gap: 30px;
+        
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+            @include xl {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @include sm {
+            grid-template-columns: 1fr;
+            }
+        }
+    }
     .search--and--filters--section--sticky {
         position: sticky;
         top: 0;
@@ -27,7 +42,9 @@
     }
     .section--title--block {
         width: 100%;
-        margin-bottom: 30px;
+        margin: 30px auto;
+        max-width: 1110px;
+        padding: 0 60px;
         .section--title {
             font-family: $sharpGroteskSemiBoldFont;
             font-weight: 600;
