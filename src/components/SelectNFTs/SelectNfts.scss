@@ -3,7 +3,7 @@
 
 .select--nfts--container {
     width: 100%;
-    padding-bottom: 60px;
+    position: relative;
     .rarity--charts--list {
         display: grid;
         grid-template-columns: none;
@@ -19,6 +19,19 @@
             }
         }
     }
+
+    .rarity--charts--page--container {
+        padding-top: 0px;
+    }
+
+    .rarity--charts--search--and--filters--container {
+        margin-top: 60px;
+        margin-bottom: 0;
+        @include xl {
+            margin-bottom: 30px;
+        }
+    }
+
     .search--and--filters--section--sticky {
         position: sticky;
         top: 0;
@@ -44,20 +57,22 @@
         width: 100%;
         margin: 30px auto;
         max-width: 1110px;
-        padding: 0 60px;
         .section--title {
             font-family: $sharpGroteskSemiBoldFont;
             font-weight: 600;
-            font-size: 20px;
+            font-size: 32px;
             line-height: 130%;
             color: $black;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
+            @include sm {
+                font-size: 26px;
+            }
         }
         .section--hint--text {
             font-family: $spaceGroteskFont;
             font-style: normal;
             font-weight: normal;
-            font-size: 14px;
+            font-size: 18px;
             line-height: 160%;
             color: rgba(0, 0, 0, 0.6);
             a {
@@ -66,6 +81,15 @@
                 color: $black;
                 font-weight: 500;
             }
+            @include sm {
+                font-size: 16px;
+            }
+        }
+        @include xl {
+            padding: 0 60px;
+        }
+        @include md {
+            padding: 0 20px;
         }
     }
     .header--search--block {
@@ -404,4 +428,56 @@
             padding: 25px 20px;
         }
     }
+    .selected--cards--bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 95px;
+        padding: 20px 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        p {
+            margin-bottom: 16px;
+            width: 100%;
+            text-align: left;
+        }
+        .cards--container {
+          display: flex;
+          flex-wrap: wrap;
+
+          img {
+            margin: 8px;
+            border-radius: 4px;
+            height: 54px;
+            width: 54px;
+          }
+          @include md {
+              max-width: 100%;
+              justify-content: center;
+          }
+        }
+        .button--container {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          // width: 100%;
+          height: 100%;
+          span {
+            margin-right: 16px;
+          }
+          .light-button {
+            @include sm {
+              width: 100%;
+              margin-top: 20px;
+            }
+          }
+          @include sm {
+              width: 100%;
+          }
+        }
+        @include sm {
+          flex-direction: column;  
+          padding: 20px;
+        }
+      }
 }

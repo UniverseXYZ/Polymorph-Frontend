@@ -15,6 +15,7 @@ import NFTCard from '../nft/NFTCard';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 import { WalletTab } from '@app/modules/account/pages/my-nfts-page/components';
 import FiltersContextProvider from '../../app/modules/account/pages/my-nfts-page/components/search-filters/search-filters.context'
+import { useWindowSize } from 'react-use';
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -46,7 +47,10 @@ const SelectNfts = (props) => {
   const [offset, setOffset] = useState(0);
   const [totalNfts, getTotalNfts] = useState('-');
   const [perPage, setPerPage] = useState(8);
+  const [selectedCards, setSelectedCards] = useState([]);
 
+  const [mobile, setMobile] = useState(false);
+  const windowSize = useWindowSize();
 
   const handleCategoryFilterChange = (idx, traitIdx) => {
     const newCategories = [...categories];
@@ -78,6 +82,11 @@ const SelectNfts = (props) => {
     router.push('/nft-marketplace/summary');
   };
 
+  useEffect(() => {
+    if (+windowSize.width <= 575) setMobile(true);
+    else setMobile(false);
+  }, [windowSize.width]);
+
   // useEffect(() => {
   //   const getSelectedNFTs = [];
   //   myNFTs.forEach((nft) => {
@@ -87,6 +96,11 @@ const SelectNfts = (props) => {
   //   });
   //   setSelectedGalleryItem(getSelectedNFTs);
   // }, [selectedNFTsIds]);
+
+  const getSelectedCards = ([cardIds]) => {
+    console.log('the selected cards are: ', cardIds)
+    setSelectedCards(cardIds);
+  }
 
   return (
     <div className="select--nfts--container">
@@ -136,8 +150,31 @@ const SelectNfts = (props) => {
               results={results}
               apiPage={apiPage}
               handleCategoryFilterChange={handleCategoryFilterChange}
+              getSelectedCards={getSelectedCards}
             />          
           </div>
+          <div className={'selected--cards--bar'}>
+            {mobile && <p>NFTs: <b>{selectedCards.length}</b></p>}
+            <div className={'cards--container'}>
+              {results.map((slice) => {
+                return (
+                  <span>{selectedCards.includes(slice.tokenid) ? <img src={slice.imageurl}/> : null}</span>
+                )
+              })}
+            </div> 
+            <div className={'button--container'}>
+              {!mobile && <span>NFTs: <b>{selectedCards.length}</b></span>}
+              <Button 
+                className={'light-button'} 
+                onClick={() => router.push(selectedCards.lenght > 1 
+                  ? '/burn-to-mint/burn/batch'
+                  : '/burn-to-mint/burn/single')}>Burn
+              </Button>
+            </div>
+          </div>
+
+
+
           {/* {myNFTs.filter((nft) => !nft.hidden).length ? ( */}
             {/* <> */}
               {/* <SearchFilters data={myNFTs} /> */}
@@ -165,7 +202,7 @@ const SelectNfts = (props) => {
       {/* ) : (
         <></>
       )} */}
-      <div className="select--nfts--footer">
+      {/* <div className="select--nfts--footer">
         <div className="select--nfts--footer--container">
           <div className="selected--nft--block">
             {selectedGalleryItem.map((elem, index) => (
@@ -218,7 +255,7 @@ const SelectNfts = (props) => {
             </Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

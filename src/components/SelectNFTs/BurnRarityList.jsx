@@ -13,6 +13,7 @@ import closeIcon from '../../assets/images/close-menu.svg';
 import CategoriesFilter from '../rarityCharts/list/CategoriesFilter';
 import RarityChartsLoader from '../../containers/rarityCharts/RarityChartsLoader';
 import RarityPagination from '../rarityCharts/list/RarityPagination';
+import { Button } from '@chakra-ui/react';
 
 const List = ({
   data,
@@ -33,7 +34,7 @@ const List = ({
   results,
   apiPage,
   handleCategoryFilterChange,
-  withFilter
+  getSelectedCards
 }) => {
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
@@ -66,12 +67,14 @@ const List = ({
     setFilter(newFilter);
   };
 
-  console.log('the selected cards are: ', selectedCards)
-
   const removeSelectedCard = (tokenId) => {
     const newSelectedCards = selectedCards.filter((id) => id !== tokenId );
     setSelectedCards(newSelectedCards);
   }
+  
+  useEffect(() => {
+    getSelectedCards([selectedCards]);
+  }, [selectedCards])
 
   useEffect(() => {
     let check = false;
@@ -87,6 +90,7 @@ const List = ({
       setShowClearALL(false);
     }
   }, [categories]);
+
   return (
     <div className="rarity--charts--list">
         {/* <CategoriesFilter
@@ -143,6 +147,7 @@ const List = ({
                 setSelected={() => selectedCards.includes(item.tokenid) 
                   ? removeSelectedCard(item.tokenid)
                   : setSelectedCards([...selectedCards, item.tokenid])}
+
               />
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
