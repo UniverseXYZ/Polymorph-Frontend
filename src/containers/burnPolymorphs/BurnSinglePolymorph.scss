@@ -1,0 +1,124 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.burn--polymorph--page {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 56.64%, #000000 100%),
+    url("../../assets/images/BurnPolymorphBackground.png"), #000000;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: $black;
+  &--wrapper {
+    min-height: 680px;
+    padding: 40px 60px 100px;
+    &--container {
+      max-width: 1110px;
+      margin: 0 auto;
+      .back--btn {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 40px;
+        width: fit-content;
+        span {
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+          text-align: center;
+          color: $white;
+          margin-left: 10px;
+        }
+      }
+      .burn--polymorph--grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 90px;
+        align-items: center;
+        .characters--grid img {
+          @include lg {
+            max-height: 714px;
+            object-fit: cover;
+          }
+        }
+        > div:first-of-type {
+          position: relative;
+          img.scrambled--icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+          }
+        }
+        h1 {
+          font-family: $sharpGroteskSemiBoldFont;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 140%;
+          color: $white;
+          @include lg {
+            font-size: 26px;
+          }
+          @include md {
+            font-size: 20px;
+          }
+        }
+        p {
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 160%;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 16px;
+          margin-bottom: 40px;
+          @include lg {
+            font-size: 14px;
+          }
+          br {
+            @include lg {
+              display: none;
+            }
+          }
+        }
+        .burn--polymorphs--buttons {
+          display: flex;
+          align-items: center;
+          button {
+            &:nth-of-type(1) {
+              margin-right: 14px;
+              @include sm {
+                margin-right: 0px;
+                margin-bottom: 16px;
+              }
+            }
+            &:disabled {
+              background: rgba(255, 255, 255, 0.05);
+              color: rgba(255, 255, 255, 0.2);
+              &:hover {
+                background: rgba(255, 255, 255, 0.05) !important;
+              }
+            }
+            @include sm {
+              width: 100%;
+            }
+          }
+          @include sm {
+            flex-wrap: wrap;
+          }
+        }
+        @include lg {
+          grid-template-columns: 1fr;
+          grid-gap: 40px;
+        }
+        @include md {
+          grid-gap: 32px;
+        }
+      }
+    }
+    @include md {
+      padding: 32px 20px 64px;
+    }
+  }
+}
