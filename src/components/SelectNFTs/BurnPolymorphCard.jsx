@@ -8,8 +8,9 @@ import singleTraitScrambledIcon from '../../assets/images/single-trait-scrambled
 import { getPolymorphMeta } from '../../utils/api/polymorphs.js';
 import { renderLoaderWithData } from '../../containers/rarityCharts/renderLoaders.js';
 // import loadingBg from '../../../assets/images/mint-polymorph-loading-bg.png';
+import SelectedSVG from '../../assets/images/activity-icons/Selected.svg'
 
-const PolymorphCard = ({ item }) => {
+const PolymorphCard = ({ item, selected, setSelected }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const fetchMetadata = async () => {
@@ -22,7 +23,7 @@ const PolymorphCard = ({ item }) => {
   return loading ? (
     renderLoaderWithData(item)
   ) : (
-    <div className="card" onClick={() => console.log(item.tokenid)} aria-hidden="true">
+    <div className={`card ${selected ? 'selected' : ''}`} onClick={() => setSelected(item.tokenid)} aria-hidden="true">
       <div className="card--header">
         <div className="card--number">{`#${item.rank}`}</div>
         <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
@@ -56,6 +57,7 @@ const PolymorphCard = ({ item }) => {
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
       </Popup>
+      {selected ? <img className={'checkmark'} src={SelectedSVG} /> : null}
     </div>
   );
 };

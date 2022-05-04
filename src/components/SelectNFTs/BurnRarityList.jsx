@@ -38,6 +38,7 @@ const List = ({
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -64,6 +65,13 @@ const List = ({
     setCategories(newCategories);
     setFilter(newFilter);
   };
+
+  console.log('the selected cards are: ', selectedCards)
+
+  const removeSelectedCard = (tokenId) => {
+    const newSelectedCards = selectedCards.filter((id) => id !== tokenId );
+    setSelectedCards(newSelectedCards);
+  }
 
   useEffect(() => {
     let check = false;
@@ -127,7 +135,15 @@ const List = ({
         ) : results.length ? (
           <div className="grid">
             {sliceData.map((item, i) => (
-              <BurnPolymorphCard key={item.id} item={item} index={offset + i + 1} />
+              <BurnPolymorphCard 
+                key={item.id} 
+                item={item} 
+                index={offset + i + 1} 
+                selected={selectedCards.includes(item.tokenid)}
+                setSelected={() => selectedCards.includes(item.tokenid) 
+                  ? removeSelectedCard(item.tokenid)
+                  : setSelectedCards([...selectedCards, item.tokenid])}
+              />
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
