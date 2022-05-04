@@ -1,10 +1,1 @@
-
-
-
-const BurnBatch = () => {
-    return (
-        null
-    )
-}
-
-export default BurnBatch;
+export { BurnBatchPolymorphs as default } from '../../../../src/containers/burnPolymorphs/BurnBatchPolymorphs';
