@@ -9,6 +9,7 @@ import { getPolymorphMeta } from '../../utils/api/polymorphs.js';
 import { renderLoaderWithData } from '../../containers/rarityCharts/renderLoaders.js';
 // import loadingBg from '../../../assets/images/mint-polymorph-loading-bg.png';
 import SelectedSVG from '../../assets/images/activity-icons/Selected.svg'
+import ThreeDotsSVG from '../../assets/images/three-dots-horizontal.svg'
 
 const PolymorphCard = ({ item, selected, setSelected }) => {
   const [loading, setLoading] = useState(false);
@@ -51,8 +52,13 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
         )}
       </div>
       <div className="card--footer">
-        <h2>{item.character}</h2>
-        <p>{`ID: #${item.tokenid}`}</p>
+        <div className="card--footer--top">
+          <h2>{item.character}</h2>
+        </div>
+        <div className="card--footer--bottom">
+          <span>{`ID: ${item.tokenid}`}</span>
+          <button><img src={ThreeDotsSVG}/></button>
+        </div>
       </div>
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
