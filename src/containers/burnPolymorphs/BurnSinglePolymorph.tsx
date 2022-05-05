@@ -1,5 +1,5 @@
 import React from 'react';
-import polymorphImg from '../../assets/images/soldier.png';
+import polymorphImg from '../../assets/images/burn-polymorph.png';
 import BurnPolymorphs from '../../components/burnPolymorphs/BurnPolymorphs';
 
 export const BurnSinglePolymorph = () => {
