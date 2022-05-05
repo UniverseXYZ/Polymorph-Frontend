@@ -4,6 +4,8 @@
 .select--nfts--container {
     width: 100%;
     position: relative;
+    background-image: url('../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg');
+    background-size: contain;
     .rarity--charts--list {
         display: grid;
         grid-template-columns: none;
@@ -53,10 +55,16 @@
             }
         }
     }
+    .section--header {
+        background-image: url('../../assets/images//burn-to-mint-images/burn-to-mint-header-bg.png');
+        background-size: cover;
+        background-position: center;
+    }
     .section--title--block {
         width: 100%;
-        margin: 30px auto;
+        margin: 0 auto;
         max-width: 1110px;
+        padding-top: 2rem;
         .section--title {
             font-family: $sharpGroteskSemiBoldFont;
             font-weight: 600;
@@ -66,6 +74,20 @@
             margin-bottom: 16px;
             @include sm {
                 font-size: 26px;
+            }
+        }
+        .button--back {
+            font-family: 'Space Grotesk';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            display: flex;
+            align-items: center;
+            display: flex;
+            margin-bottom: 20px;
+            img {
+                margin-right: 14px;
             }
         }
         .section--hint--text {
@@ -87,9 +109,11 @@
         }
         @include xl {
             padding: 0 60px;
+            padding-top: 2rem;
         }
         @include md {
             padding: 0 20px;
+            padding-top: 2rem;
         }
     }
     .header--search--block {

@@ -16,6 +16,7 @@ import { useMyNftsStore } from 'src/stores/myNftsStore';
 import { WalletTab } from '@app/modules/account/pages/my-nfts-page/components';
 import FiltersContextProvider from '../../app/modules/account/pages/my-nfts-page/components/search-filters/search-filters.context'
 import { useWindowSize } from 'react-use';
+import Arrow from '../../assets/images/burn-to-mint-images/arrow-left.svg'
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -106,13 +107,20 @@ const SelectNfts = (props) => {
     <div className="select--nfts--container">
       {/* {stepData.selectedItem !== 'single' ? ( */}
         <>
-          <div className="section--title--block">
-            <h3 className="section--title">Choose Polymorphs</h3>
-            <p className="section--hint--text">
-            Select polymorphs you’d like to burn from your wallet. 
-            You can burn up to 20 Polymorphs at a time.
-            </p>
-          </div>
+          <div className="section--header">
+            <div className="section--title--block">
+              <Button 
+                className={'button--back'} 
+                onClick={() => router.push('/burn-to-mint')}>
+                <img src={Arrow}/> Burn To Mint
+              </Button>
+              <h3 className="section--title">Choose Polymorphs</h3>
+              <p className="section--hint--text">
+              Select polymorphs you’d like to burn from your wallet. 
+              You can burn up to 20 Polymorphs at a time.
+              </p>
+            </div>
+          </div> 
           <div className="rarity--charts--page--container">
             <RarityFilters
               setSortField={setSortField}
