@@ -157,9 +157,12 @@ const SelectNfts = (props) => {
             {mobile && <p>NFTs: <b>{selectedCards.length}</b></p>}
             <div className={'cards--container'}>
               {results.map((slice) => {
-                return (
-                  <span>{selectedCards.includes(slice.tokenid) ? <img src={slice.imageurl}/> : null}</span>
-                )
+                // return (
+                //   <span>{selectedCards.includes(slice.tokenid) ? <img src={slice.imageurl}/> : null}</span>
+                // )
+                  return selectedCards.includes(slice.tokenid) 
+                    ? <span><img src={slice.imageurl}/></span> 
+                    : null
               })}
             </div> 
             <div className={'button--container'}>
