@@ -5,7 +5,8 @@
     width: 100%;
     position: relative;
     background-image: url('../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg');
-    background-size: contain;
+    background-size:contain;
+
     .rarity--charts--list {
         display: grid;
         grid-template-columns: none;
@@ -24,6 +25,7 @@
 
     .rarity--charts--page--container {
         padding-top: 0px;
+        padding-bottom: 60px;
     }
 
     .rarity--charts--search--and--filters--container {
@@ -64,7 +66,7 @@
         width: 100%;
         margin: 0 auto;
         max-width: 1110px;
-        padding-top: 2rem;
+        padding-top: 40px;
         .section--title {
             font-family: $sharpGroteskSemiBoldFont;
             font-weight: 600;
@@ -460,6 +462,7 @@
         min-height: 95px;
         padding: 20px 40px;
         border-top: 1px solid rgba(0, 0, 0, 0.1);
+        background: $white;
         p {
             margin-bottom: 16px;
             width: 100%;
@@ -470,7 +473,7 @@
           flex-wrap: wrap;
 
           img {
-            margin: 8px;
+            margin: 0 8px;
             border-radius: 4px;
             height: 54px;
             width: 54px;
