@@ -133,11 +133,11 @@ const List = ({
           )}
         </div>
         {loading && !isLastPage ? (
-          <div className="grid">
+          <div className="burn--grid">
             <RarityChartsLoader number={9} />
           </div>
         ) : results.length ? (
-          <div className="grid">
+          <div className="burn--grid">
             {sliceData.map((item, i) => (
               <BurnPolymorphCard 
                 key={item.id} 
