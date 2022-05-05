@@ -456,7 +456,9 @@
     }
     .selected--cards--bar {
         display: flex;
+        position: sticky;
         align-items: center;
+        bottom: 0;
         justify-content: space-between;
         width: 100%;
         min-height: 95px;
