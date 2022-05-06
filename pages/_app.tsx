@@ -52,6 +52,7 @@ import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityCharsLoader.scss';
 import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
+import '../src/containers/burnPolymorphs/BurnSinglePolymorph.scss';
 
 import '../src/components/rarityCharts/list/RarityLobsterList.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
