@@ -1,5 +1,5 @@
-@import '../../../../assets/scss/variables';
-@import '../../../../assets/scss/mixins';
+@import "../../../../assets/scss/variables";
+@import "../../../../assets/scss/mixins";
 
 // .container {
 //   max-width: 90%;
@@ -134,7 +134,7 @@
           top: -32px;
           right: -63px;
           &::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 100%;
             left: 50%;
@@ -435,15 +435,15 @@
       left: 50%;
       transform: translate(-50%, -50%);
       display: inline-block;
-      width: 80px;
-      height: 80px;
+      width: 64px;
+      height: 64px;
     }
     .lds-roller div {
       animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
       transform-origin: 40px 40px;
     }
     .lds-roller div:after {
-      content: ' ';
+      content: " ";
       display: block;
       position: absolute;
       width: 7px;
