@@ -177,7 +177,7 @@ const SelectNfts = (props) => {
               {!mobile && <span>NFTs: <b>{selectedCards.length}</b></span>}
               <Button 
                 className={'light-button'} 
-                onClick={() => router.push(selectedCards.lenght > 1 
+                onClick={() => router.push(selectedCards.length > 1 
                   ? '/burn-to-mint/burn/batch'
                   : '/burn-to-mint/burn/single')}>Burn
               </Button>
