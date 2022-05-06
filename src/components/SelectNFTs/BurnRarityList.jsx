@@ -14,6 +14,7 @@ import CategoriesFilter from '../rarityCharts/list/CategoriesFilter';
 import RarityChartsLoader from '../../containers/rarityCharts/RarityChartsLoader';
 import RarityPagination from '../rarityCharts/list/RarityPagination';
 import { Button } from '@chakra-ui/react';
+import InfiniteScroll from 'react-infinite-scroller'
 
 const List = ({
   data,
@@ -134,30 +135,39 @@ const List = ({
         </div>
         {loading && !isLastPage ? (
           <div className="burn--grid">
-            <RarityChartsLoader number={9} />
+            <RarityChartsLoader number={8} />
           </div>
         ) : results.length ? (
-          <div className="burn--grid">
-            {sliceData.map((item, i) => (
-              <BurnPolymorphCard 
-                key={item.id} 
-                item={item} 
-                index={offset + i + 1} 
-                selected={selectedCards.includes(item.tokenid)}
-                setSelected={() => selectedCards.includes(item.tokenid) 
-                  ? removeSelectedCard(item.tokenid)
-                  : setSelectedCards([...selectedCards, item.tokenid])}
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={() => setPerPage(perPage+8)}
+              hasMore={data.length >= perPage ? true : false}
+              loader={<div>Loading ...</div>}
+            >
+            <div className="burn--grid">
 
-              />
-            ))}
+              {sliceData.map((item, i) => (
+                <BurnPolymorphCard 
+                  key={item.id} 
+                  item={item} 
+                  index={offset + i + 1} 
+                  selected={selectedCards.includes(item.tokenid)}
+                  setSelected={() => selectedCards.includes(item.tokenid) 
+                    ? removeSelectedCard(item.tokenid)
+                    : setSelectedCards([...selectedCards, item.tokenid])}
+
+                />
+              ))} 
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
+            </InfiniteScroll>
+
         ) : (
           <div className="rarity--charts--empty polymorphs">
             <p>No Polymorph could be found :’(</p>
           </div>
         )}
-        {data.length >= perPage ? (
+        {/* {data.length >= perPage ? (
           <div className="pagination__container">
             <RarityPagination
               data={data}
@@ -167,9 +177,9 @@ const List = ({
               apiPage={apiPage}
               setIsLastPage={setIsLastPage}
             />
-            {/* <ItemsPerPageDropdown perPage={perPage} setPerPage={setPerPage} /> */}
+            <ItemsPerPageDropdown perPage={perPage} setPerPage={setPerPage} />
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );
