@@ -76,6 +76,7 @@ import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleto
 import '../src/components/selectNFTs/SelectNfts.scss'
 import '../src/components/nft/SearchFilters.scss';
 import '../src/components/SelectNFTs/BurnRarityList.scss'
+import '../src/components/SelectNFTs/SelectedNftsCarousel.scss'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
