@@ -10,10 +10,13 @@ import { renderLoaderWithData } from '../../containers/rarityCharts/renderLoader
 // import loadingBg from '../../../assets/images/mint-polymorph-loading-bg.png';
 import SelectedSVG from '../../assets/images/activity-icons/Selected.svg'
 import ThreeDotsSVG from '../../assets/images/three-dots-horizontal.svg'
+import LinkOut from '../../assets/images/burn-to-mint-images/link-out.svg'
 
 const PolymorphCard = ({ item, selected, setSelected }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const fetchMetadata = async () => {
     setLoading(true);
     const data = await getPolymorphMeta(item.tokenid);
@@ -57,9 +60,25 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
         </div>
         <div className="card--footer--bottom">
           <span>{`ID: ${item.tokenid}`}</span>
-          <button><img src={ThreeDotsSVG}/></button>
+          <button onClick={(event) => {
+            event.stopPropagation(); 
+            setDropdownOpen(!dropdownOpen)
+            }}><img src={ThreeDotsSVG}/>
+          </button>
         </div>
+        {dropdownOpen 
+        ? <div className={'dropdown'}>
+          <button onClick={(event) => {
+            event.stopPropagation();                       
+            window.open(`https://universe.xyz/nft/0x1cBB182322Aee8ce9F4F1f98d7460173ee30Af1F/${item.tokenid}`)
+            }}>
+              <img  src={LinkOut}/>View on marketplace
+          </button>
+        </div> 
+        : null
+      }
       </div>
+
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
       </Popup>
