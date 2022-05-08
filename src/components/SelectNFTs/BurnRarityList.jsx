@@ -1,20 +1,20 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 // import './RarityList.scss';
 // import './RarityList.scss';
-import BurnPolymorphCard from './BurnPolymorphCard';
+import BurnPolymorphCard from "./BurnPolymorphCard";
 // import ItemsPerPageDropdown from '../rarityCharts/list/pagination/ItemsPerPageDropdown';
 // import Pagination from '../../pagination/Pagionation';
 // import '../../../containers/rarityCharts/RarityCharsLoader.scss';
 // import '../../../containers/rarityCharts/RarityCharts.scss';
-import closeIcon from '../../assets/images/close-menu.svg';
+import closeIcon from "../../assets/images/close-menu.svg";
 // import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
-import CategoriesFilter from '../rarityCharts/list/CategoriesFilter';
-import RarityChartsLoader from '../../containers/rarityCharts/RarityChartsLoader';
-import RarityPagination from '../rarityCharts/list/RarityPagination';
-import { Button } from '@chakra-ui/react';
-import InfiniteScroll from 'react-infinite-scroller'
+import CategoriesFilter from "../rarityCharts/list/CategoriesFilter";
+import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader";
+import RarityPagination from "../rarityCharts/list/RarityPagination";
+import { Button } from "@chakra-ui/react";
+import InfiniteScroll from "react-infinite-scroller";
 
 const List = ({
   data,
@@ -35,12 +35,12 @@ const List = ({
   results,
   apiPage,
   handleCategoryFilterChange,
-  getSelectedCards
+  getSelectedCardIds,
 }) => {
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCardIds, setSelectedCardIds] = useState([]);
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -59,8 +59,10 @@ const List = ({
     const trait = attribute.traits[traitIdx];
     attribute.traits[traitIdx].checked = false;
     let newFilter = [];
-    if (attribute.value === 'righthand' || attribute.value === 'lefthand') {
-      newFilter = filter.filter((f) => !(f[0] === attribute.value && f[1] === trait.name));
+    if (attribute.value === "righthand" || attribute.value === "lefthand") {
+      newFilter = filter.filter(
+        (f) => !(f[0] === attribute.value && f[1] === trait.name)
+      );
     } else {
       newFilter = filter.filter((f) => f[1] !== trait.name);
     }
@@ -68,14 +70,16 @@ const List = ({
     setFilter(newFilter);
   };
 
-  const removeSelectedCard = (tokenId) => {
-    const newSelectedCards = selectedCards.filter((id) => id !== tokenId );
-    setSelectedCards(newSelectedCards);
-  }
-  
+  const removeSelectedCardId = (tokenId) => {
+    const newSelectedCardIds = selectedCardIds.filter((id) => id !== tokenId);
+    setSelectedCardIds(newSelectedCardIds);
+  };
+
   useEffect(() => {
-    getSelectedCards([selectedCards]);
-  }, [selectedCards])
+    if (selectedCardIds.length <= 20) {
+      getSelectedCardIds([selectedCardIds]);
+    }
+  }, [selectedCardIds]);
 
   useEffect(() => {
     let check = false;
@@ -94,7 +98,7 @@ const List = ({
 
   return (
     <div className="rarity--charts--list">
-        {/* <CategoriesFilter
+      {/* <CategoriesFilter
           categories={categories}
           setCategories={setCategories}
           categoriesIndexes={categoriesIndexes}
@@ -107,13 +111,19 @@ const List = ({
 
       <div className="list--with--selected--filters">
         <div className="selected--filters">
-          {showClearALL && <div className="result">{results.length} results</div>}
+          {showClearALL && (
+            <div className="result">{results.length} results</div>
+          )}
           {categories.map((item, index) => (
             <React.Fragment key={item.id}>
               {item.traits.map(
                 (trait, idx) =>
                   trait.checked && (
-                    <button type="button" className="light-border-button" key={trait.name}>
+                    <button
+                      type="button"
+                      className="light-border-button"
+                      key={trait.name}
+                    >
                       {trait.name}
                       <img
                         className="close"
@@ -128,7 +138,11 @@ const List = ({
             </React.Fragment>
           ))}
           {showClearALL && (
-            <button type="button" className="clear--all" onClick={() => handleClearAll()}>
+            <button
+              type="button"
+              className="clear--all"
+              onClick={() => handleClearAll()}
+            >
               Clear all
             </button>
           )}
@@ -138,30 +152,31 @@ const List = ({
             <RarityChartsLoader number={8} />
           </div>
         ) : results.length ? (
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={() => setPerPage(perPage+8)}
-              hasMore={data.length >= perPage ? true : false}
-              loader={<div>Loading ...</div>}
-            >
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={() => setPerPage(perPage + 8)}
+            hasMore={data.length >= perPage ? true : false}
+            loader={<div>Loading ...</div>}
+          >
             <div className="burn--grid">
-
               {sliceData.map((item, i) => (
-                <BurnPolymorphCard 
-                  key={item.id} 
-                  item={item} 
-                  index={offset + i + 1} 
-                  selected={selectedCards.includes(item.tokenid)}
-                  setSelected={() => selectedCards.includes(item.tokenid) 
-                    ? removeSelectedCard(item.tokenid)
-                    : setSelectedCards([...selectedCards, item.tokenid])}
-
+                <BurnPolymorphCard
+                  key={item.id}
+                  item={item}
+                  index={offset + i + 1}
+                  selected={selectedCardIds.includes(item.tokenid)}
+                  setSelected={() =>
+                    selectedCardIds.includes(item.tokenid)
+                      ? removeSelectedCardId(item.tokenid)
+                      : selectedCardIds.length < 20
+                      ? setSelectedCardIds([...selectedCardIds, item.tokenid])
+                      : null
+                  }
                 />
-              ))} 
-            {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
-          </div>
-            </InfiniteScroll>
-
+              ))}
+              {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
+            </div>
+          </InfiniteScroll>
         ) : (
           <div className="rarity--charts--empty polymorphs">
             <p>No Polymorph could be found :’(</p>

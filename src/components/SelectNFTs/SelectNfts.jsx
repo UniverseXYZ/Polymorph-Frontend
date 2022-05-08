@@ -49,7 +49,7 @@ const SelectNfts = (props) => {
   const [offset, setOffset] = useState(0);
   const [totalNfts, getTotalNfts] = useState("-");
   const [perPage, setPerPage] = useState(8);
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [selectedCardIds, setSelectedCardIds] = useState([]);
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -104,8 +104,8 @@ const SelectNfts = (props) => {
   //   setSelectedGalleryItem(getSelectedNFTs);
   // }, [selectedNFTsIds]);
 
-  const getSelectedCards = ([cardIds]) => {
-    setSelectedCards(cardIds);
+  const getSelectedCardIds = ([cardIds]) => {
+    setSelectedCardIds(cardIds);
   };
 
   return (
@@ -164,13 +164,13 @@ const SelectNfts = (props) => {
             results={results}
             apiPage={apiPage}
             handleCategoryFilterChange={handleCategoryFilterChange}
-            getSelectedCards={getSelectedCards}
+            getSelectedCardIds={getSelectedCardIds}
           />
         </div>
         <div className={"selected--cards--bar"}>
           {mobile && (
             <p>
-              NFTs: <b>{selectedCards.length}</b>
+              NFTs: <b>{selectedCardIds.length}</b>
             </p>
           )}
           {/* <div className={"cards--container"}> */}
@@ -179,12 +179,15 @@ const SelectNfts = (props) => {
                 ? <span><img src={slice.imageurl}/></span>
                 : null
             })} */}
-          <SelectedNftsCarousel nfts={results} selectedCards={selectedCards} />
+          <SelectedNftsCarousel
+            nfts={results}
+            selectedCards={selectedCardIds}
+          />
           {/* </div> */}
           <div className={"button--container"}>
             {!mobile && (
               <span>
-                NFTs: <b>{selectedCards.length}</b>
+                NFTs: <b>{selectedCardIds.length}</b>
               </span>
             )}
             <Button
