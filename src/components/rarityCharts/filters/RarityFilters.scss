@@ -142,7 +142,7 @@
     width: 100%;
     max-width: 1110px;
     display: grid;
-    grid-template-columns: 1fr 54px 222px;
+    grid-template-columns: 1fr 222px 54px;
     grid-gap: 12px;
     align-items: center;
     min-height: 52px;
@@ -227,6 +227,7 @@
       }
       @include md {
         grid-column: 1/3;
+        grid-row: 2;
       }
     }
     .search--field--component {
@@ -276,7 +277,7 @@
       }
     }
     @include md {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 1fr auto;      
     }
   }
 }

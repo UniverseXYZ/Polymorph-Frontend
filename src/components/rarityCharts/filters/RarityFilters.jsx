@@ -70,17 +70,17 @@ const RarityFilters = (props) => {
             {selectedFiltersLength !== 0 && <div className="count">{selectedFiltersLength}</div>}
           </div>
         </div>
-        <RaritySortByOrder
-          setSortDir={setSortDir}
-          sortDir={sortDir}
-          setApiPage={setApiPage}
-          resetPagination={resetPagination}
-        />
         <RaritySortBySelect
           id="sort--select"
           defaultValue="Rarity Score"
           sortData={['Rarity Score', 'Rank', 'Polymorph Id']}
           setSortField={setSortField}
+          setApiPage={setApiPage}
+          resetPagination={resetPagination}
+        />
+        <RaritySortByOrder
+          setSortDir={setSortDir}
+          sortDir={sortDir}
           setApiPage={setApiPage}
           resetPagination={resetPagination}
         />

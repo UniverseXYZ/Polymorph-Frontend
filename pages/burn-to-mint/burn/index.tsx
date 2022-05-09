@@ -1,9 +1,9 @@
-
+import SelectNFTs from '../../../src/components/SelectNFTs/SelectNfts'
 
 
 const BurnToMint = () => {
     return (
-        null
+        <SelectNFTs />
     )
 }
 
