@@ -18,6 +18,7 @@ import FiltersContextProvider from "../../app/modules/account/pages/my-nfts-page
 import { useWindowSize } from "react-use";
 import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
+import BubbleIcon from "../../assets/images/text-bubble.png";
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -127,165 +128,96 @@ const SelectNfts = (props) => {
             </p>
           </div>
         </div>
-        <div className="rarity--charts--page--container">
-          <RarityFilters
-            setSortField={setSortField}
-            searchText={inputText}
-            setSearchText={setInputText}
-            setSortDir={setSortDir}
-            sortDir={sortDir}
-            setApiPage={setApiPage}
-            resetPagination={resetPagination}
-            categories={categories}
-            setCategories={setCategories}
-            categoriesIndexes={categoriesIndexes}
-            setCategoriesIndexes={setCategoriesIndexes}
-            resultsCount={results.length}
-            handleCategoryFilterChange={handleCategoryFilterChange}
-            setFilter={setFilter}
-            filter={filter}
-          />
-          <BurnRarityList
-            data={results}
-            isLastPage={isLastPage}
-            perPage={perPage}
-            offset={offset}
-            setOffset={setOffset}
-            setPerPage={setPerPage}
-            setApiPage={setApiPage}
-            setIsLastPage={setIsLastPage}
-            categories={categories}
-            setCategories={setCategories}
-            categoriesIndexes={categoriesIndexes}
-            setCategoriesIndexes={setCategoriesIndexes}
-            setFilter={setFilter}
-            filter={filter}
-            loading={search.loading}
-            results={results}
-            apiPage={apiPage}
-            handleCategoryFilterChange={handleCategoryFilterChange}
-            getSelectedCardIds={getSelectedCardIds}
-          />
-        </div>
-        <div className={"selected--cards--bar"}>
-          {mobile && (
-            <p>
-              NFTs: <b>{selectedCardIds.length}</b>
-            </p>
-          )}
-          {/* <div className={"cards--container"}> */}
-          {/* {results.map((slice) => {
-              return selectedCards.includes(slice.tokenid)
-                ? <span><img src={slice.imageurl}/></span>
-                : null
-            })} */}
-          <SelectedNftsCarousel
-            nfts={results}
-            selectedCards={selectedCardIds}
-          />
-          {/* </div> */}
-          <div className={"button--container"}>
-            {!mobile && (
-              <span>
-                NFTs: <b>{selectedCardIds.length}</b>
-              </span>
-            )}
+        {results.length > 0 ? (
+          <>
+            <div className="rarity--charts--page--container">
+              <RarityFilters
+                setSortField={setSortField}
+                searchText={inputText}
+                setSearchText={setInputText}
+                setSortDir={setSortDir}
+                sortDir={sortDir}
+                setApiPage={setApiPage}
+                resetPagination={resetPagination}
+                categories={categories}
+                setCategories={setCategories}
+                categoriesIndexes={categoriesIndexes}
+                setCategoriesIndexes={setCategoriesIndexes}
+                resultsCount={results.length}
+                handleCategoryFilterChange={handleCategoryFilterChange}
+                setFilter={setFilter}
+                filter={filter}
+              />
+              <BurnRarityList
+                data={results}
+                isLastPage={isLastPage}
+                perPage={perPage}
+                offset={offset}
+                setOffset={setOffset}
+                setPerPage={setPerPage}
+                setApiPage={setApiPage}
+                setIsLastPage={setIsLastPage}
+                categories={categories}
+                setCategories={setCategories}
+                categoriesIndexes={categoriesIndexes}
+                setCategoriesIndexes={setCategoriesIndexes}
+                setFilter={setFilter}
+                filter={filter}
+                loading={search.loading}
+                results={results}
+                apiPage={apiPage}
+                handleCategoryFilterChange={handleCategoryFilterChange}
+                getSelectedCardIds={getSelectedCardIds}
+              />
+            </div>
+            <div className={"selected--cards--bar"}>
+              {mobile && (
+                <p>
+                  NFTs: <b>{selectedCardIds.length}</b>
+                </p>
+              )}
+              <SelectedNftsCarousel
+                nfts={results}
+                selectedCards={selectedCardIds}
+              />
+              <div className={"button--container"}>
+                {!mobile && (
+                  <span>
+                    NFTs: <b>{selectedCardIds.length}</b>
+                  </span>
+                )}
+                <Button
+                  className={"light-button"}
+                  onClick={
+                    selectedCardIds.length > 0
+                      ? () => {
+                          router.push(
+                            selectedCardIds.length === 1
+                              ? `/burn-to-mint/burn/single/${selectedCardIds[0]}`
+                              : "/burn-to-mint/burn/batch"
+                          );
+                        }
+                      : null
+                  }
+                >
+                  Burn
+                </Button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className={"no--polymorphs--found"}>
+            <img src={BubbleIcon} />
+            <p>You have no V1 Polymorphs to burn</p>
             <Button
               className={"light-button"}
-              onClick={() =>
-                router.push(
-                  selectedCards.length > 1
-                    ? "/burn-to-mint/burn/batch"
-                    : "/burn-to-mint/burn/single"
-                )
-              }
+              onClick={() => router.push("/burn-to-mint")}
             >
-              Burn
+              Go Back
             </Button>
           </div>
-        </div>
-
-        {/* {myNFTs.filter((nft) => !nft.hidden).length ? ( */}
-        {/* <> */}
-        {/* <SearchFilters data={myNFTs} /> */}
-        {/* <div className="nfts__lists">
-                {myNFTs
-                  .filter((nft) => !nft.hidden)
-                  .map((nft) => (
-                    <NFTCard
-                      key={nft.id}
-                      nft={nft}
-                      canSelect
-                      selectedNFTsIds={selectedNFTsIds}
-                      setSelectedNFTsIds={setSelectedNFTsIds}
-                    />
-                  ))}
-              </div>
-              <FiltersContextProvider defaultSorting={0} >
-                <WalletTab getTotalNfts={getTotalNfts} />
-             </FiltersContextProvider>             */}
-        {/* </> */}
-        {/* ) : ( */}
-        {/* <></> */}
-        {/* )} */}
+        )}
       </>
-      {/* ) : (
-        <></>
-      )} */}
-      {/* <div className="select--nfts--footer">
-        <div className="select--nfts--footer--container">
-          <div className="selected--nft--block">
-            {selectedGalleryItem.map((elem, index) => (
-              <div className="selected--nft--item" key={elem}>
-                {elem.media.type === 'image/png' && (
-                  <img src={URL.createObjectURL(elem.media)} alt="img" />
-                )}
-                {elem.media.type === 'audio/mpeg' && <img src={mp3Icon} alt="img" />}
-                {elem.media.type === 'video/mp4' && (
-                  <video
-                    onMouseOver={(event) => event.target.play()}
-                    onFocus={(event) => event.target.play()}
-                    onMouseOut={(event) => event.target.pause()}
-                    onBlur={(event) => event.target.pause()}
-                    muted
-                  >
-                    <source src={URL.createObjectURL(elem.media)} type="video/mp4" />
-                    <track kind="captions" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-                <div
-                  className="close--icon"
-                  aria-hidden="true"
-                  onClick={() => setSelectedNFTsIds(selectedNFTsIds.filter((i) => i !== elem.id))}
-                >
-                  <img src={closeIconWhite} alt="img" />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="buttons--group">
-            <Button
-              className="light-border-button"
-              onClick={() => router.push('/nft-marketplace/select-method')}
-            >
-              Back
-            </Button>
-            <Button
-              className="light-button"
-              // disabled={
-              //   !bundleData.startPrice ||
-              //   !bundleData.endPrice ||
-              //   !bundleData.bundleName ||
-              //   !selectedGalleryItem.length
-              // }
-              onClick={clickContinue}
-            >
-              Burn
-            </Button>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };

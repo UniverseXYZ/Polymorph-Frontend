@@ -502,3 +502,29 @@
     }
   }
 }
+
+.no--polymorphs--found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  margin: auto;
+  padding: 2rem;
+
+  p {
+    margin-top: 2rem;
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height, or 122% */
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  button {
+    margin-top: 2rem;
+  }
+}
