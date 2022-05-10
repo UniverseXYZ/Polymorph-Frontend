@@ -7,26 +7,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $black; 
+    background-color: $black;
     min-height: 720px;
     padding: 0 60px;
 
     .carousel-indicators {
       display: flex;
       justify-content: center;
-      width: 100%;    
+      width: 100%;
 
       button:hover {
         cursor: default;
       }
 
       .active--carousel--bar {
-
         .active--carousel--span {
           width: 0%;
-          background: linear-gradient(135deg, #BCEB00 15.57%, #00EAEA 84.88%);
+          background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
         }
-
       }
     }
 
@@ -40,7 +38,7 @@
       background: rgba(255, 255, 255, 0.1);
       margin: 10px;
     }
-    
+
     .carousel-indicators [data-bs-target] span {
       content: "";
       position: absolute;
@@ -66,7 +64,8 @@
         min-height: 720px;
 
         &--charles {
-          background-image: url('../../assets/images/carousel-images/Charles-slide.png');
+          // background-image: url('../../assets/images/carousel-images/Charles-slide.png');
+          background: url("../../assets/images/carousel-images/charles-video.mp4");
           @include lg {
             background-size: cover;
             background-position: 70%;
@@ -74,7 +73,7 @@
         }
 
         &--alien {
-          background-image: url('../../assets/images/carousel-images/Alien-slide.png');
+          // background-image: url("../../assets/images/carousel-images/Alien-slide.png");
           @include lg {
             background-size: cover;
             background-position: 50%;
@@ -85,7 +84,7 @@
         }
 
         &--skeleton {
-          background-image: url('../../assets/images/carousel-images/Skeleton-slide.png');
+          // background-image: url("../../assets/images/carousel-images/Skeleton-slide.png");
           @include lg {
             background-size: cover;
             background-position: 50%;
@@ -96,7 +95,7 @@
         }
 
         &--goldtooth {
-          background-image: url('../../assets/images/carousel-images/Goldtooth-slide.png');
+          // background-image: url("../../assets/images/carousel-images/Goldtooth-slide.png");
           @include lg {
             background-size: cover;
             background-position: 50%;
@@ -105,13 +104,11 @@
             background-position: 60%;
           }
         }
-
       }
 
       @include xxl {
         background-position: center;
       }
-
     }
 
     &__container {
@@ -121,7 +118,7 @@
       max-width: 1110px;
       // margin: 0 auto;
       width: 100%;
-      height: 100%; 
+      height: 100%;
       overflow: hidden;
 
       .left {
@@ -163,7 +160,7 @@
           align-items: center;
           flex-wrap: wrap;
           .light-border-button {
-            position:relative;
+            position: relative;
             box-shadow: none;
             background-image: none;
             color: $white;
@@ -171,26 +168,25 @@
             &::before {
               background-image: none;
               box-shadow: none;
-                content:"";
-                position:absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                border-radius: 12px; 
-                padding: 1px; 
-                background: linear-gradient(101deg, #bceb00, #00eaea);
-                -webkit-mask: 
-                   linear-gradient(#fff 0 0) content-box, 
-                   linear-gradient(#fff 0 0);
-                -webkit-mask-composite: xor;
-                        mask-composite: exclude; 
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              border-radius: 12px;
+              padding: 1px;
+              background: linear-gradient(101deg, #bceb00, #00eaea);
+              -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+              -webkit-mask-composite: xor;
+              mask-composite: exclude;
             }
             &:hover {
               box-shadow: 2px 1000px 1px rgb(255 255 255 / 20%) inset !important;
             }
           }
-          
+
           button {
             @include sm {
               width: 100%;
@@ -225,7 +221,6 @@
         background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
         transform: rotate(-180deg);
       }
-
     }
     @include sm {
       padding: 0px 20px;
@@ -283,7 +278,16 @@
         margin: 0 auto;
         .universe__protocol {
           background: linear-gradient($white, $white) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           backdrop-filter: blur(20px);
           border-radius: 20px;
@@ -683,9 +687,22 @@
         color: $white;
         margin-bottom: 30px;
         border: 2px solid;
-        border-image-source: linear-gradient(135deg, rgba(188, 235, 0, 0.4) 15.57%, rgba(0, 234, 234, 0.4) 84.88%);
+        border-image-source: linear-gradient(
+          135deg,
+          rgba(188, 235, 0, 0.4) 15.57%,
+          rgba(0, 234, 234, 0.4) 84.88%
+        );
         background: linear-gradient($black, $black) padding-box,
-          linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+          linear-gradient(
+              to right,
+              #2ad0ca,
+              #e1f664,
+              #feb0fe,
+              #abb3fc,
+              #5df7a4,
+              #58c4f6
+            )
+            border-box;
       }
       @include lg {
         align-items: flex-start;
@@ -758,7 +775,16 @@
           align-items: center;
           justify-items: center;
           background: linear-gradient($white, $white) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           backdrop-filter: blur(20px);
           border-radius: 20px;
@@ -902,7 +928,16 @@
 
         &__item {
           background: linear-gradient($black, $black) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           border-radius: 10px;
           padding: 45px 30px;
