@@ -4,7 +4,6 @@ import CharlesVideo from "../../assets/images/carousel-images/charles-video.mp4"
 import GoldtoothVideo from "../../assets/images/carousel-images/goldtooth-video.mp4";
 import AlienVideo from "../../assets/images/carousel-images/alien-video.mp4";
 import SkeletonVideo from "../../assets/images/carousel-images/skeleton-video.mp4";
-import { BreadcrumbLink } from "@chakra-ui/react";
 
 export default class AutoPlayMethods extends Component {
   state = {
