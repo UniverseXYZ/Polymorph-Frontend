@@ -9,7 +9,24 @@ export default class AutoPlayMethods extends Component {
   state = {
     slideIndex: 0,
     barLoading: 0,
+    isMobile: typeof window !== "undefined" ? window.innerWidth < 768 : null,
   };
+
+  updateIsMobile = () => {
+    if (typeof window !== "undefined") {
+      this.setState({
+        isMobile: window.innerWidth < 768 ? true : false,
+      });
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener("resize", this.updateIsMobile);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateIsMobile);
+  }
 
   render() {
     const ArrowNav = () => {
@@ -126,50 +143,74 @@ export default class AutoPlayMethods extends Component {
       beforeChange: (current, next) =>
         this.setState({ slideIndex: next }, () => {
           fillCarouselIndicator(this.state.slideIndex);
-          playNextVideo();
+          this.state.isMobile ? null : playNextVideo();
         }),
     };
 
     return (
       <div className="slider--container">
         <Slider ref={(slider) => (this.slider = slider)} {...settings}>
-          <div className="background--image background--image--charles">
-            <video
-              id="charles--video"
-              autoPlay={this.state.slideIndex === 0 ? true : false}
-              muted
-            >
-              <source src={CharlesVideo} type="video/mp4" />
-            </video>
+          <div
+            className={`background--image ${
+              this.state.isMobile && "background--image--charles"
+            }`}
+          >
+            {!this.state.isMobile && (
+              <video
+                id="charles--video"
+                autoPlay={this.state.slideIndex === 0 ? true : false}
+                muted
+              >
+                <source src={CharlesVideo} type="video/mp4" />
+              </video>
+            )}
           </div>
 
-          <div className="background--image background--image--alien">
-            <video
-              id="alien--video"
-              autoPlay={this.state.slideIndex === 1 ? true : false}
-              muted
-            >
-              <source src={AlienVideo} type="video/mp4" />
-            </video>
+          <div
+            className={`background--image ${
+              this.state.isMobile && "background--image--alien"
+            }`}
+          >
+            {!this.state.isMobile && (
+              <video
+                id="alien--video"
+                autoPlay={this.state.slideIndex === 1 ? true : false}
+                muted
+              >
+                <source src={AlienVideo} type="video/mp4" />
+              </video>
+            )}
           </div>
 
-          <div className="background--image background--image--skeleton">
-            <video
-              id="skeleton--video"
-              autoPlay={this.state.slideIndex === 2 ? true : false}
-              muted
-            >
-              <source src={SkeletonVideo} type="video/mp4" />
-            </video>
+          <div
+            className={`background--image ${
+              this.state.isMobile && "background--image--skeleton"
+            }`}
+          >
+            {!this.state.isMobile && (
+              <video
+                id="skeleton--video"
+                autoPlay={this.state.slideIndex === 2 ? true : false}
+                muted
+              >
+                <source src={SkeletonVideo} type="video/mp4" />
+              </video>
+            )}
           </div>
-          <div className="background--image background--image--goldtooth">
-            <video
-              id="goldtooth--video"
-              autoPlay={this.state.slideIndex === 3 ? true : false}
-              muted
-            >
-              <source src={GoldtoothVideo} type="video/mp4" />
-            </video>
+          <div
+            className={`background--image ${
+              this.state.isMobile && "background--image--goldtooth"
+            }`}
+          >
+            {!this.state.isMobile && (
+              <video
+                id="goldtooth--video"
+                autoPlay={this.state.slideIndex === 3 ? true : false}
+                muted
+              >
+                <source src={GoldtoothVideo} type="video/mp4" />
+              </video>
+            )}
           </div>
         </Slider>
 
