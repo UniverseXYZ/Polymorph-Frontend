@@ -223,9 +223,9 @@ const SelectNfts = (props) => {
 };
 
 SelectNfts.propTypes = {
-  stepData: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  stepData: PropTypes.oneOfType([PropTypes.object]),
   setStepData: PropTypes.func,
-  bundleData: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  bundleData: PropTypes.oneOfType([PropTypes.object]),
 };
 
 SelectNfts.defaultProps = {
