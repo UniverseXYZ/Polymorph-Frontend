@@ -95,26 +95,26 @@ export default class AutoPlayMethods extends Component {
           case 0:
             video = document.getElementById("charles--video");
             video.currentTime = 0;
-            nextVideo = document.getElementById("alien--video");
-            nextVideo.currentTime = 0;
-            nextVideo.play();
-            break;
-          case 1:
-            video = document.getElementById("alien--video");
-            video.currentTime = 0;
             nextVideo = document.getElementById("skeleton--video");
             nextVideo.currentTime = 0;
             nextVideo.play();
             break;
-          case 2:
+          case 1:
             video = document.getElementById("skeleton--video");
             video.currentTime = 0;
             nextVideo = document.getElementById("goldtooth--video");
             nextVideo.currentTime = 0;
             nextVideo.play();
             break;
-          case 3:
+          case 2:
             video = document.getElementById("goldtooth--video");
+            video.currentTime = 0;
+            nextVideo = document.getElementById("alien--video");
+            nextVideo.currentTime = 0;
+            nextVideo.play();
+            break;
+          case 3:
+            video = document.getElementById("alien--video");
             video.currentTime = 0;
             nextVideo = document.getElementById("charles--video");
             nextVideo.currentTime = 0;
@@ -168,35 +168,20 @@ export default class AutoPlayMethods extends Component {
 
           <div
             className={`background--image ${
-              this.state.isMobile && "background--image--alien"
-            }`}
-          >
-            {!this.state.isMobile && (
-              <video
-                id="alien--video"
-                autoPlay={this.state.slideIndex === 1 ? true : false}
-                muted
-              >
-                <source src={AlienVideo} type="video/mp4" />
-              </video>
-            )}
-          </div>
-
-          <div
-            className={`background--image ${
               this.state.isMobile && "background--image--skeleton"
             }`}
           >
             {!this.state.isMobile && (
               <video
                 id="skeleton--video"
-                autoPlay={this.state.slideIndex === 2 ? true : false}
+                autoPlay={this.state.slideIndex === 1 ? true : false}
                 muted
               >
                 <source src={SkeletonVideo} type="video/mp4" />
               </video>
             )}
           </div>
+
           <div
             className={`background--image ${
               this.state.isMobile && "background--image--goldtooth"
@@ -205,10 +190,26 @@ export default class AutoPlayMethods extends Component {
             {!this.state.isMobile && (
               <video
                 id="goldtooth--video"
-                autoPlay={this.state.slideIndex === 3 ? true : false}
+                autoPlay={this.state.slideIndex === 2 ? true : false}
                 muted
               >
                 <source src={GoldtoothVideo} type="video/mp4" />
+              </video>
+            )}
+          </div>
+
+          <div
+            className={`background--image ${
+              this.state.isMobile && "background--image--alien"
+            }`}
+          >
+            {!this.state.isMobile && (
+              <video
+                id="alien--video"
+                autoPlay={this.state.slideIndex === 3 ? true : false}
+                muted
+              >
+                <source src={AlienVideo} type="video/mp4" />
               </video>
             )}
           </div>
