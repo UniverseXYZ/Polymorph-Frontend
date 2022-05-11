@@ -4,6 +4,9 @@ const CharactersGrid = ({ characters }) => {
   const [gridColumns, setGridColumns] = useState("");
 
   useEffect(() => {
+    if (characters.length === 1) {
+      setGridColumns("one--column");
+    }
     if (characters.length > 1 && characters.length < 5) {
       setGridColumns("two--columns");
     }

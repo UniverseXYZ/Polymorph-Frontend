@@ -196,7 +196,7 @@ const SelectNfts = (props) => {
                       ? () => {
                           router.push(
                             selectedCards.length === 1
-                              ? `/burn-to-mint/burn/single/${selectedCards[0]}`
+                              ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
                               : "/burn-to-mint/burn/batch"
                           );
                         }
