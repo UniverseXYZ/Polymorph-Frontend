@@ -1,19 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 // import './RarityCharsLoader.scss';
 // import './RarityCharts.scss';
 // import uuid from 'react-uuid';
-import loadingBg from '../../assets/images/mint-polymorph-loading-bg.png';
+import loadingBg from "../../assets/images/mint-polymorph-loading-bg.png";
 
 const RarityChartsLoader = React.memo(({ number }) =>
-  [...Array(number)].map((n) => (
-    <div key={n} className="card" style={{ cursor: 'default' }}>
+  [...Array(number).keys()].map((n) => (
+    <div key={n} className="card" style={{ cursor: "default" }}>
       <div className="card--header">
         <div className="card--number">#???</div>
         <div className="card--price">Rarity Score: ???</div>
       </div>
       <div className="card--body">
-        <img className="rarity--chart" style={{ cursor: 'default' }} src={loadingBg} alt="loader" />
+        <img
+          className="rarity--chart"
+          style={{ cursor: "default" }}
+          src={loadingBg}
+          alt="loader"
+        />
         <div className="card-lds-roller">
           <div />
           <div />

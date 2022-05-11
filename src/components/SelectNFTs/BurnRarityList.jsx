@@ -156,12 +156,12 @@ const List = ({
             pageStart={0}
             loadMore={() => setPerPage(perPage + 8)}
             hasMore={data.length >= perPage ? true : false}
-            loader={<div>Loading ...</div>}
+            loader={<div key={0}>Loading ...</div>}
           >
             <div className="burn--grid">
               {sliceData.map((item, i) => (
                 <BurnPolymorphCard
-                  key={item.id}
+                  key={item.tokenid}
                   item={item}
                   index={offset + i + 1}
                   selected={selectedCardIds.includes(item.tokenid)}
@@ -219,7 +219,7 @@ List.propTypes = {
   results: PropTypes.oneOfType([PropTypes.array]).isRequired,
   loading: PropTypes.bool.isRequired,
   handleCategoryFilterChange: PropTypes.func.isRequired,
-  withFilter: PropTypes.bool.isRequired,
+  // withFilter: PropTypes.bool.isRequired,
 };
 
 export default List;
