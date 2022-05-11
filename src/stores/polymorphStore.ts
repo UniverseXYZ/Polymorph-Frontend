@@ -10,11 +10,13 @@ type IPolymorphStore = {
   userPolymorphs: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: boolean,
+  userSelectedPolymorphsToBurn: []
   
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void,
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void,
   setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void,
+  setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void,
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>
@@ -25,6 +27,7 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   userPolymorphs: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: false,
+  userSelectedPolymorphsToBurn: [],
   setUserPolymorphs: (userPolymorphs) => {
     set(state => ({
       ...state,
@@ -35,6 +38,12 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     set(state => ({
       ...state,
       userPolymorphsLoaded
+    }))
+  },
+  setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn) => {
+    set(state => ({
+      ...state,
+      userSelectedPolymorphsToBurn
     }))
   },
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata) => {
