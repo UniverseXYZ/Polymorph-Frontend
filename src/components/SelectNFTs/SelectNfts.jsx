@@ -9,7 +9,7 @@ import AppContext from "../../ContextAPI";
 // import SearchFilters from '../nft/SearchFilters';
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
 import BurnRarityList from "./BurnRarityList";
-import { useSearchPolymorphs } from "../../utils/hooks/useRarityDebouncer";
+import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncer";
 import { categoriesArray } from "../../containers/rarityCharts/categories";
 import NFTCard from "../nft/NFTCard";
 import { useMyNftsStore } from "src/stores/myNftsStore";
