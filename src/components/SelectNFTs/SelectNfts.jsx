@@ -19,10 +19,12 @@ import { useWindowSize } from "react-use";
 import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
+import { usePolymorphStore } from 'src/stores/polymorphStore';
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
   const { myNFTs } = useMyNftsStore();
+  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore ();
   const { stepData, setStepData, bundleData } = props;
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
@@ -107,6 +109,7 @@ const SelectNfts = (props) => {
 
   const getSelectedCardIds = ([cardIds]) => {
     setSelectedCardIds(cardIds);
+    setUserSelectedPolymorphsToBurn(cardIds);
   };
 
   return (
