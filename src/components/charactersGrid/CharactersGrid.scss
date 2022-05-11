@@ -12,6 +12,9 @@
     border-radius: 8px;
     object-fit: cover;
   }
+  &.one--column {
+    grid-template-columns: repeat(1, 1fr);
+  }
   &.two--columns {
     grid-template-columns: repeat(2, 1fr);
   }
