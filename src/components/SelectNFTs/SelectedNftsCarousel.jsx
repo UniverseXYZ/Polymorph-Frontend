@@ -38,12 +38,12 @@ const SelectedNftsCarousel = ({ nfts, selectedCards }) => {
           onClick={onClickFunc}
         >
           <div className={"horizontal--scroller"}>
-            {nfts.map((slice) => {
-              return selectedCards.includes(slice.tokenid) ? (
+            {selectedCards.map((card) => {
+              return (
                 <span>
-                  <img src={slice.imageurl} />
+                  <img src={card.imageUrl} />
                 </span>
-              ) : null;
+              );
             })}
           </div>
         </div>

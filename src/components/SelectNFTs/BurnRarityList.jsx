@@ -35,12 +35,12 @@ const List = ({
   results,
   apiPage,
   handleCategoryFilterChange,
-  getSelectedCardIds,
+  getSelectedCards,
 }) => {
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
-  const [selectedCardIds, setSelectedCardIds] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -70,16 +70,18 @@ const List = ({
     setFilter(newFilter);
   };
 
-  const removeSelectedCardId = (tokenId) => {
-    const newSelectedCardIds = selectedCardIds.filter((id) => id !== tokenId);
-    setSelectedCardIds(newSelectedCardIds);
+  const removeSelectedCardById = (tokenId) => {
+    const newSelectedCards = selectedCards.filter(
+      (card) => card.tokenId !== tokenId
+    );
+    setSelectedCards(newSelectedCards);
   };
 
   useEffect(() => {
-    if (selectedCardIds.length <= 20) {
-      getSelectedCardIds([selectedCardIds]);
+    if (selectedCards.length <= 20) {
+      getSelectedCards([selectedCards]);
     }
-  }, [selectedCardIds]);
+  }, [selectedCards]);
 
   useEffect(() => {
     let check = false;
@@ -164,12 +166,17 @@ const List = ({
                   key={item.tokenid}
                   item={item}
                   index={offset + i + 1}
-                  selected={selectedCardIds.includes(item.tokenid)}
+                  selected={selectedCards.some(
+                    (card) => card.tokenId === item.tokenid
+                  )}
                   setSelected={() =>
-                    selectedCardIds.includes(item.tokenid)
-                      ? removeSelectedCardId(item.tokenid)
-                      : selectedCardIds.length < 20
-                      ? setSelectedCardIds([...selectedCardIds, item.tokenid])
+                    selectedCards.some((card) => card.tokenId === item.tokenid)
+                      ? removeSelectedCardById(item.tokenid)
+                      : selectedCards.length < 20
+                      ? setSelectedCards([
+                          ...selectedCards,
+                          { tokenId: item.tokenid, imageUrl: item.imageurl },
+                        ])
                       : null
                   }
                 />
