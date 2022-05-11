@@ -19,12 +19,12 @@ import { useWindowSize } from "react-use";
 import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
-import { usePolymorphStore } from 'src/stores/polymorphStore';
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
   const { myNFTs } = useMyNftsStore();
-  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore ();
+  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
   const { stepData, setStepData, bundleData } = props;
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
@@ -52,7 +52,7 @@ const SelectNfts = (props) => {
   const [offset, setOffset] = useState(0);
   const [totalNfts, getTotalNfts] = useState("-");
   const [perPage, setPerPage] = useState(8);
-  const [selectedCardIds, setSelectedCardIds] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -107,9 +107,9 @@ const SelectNfts = (props) => {
   //   setSelectedGalleryItem(getSelectedNFTs);
   // }, [selectedNFTsIds]);
 
-  const getSelectedCardIds = ([cardIds]) => {
-    setSelectedCardIds(cardIds);
-    setUserSelectedPolymorphsToBurn(cardIds);
+  const getSelectedCards = ([cards]) => {
+    setSelectedCards(cards);
+    setUserSelectedPolymorphsToBurn(cards);
   };
 
   return (
@@ -170,33 +170,33 @@ const SelectNfts = (props) => {
                 results={results}
                 apiPage={apiPage}
                 handleCategoryFilterChange={handleCategoryFilterChange}
-                getSelectedCardIds={getSelectedCardIds}
+                getSelectedCards={getSelectedCards}
               />
             </div>
             <div className={"selected--cards--bar"}>
               {mobile && (
                 <p>
-                  NFTs: <b>{selectedCardIds.length}</b>
+                  NFTs: <b>{selectedCards.length}</b>
                 </p>
               )}
               <SelectedNftsCarousel
                 nfts={results}
-                selectedCards={selectedCardIds}
+                selectedCards={selectedCards}
               />
               <div className={"button--container"}>
                 {!mobile && (
                   <span>
-                    NFTs: <b>{selectedCardIds.length}</b>
+                    NFTs: <b>{selectedCards.length}</b>
                   </span>
                 )}
                 <Button
                   className={"light-button"}
                   onClick={
-                    selectedCardIds.length > 0
+                    selectedCards.length > 0
                       ? () => {
                           router.push(
-                            selectedCardIds.length === 1
-                              ? `/burn-to-mint/burn/single/${selectedCardIds[0]}`
+                            selectedCards.length === 1
+                              ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
                               : "/burn-to-mint/burn/batch"
                           );
                         }

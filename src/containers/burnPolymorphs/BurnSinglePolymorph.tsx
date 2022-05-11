@@ -1,17 +1,9 @@
 import React from 'react';
-import polymorphImg from '../../assets/images/burn-polymorph.png';
 import BurnPolymorphs from '../../components/burnPolymorphs/BurnPolymorphs';
+import { usePolymorphStore } from 'src/stores/polymorphStore';
 
 export const BurnSinglePolymorph = () => {
-  //DummyData
-  const burnPolymorphsArr = [
-    {
-      id: 1,
-      polymorphImg: polymorphImg
-    }
-  ];
+  const { userSelectedPolymorphsToBurn } = usePolymorphStore();
 
-  return (
-    <BurnPolymorphs characters={burnPolymorphsArr} type="single" />
-  )
+  return <BurnPolymorphs characters={userSelectedPolymorphsToBurn} type="batch" />;
 }
