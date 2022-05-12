@@ -1,15 +1,10 @@
-// import './UniverseNFTs.scss';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import '../pagination/Pagination.scss';
-// import '../../containers/rarityCharts/PolymorphRarityCharts.scss';
 import { useSearchPolymorphs } from '../../utils/hooks/useMyNftsRarityDebouncer';
 import { categoriesArray } from '../../containers/rarityCharts/categories';
-import CollectionDropdown from './CollectionDropdown';
-import LobsterRarityFilters from '../rarityCharts/filters/LobsterRarityFilters';
 import MyRarityList from '../rarityCharts/list/MyRarityList';
-import { useThemeStore } from 'src/stores/themeStore';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
+import RarityFilters from "../rarityCharts/filters/RarityFilters";
 
 const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContainer }) => {
   const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } = useMyNftsStore(s => ({
@@ -72,7 +67,7 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
 
   return (
     <div className="polymorph-rarity--charts--page--container">
-      <LobsterRarityFilters
+      <RarityFilters
         setSortField={setSortField}
         searchText={inputText}
         setSearchText={setInputText}
@@ -88,12 +83,6 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
         handleCategoryFilterChange={handleCategoryFilterChange}
         setFilter={setFilter}
         filter={filter}
-        CollectionFilter={() => (
-          <CollectionDropdown
-            isDropdownOpened={isDropdownOpened}
-            setIsDropdownOpened={setIsDropdownOpened}
-          />
-        )}
       />
       <MyRarityList
         data={results}

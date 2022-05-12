@@ -17,8 +17,8 @@ const UniverseNFTs = ({ scrollContainer }) => {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   useEffect(() => {
-    setCollectionFilter(collectionFilter);
-  }, [collectionFilter]);
+    setCollectionFilter(polymorphsFilter);
+  }, [polymorphsFilter]);
 
   const renderMyNFTsNew = () => {
     if (collectionFilter === polymorphsFilter) {
