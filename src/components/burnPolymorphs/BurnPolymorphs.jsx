@@ -20,6 +20,7 @@ const BurnPolymorphs = ({ characters, type }) => {
   const router = useRouter();
   const [status, setStatus] = useState("");
   const [tokenApproved, setTokenApproved] = useState(false);
+  const [loadingApprove, setLoadingApprove] = useState(false);
 
   const { polymorphContract } = useContractsStore();
   const { address } = useAuthStore();
@@ -35,16 +36,24 @@ const BurnPolymorphs = ({ characters, type }) => {
   }, []);
 
   const handleApproveToken = async () => {
-    const approveTx = await polymorphContract.setApprovalForAll(
-      polymorphContractV2Address,
-      true
-    );
-    const approveTxReceipt = await approveTx.wait();
-    if (approveTxReceipt.status !== 1) {
-      console.log("Error approving tokens");
-      return;
+    try {
+      setLoadingApprove(true);
+      const approveTx = await polymorphContract.setApprovalForAll(
+        polymorphContractV2Address,
+        true
+      );
+      const approveTxReceipt = await approveTx.wait();
+      if (approveTxReceipt.status !== 1) {
+        setLoadingApprove(false);
+        console.log("Error approving tokens");
+        return;
+      }
+      setLoadingApprove(false);
+      setTokenApproved(true);
+    } catch (error) {
+      setLoadingApprove(false);
+      console.log(error);
     }
-    setTokenApproved(true);
   };
 
   const defaultOptions = {
@@ -107,9 +116,9 @@ const BurnPolymorphs = ({ characters, type }) => {
                     <Button
                       className="light-button"
                       onClick={handleApproveToken}
-                      disabled={tokenApproved}
+                      disabled={tokenApproved || loadingApprove}
                     >
-                      Approve Token
+                      {loadingApprove ? "In progress" : "Approve"}
                     </Button>
                     <Button
                       className="light-button"
