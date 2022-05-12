@@ -71,35 +71,35 @@ const BurnPolymorphs = ({ characters, type }) => {
       const burnToMintTokenIds = characters.map(function (item) {
         return item["tokenId"];
       });
-      console.log(burnToMintTokenIds);
       setLoadingBurnToMint(true);
+      setStatus("loading");
+
       const gasEstimate =
         await polymorphContractV2.estimateGas.burnAndMintNewPolymorph(
           burnToMintTokenIds
         );
+
       const gasLimit = gasEstimate.mul(120).div(100);
 
       const burnToMintTx = await polymorphContractV2.burnAndMintNewPolymorph(
         burnToMintTokenIds,
         { gasLimit: gasLimit }
       );
+
+      setStatus("burning");
+
       const burnToMintTxReceipt = await burnToMintTx.wait();
       if (burnToMintTxReceipt.status !== 1) {
         setLoadingApprove(false);
         console.log("Error with burning the tokens");
         return;
       }
+
       setLoadingBurnToMint(false);
-      // Animation starts here
-      setStatus("burning");
-      setTimeout(() => {
-        setStatus("loading");
-        setTimeout(() => {
-          setStatus("success");
-        }, 2000);
-      }, 3000);
+      setStatus("success");
     } catch (error) {
       setLoadingBurnToMint(false);
+      setStatus("");
       console.log(error);
     }
   };
@@ -112,7 +112,7 @@ const BurnPolymorphs = ({ characters, type }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-
+  console.log(status);
   return (
     <div className="burn--polymorph--page">
       <div className="lottie--animation">
