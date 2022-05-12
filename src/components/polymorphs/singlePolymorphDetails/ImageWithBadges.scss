@@ -1,0 +1,140 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.polymorph--image--with--badges {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 100px 60px;
+  .go--back--btn--mobile {
+    display: none;
+    @include lg {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      span {
+        margin-left: 14px;
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: $black;
+      }
+    }
+  }
+  .go--back--btn {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    .tooltiptext {
+      visibility: hidden;
+      font-family: $spaceGroteskFont;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      width: 87px;
+      background-color: $black;
+      color: $white;
+      text-align: center;
+      border-radius: 8px;
+      padding: 12px 16px;
+      position: absolute;
+      z-index: 999;
+      top: -55px;
+      left: 50%;
+      transform: translateX(-50%);
+      &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+      }
+    }
+    &:hover {
+      .tooltiptext {
+        visibility: visible;
+      }
+    }
+    @include lg {
+      display: none;
+    }
+  }
+  .polymorph--image {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 600px;
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      filter: drop-shadow(0px 10px 36px rgba(136, 120, 172, 0.14));
+    }
+    .polymorph--badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      .tooltiptext {
+        visibility: hidden;
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        width: 145px;
+        background-color: $black;
+        color: $white;
+        text-align: center;
+        border-radius: 8px;
+        padding: 12px 16px;
+        position: absolute;
+        z-index: 1;
+        top: -55px;
+        left: 50%;
+        transform: translateX(-50%);
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: black transparent transparent transparent;
+        }
+        @include md {
+          transform: translateX(-80%);
+          &::after {
+            left: 80%;
+          }
+        }
+      }
+      &:hover {
+        .tooltiptext {
+          visibility: visible;
+        }
+      }
+    }
+    @include lg {
+      margin: 0 auto;
+    }
+  }
+  @include lg {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 40px 40px;
+  }
+  @include sm {
+    padding: 30px 20px 30px;
+  }
+}

@@ -1,0 +1,1 @@
+export { SinglePolymorphDetails as default } from '../../../src/containers/polymorphs/SinglePolymorphDetails';
