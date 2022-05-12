@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import ArrowLeftIcon from "../../components/svgs/ArrowLeftIcon";
@@ -10,8 +10,43 @@ import animationData from "../../utils/animations/burn_polymorph_bg_animation.js
 import BurnPolymorphAnimation from "./animations/BurnPolymorphAnimation";
 import BurnPolymorphLoadingPopup from "../../components/popups/BurnPolymorphLoadingPopup";
 import BurnPolymorphSuccessPopup from "../../components/popups/BurnPolymorphSuccessPopup";
+import { useContractsStore } from "../../stores/contractsStore";
+import { useAuthStore } from "src/stores/authStore";
+
+const polymorphContractV2Address =
+  process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS;
 
 const BurnPolymorphs = ({ characters, type }) => {
+  const router = useRouter();
+  const [status, setStatus] = useState("");
+  const [tokenApproved, setTokenApproved] = useState(false);
+
+  const { polymorphContract } = useContractsStore();
+  const { address } = useAuthStore();
+
+  useEffect(async () => {
+    const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
+      address,
+      polymorphContractV2Address
+    );
+    if (hasAlreadyApprovedTokens) {
+      setTokenApproved(true);
+    }
+  }, []);
+
+  const handleApproveToken = async () => {
+    const approveTx = await polymorphContract.setApprovalForAll(
+      polymorphContractV2Address,
+      true
+    );
+    const approveTxReceipt = await approveTx.wait();
+    if (approveTxReceipt.status !== 1) {
+      console.log("Error approving tokens");
+      return;
+    }
+    setTokenApproved(true);
+  };
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -20,9 +55,6 @@ const BurnPolymorphs = ({ characters, type }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const router = useRouter();
-  const [status, setStatus] = useState("");
-  const [tokenApproved, setTokenApproved] = useState(false);
 
   const handleBurnClick = () => {
     setStatus("burning");
@@ -74,7 +106,7 @@ const BurnPolymorphs = ({ characters, type }) => {
                   <div className="burn--polymorphs--buttons">
                     <Button
                       className="light-button"
-                      onClick={() => setTokenApproved(true)}
+                      onClick={handleApproveToken}
                       disabled={tokenApproved}
                     >
                       Approve Token
