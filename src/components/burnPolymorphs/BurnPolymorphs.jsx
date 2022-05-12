@@ -28,13 +28,13 @@ const BurnPolymorphs = ({ characters, type }) => {
 
   useEffect(async () => {
     if(polymorphContract) {
-    const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
-      address,
-      polymorphContractV2Address
-    );
-    if (hasAlreadyApprovedTokens) {
-      setTokenApproved(true);
-    }
+      const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
+        address,
+        polymorphContractV2Address
+      );
+      if (hasAlreadyApprovedTokens) {
+        setTokenApproved(true);
+      }
     }
   }, []);
 
