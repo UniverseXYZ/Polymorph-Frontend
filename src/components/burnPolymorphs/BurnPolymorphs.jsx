@@ -12,6 +12,7 @@ import BurnPolymorphLoadingPopup from "../../components/popups/BurnPolymorphLoad
 import BurnPolymorphSuccessPopup from "../../components/popups/BurnPolymorphSuccessPopup";
 import { useContractsStore } from "../../stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
+import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 
 const polymorphContractV2Address =
   process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS;
@@ -118,7 +119,7 @@ const BurnPolymorphs = ({ characters, type }) => {
                       onClick={handleApproveToken}
                       disabled={tokenApproved || loadingApprove}
                     >
-                      {loadingApprove ? "In progress" : "Approve"}
+                      {loadingApprove ? <LoadingSpinner /> : null} Approve Token
                     </Button>
                     <Button
                       className="light-button"
