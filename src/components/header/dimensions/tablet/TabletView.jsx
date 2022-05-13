@@ -23,7 +23,6 @@ import marketplaceIcon from '../../../../assets/images/nft-marketplace.svg';
 import socialMediaIcon from '../../../../assets/images/social-media.svg';
 import polymorphsIcon from '../../../../assets/images/polymorphs.svg';
 import coreDropsIcon from '../../../../assets/images/core-drops.svg';
-import lobbyLobstersIcon from '../../../../assets/images/lobby-lobsters.svg';
 import rarityChartIcon from '../../../../assets/images/rarity-chart.svg';
 import navChartIcon from '../../../../assets/images/chart-nav-icon.svg';
 import aboutIcon from '../../../../assets/images/about.svg';

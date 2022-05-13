@@ -4,7 +4,6 @@ type IMyNftsStore = {
   // Constants
   allCharactersFilter: string,
   polymorphsFilter: string,
-  lobstersFilter: string,
 
   // Getters
   myNFTs: [],
@@ -33,7 +32,6 @@ type IMyNftsStore = {
 export const useMyNftsStore = create<IMyNftsStore>((set) => ({
   allCharactersFilter: "All Characters",
   polymorphsFilter: "Polymorphs",
-  lobstersFilter: "Lobby Lobsters",
   myNFTs: [],
   savedNfts: [],
   myMintableCollections: [],

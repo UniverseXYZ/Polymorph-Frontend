@@ -8,14 +8,12 @@ const CollectionDropdown = ({ isDropdownOpened, setIsDropdownOpened }) => {
   const ref = useRef(null);
   const {
     polymorphsFilter,
-    lobstersFilter,
     collectionFilter,
     setCollectionFilter,
     setMyUniverseNFTsActiverPage,
     setMyUniverseNFTsOffset,
   } = useMyNftsStore(s => ({
     polymorphsFilter: s.polymorphsFilter,
-    lobstersFilter: s.lobstersFilter,
     collectionFilter: s.collectionFilter,
     setCollectionFilter: s.setCollectionFilter,
     setMyUniverseNFTsActiverPage: s.setMyUniverseNFTsActiverPage,
@@ -61,9 +59,6 @@ const CollectionDropdown = ({ isDropdownOpened, setIsDropdownOpened }) => {
                 </li> */}
             <li onClick={setFilter} aria-hidden="true">
               {polymorphsFilter}
-            </li>
-            <li onClick={setFilter} aria-hidden="true">
-              {lobstersFilter}
             </li>
           </ul>
         </div>

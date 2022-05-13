@@ -6,7 +6,6 @@ import Button from '../button/Button.jsx';
 import closeIcon from '../../assets/images/cross.svg';
 import { PLACEHOLDER_MINTED_POLYMORPHS } from '../../utils/fixtures/MintedPolymorphsDummyData.js';
 // import './PopupStyle.scss';
-// import './LobsterLoader.scss';
 import AppContext from '../../ContextAPI.js';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 

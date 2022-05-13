@@ -6,12 +6,11 @@ import MyPolymorphsChart from './MyPolymorphsChart';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 
 const UniverseNFTs = ({ scrollContainer }) => {
-  const { collectionFilter, setCollectionFilter, polymorphsFilter, lobstersFilter } =
+  const { collectionFilter, setCollectionFilter, polymorphsFilter } =
     useMyNftsStore(s => ({
       collectionFilter: s.collectionFilter,
       setCollectionFilter: s.setCollectionFilter,
       polymorphsFilter: s.polymorphsFilter,
-      lobstersFilter: s.lobstersFilter,
     }));
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
