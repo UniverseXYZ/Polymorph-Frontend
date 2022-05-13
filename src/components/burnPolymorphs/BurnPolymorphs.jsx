@@ -27,21 +27,29 @@ const BurnPolymorphs = ({ characters, type }) => {
   const { address } = useAuthStore();
 
   useEffect(async () => {
-    const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
-      address,
-      polymorphContractV2Address
-    );
-    if (hasAlreadyApprovedTokens) {
-      setTokenApproved(true);
+    if(polymorphContract) {
+      const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
+        address,
+        polymorphContractV2Address
+      );
+      if (hasAlreadyApprovedTokens) {
+        setTokenApproved(true);
+      }
     }
   }, []);
 
   const handleApproveToken = async () => {
     try {
       setLoadingApprove(true);
-      const approveTx = await polymorphContract.setApprovalForAll(
+      const gasEstimate = await polymorphContract.estimateGas.setApprovalForAll(
         polymorphContractV2Address,
         true
+      )
+      const gasLimit = gasEstimate.mul(120).div(100);
+      const approveTx = await polymorphContract.setApprovalForAll(
+        polymorphContractV2Address,
+        true,
+        {gasLimit: gasLimit}
       );
       const approveTxReceipt = await approveTx.wait();
       if (approveTxReceipt.status !== 1) {
