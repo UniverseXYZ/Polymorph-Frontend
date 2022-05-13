@@ -1,57 +1,57 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useRouter } from 'next/router';
-import Popup from 'reactjs-popup';
-import { Animated } from 'react-animated-css';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import PropTypes from "prop-types";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useRouter } from "next/router";
+import Popup from "reactjs-popup";
+import { Animated } from "react-animated-css";
 // import './TabletView.scss';
-import HeaderAvatar from '../../HeaderAvatar';
-import SelectWalletPopup from '../../../popups/SelectWalletPopup.jsx';
-import hamburgerIcon from '../../../../assets/images/hamburger.svg';
-import closeIcon from '../../../../assets/images/close-menu.svg';
-import accountIcon from '../../../../assets/images/icon1.svg';
-import accountDarkIcon from '../../../../assets/images/account-dark-icon.svg';
-import AppContext from '../../../../ContextAPI';
-import Group2 from '../../../../assets/images/Group2.svg';
-import Group1 from '../../../../assets/images/Group1.svg';
-import copyIcon from '../../../../assets/images/copy.svg';
-import auctionHouseIcon from '../../../../assets/images/auction-house.svg';
-import myProfileIcon from '../../../../assets/images/my-profile.svg';
-import myNFTsIcon from '../../../../assets/images/my-nfts.svg';
-import signOutIcon from '../../../../assets/images/sign-out.svg';
-import marketplaceIcon from '../../../../assets/images/nft-marketplace.svg';
-import socialMediaIcon from '../../../../assets/images/social-media.svg';
-import polymorphsIcon from '../../../../assets/images/polymorphs.svg';
-import coreDropsIcon from '../../../../assets/images/core-drops.svg';
-import rarityChartIcon from '../../../../assets/images/rarity-chart.svg';
-import navChartIcon from '../../../../assets/images/chart-nav-icon.svg';
-import aboutIcon from '../../../../assets/images/about.svg';
-import whitepaperIcon from '../../../../assets/images/whitepaper.svg';
-import teamIcon from '../../../../assets/images/team.svg';
-import governanceIcon from '../../../../assets/images/governance.svg';
-import yieldFarmingIcon from '../../../../assets/images/yield-farming.svg';
-import forumIcon from '../../../../assets/images/forum.svg';
-import signalIcon from '../../../../assets/images/signal.svg';
-import docsIcon from '../../../../assets/images/docs.svg';
-import SubscribePopup from '../../../popups/SubscribePopup.jsx';
-import searchIcon from '../../../../assets/images/search-icon.svg';
-import img from '../../../../assets/images/search-gray.svg';
-import img2 from '../../../../assets/images/crossclose.svg';
-import Button from '../../../button/Button';
+import HeaderAvatar from "../../HeaderAvatar";
+import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
+import hamburgerIcon from "../../../../assets/images/hamburger.svg";
+import closeIcon from "../../../../assets/images/close-menu.svg";
+import accountIcon from "../../../../assets/images/icon1.svg";
+import accountDarkIcon from "../../../../assets/images/account-dark-icon.svg";
+import AppContext from "../../../../ContextAPI";
+import Group2 from "../../../../assets/images/Group2.svg";
+import Group1 from "../../../../assets/images/Group1.svg";
+import copyIcon from "../../../../assets/images/copy.svg";
+import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
+import myProfileIcon from "../../../../assets/images/my-profile.svg";
+import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
+import signOutIcon from "../../../../assets/images/sign-out.svg";
+import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
+import socialMediaIcon from "../../../../assets/images/social-media.svg";
+import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
+import coreDropsIcon from "../../../../assets/images/core-drops.svg";
+import rarityChartIcon from "../../../../assets/images/rarity-chart.svg";
+import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
+import aboutIcon from "../../../../assets/images/about.svg";
+import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
+import teamIcon from "../../../../assets/images/team.svg";
+import governanceIcon from "../../../../assets/images/governance.svg";
+import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
+import forumIcon from "../../../../assets/images/forum.svg";
+import signalIcon from "../../../../assets/images/signal.svg";
+import docsIcon from "../../../../assets/images/docs.svg";
+import SubscribePopup from "../../../popups/SubscribePopup.jsx";
+import searchIcon from "../../../../assets/images/search-icon.svg";
+import img from "../../../../assets/images/search-gray.svg";
+import img2 from "../../../../assets/images/crossclose.svg";
+import Button from "../../../button/Button";
 // import '../../Header.scss';
-import mp3Icon from '../../../../assets/images/mp3-icon.png';
-import audioIcon from '../../../../assets/images/marketplace/audio-icon.svg';
-import { defaultColors, handleClickOutside } from '../../../../utils/helpers';
+import mp3Icon from "../../../../assets/images/mp3-icon.png";
+import audioIcon from "../../../../assets/images/marketplace/audio-icon.svg";
+import { defaultColors, handleClickOutside } from "../../../../utils/helpers";
 import {
   shortenEnsDomain,
   shortenEthereumAddress,
   toFixed,
-} from '../../../../utils/helpers/format';
-import supportIcon from '../../../../assets/images/supportIcon.svg';
-import Badge from '../../../badge/Badge';
-import arrowUP from '../../../../assets/images/arrow-down.svg';
-import { useUserBalanceStore } from '../../../../stores/balanceStore';
-import { useAuthStore } from '../../../../stores/authStore';
+} from "../../../../utils/helpers/format";
+import supportIcon from "../../../../assets/images/supportIcon.svg";
+import Badge from "../../../badge/Badge";
+import arrowUP from "../../../../assets/images/arrow-down.svg";
+import { useUserBalanceStore } from "../../../../stores/balanceStore";
+import { useAuthStore } from "../../../../stores/authStore";
 
 const TabletView = (props) => {
   const {
@@ -67,20 +67,24 @@ const TabletView = (props) => {
     setShowMenu,
     showSearch,
     setShowSearch,
+    userPolymorphsCount,
   } = props;
-  const {
-    yourEnsDomain,
-    signOut,
-    isAuthenticating,
-  } = useAuthStore(s => ({yourEnsDomain: s.yourEnsDomain, signOut: s.signOut, isAuthenticating: s.isAuthenticating}))
+  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
+    yourEnsDomain: s.yourEnsDomain,
+    signOut: s.signOut,
+    isAuthenticating: s.isAuthenticating,
+  }));
 
-  const { yourBalance, usdEthBalance } = useUserBalanceStore(state => ({yourBalance: state.yourBalance, usdEthBalance: state.usdEthBalance}));
+  const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
+    yourBalance: state.yourBalance,
+    usdEthBalance: state.usdEthBalance,
+  }));
 
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const searchRef = useRef();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const ref = useRef(null);
   const router = useRouter();
 
@@ -88,7 +92,7 @@ const TabletView = (props) => {
     if (e.keyCode === 13) {
       if (searchValue) {
         router.push(`/search`, { query: searchValue });
-        setSearchValue('');
+        setSearchValue("");
         searchRef.current.blur();
         setShowSearch(false);
       }
@@ -96,38 +100,38 @@ const TabletView = (props) => {
   };
   const handleAllResults = () => {
     router.push(`/search`, { query: searchValue });
-    setSearchValue('');
+    setSearchValue("");
     searchRef.current.blur();
     setShowSearch(false);
   };
 
   useEffect(() => {
     if (showSearch) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showSearch]);
 
   useEffect(() => {
     if (showMenu) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showMenu]);
 
   useEffect(() => {
     document.addEventListener(
-      'click',
-      (e) => handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened),
+      "click",
+      (e) => handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened),
       true
     );
     return () => {
       document.removeEventListener(
-        'click',
+        "click",
         (e) => {
-          handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened);
+          handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened);
         },
         true
       );
@@ -144,7 +148,7 @@ const TabletView = (props) => {
       {isWalletConnected && (
         <div className="wallet__connected__tablet">
           <div
-            style={{ marginRight: 20, display: 'flex', cursor: 'pointer' }}
+            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleDropdown}
           >
@@ -152,14 +156,16 @@ const TabletView = (props) => {
               // style={{ width: 200 }}
               type="button"
               className="menu-li myAccount"
-              onClick={() => setIsAccountDropdownOpened(!isAccountDropdownOpened)}
+              onClick={() =>
+                setIsAccountDropdownOpened(!isAccountDropdownOpened)
+              }
             >
               <HeaderAvatar scale={4} />
               <span className="nav__link__title">
                 <div className="ethereum__address__tablet">
-                    {yourEnsDomain
-                      ? shortenEnsDomain(yourEnsDomain)
-                      : shortenEthereumAddress(ethereumAddress)}
+                  {yourEnsDomain
+                    ? shortenEnsDomain(yourEnsDomain)
+                    : shortenEthereumAddress(ethereumAddress)}
                 </div>
               </span>
               <img className="arrow" src={arrowUP} alt="arrow" />
@@ -203,7 +209,11 @@ const TabletView = (props) => {
                           }}
                         >
                           <span>
-                            <img src={copyIcon} alt="Copy to clipboard icon" className="copyImg" />
+                            <img
+                              src={copyIcon}
+                              alt="Copy to clipboard icon"
+                              className="copyImg"
+                            />
                           </span>
                         </CopyToClipboard>
                       </div>
@@ -211,8 +221,12 @@ const TabletView = (props) => {
                   </div>
                   <div className="group1">
                     <img src={Group1} alt="ETH" />
-                    <span className="first-span">{toFixed(yourBalance, 2)} ETH</span>
-                    <span className="second-span">${toFixed(usdEthBalance, 2)}</span>
+                    <span className="first-span">
+                      {toFixed(yourBalance, 2)} ETH
+                    </span>
+                    <span className="second-span">
+                      ${toFixed(usdEthBalance, 2)}
+                    </span>
                   </div>
                   {/* <div className="group2">
                     <img src={Group2} alt="WETH" />
@@ -226,7 +240,7 @@ const TabletView = (props) => {
                     className="signOut"
                     onClick={() => {
                       signOut();
-                      router.push('/');
+                      router.push("/");
                       setIsAccountDropdownOpened(false);
                     }}
                   >
@@ -238,7 +252,11 @@ const TabletView = (props) => {
           )}
         </div>
       )}
-      <button type="button" className="hamburger" onClick={() => setShowMenu(!showMenu)}>
+      <button
+        type="button"
+        className="hamburger"
+        onClick={() => setShowMenu(!showMenu)}
+      >
         {!showMenu ? (
           <img src={hamburgerIcon} alt="Hamburger" />
         ) : (
@@ -291,26 +309,39 @@ const TabletView = (props) => {
                   </div>
                 </div> */}
                 <div>
-                  <p className="title"                       
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/burn-to-mint');
-                      }}>Burn to Mint</p>
-                </div>
-                <div>
-                  <p className="title"
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/polymorph-rarity');
-                      }}>Rarity Chart
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/burn-to-mint");
+                    }}
+                  >
+                    Burn to Mint
                   </p>
                 </div>
                 <div>
-                  <p className="title"
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/my-polymorphs');
-                      }}>My Polymorphs
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/polymorph-rarity");
+                    }}
+                  >
+                    Rarity Chart
+                  </p>
+                </div>
+                <div>
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/my-polymorphs");
+                    }}
+                  >
+                    My Polymorphs
+                    {userPolymorphsCount ? (
+                      <span>{userPolymorphsCount}</span>
+                    ) : null}
                   </p>
                 </div>
                 {/* <div>
@@ -418,7 +449,7 @@ const TabletView = (props) => {
                   closeOnDocumentClick={false}
                   trigger={
                     <button type="button" className="sign__in">
-                      {isAuthenticating ? 'Signing in...' : 'Sign in'}
+                      {isAuthenticating ? "Signing in..." : "Sign in"}
                     </button>
                   }
                 >

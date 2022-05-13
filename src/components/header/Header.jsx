@@ -1,7 +1,13 @@
-import React, { useContext, useEffect, useState, useRef, useCallback } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Popup from 'reactjs-popup';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
+import { useHistory, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import Popup from "reactjs-popup";
 import {
   PLACEHOLDER_MARKETPLACE_AUCTIONS,
   PLACEHOLDER_MARKETPLACE_NFTS,
@@ -9,77 +15,84 @@ import {
   PLACEHOLDER_MARKETPLACE_COLLECTIONS,
   PLACEHOLDER_MARKETPLACE_COMMUNITIES,
   PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from '../../utils/fixtures/BrowseNFTsDummyData';
+} from "../../utils/fixtures/BrowseNFTsDummyData";
 // import './Header.scss';
-import Button from '../button/Button';
-import DesktopView from './dimensions/desktop/DesktopView.jsx';
-import TabletView from './dimensions/tablet/TabletView.jsx';
-import MobileView from './dimensions/mobile/MobileView.jsx';
-import AppContext from '../../ContextAPI';
-import appDarkLogo from '../../assets/images/dark.svg';
-import appLightLogo from '../../assets/images/light.svg';
-import polymorphsDarkLogo from '../../assets/images/polymorphs-logo-dark.svg';
-import polymorphsLightLogo from '../../assets/images/polymorphs-logo-light.svg';
-import searchIcon from '../../assets/images/search-gray.svg';
-import closeIcon from '../../assets/images/close-menu.svg';
-import mp3Icon from '../../assets/images/mp3-icon.png';
-import audioIcon from '../../assets/images/marketplace/audio-icon.svg';
-import { defaultColors, handleScroll } from '../../utils/helpers';
-import { CONNECTORS_NAMES } from '../../utils/dictionary';
-import { useLayout } from '../../app/providers';
-import SelectWalletPopup from '../popups/SelectWalletPopup';
-import { useRouter } from 'next/router';
-import Link from 'next/link'
-import { useAuthStore } from '../../stores/authStore';
-import { useThemeStore } from 'src/stores/themeStore';
+import Button from "../button/Button";
+import DesktopView from "./dimensions/desktop/DesktopView.jsx";
+import TabletView from "./dimensions/tablet/TabletView.jsx";
+import MobileView from "./dimensions/mobile/MobileView.jsx";
+import AppContext from "../../ContextAPI";
+import appDarkLogo from "../../assets/images/dark.svg";
+import appLightLogo from "../../assets/images/light.svg";
+import polymorphsDarkLogo from "../../assets/images/polymorphs-logo-dark.svg";
+import polymorphsLightLogo from "../../assets/images/polymorphs-logo-light.svg";
+import searchIcon from "../../assets/images/search-gray.svg";
+import closeIcon from "../../assets/images/close-menu.svg";
+import mp3Icon from "../../assets/images/mp3-icon.png";
+import audioIcon from "../../assets/images/marketplace/audio-icon.svg";
+import { defaultColors, handleScroll } from "../../utils/helpers";
+import { CONNECTORS_NAMES } from "../../utils/dictionary";
+import { useLayout } from "../../app/providers";
+import SelectWalletPopup from "../popups/SelectWalletPopup";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { useAuthStore } from "../../stores/authStore";
+import { useThemeStore } from "src/stores/themeStore";
+import { useContractsStore } from "src/stores/contractsStore";
+import { ethers } from "ethers";
 
 const Header = () => {
   const {
+    isAuthenticated,
     isWalletConnected,
     setIsWalletConnected,
     connectWithWalletConnect,
     connectWithMetaMask,
     address,
     setLoginFn,
-  } = useAuthStore(s => ({
+  } = useAuthStore((s) => ({
+    isAuthenticated: s.isAuthenticated,
     isWalletConnected: s.isWalletConnected,
     setIsWalletConnected: s.setIsWalletConnected,
     connectWithWalletConnect: s.connectWithWalletConnect,
     connectWithMetaMask: s.connectWithMetaMask,
     address: s.address,
-    setLoginFn: s.setLoginFn
-  }))
+    setLoginFn: s.setLoginFn,
+  }));
+
+  const { polymorphContract, polymorphContractV2 } = useContractsStore();
 
   const router = useRouter();
 
-  const darkMode = useThemeStore(s => s.darkMode)
+  const darkMode = useThemeStore((s) => s.darkMode);
   const { headerRef } = useLayout();
 
-  const [selectedWallet, setSelectedWallet] = useState('');
+  const [selectedWallet, setSelectedWallet] = useState("");
   const [installed, setInstalled] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [showSelectWallet, setShowSelectWallet] = useState(false);
   const [showInstallWalletPopup, setShowInstallWalletPopup] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const searchRef = useRef();
   const ref = useRef();
+  const [userPolymorphsCount, setUserPolymorphsCount] = useState(null);
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (searchValue) {
         router.push(`/search`, { query: searchValue });
-        setSearchValue('');
+        setSearchValue("");
         searchRef.current.blur();
       }
     }
   };
   const handleAllResults = () => {
     router.push(`/search`, { query: searchValue });
-    setSearchValue('');
+    setSearchValue("");
     searchRef.current.blur();
   };
 
@@ -87,7 +100,10 @@ const Header = () => {
     // Here need to check if selected wallet is installed in browser
     setSelectedWallet(wallet);
     if (installed) {
-      if (wallet === CONNECTORS_NAMES.MetaMask && typeof window.ethereum !== 'undefined') {
+      if (
+        wallet === CONNECTORS_NAMES.MetaMask &&
+        typeof window.ethereum !== "undefined"
+      ) {
         await connectWithMetaMask();
         setIsWalletConnected(true);
         setShowMenu(false);
@@ -110,48 +126,66 @@ const Header = () => {
       searchRef.current &&
       !searchRef.current.contains(event.target)
     ) {
-      setSearchValue('');
+      setSearchValue("");
     }
   };
 
+  const getUsersPolymorphsCount = async () => {
+    const polymorphsV1Count = (
+      await polymorphContract.balanceOf(address)
+    ).toNumber();
+    const polymorphsV2Count = (
+      await polymorphContractV2.balanceOf(address)
+    ).toNumber();
+    const totalCount = polymorphsV1Count + polymorphsV2Count;
+    setUserPolymorphsCount(totalCount);
+  };
+
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside, true);
+    if (isAuthenticated && isWalletConnected) {
+      getUsersPolymorphsCount();
+    } else {
+      setUserPolymorphsCount(null);
+    }
+  }, [isAuthenticated, isWalletConnected]);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
     return () => {
-      document.removeEventListener('click', handleClickOutside, true);
+      document.removeEventListener("click", handleClickOutside, true);
     };
   }, []);
 
   useEffect(() => {
     setShowMenu(false);
     if (
-      router.asPath === '/' ||
-      router.asPath === '/about' ||
-      router.asPath === '/minting-and-auctions/marketplace/active-auctions' ||
-      router.asPath === '/minting-and-auctions/marketplace/future-auctions' ||
-      router.asPath === '/polymorphs' ||
-      router.asPath === '/mint-polymorph' ||
-      router.asPath === '/team'
+      router.asPath === "/" ||
+      router.asPath === "/about" ||
+      router.asPath === "/minting-and-auctions/marketplace/active-auctions" ||
+      router.asPath === "/minting-and-auctions/marketplace/future-auctions" ||
+      router.asPath === "/polymorphs" ||
+      router.asPath === "/mint-polymorph" ||
+      router.asPath === "/team"
     ) {
-      document.querySelector('header').classList.add('dark');
+      document.querySelector("header").classList.add("dark");
     } else {
-      document.querySelector('header').classList.remove('dark');
+      document.querySelector("header").classList.remove("dark");
     }
   }, [router.asPath]);
 
   useEffect(() => {
     if (darkMode && showMenu) {
-      document.querySelector('header').classList.remove('dark');
+      document.querySelector("header").classList.remove("dark");
     } else if (darkMode && !showMenu) {
-      document.querySelector('header').classList.add('dark');
+      document.querySelector("header").classList.add("dark");
     }
   }, [showMenu, darkMode]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-  
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, []);  
+    window.addEventListener("scroll", handleScroll);
 
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setLoginFn(() => () => {
@@ -159,7 +193,7 @@ const Header = () => {
     });
   }, [setLoginFn]);
 
-    return ( 
+  return (
     <header ref={headerRef}>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <div className="app__logo">
@@ -373,17 +407,18 @@ const Header = () => {
       <DesktopView
         isWalletConnected={isWalletConnected}
         setIsWalletConnected={setIsWalletConnected}
-        ethereumAddress={address || ''}
+        ethereumAddress={address || ""}
         handleConnectWallet={handleConnectWallet}
         showInstallWalletPopup={showInstallWalletPopup}
         setShowInstallWalletPopup={setShowInstallWalletPopup}
         selectedWallet={selectedWallet}
         setSelectedWallet={setSelectedWallet}
+        userPolymorphsCount={userPolymorphsCount}
       />
       <TabletView
         isWalletConnected={isWalletConnected}
         setIsWalletConnected={setIsWalletConnected}
-        ethereumAddress={address || ''}
+        ethereumAddress={address || ""}
         handleConnectWallet={handleConnectWallet}
         showInstallWalletPopup={showInstallWalletPopup}
         setShowInstallWalletPopup={setShowInstallWalletPopup}
@@ -393,11 +428,12 @@ const Header = () => {
         setShowMenu={setShowMenu}
         setShowSearch={setShowSearch}
         showSearch={showSearch}
+        userPolymorphsCount={userPolymorphsCount}
       />
       <MobileView
         isWalletConnected={isWalletConnected}
         setIsWalletConnected={setIsWalletConnected}
-        ethereumAddress={address || ''}
+        ethereumAddress={address || ""}
         handleConnectWallet={handleConnectWallet}
         setShowMenu={setShowMenu}
         setShowSelectWallet={setShowSelectWallet}
@@ -409,6 +445,7 @@ const Header = () => {
         selectedWallet={selectedWallet}
         setShowMobileSearch={setShowMobileSearch}
         showMobileSearch={showMobileSearch}
+        userPolymorphsCount={userPolymorphsCount}
       />
 
       <Popup
