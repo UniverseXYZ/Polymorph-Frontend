@@ -1,5 +1,5 @@
-@import '../../../assets/scss/variables';
-@import '../../../assets/scss/_mixins';
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/_mixins";
 
 .rarity--charts--list {
   display: grid;
@@ -7,7 +7,7 @@
   grid-gap: 30px;
   .categories--filters {
     h2 {
-      font-family: 'Space Grotesk SemiBold25', sans-serif;
+      font-family: "Space Grotesk SemiBold25", sans-serif;
       font-style: normal;
       font-weight: 600;
       font-size: 18px;
@@ -116,10 +116,14 @@
               border: 1px solid transparent;
             }
             &:checked {
-              background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+              background: linear-gradient(
+                135deg,
+                #bceb00 15.57%,
+                #00eaea 84.88%
+              );
               border-color: transparent;
               &::after {
-                content: '\2518';
+                content: "\2518";
                 color: #000000;
                 font-size: 16px;
                 position: absolute;
@@ -193,7 +197,7 @@
         background: $white;
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 12px;
-        padding: 16px;
+        padding: 0px;
         transition: 0.3s ease-in-out;
         &:hover {
           box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
@@ -202,13 +206,14 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          padding: 14px 16px;
           .card--number {
             font-family: $spaceGroteskFont;
             font-style: normal;
             font-weight: bold;
             font-size: 16px;
             line-height: 160%;
-            color: #b3b3b3;
+            color: $black;
           }
           .card--price {
             display: flex;
@@ -216,9 +221,9 @@
             font-family: $spaceGroteskFont;
             font-style: normal;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             line-height: 120%;
-            color: $black;
+            color: rgba(0, 0, 0, 0.4);
             img {
               margin-right: 5px;
             }
@@ -226,15 +231,14 @@
         }
         &--body {
           position: relative;
-          margin-top: 20px;
-          margin-bottom: 10px;
+          margin: 0;
           height: 225px;
           width: 100%;
           img.rarity--chart {
             cursor: pointer;
             width: 100%;
             height: 100%;
-            border-radius: 12px;
+            border-radius: 0px;
             object-fit: cover;
           }
           .card--scrambled {
@@ -259,7 +263,7 @@
               left: 50%;
               transform: translateX(-50%);
               &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 100%;
                 left: 50%;
@@ -287,24 +291,99 @@
         }
         &--footer {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          h2 {
-            font-family: $spaceGroteskFont;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 160%;
-            color: $black;
-            margin-bottom: 5px;
+          justify-content: flex-start;
+          padding: 14px;
+          min-height: 110px;
+          position: relative;
+
+          &--top {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 14px;
+            h2 {
+              font-family: $spaceGroteskFont;
+              font-style: normal;
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 160%;
+              color: $black;
+              margin: 0;
+              height: 100%;
+              // margin-bottom: 14px;
+            }
+            p {
+              font-family: $spaceGroteskFont;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 160%;
+              color: #b3b3b3;
+            }
           }
-          p {
-            font-family: $spaceGroteskFont;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 160%;
-            color: #b3b3b3;
+          &--bottom {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            margin-top: 14px;
+            justify-content: space-between;
+            span {
+              font-family: $spaceGroteskFont;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 12px;
+              line-height: 160%;
+              color: #b3b3b3;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 67px;
+              height: 32px;
+              background: rgba(0, 0, 0, 0.05);
+              border-radius: 8px;
+            }
+            button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 32px;
+              width: 32px;
+              border: 1px solid rgba(0, 0, 0, 0.05);
+              border-radius: 8px;
+              z-index: 100;
+            }
+          }
+          .dropdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: -55px;
+            z-index: 1;
+            background: #ffffff;
+            box-shadow: 0px 10px 36px rgb(136 120 172 / 14%);
+            border-radius: 6px;
+            width: 210px;
+            height: 66px;
+            right: 0;
+            img {
+              margin-right: 8px;
+            }
+            button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 14px;
+              padding: 8px;
+              background: #ffffff;
+              border-radius: 6px;
+              &:hover {
+                background: rgba(0, 0, 0, 0.051);
+              }
+            }
           }
         }
       }
