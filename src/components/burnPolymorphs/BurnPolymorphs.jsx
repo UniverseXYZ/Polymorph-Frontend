@@ -28,7 +28,7 @@ const BurnPolymorphs = ({ characters, type }) => {
   const { address } = useAuthStore();
 
   useEffect(async () => {
-    if(polymorphContract) {
+    if (polymorphContract) {
       const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
         address,
         polymorphContractV2Address
@@ -45,12 +45,12 @@ const BurnPolymorphs = ({ characters, type }) => {
       const gasEstimate = await polymorphContract.estimateGas.setApprovalForAll(
         polymorphContractV2Address,
         true
-      )
+      );
       const gasLimit = gasEstimate.mul(120).div(100);
       const approveTx = await polymorphContract.setApprovalForAll(
         polymorphContractV2Address,
         true,
-        {gasLimit: gasLimit}
+        { gasLimit: gasLimit }
       );
       const approveTxReceipt = await approveTx.wait();
       if (approveTxReceipt.status !== 1) {
@@ -112,6 +112,7 @@ const BurnPolymorphs = ({ characters, type }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+  console.log(characters);
   console.log(status);
   return (
     <div className="burn--polymorph--page">
