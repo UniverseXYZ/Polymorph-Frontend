@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const [polymorphContract, setPolymorphContract] = useState(null);
-  const [lobsterContract, setLobsterContract] = useState(null);
   const [providerName, setProviderName] = useState(Cookies.get('providerName') || '');
   const [web3Provider, setWeb3Provider] = useState(null);
   const [address, setAddress] = useState('');
@@ -97,13 +96,6 @@ const AuthContextProvider = ({ children }) => {
       signerResult
     );
 
-    const lobsContract = contractsData.Lobster;
-    const lobsterContractInstance = new Contract(
-      process.env.REACT_APP_LOBSTERS_CONTRACT_ADDRESS,
-      lobsContract?.abi,
-      signerResult
-    );
-
     setWeb3Provider(provider);
     setAddress(accounts.length ? accounts[0].toLowerCase() : '');
     setSigner(signerResult);
@@ -115,7 +107,6 @@ const AuthContextProvider = ({ children }) => {
     setContracts(contractsData);
 
     setPolymorphContract(polymorphContractInstance);
-    setLobsterContract(lobsterContractInstance);
   };
 
   const resetConnectionState = async (walletConnectEvent) => {
@@ -135,7 +126,6 @@ const AuthContextProvider = ({ children }) => {
     setIsAuthenticated(false);
 
     setPolymorphContract(null);
-    setLobsterContract(null);
   };
 
   const onAccountsChanged = async ([account]) => {
@@ -358,8 +348,6 @@ const AuthContextProvider = ({ children }) => {
         setLoggedInArtist,
         polymorphContract,
         setPolymorphContract,
-        lobsterContract,
-        setLobsterContract,
         providerName,
         setProviderName,
         web3Provider,

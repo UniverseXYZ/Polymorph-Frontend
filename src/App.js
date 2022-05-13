@@ -39,14 +39,11 @@ import MyProfile from './containers/myProfile/MyProfile';
 import CreateNFT from './components/myNFTs/create/CreateNFT';
 import RarityCharts from './containers/rarityCharts/RarityCharts';
 import PolymorphUniverse from './containers/polymorphUniverse/PolymorphUniverse';
-import LobbyLobsters from './containers/lobbyLobsters/LobbyLobsters';
 import WrongNetworkPopup from './components/popups/WrongNetworkPopup';
-import LobsterInfoPage from './components/lobbyLobsters/info/LobstersInfoPage';
 import AuthenticatedRoute from './components/authenticatedRoute/AuthenticatedRoute';
 import { AuctionContextProvider } from './contexts/AuctionContext';
 import { MyNFTsContextProvider } from './contexts/MyNFTsContext';
 import { PolymorphContextProvider } from './contexts/PolymorphContext';
-import { LobsterContextProvider } from './contexts/LobsterContext';
 import { MarketplaceContextProvider } from './contexts/MarketplaceContext';
 import { useAuthContext } from './contexts/AuthContext';
 import ErrorPopup from './components/popups/ErrorPopup';
@@ -92,7 +89,6 @@ const routes = {
   // '/planets/prosopon': new UniverseRoute(Planet2),
   // '/planets/kuapo': new UniverseRoute(Planet3),
   '/polymorphs/:id': new UniverseRoute(PolymorphScramblePage),
-  '/lobsters/:id': new UniverseRoute(LobsterInfoPage),
   '/v1/nft/:collectionAddress/:tokenId': new UniverseRoute(MarketplaceNFT),
   // '/character-page': new UniverseRoute(CharacterPage),
   '/v1/marketplace': new UniverseRoute(BrowseNFT),
@@ -103,7 +99,6 @@ const routes = {
   '/nft-marketplace/:steps': new UniverseRoute(NFTMarketplace),
   // '/search': new UniverseRoute(Search),
   // '/core-drops': new UniverseRoute(CharectersDrop),
-  '/lobby-lobsters': new UniverseRoute(LobbyLobsters),
   '/polymorph-rarity': new UniverseRoute(RarityCharts),
   '/my-profile': new UniverseRoute(MyProfile, true),
   // '/setup-auction': new UniverseRoute(SetupAuction, true, false, { exact: false }),
@@ -153,7 +148,6 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <PolymorphContextProvider>
-        <LobsterContextProvider>
           <MyNFTsContextProvider>
             <AuctionContextProvider>
               <MarketplaceContextProvider>
@@ -207,7 +201,6 @@ const App = () => {
               </MarketplaceContextProvider>
             </AuctionContextProvider>
           </MyNFTsContextProvider>
-        </LobsterContextProvider>
       </PolymorphContextProvider>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       <ReactQueryDevtools initialIsOpen={false} />
