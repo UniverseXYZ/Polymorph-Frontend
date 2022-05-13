@@ -46,7 +46,7 @@ export const useContractsStore = create<IContractsStore>((set) => ({
     );
 
     const polymorphContractV2Instance = new Contract(
-      process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS as any,
+      process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
       contractsData.PolymorphRoot?.abi,
       signer
     );
