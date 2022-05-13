@@ -9,7 +9,7 @@ export default class AutoPlayMethods extends Component {
   state = {
     slideIndex: 0,
     barLoading: 0,
-    isMobile: typeof window !== "undefined" ? window.innerWidth < 768 : null,
+    isMobile: false,
   };
 
   updateIsMobile = () => {
@@ -22,6 +22,7 @@ export default class AutoPlayMethods extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateIsMobile);
+    this.updateIsMobile();
   }
 
   componentWillUnmount() {
