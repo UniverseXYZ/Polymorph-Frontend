@@ -89,18 +89,6 @@ const AuthContextProvider = ({ children }) => {
 
     const { contracts: contractsData } = Contracts[network.chainId];
 
-    // Minting
-    const universeERC721CoreContractResult = new Contract(
-      contractsData.UniverseERC721Core.address,
-      contractsData.UniverseERC721Core.abi,
-      signerResult
-    );
-    const universeERC721FactoryContractResult = new Contract(
-      contractsData.UniverseERC721Factory.address,
-      contractsData.UniverseERC721Factory.abi,
-      signerResult
-    );
-
     const polymContract = contractsData.PolymorphWithGeneChanger;
 
     const polymorphContractInstance = new Contract(
@@ -124,8 +112,6 @@ const AuthContextProvider = ({ children }) => {
     setYourEnsDomain(ensDomain);
     // setIsWalletConnected(true);
     setEthereumNetwork(network);
-    setUniverseERC721CoreContract(universeERC721CoreContractResult);
-    setUniverseERC721FactoryContract(universeERC721FactoryContractResult);
     setContracts(contractsData);
 
     setPolymorphContract(polymorphContractInstance);
