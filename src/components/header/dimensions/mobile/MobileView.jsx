@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Animated } from 'react-animated-css';
-import Popup from 'reactjs-popup';
+import React, { useContext, useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Animated } from "react-animated-css";
+import Popup from "reactjs-popup";
 // import './MobileView.scss';
-import HeaderAvatar from '../../HeaderAvatar';
+import HeaderAvatar from "../../HeaderAvatar";
 import {
   PLACEHOLDER_MARKETPLACE_AUCTIONS,
   PLACEHOLDER_MARKETPLACE_NFTS,
@@ -13,60 +13,60 @@ import {
   PLACEHOLDER_MARKETPLACE_COLLECTIONS,
   PLACEHOLDER_MARKETPLACE_COMMUNITIES,
   PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from '../../../../utils/fixtures/BrowseNFTsDummyData';
-import AppContext from '../../../../ContextAPI';
-import Button from '../../../button/Button.jsx';
-import hamburgerIcon from '../../../../assets/images/hamburger.svg';
-import SearchIcon from '../../../../assets/images/marketplace-search.svg';
-import closeIcon from '../../../../assets/images/close-menu.svg';
-import Group1 from '../../../../assets/images/Group1.svg';
-import Group2 from '../../../../assets/images/Group2.svg';
-import copyIcon from '../../../../assets/images/copy.svg';
-import accountIcon from '../../../../assets/images/icon1.svg';
-import accountDarkIcon from '../../../../assets/images/account-dark-icon.svg';
-import metamaskLogo from '../../../../assets/images/metamask.png';
-import ledgerLogo from '../../../../assets/images/ledger.png';
-import keystoreLogo from '../../../../assets/images/keystore.png';
-import trezorLogo from '../../../../assets/images/trezor.png';
-import coinbaseLogo from '../../../../assets/images/coinbase.png';
-import walletConnectLogo from '../../../../assets/images/wallet-connect.png';
-import leftArrow from '../../../../assets/images/arrow.svg';
-import auctionHouseIcon from '../../../../assets/images/auction-house.svg';
-import myProfileIcon from '../../../../assets/images/my-profile.svg';
-import myNFTsIcon from '../../../../assets/images/my-nfts.svg';
-import signOutIcon from '../../../../assets/images/sign-out.svg';
-import marketplaceIcon from '../../../../assets/images/nft-marketplace.svg';
-import socialMediaIcon from '../../../../assets/images/social-media.svg';
-import polymorphsIcon from '../../../../assets/images/polymorphs.svg';
-import coreDropsIcon from '../../../../assets/images/core-drops.svg';
-import rarityChartIcon from '../../../../assets/images/rarity-chart.svg';
-import navChartIcon from '../../../../assets/images/chart-nav-icon.svg';
-import aboutIcon from '../../../../assets/images/about.svg';
-import whitepaperIcon from '../../../../assets/images/whitepaper.svg';
-import teamIcon from '../../../../assets/images/team.svg';
-import governanceIcon from '../../../../assets/images/governance.svg';
-import yieldFarmingIcon from '../../../../assets/images/yield-farming.svg';
-import forumIcon from '../../../../assets/images/forum.svg';
-import signalIcon from '../../../../assets/images/signal.svg';
-import docsIcon from '../../../../assets/images/docs.svg';
-import arrowDown from '../../../../assets/images/arrow-down.svg';
-import SubscribePopup from '../../../popups/SubscribePopup.jsx';
-import searchIcon from '../../../../assets/images/search-icon.svg';
-import img from '../../../../assets/images/search-gray.svg';
-import img2 from '../../../../assets/images/crossclose.svg';
-import mp3Icon from '../../../../assets/images/mp3-icon.png';
-import audioIcon from '../../../../assets/images/marketplace/audio-icon.svg';
-import { handleClickOutside } from '../../../../utils/helpers';
+} from "../../../../utils/fixtures/BrowseNFTsDummyData";
+import AppContext from "../../../../ContextAPI";
+import Button from "../../../button/Button.jsx";
+import hamburgerIcon from "../../../../assets/images/hamburger.svg";
+import SearchIcon from "../../../../assets/images/marketplace-search.svg";
+import closeIcon from "../../../../assets/images/close-menu.svg";
+import Group1 from "../../../../assets/images/Group1.svg";
+import Group2 from "../../../../assets/images/Group2.svg";
+import copyIcon from "../../../../assets/images/copy.svg";
+import accountIcon from "../../../../assets/images/icon1.svg";
+import accountDarkIcon from "../../../../assets/images/account-dark-icon.svg";
+import metamaskLogo from "../../../../assets/images/metamask.png";
+import ledgerLogo from "../../../../assets/images/ledger.png";
+import keystoreLogo from "../../../../assets/images/keystore.png";
+import trezorLogo from "../../../../assets/images/trezor.png";
+import coinbaseLogo from "../../../../assets/images/coinbase.png";
+import walletConnectLogo from "../../../../assets/images/wallet-connect.png";
+import leftArrow from "../../../../assets/images/arrow.svg";
+import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
+import myProfileIcon from "../../../../assets/images/my-profile.svg";
+import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
+import signOutIcon from "../../../../assets/images/sign-out.svg";
+import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
+import socialMediaIcon from "../../../../assets/images/social-media.svg";
+import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
+import coreDropsIcon from "../../../../assets/images/core-drops.svg";
+import rarityChartIcon from "../../../../assets/images/rarity-chart.svg";
+import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
+import aboutIcon from "../../../../assets/images/about.svg";
+import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
+import teamIcon from "../../../../assets/images/team.svg";
+import governanceIcon from "../../../../assets/images/governance.svg";
+import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
+import forumIcon from "../../../../assets/images/forum.svg";
+import signalIcon from "../../../../assets/images/signal.svg";
+import docsIcon from "../../../../assets/images/docs.svg";
+import arrowDown from "../../../../assets/images/arrow-down.svg";
+import SubscribePopup from "../../../popups/SubscribePopup.jsx";
+import searchIcon from "../../../../assets/images/search-icon.svg";
+import img from "../../../../assets/images/search-gray.svg";
+import img2 from "../../../../assets/images/crossclose.svg";
+import mp3Icon from "../../../../assets/images/mp3-icon.png";
+import audioIcon from "../../../../assets/images/marketplace/audio-icon.svg";
+import { handleClickOutside } from "../../../../utils/helpers";
 import {
   toFixed,
   shortenEnsDomain,
   shortenEthereumAddress,
-} from '../../../../utils/helpers/format';
-import supportIcon from '../../../../assets/images/supportIcon.svg';
-import Badge from '../../../badge/Badge';
-import { useUserBalanceStore } from '../../../../stores/balanceStore';
-import { useAuthStore } from '../../../../stores/authStore';
-import arrowRight from '../../../../assets/images/marketplace/bundles-right-arrow.svg'
+} from "../../../../utils/helpers/format";
+import supportIcon from "../../../../assets/images/supportIcon.svg";
+import Badge from "../../../badge/Badge";
+import { useUserBalanceStore } from "../../../../stores/balanceStore";
+import { useAuthStore } from "../../../../stores/authStore";
+import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 
 const MobileView = (props) => {
   const {
@@ -84,17 +84,25 @@ const MobileView = (props) => {
     selectedWallet,
     showMobileSearch,
     setShowMobileSearch,
+    userPolymorphsCount,
   } = props;
-  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore(s => ({yourEnsDomain: s.yourEnsDomain, signOut: s.signOut, isAuthenticating: s.isAuthenticating}))
-  
-  const { yourBalance, usdEthBalance } = useUserBalanceStore(state => ({yourBalance: state.yourBalance, usdEthBalance: state.usdEthBalance}));
+  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
+    yourEnsDomain: s.yourEnsDomain,
+    signOut: s.signOut,
+    isAuthenticating: s.isAuthenticating,
+  }));
+
+  const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
+    yourBalance: state.yourBalance,
+    usdEthBalance: state.usdEthBalance,
+  }));
 
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const ref = useRef(null);
   const router = useRouter();
   const searchRef = useRef();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [searchFocus, setSearchFocus] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
   const [showNFTDrops, setShowNFTDrops] = useState(false);
@@ -109,7 +117,7 @@ const MobileView = (props) => {
     if (e.keyCode === 13) {
       if (searchValue) {
         router.push(`/search`, { query: searchValue });
-        setSearchValue('');
+        setSearchValue("");
         searchRef.current.blur();
         setShowMobileSearch(false);
       }
@@ -118,38 +126,38 @@ const MobileView = (props) => {
 
   const handleAllResults = () => {
     router.push(`/search`, { query: searchValue });
-    setSearchValue('');
+    setSearchValue("");
     searchRef.current.blur();
     setShowMobileSearch(false);
   };
 
   useEffect(() => {
     if (showMobileSearch) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showMobileSearch]);
 
   useEffect(() => {
     if (showMenu) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showMenu]);
 
   useEffect(() => {
     document.addEventListener(
-      'click',
-      (e) => handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened),
+      "click",
+      (e) => handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened),
       true
     );
     return () => {
       document.removeEventListener(
-        'click',
+        "click",
         (e) => {
-          handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened);
+          handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened);
         },
         true
       );
@@ -423,7 +431,7 @@ const MobileView = (props) => {
             aria-hidden="true"
           /> */}
           <div
-            style={{ marginRight: 20, display: 'flex', cursor: 'pointer' }}
+            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleDropdown}
           >
@@ -459,7 +467,11 @@ const MobileView = (props) => {
                           }}
                         >
                           <span>
-                            <img src={copyIcon} alt="Copy to clipboard icon" className="copyImg" />
+                            <img
+                              src={copyIcon}
+                              alt="Copy to clipboard icon"
+                              className="copyImg"
+                            />
                           </span>
                         </CopyToClipboard>
                       </div>
@@ -467,8 +479,12 @@ const MobileView = (props) => {
                   </div>
                   <div className="group1">
                     <img src={Group1} alt="ETH" />
-                    <span className="first-span">{toFixed(yourBalance, 2)} ETH</span>
-                    <span className="second-span">${toFixed(usdEthBalance, 2)}</span>
+                    <span className="first-span">
+                      {toFixed(yourBalance, 2)} ETH
+                    </span>
+                    <span className="second-span">
+                      ${toFixed(usdEthBalance, 2)}
+                    </span>
                   </div>
                   {/* <div className="group2">
                     <img src={Group2} alt="WETH" />
@@ -482,7 +498,7 @@ const MobileView = (props) => {
                     className="signOut"
                     onClick={() => {
                       signOut();
-                      router.push('/');
+                      router.push("/");
                       setIsAccountDropdownOpened(false);
                     }}
                   >
@@ -494,7 +510,11 @@ const MobileView = (props) => {
           )}
         </div>
       )}
-      <button type="button" className="hamburger" onClick={() => setShowMenu(!showMenu)}>
+      <button
+        type="button"
+        className="hamburger"
+        onClick={() => setShowMenu(!showMenu)}
+      >
         {!showMenu ? (
           <img src={hamburgerIcon} alt="Hamburger" />
         ) : (
@@ -509,12 +529,11 @@ const MobileView = (props) => {
               <>
                 <li>
                   <div className="grid__menu">
-                    
                     <div>
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => router.push('/burn-to-mint')}
+                        onClick={() => router.push("/burn-to-mint")}
                       >
                         <p className="title">Burn to Mint</p>
                         <img src={arrowRight} alt="arrow" />
@@ -524,7 +543,7 @@ const MobileView = (props) => {
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => router.push('/polymorph-rarity')}
+                        onClick={() => router.push("/polymorph-rarity")}
                       >
                         <p className="title">Rarity Chart</p>
                         <img src={arrowRight} alt="arrow" />
@@ -534,9 +553,14 @@ const MobileView = (props) => {
                       <div
                         className="head"
                         aria-hidden="true"
-                        onClick={() => router.push('/my-polymorphs')}
+                        onClick={() => router.push("/my-polymorphs")}
                       >
-                        <p className="title">My Polymorphs<span>16</span></p>
+                        <p className="title">
+                          My Polymorphs
+                          {userPolymorphsCount ? (
+                            <span>{userPolymorphsCount}</span>
+                          ) : null}
+                        </p>
                         <img src={arrowRight} alt="arrow" />
                       </div>
                     </div>
@@ -549,7 +573,7 @@ const MobileView = (props) => {
                       className="sign__in"
                       onClick={() => setShowSelectWallet(true)}
                     >
-                      {isAuthenticating ? 'Signing in...' : 'Connect Wallet'}
+                      {isAuthenticating ? "Signing in..." : "Connect Wallet"}
                     </button>
                   </li>
                 )}
@@ -567,54 +591,72 @@ const MobileView = (props) => {
                 {!showInstallWalletPopup ? (
                   <>
                     <h1 className="title">Select Wallet</h1>
-                    <p className="desc">Please pick a wallet to connect to Universe</p>
+                    <p className="desc">
+                      Please pick a wallet to connect to Universe
+                    </p>
                     <div className="wallets">
-                      <button type="button" onClick={() => handleConnectWallet('Metamask')}>
+                      <button
+                        type="button"
+                        onClick={() => handleConnectWallet("Metamask")}
+                      >
                         <img src={metamaskLogo} alt="Metamask" />
                       </button>
-                      <button type="button" onClick={() => handleConnectWallet('WalletConnect')}>
+                      <button
+                        type="button"
+                        onClick={() => handleConnectWallet("WalletConnect")}
+                      >
                         <img src={walletConnectLogo} alt="WalletConnect" />
                       </button>
-                      <button type="button" disabled onClick={() => handleConnectWallet('Ledger')}>
+                      <button
+                        type="button"
+                        disabled
+                        onClick={() => handleConnectWallet("Ledger")}
+                      >
                         <img src={ledgerLogo} alt="Ledger" />
                       </button>
                       <button
                         type="button"
                         disabled
-                        onClick={() => handleConnectWallet('Keystore')}
+                        onClick={() => handleConnectWallet("Keystore")}
                       >
                         <img src={keystoreLogo} alt="Keystore" />
                       </button>
-                      <button type="button" disabled onClick={() => handleConnectWallet('Trezor')}>
+                      <button
+                        type="button"
+                        disabled
+                        onClick={() => handleConnectWallet("Trezor")}
+                      >
                         <img src={trezorLogo} alt="Trezor" />
                       </button>
                       <button
                         type="button"
                         disabled
-                        onClick={() => handleConnectWallet('Coinbase')}
+                        onClick={() => handleConnectWallet("Coinbase")}
                       >
                         <img src={coinbaseLogo} alt="Coinbase" />
                       </button>
                     </div>
                     <p className="info">
-                      We do not own your private keys and cannot access your funds without your
-                      confirmation.
+                      We do not own your private keys and cannot access your
+                      funds without your confirmation.
                     </p>
                   </>
                 ) : (
                   <>
                     <h1 className="title">Install {selectedWallet}</h1>
                     <p className="desc">
-                      You need to have Metamask installed to continue. Once you have installed it,
-                      please refresh the page
+                      You need to have Metamask installed to continue. Once you
+                      have installed it, please refresh the page
                     </p>
                     <div className="links">
-                      <Button className="light-button">Install {selectedWallet}</Button>
+                      <Button className="light-button">
+                        Install {selectedWallet}
+                      </Button>
                       <Button
                         className="light-border-button"
                         onClick={() => {
                           setShowInstallWalletPopup(false);
-                          setSelectedWallet('');
+                          setSelectedWallet("");
                         }}
                       >
                         Go back
