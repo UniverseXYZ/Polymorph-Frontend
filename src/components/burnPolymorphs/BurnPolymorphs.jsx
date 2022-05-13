@@ -22,8 +22,9 @@ const BurnPolymorphs = ({ characters, type }) => {
   const [status, setStatus] = useState("");
   const [tokenApproved, setTokenApproved] = useState(false);
   const [loadingApprove, setLoadingApprove] = useState(false);
+  const [loadingBurnToMint, setLoadingBurnToMint] = useState(false);
 
-  const { polymorphContract } = useContractsStore();
+  const { polymorphContract, polymorphContractV2 } = useContractsStore();
   const { address } = useAuthStore();
 
   useEffect(async () => {
@@ -65,6 +66,44 @@ const BurnPolymorphs = ({ characters, type }) => {
     }
   };
 
+  const handleBurnToMint = async () => {
+    try {
+      const burnToMintTokenIds = characters.map(function (item) {
+        return item["tokenId"];
+      });
+      setLoadingBurnToMint(true);
+      setStatus("loading");
+
+      const gasEstimate =
+        await polymorphContractV2.estimateGas.burnAndMintNewPolymorph(
+          burnToMintTokenIds
+        );
+
+      const gasLimit = gasEstimate.mul(120).div(100);
+
+      const burnToMintTx = await polymorphContractV2.burnAndMintNewPolymorph(
+        burnToMintTokenIds,
+        { gasLimit: gasLimit }
+      );
+
+      setStatus("burning");
+
+      const burnToMintTxReceipt = await burnToMintTx.wait();
+      if (burnToMintTxReceipt.status !== 1) {
+        setLoadingApprove(false);
+        console.log("Error with burning the tokens");
+        return;
+      }
+
+      setLoadingBurnToMint(false);
+      setStatus("success");
+    } catch (error) {
+      setLoadingBurnToMint(false);
+      setStatus("");
+      console.log(error);
+    }
+  };
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -73,17 +112,7 @@ const BurnPolymorphs = ({ characters, type }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-
-  const handleBurnClick = () => {
-    setStatus("burning");
-    setTimeout(() => {
-      setStatus("loading");
-      setTimeout(() => {
-        setStatus("success");
-      }, 2000);
-    }, 3000);
-  };
-
+  console.log(status);
   return (
     <div className="burn--polymorph--page">
       <div className="lottie--animation">
@@ -131,10 +160,10 @@ const BurnPolymorphs = ({ characters, type }) => {
                     </Button>
                     <Button
                       className="light-button"
-                      onClick={handleBurnClick}
-                      disabled={!tokenApproved}
+                      onClick={handleBurnToMint}
+                      disabled={!tokenApproved || loadingBurnToMint}
                     >
-                      Burn
+                      {loadingBurnToMint ? <LoadingSpinner /> : null} Burn
                     </Button>
                   </div>
                 </div>
