@@ -1,0 +1,41 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.polymorph--metadata--card {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .card--label {
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+    color: $black;
+  }
+  .card--price {
+    display: flex;
+    align-items: center;
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 120%;
+    color: $black;
+    img {
+      margin-right: 4px;
+    }
+  }
+  .card--address {
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+    color: #4d66eb;
+  }
+}

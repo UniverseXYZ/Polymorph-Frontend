@@ -4,6 +4,19 @@ import '../public/fonts/style.css';
 import '../src/assets/scss/normalize.scss'
 import '../src/assets/scss/_variables.scss'
 
+import '../src/containers/homepage/Homepage.scss';
+import '../src/containers/polymorphs/Polymorphs.scss';
+import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
+import '../src/containers/rarityCharts/RarityCharts.scss';
+import '../src/containers/rarityCharts/RarityCharsLoader.scss';
+import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
+import '../src/containers/burnPolymorphs/BurnPolymorph.scss';
+import '../src/containers/rarityCharts/RarityCharts.scss';
+import '../src/containers/rarityCharts/RarityChartsLoader';
+import '../src/containers/polymorphs/BurnToMint.scss';
+import '../src/containers/polymorphs/WhatsNewSection.scss';
+import '../src/containers/polymorphs/SinglePolymorphDetails.scss';
+
 import '../src/components/input/Inputs.scss';
 import '../src/components/header/Header.scss';
 import '../src/components/header/dimensions/desktop/DesktopView.scss';
@@ -27,8 +40,11 @@ import '../src/components/polymorphUniverse/polymorphicTherapySection/Polymorphi
 import '../src/components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.scss';
 import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
-import '../src/containers/polymorphs/BurnToMint.scss';
-import '../src/containers/polymorphs/WhatsNewSection.scss';
+import '../src/components/polymorphs/singlePolymorphDetails/DetailsWithTabs.scss';
+import '../src/components/polymorphs/singlePolymorphDetails/ImageWithBadges.scss';
+import '../src/components/polymorphs/polymorphPropertyCard/PolymorphPropertyCard.scss';
+import '../src/components/polymorphs/polymorphMetadataCard/PolymorphMetadataCard.scss';
+import '../src/components/polymorphs/polymorphHistoryCard/PolymorphHistoryCard.scss';
 import '../src/components/charactersGrid/CharactersGrid.scss';
 import '../src/components/notFound/NotFound.scss';
 import '../src/components/input/RaritySortByOrder.scss';
@@ -39,34 +55,24 @@ import '../src/components/rarityCharts/welcome/Welcome.scss';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/general/LoadingImage.scss';
-// import '../src/components/input/SearchTokenIdField.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
-// import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
-// import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
-// import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
 import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
-
-import '../src/containers/homepage/Homepage.scss';
-import '../src/containers/polymorphs/Polymorphs.scss';
-import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
-import '../src/containers/rarityCharts/RarityCharts.scss';
-import '../src/containers/rarityCharts/RarityCharsLoader.scss';
-import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
-import '../src/containers/burnPolymorphs/BurnPolymorph.scss';
-
 import '../src/components/rarityCharts/list/RarityLobsterList.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
-import '../src/containers/rarityCharts/RarityCharts.scss';
-import '../src/containers/rarityCharts/RarityChartsLoader';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/popups/LobsterLoader.scss';
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
-
 import '../src/components/badge/Badge.scss';
+// import '../src/components/input/SearchTokenIdField.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
+
+
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
