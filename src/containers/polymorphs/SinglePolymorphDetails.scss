@@ -1,0 +1,15 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.single--polymorph--details--page {
+  background-image: url("../../assets/images/minting_page_bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: grid;
+  grid-template-columns: 1fr 550px;
+  @include lg {
+    grid-template-columns: 1fr;
+  }
+}
