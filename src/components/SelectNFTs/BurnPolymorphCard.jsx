@@ -12,6 +12,9 @@ import SelectedSVG from "../../assets/images/activity-icons/Selected.svg";
 import ThreeDotsSVG from "../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../assets/images/burn-to-mint-images/link-out.svg";
 
+const marketplaceLinkOut =
+  process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
+
 const PolymorphCard = ({ item, selected, setSelected }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -81,9 +84,7 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
             <button
               onClick={(event) => {
                 event.stopPropagation();
-                window.open(
-                  `https://universe.xyz/nft/0x1cBB182322Aee8ce9F4F1f98d7460173ee30Af1F/${item.tokenid}`
-                );
+                window.open(`${marketplaceLinkOut}/${item.tokenid}`);
               }}
             >
               <img src={LinkOut} />
