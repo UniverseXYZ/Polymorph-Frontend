@@ -246,7 +246,7 @@ const DesktopView = ({
                     {toFixed(yourBalance, 2)} ETH
                   </span>
                   <span className="second-span">
-                    ${toFixed(usdEthBalance, 2)}
+                    ~${toFixed(usdEthBalance, 2)}
                   </span>
                 </div>
                 {/* <div className="group2">
@@ -258,7 +258,7 @@ const DesktopView = ({
               <div className="dropdown__body">
                 <button
                   type="button"
-                  className="disconnect"
+                  className="light-border-button"
                   onClick={() => {
                     signOut();
                     router.push("/");
@@ -277,7 +277,7 @@ const DesktopView = ({
               closeOnDocumentClick={false}
               trigger={
                 <button type="button" className="sign__in">
-                  {isAuthenticating ? "Signing in..." : "Sign in"}
+                  {isAuthenticating ? "Signing in..." : "Connect Wallet"}
                 </button>
               }
             >

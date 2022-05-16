@@ -237,7 +237,7 @@ const TabletView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    className="signOut"
+                    className="light-border-button"
                     onClick={() => {
                       signOut();
                       router.push("/");
@@ -449,7 +449,7 @@ const TabletView = (props) => {
                   closeOnDocumentClick={false}
                   trigger={
                     <button type="button" className="sign__in">
-                      {isAuthenticating ? "Signing in..." : "Sign in"}
+                      {isAuthenticating ? "Signing in..." : "Connect Wallet"}
                     </button>
                   }
                 >
