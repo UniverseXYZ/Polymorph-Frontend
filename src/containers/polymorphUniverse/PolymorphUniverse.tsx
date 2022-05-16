@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 // import './PolymorphUniverse.scss';
 import BurnToMint from '../polymorphs/BurnToMint';
 import WhatsNewSection from '../polymorphs/WhatsNewSection';
@@ -18,7 +18,6 @@ export const PolymorphUniverse = ({} : any) => {
 
   useEffect(() => {
     let contract = polymorphContractV2;
-
     if(!contract) {
       const network = process.env.REACT_APP_NETWORK_CHAIN_ID 
         ? parseInt(process.env.REACT_APP_NETWORK_CHAIN_ID)
@@ -40,11 +39,12 @@ export const PolymorphUniverse = ({} : any) => {
 
 
   return (
-  <div className="polymorph--universe--general--page">
-    <BurnToMint burntCount={burntCount}/>
-    <WhatsNewSection />
-  </div>
-)};
+    <div className="polymorph--universe--general--page">
+      <BurnToMint burntCount={burntCount}/>
+      <WhatsNewSection />
+    </div>
+  )
+};
 
 
 // TO DO:
