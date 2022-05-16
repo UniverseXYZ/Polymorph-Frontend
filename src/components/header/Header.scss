@@ -7,7 +7,7 @@
   top: 0;
   width: 100%;
   z-index: 999;
-  padding: 11.5px 40px;
+  padding: 9px 32px;
   display: grid;
   align-items: center;
   grid-template-columns: auto auto;
@@ -111,12 +111,21 @@
       }
     }
 
+    .desktop__nav .nav__link__title span {
+      color: $black;
+      background-color: $white;
+    }
+
+    .desktop__nav ul li .myAccount {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
     .tablet__nav .wallet__connected__tablet button .nav__link__title .ethereum__address__tablet {
       color: white;
     }
 
-    .tablet__nav .wallet__connected__tablet .dropdown__header .copy-div .ethereum__address{
-        color: $black;
+    .tablet__nav .wallet__connected__tablet .dropdown__header .copy-div .ethereum__address {
+      color: $black;
     }
 
     .tablet__nav button.hamburger {

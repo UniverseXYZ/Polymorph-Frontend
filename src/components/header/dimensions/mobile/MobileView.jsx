@@ -495,14 +495,14 @@ const MobileView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    className="signOut"
+                    className="light-border-button"
                     onClick={() => {
                       signOut();
                       router.push("/");
                       setIsAccountDropdownOpened(false);
                     }}
                   >
-                    Sign out
+                    Disconnect
                   </button>
                 </div>
               </div>
