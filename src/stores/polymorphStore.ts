@@ -8,6 +8,8 @@ import { useAuthStore } from "./authStore";
 type IPolymorphStore = {
   // Getters 
   userPolymorphs: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: boolean,
   userSelectedPolymorphsToBurn: []
@@ -61,14 +63,24 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     const polymorphs = await queryPolymorphsGraph(transferPolymorphs(newAddress));
     const polymorphsV2 = await queryPolymorphsGraphV2(transferPolymorphs(newAddress));
     const allPolymorphs = polymorphs?.transferEntities.concat(polymorphsV2?.transferEntities)
-    const userNftIds = allPolymorphs.map((nft: any) => ({
+    const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const polymorphV2Ids = polymorphsV2?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const allPolymorphIds = allPolymorphs.map((nft: any) => ({
       tokenId: nft.tokenId,
       id: parseInt(nft.id, 16),
     }));
 
     set(state => ({
       ...state,
-      userPolymorphs: userNftIds || [],
+      userPolymorphs: polymorphV1Ids || [],
+      userPolymorphsV2: polymorphV2Ids || [],
+      userPolymorphsAll: allPolymorphIds || [],
       userPolymorphsLoaded: true
     }))
   },

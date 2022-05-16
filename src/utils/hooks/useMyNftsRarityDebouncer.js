@@ -75,8 +75,10 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphs = () => {
-  const userPolymorphs = usePolymorphStore(s => s.userPolymorphs)
+export const useSearchPolymorphs = ( allPolymorphs=false ) => {
+  const userPolymorphs = allPolymorphs
+    ? usePolymorphStore(s => s.userPolymorphsAll)
+    : usePolymorphStore(s => s.userPolymorphs)
 
   const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
