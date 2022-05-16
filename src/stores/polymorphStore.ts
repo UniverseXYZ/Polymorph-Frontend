@@ -1,5 +1,5 @@
 import { fetchTokensMetadataJson } from "@legacy/api/polymorphs";
-import { queryPolymorphsGraph, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
+import { queryPolymorphsGraph, queryPolymorphsGraphV2, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
 import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
@@ -59,7 +59,9 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     }))
 
     const polymorphs = await queryPolymorphsGraph(transferPolymorphs(newAddress));
-    const userNftIds = polymorphs?.transferEntities.map((nft: any) => ({
+    const polymorphsV2 = await queryPolymorphsGraphV2(transferPolymorphs(newAddress));
+    const allPolymorphs = polymorphs?.transferEntities.concat(polymorphsV2?.transferEntities)
+    const userNftIds = allPolymorphs.map((nft: any) => ({
       tokenId: nft.tokenId,
       id: parseInt(nft.id, 16),
     }));
