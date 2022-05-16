@@ -60,8 +60,8 @@ const Homepage = () => {
       {/* <NonFungibleUniverse />
       <BuyUniverseNFTs /> */}
       <BurnToMintSection />
-      <PolymorphicTherapySection />
       <BattlePolymorphSection />
+      <PolymorphicTherapySection />
       <PolymorphsActivity
         ethPrice={`${ethUsdPrice}`}
         mobile={mobile}

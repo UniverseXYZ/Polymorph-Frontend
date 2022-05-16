@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import TV from "../../../assets/images/polymorphic-therapy-tv.png";
 import Button from "@legacy/button/Button";
-import YoutubeIcon from "../../../assets/images/youtube.svg";
+import YoutubeIcon from "../../../assets/images/youtube-lg.svg";
 
 const PolymorphicTherapySection = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -17,7 +17,7 @@ const PolymorphicTherapySection = () => {
                 playing={isClicked}
               />
             </div>
-            <img src={TV}></img>
+            <img src={TV} alt="tv"></img>
           </div>
           <div className="polymorph-div">
             <h1>Polymorphic Therapy</h1>
@@ -28,7 +28,7 @@ const PolymorphicTherapySection = () => {
               it feels?
             </p>
             <Button className={"light-button"} disabled={true}>
-              <img src={YoutubeIcon} />
+              <img src={YoutubeIcon} alt="youtube" />
               Watch on Youtube
             </Button>
           </div>
