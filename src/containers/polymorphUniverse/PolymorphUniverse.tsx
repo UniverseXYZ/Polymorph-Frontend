@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import './PolymorphUniverse.scss';
 import BurnToMint from '../polymorphs/BurnToMint';
 import WhatsNewSection from '../polymorphs/WhatsNewSection';
@@ -7,13 +7,44 @@ import { GetStaticProps } from 'next';
 import { dehydrate, QueryClient } from 'react-query';
 import { GetCollectionApi, GetNFT2Api } from '@app/modules/nft/api';
 import { collectionKeys, nftKeys } from '@app/utils/query-keys';
+import Contracts from "../../contracts/contracts.json";
+import { ethers } from "ethers";
+import { useContractsStore } from "src/stores/contractsStore";
 
-export const PolymorphUniverse = ({ burntCount } : any) => (
-  <div className="polymorph--universe--general--page">
-    <BurnToMint burntCount={burntCount}/>
-    <WhatsNewSection />
-  </div>
-);
+
+export const PolymorphUniverse = ({} : any) => {
+  const [burntCount, setBurntCount] = useState(0);
+  const { polymorphContractV2 } = useContractsStore();
+
+  useEffect(() => {
+    let contract = polymorphContractV2;
+    if(!contract) {
+      const network = process.env.REACT_APP_NETWORK_CHAIN_ID 
+        ? parseInt(process.env.REACT_APP_NETWORK_CHAIN_ID)
+        : 4
+  
+      const { contracts: contractsData } = (Contracts as any)[network];
+      contract = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
+        contractsData.PolymorphRoot?.abi,
+        ethers.getDefaultProvider(network)
+      );
+    }
+    contract
+      .totalBurnedV1()
+      .then((burned: any) => {
+        setBurntCount(burned.toString())
+      })
+  }, [polymorphContractV2])
+
+
+  return (
+    <div className="polymorph--universe--general--page">
+      <BurnToMint burntCount={burntCount}/>
+      <WhatsNewSection />
+    </div>
+  )
+};
 
 
 // TO DO:
@@ -38,7 +69,6 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      burntCount: tokenId
     },
     revalidate: 60
   };
