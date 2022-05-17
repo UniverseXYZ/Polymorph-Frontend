@@ -14,6 +14,9 @@ import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import { ethers } from "ethers";
 
+const marketplaceLinkOut =
+  process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
+
 const DetailsWithTabs = ({ polymorphData }) => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -95,7 +98,12 @@ const DetailsWithTabs = ({ polymorphData }) => {
           <span></span>
           {showDropdown && (
             <ul>
-              <li>
+              <li
+                onClick={(event) => {
+                  event.stopPropagation();
+                  window.open(`${marketplaceLinkOut}/${polymorphData.tokenid}`);
+                }}
+              >
                 <img src={linkIcon} alt="View on Marketplace" />
                 View on Marketplace
               </li>
