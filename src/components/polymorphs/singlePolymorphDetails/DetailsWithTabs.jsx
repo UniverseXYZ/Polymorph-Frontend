@@ -16,6 +16,7 @@ import { ethers } from "ethers";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const DetailsWithTabs = ({ polymorphData }) => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const DetailsWithTabs = ({ polymorphData }) => {
 
   const { address } = useAuthStore();
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -45,6 +47,16 @@ const DetailsWithTabs = ({ polymorphData }) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setShowDropdown(false);
     }
+  };
+
+  const handleBurnToMintClick = () => {
+    setUserSelectedPolymorphsToBurn([
+      {
+        tokenId: polymorphData.tokenid,
+        imageUrl: polymorphData.imageurl,
+      },
+    ]);
+    router.push(`/burn-to-mint/burn/single/${polymorphData.tokenid}`);
   };
 
   useEffect(() => {
@@ -159,7 +171,7 @@ const DetailsWithTabs = ({ polymorphData }) => {
               <Button
                 className="light-button"
                 disabled={disableBurnButton}
-                onClick={() => setBurnt(true)}
+                onClick={handleBurnToMintClick}
               >
                 Burn to Mint
               </Button>
