@@ -111,12 +111,13 @@ const PolymorphPropertiesTab = ({ data }) => {
         {properties.map((prop) => {
           return (
             <RarityRankPopupProperty
+              key={prop.propertyName}
               propertyName={prop.propertyName}
               value={prop.value}
               mainMatchingAttributes={prop.mainMatchingAttributes}
               secMatchingAttributes={prop.secMatchingAttributes}
               genesMap={traitsMap}
-              matchingHands={data.matchingHands}
+              matchingHands={data.matchinghands}
             />
           );
         })}
