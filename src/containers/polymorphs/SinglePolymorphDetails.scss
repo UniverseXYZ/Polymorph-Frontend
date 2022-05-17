@@ -9,7 +9,20 @@
   background-attachment: fixed;
   display: grid;
   grid-template-columns: 1fr 550px;
+
   @include lg {
     grid-template-columns: 1fr;
   }
+}
+.loading {
+  background-image: url("../../assets/images/minting_page_bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
+  width: 100%;
 }

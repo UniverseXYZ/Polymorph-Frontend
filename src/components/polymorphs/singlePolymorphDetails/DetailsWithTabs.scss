@@ -138,6 +138,151 @@
         @include sm {
           grid-template-columns: repeat(2, 1fr);
         }
+
+        .rarity--description--gradient {
+          position: relative;
+          .rarity--description {
+            z-index: 100;
+          }
+          .rarity--rank--border {
+            position: absolute;
+            width: calc(100% + 2px);
+            min-height: 58px;
+            background: linear-gradient(90deg, #c857ca 50%, #fb8c00 50%);
+            left: -1px;
+            right: 0px;
+            top: -1px;
+            bottom: -1px;
+            margin: auto;
+            border-radius: 12px;
+            opacity: 0.8;
+          }
+        }
+
+        .rarity--description {
+          position: relative;
+          background: rgba(0, 0, 0, 0.02);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-sizing: border-box;
+          border-radius: 12px;
+          padding: 13px;
+          text-align: center;
+
+          .matching {
+            img {
+              position: absolute;
+              top: -15px;
+              right: -15px;
+              @include sm {
+                top: 4px;
+                right: 4px;
+              }
+            }
+            .tooltiptext {
+              visibility: hidden;
+              font-family: $spaceGroteskFont;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 12px;
+              background-color: $black;
+              color: $white;
+              text-align: center;
+              border-radius: 100px;
+              padding: 4px 12px;
+              position: absolute;
+              z-index: 1111;
+              top: -48px;
+              right: -54px;
+              &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+                @include xl {
+                  left: 84%;
+                }
+              }
+              @include xl {
+                right: -15px;
+              }
+              @include sm {
+                right: 2px;
+                top: -29px;
+              }
+            }
+            &:hover {
+              .tooltiptext {
+                visibility: visible;
+              }
+            }
+          }
+
+          h4 {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 160%;
+            text-transform: uppercase;
+            color: $black;
+            margin-bottom: 3px;
+
+            @include xl {
+              font-weight: normal;
+            }
+          }
+          h3 {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 130%;
+            color: $black;
+            margin-bottom: 3px;
+
+            @include xl {
+              font-size: 12px;
+            }
+            @include md {
+              font-size: 14px;
+            }
+          }
+          .description {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 160%;
+            color: rgba(0, 0, 0, 0.4);
+          }
+          @include xl {
+            padding: 13px 5px;
+          }
+        }
+      }
+      .selected {
+        box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.8) inset !important;
+        background-image: linear-gradient(101deg, #bceb00, #00eaea) !important;
+        background-origin: border-box;
+      }
+      .selected--blue {
+        background: rgba(30, 136, 229, 0.05) !important;
+        border: 1px solid #1e88e5 !important;
+      }
+      .selected--pink {
+        background: rgba(200, 87, 202, 0.1) !important;
+        border: 1px solid #c857ca !important;
+      }
+      .selected--orange {
+        background: rgba(251, 140, 0, 0.05) !important;
+        border: 1px solid #fb8c00 !important;
+      }
+      .selected--pink--orange {
+        background: linear-gradient(90deg, #f9eef9 50%, #fff9f2 50%) !important;
       }
     }
     .polymorph--metadata--tab {
@@ -161,7 +306,11 @@
     left: 0px;
     width: 100%;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(188, 235, 0, 0.03) 15.57%, rgba(0, 234, 234, 0.03) 84.88%),
+    background: linear-gradient(
+        135deg,
+        rgba(188, 235, 0, 0.03) 15.57%,
+        rgba(0, 234, 234, 0.03) 84.88%
+      ),
       rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     padding: 24px 40px;
