@@ -123,10 +123,7 @@ const BurnPolymorphs = ({ characters, type }) => {
         <div className="burn--polymorph--page--wrapper--container">
           {!status ? (
             <>
-              <div
-                className="back--btn"
-                onClick={() => router.push("/burn-to-mint/burn")}
-              >
+              <div className="back--btn" onClick={() => router.back()}>
                 <ArrowLeftIcon />
                 <span>Choose Polymorphs</span>
               </div>
