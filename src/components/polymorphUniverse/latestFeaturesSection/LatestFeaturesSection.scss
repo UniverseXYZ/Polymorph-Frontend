@@ -1,156 +1,81 @@
-@import '../../../assets/scss/mixins';
-@import '../../../assets/scss/variables';
+@import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
 
 .latest--features--section {
-    background-color: $black;
-    padding: 90px 60px;
-    position: relative;
-    &--container {
-        max-width: 1110px;
-        margin: 0 auto;
-        h1.title {
-            font-family: $sharpGroteskSemiBoldFont;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 32px;
-            line-height: 140%;
-            color: $white;
-            margin-bottom: 50px;
-            @include sm{
-                font-size: 20px;
-                line-height: 130%;
-            }
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 30px;
-            > div {
-                position: relative;
-                border-radius: 12px;
-                // border: 1px solid transparent;
-                background-color: rgba(255, 255, 255, 0.1);
-                padding: 2rem;
-
-                @include md {
-                    padding: 1rem;
-                }
-
-                h2 {
-                    font-family: $sharpGroteskSemiBoldFont;
-                    font-style: normal;
-                    font-weight: 600;
-                    font-size: 16px;
-                    line-height: 130%;
-                    color: $white;
-                    margin-top: 25px;
-                    margin-bottom: 12px;
-                }
-                .burn-mint-h2{
-                    margin-top: 22px;
-                    margin-bottom: 11px;
-                }
-                p {
-                    font-family: $spaceGroteskFont;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 14px;
-                    line-height: 160%;
-                    color: $white-transparent;
-                    max-width: 250px;
-                    margin-bottom: 46px;
-                    @include lg{
-                        max-width: 100%; 
-                    }
-                }
-                .light-border-button {
-                    display: flex;
-                    font-family: $spaceGroteskFont;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 16px;
-                    line-height: 20px;
-                    color: $white;                    
-                    position:relative;
-                    box-shadow: none;
-                    background-image: none;
-                    color: $white;
-                    
-                    &::before {
-                        content:"";
-                        background-image: none;
-                        box-shadow: none;
-                        position:absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        border-radius: 12px; 
-                        padding: 1px; 
-                        background: linear-gradient(101deg, #bceb00, #00eaea);
-                        -webkit-mask: 
-                            linear-gradient(#fff 0 0) content-box, 
-                            linear-gradient(#fff 0 0);
-                        -webkit-mask-composite: xor;
-                            mask-composite: exclude; 
-                    }
-        
-                    img {
-                        margin-left: 10px;
-                    }
-                    
-                    &:hover {
-                        transform: scale(1.05);
-                        box-shadow: none;
-                    }
-
-                    @include sm {
-                        width: 100%;
-                    }
-                }
-                .button-disabled {
-                    color: rgba(255, 255, 255, 0.2);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    border-radius: 12px;
-                    padding: 11px 26px;
-                    &:hover {
-                        cursor: default;
-                    }
-                    @include sm {
-                        width: 100%;
-                    }
-                }
-            }
-            @include lg {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            @include sm {
-                grid-template-columns: 1fr;
-            }
-            
-        }
+  background-color: $black;
+  padding: 90px 60px;
+  position: relative;
+  &--container {
+    max-width: 1110px;
+    margin: 0 auto;
+    h1.title {
+      font-family: $sharpGroteskSemiBoldFont;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 140%;
+      color: $white;
+      margin-bottom: 50px;
+      @include sm {
+        font-size: 20px;
+        line-height: 130%;
+      }
     }
-    @include sm {
-        padding: 90px 20px;
-    }
-
-
-    .polymorphic--faces--section--container {
-        display: flex;
-        align-items: center;
-        margin: 32px auto;
-        max-width: 1110px;
-        padding: 24px 32px;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        // background-image: linear-gradient(130deg, #2AD0CA, #E1F664, #FEB0FE, #ABB3FC, #5DF7A4, #58C4F6);
-        // box-shadow: 2px 1000px 1px #000 inset;
-        // background-origin: border-box;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 30px;
+      > div {
         position: relative;
+        border-radius: 12px;
+        // border: 1px solid transparent;
         background-color: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
 
-        &::before {
-            content:"";
+        @include md {
+          padding: 1rem;
+        }
+
+        h2 {
+          font-family: $sharpGroteskSemiBoldFont;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 130%;
+          color: $white;
+          margin-top: 25px;
+          margin-bottom: 12px;
+        }
+        .burn-mint-h2 {
+          margin-top: 22px;
+          margin-bottom: 11px;
+        }
+        p {
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 160%;
+          color: $white-transparent;
+          max-width: 250px;
+          margin-bottom: 46px;
+          @include lg {
+            max-width: 100%;
+          }
+        }
+        .light-border-button {
+          display: flex;
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 20px;
+          color: $white;
+          position: relative;
+          box-shadow: 2px 1000px 1px rgba(26, 26, 26, 1) inset;
+
+          &::before {
+            content: "";
             background-image: none;
             box-shadow: none;
             position: absolute;
@@ -158,63 +83,128 @@
             bottom: 0;
             left: 0;
             right: 0;
-            border-radius: 12px; 
-            padding: 1px; 
-            background-image: linear-gradient(101deg, #bceb00, #00eaea);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
+            border-radius: 12px;
+            background: linear-gradient(101deg, #bceb00, #00eaea);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
-                mask-composite: exclude; 
-        }
+            mask-composite: exclude;
+          }
 
-        @include sm {
-            flex-direction: column;
-            text-align: center;
-        }
+          svg {
+            transform: rotate(180deg);
+            margin-left: 10px;
+          }
 
-        div {   
-            margin: 0 48px;
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 2px 1000px 1px rgba(26, 26, 26, 0.9) inset !important;
+          }
+
+          @include sm {
             width: 100%;
-            h2 {
-            font-family: 'Sharp Grotesk';
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 20px;
-            color: #FFFFFF;
-            margin: 12px 0;
-            }
-
-            p {
-                font-family: 'Space Grotesk';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 14px;
-                line-height: 22px;
-                color: rgba(255, 255, 255, 0.6);
-                margin: 12px 0;
-            }
-
-            .button-disabled {
-                color: rgba(255, 255, 255, 0.2);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 12px;
-                padding: 11px 26px;
-                margin: 32px 0;
-                &:hover {
-                    cursor: default;
-                }
-                @include sm {
-                    width: 100%;
-                }
-            }
-
-            @include md {
-                margin: 0;
-            }
+          }
         }
+        .button-disabled {
+          color: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 12px;
+          padding: 11px 26px;
+          &:hover {
+            cursor: default;
+          }
+          @include sm {
+            width: 100%;
+          }
+        }
+      }
+      @include lg {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include sm {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  @include sm {
+    padding: 90px 20px;
+  }
 
+  .polymorphic--faces--section--container {
+    display: flex;
+    align-items: center;
+    margin: 32px auto;
+    max-width: 1110px;
+    padding: 24px 32px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    // background-image: linear-gradient(130deg, #2AD0CA, #E1F664, #FEB0FE, #ABB3FC, #5DF7A4, #58C4F6);
+    // box-shadow: 2px 1000px 1px #000 inset;
+    // background-origin: border-box;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &::before {
+      content: "";
+      background-image: none;
+      box-shadow: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 12px;
+      padding: 1px;
+      background-image: linear-gradient(101deg, #bceb00, #00eaea);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
     }
 
+    @include sm {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    div {
+      margin: 0 48px;
+      width: 100%;
+      h2 {
+        font-family: "Sharp Grotesk";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #ffffff;
+        margin: 12px 0;
+      }
+
+      p {
+        font-family: "Space Grotesk";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 12px 0;
+      }
+
+      .button-disabled {
+        color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 11px 26px;
+        margin: 32px 0;
+        &:hover {
+          cursor: default;
+        }
+        @include sm {
+          width: 100%;
+        }
+      }
+
+      @include md {
+        margin: 0;
+      }
+    }
+  }
 }
