@@ -1,125 +1,122 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
 
-    .welcome--section {
-        background-image: url('../../assets/images/BurnPolymorphBackground.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+.welcome--section {
+  background-image: url("../../assets/images/BurnPolymorphBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
-        .welcome__section__container {
-            position: relative;
-            max-width: 1210px;
-            width: 100%;
-            padding: 0 50px;
-            mix-blend-mode: screen;
-            @include xl {
-                height: 900px;
-                overflow: visible;
-                padding: 0 60px;
-                justify-content: center;
-                flex-direction: column-reverse;
-            }
-            @include lg {
-                min-height: 685px;
-                height: auto;
-                padding: 114px 0;
-            }
-            @include sm {
-                height: 600px;
-                min-height: unset;
-                padding: 0 20px;
-            }
+  .welcome__section__container {
+    position: relative;
+    max-width: 1210px;
+    padding: 0 50px !important;
+    mix-blend-mode: screen;
+    @include xl {
+      height: 900px;
+      overflow: visible;
+      padding: 0 60px;
+      justify-content: center;
+      flex-direction: column-reverse;
+    }
+    @include lg {
+      min-height: 685px;
+      height: auto;
+      padding: 114px 0;
+    }
+    @include sm {
+      height: 600px;
+      min-height: unset;
+      padding: 0 20px;
+    }
 
-            @media (max-width: 576px) and (min-width: 460px) {
-                margin: 100px 0;
+    @media (max-width: 576px) and (min-width: 460px) {
+      margin: 100px 0;
 
-                .text-l {
-                    bottom: -130px;
-                }
-            }
-        }
-        .left {
-            @include md {
-                width: 335px;
-            }
-            .links {
-                @include xl {
-                    justify-content: center;
-                }
-                @include sm {
-                    margin-bottom: unset !important;
-                }
-                @include lg {
-                    margin-bottom: unset;
-                }
+      .text-l {
+        bottom: -130px;
+      }
+    }
+  }
+  .left {
+    @include md {
+      width: 335px;
+    }
+    .links {
+      @include xl {
+        justify-content: center;
+      }
+      @include sm {
+        margin-bottom: unset !important;
+      }
+      @include lg {
+        margin-bottom: unset;
+      }
 
-                button {
-                    @include xl {
-                        margin-right: unset;
-                    }
-                    @include sm {
-                        margin-bottom: unset !important;
-                    }
-                }
-            }
-            button {
-                @include md {
-                    margin-right: unset;
-                }
-            }
-        }
-
+      button {
         @include xl {
-            padding: 0;
-            overflow: hidden;
+          margin-right: unset;
         }
         @include sm {
-            min-height: 600px;
-            padding: 0;
+          margin-bottom: unset !important;
         }
-
-        .burn--progress--container {
-            display: flex;
-            flex-direction: column;
-            max-width: 1210px;
-            padding: 0 50px;
-            width: 100%;
-
-            .progress--indicators {
-                margin: 24px 0;
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                font-family: $sharpGroteskBoldFont;
-                font-size: 16px;
-                line-height: 20px;
-                font-weight: 600;
-                color: white;   
-
-                span span:last-child {
-                    color: rgba(255, 255, 255, 0.6);;
-                }
-            }
-
-            .progress--bar {
-                width: 100%;
-                height: 48px;
-                background: rgba(255, 255, 255, 0.01);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                box-shadow: inset -4px -4px 16px rgba(0, 234, 234, 0.32), inset 4px 4px 16px rgba(188, 235, 0, 0.32);
-                border-radius: 24px;
-            }
-
-        }
-
-        .fade {
-            bottom: 0;
-            left: 0;
-            height: 128px;
-            width: 100%;
-            background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-            transform: rotate(-180deg);
-        }
-
+      }
     }
+    button {
+      @include md {
+        margin-right: unset;
+      }
+    }
+  }
+
+  @include xl {
+    padding: 0;
+    overflow: hidden;
+  }
+  @include sm {
+    min-height: 600px;
+    padding: 0;
+  }
+
+  .burn--progress--container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1210px;
+    padding: 0 50px;
+    width: 100%;
+
+    .progress--indicators {
+      margin: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-family: $sharpGroteskBoldFont;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 600;
+      color: white;
+
+      span span:last-child {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .progress--bar {
+      width: 100%;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: inset -4px -4px 16px rgba(0, 234, 234, 0.32), inset 4px 4px 16px rgba(188, 235, 0, 0.32);
+      border-radius: 24px;
+    }
+  }
+
+  .fade {
+    bottom: 0;
+    left: 0;
+    height: 128px;
+    width: 100%;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    transform: rotate(-180deg);
+  }
+}
