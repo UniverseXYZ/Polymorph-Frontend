@@ -35,11 +35,9 @@ const RarityRankPopup = ({ onClose, item }) => {
           <div className="rarity--rank--header">
             <div>
               <h1>{`Rarity Rank #${item.rank}`}</h1>
-              <Link
-                to={`/nft/${process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS}/${item.tokenid}`}
-              >
+              <a href={`https://universe.xyz/nft/${process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS}/${item.tokenid}`}>
                 View on Universe <img src={linkIcon} alt="Link Icon" />
-              </Link>{' '}
+              </a>{' '}
             </div>
             <p className="number">{`#${item.tokenid}`}</p>
           </div>
