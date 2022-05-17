@@ -10,6 +10,8 @@ import PolymorphScramblePopup from "../../popups/PolymorphScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
+import { useContractsStore } from "src/stores/contractsStore";
+import { useAuthStore } from "src/stores/authStore";
 
 const DetailsWithTabs = ({ polymorphData }) => {
   const router = useRouter();
@@ -21,6 +23,13 @@ const DetailsWithTabs = ({ polymorphData }) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
+  const [contract, setContract] = useState(null);
+  const [disableBurnButton, setDisableBurnButton] = useState(true);
+  const [disableScrambleButton, setDisableScrambleButton] = useState(true);
+  const [userIsOwner, setUserIsOwner] = useState(false);
+
+  const { address } = useAuthStore();
+  const { polymorphContract, polymorphContractV2 } = useContractsStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -38,6 +47,31 @@ const DetailsWithTabs = ({ polymorphData }) => {
       document.removeEventListener("click", handleClickOutside, true);
     };
   });
+
+  useEffect(async () => {
+    if (polymorphContract && polymorphContractV2) {
+      try {
+        if (await polymorphContract.ownerOf(polymorphData.tokenid)) {
+          setContract(polymorphContract);
+          setDisableBurnButton(false);
+        }
+      } catch (err) {
+        if (await polymorphContractV2.ownerOf(polymorphData.tokenid)) {
+          setContract(polymorphContractV2);
+          setDisableScrambleButton(false);
+          setBurnt(true);
+        }
+      }
+    }
+  }, [polymorphContract, polymorphContractV2]);
+
+  useEffect(async () => {
+    if (contract) {
+      const owner = await contract.ownerOf(polymorphData.tokenid);
+      const isOwner = owner.toUpperCase() === address.toUpperCase();
+      setUserIsOwner(isOwner);
+    }
+  }, [contract]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -95,30 +129,36 @@ const DetailsWithTabs = ({ polymorphData }) => {
         {selectedTabIndex === 1 && <PolymorphMetadataTab />}
         {selectedTabIndex === 2 && <PolymorphHistoryTab />}
       </div>
-      <div className="polymorph--actions">
-        <div className="polymorph--actions--gradient"></div>
-        {!burnt && (
-          <div className="burn--to--mint--btn mr">
-            <Button className="light-button" onClick={() => setBurnt(true)}>
-              Burn to Mint
-            </Button>
-          </div>
-        )}
-        <div className="scramble--btn">
+      {userIsOwner ? (
+        <div className="polymorph--actions">
+          <div className="polymorph--actions--gradient"></div>
           {!burnt && (
-            <div className="tooltiptext">
-              Scrambling will be enabled after you burn your polymorph
+            <div className="burn--to--mint--btn mr">
+              <Button
+                className="light-button"
+                disabled={disableBurnButton}
+                onClick={() => setBurnt(true)}
+              >
+                Burn to Mint
+              </Button>
             </div>
           )}
-          <Button
-            className="light-button"
-            disabled={!burnt}
-            onClick={() => setShowScramblePopup(true)}
-          >
-            Scramble
-          </Button>
+          <div className="scramble--btn">
+            {!burnt && (
+              <div className="tooltiptext">
+                Scrambling will be enabled after you burn your polymorph
+              </div>
+            )}
+            <Button
+              className="light-button"
+              disabled={!burnt && disableScrambleButton}
+              onClick={() => setShowScramblePopup(true)}
+            >
+              Scramble
+            </Button>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <Popup closeOnDocumentClick={false} open={showScramblePopup}>
         {/* TODO: here need to pass the real data */}
