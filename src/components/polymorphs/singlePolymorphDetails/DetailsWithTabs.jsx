@@ -12,6 +12,10 @@ import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
+import { ethers } from "ethers";
+
+const marketplaceLinkOut =
+  process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
 const DetailsWithTabs = ({ polymorphData }) => {
   const router = useRouter();
@@ -27,6 +31,8 @@ const DetailsWithTabs = ({ polymorphData }) => {
   const [disableBurnButton, setDisableBurnButton] = useState(true);
   const [disableScrambleButton, setDisableScrambleButton] = useState(true);
   const [userIsOwner, setUserIsOwner] = useState(false);
+  const [polymorphOwner, setPolymorphOwner] = useState("");
+  const [morphPrice, setMorphPrice] = useState("");
 
   const { address } = useAuthStore();
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
@@ -68,8 +74,13 @@ const DetailsWithTabs = ({ polymorphData }) => {
   useEffect(async () => {
     if (contract) {
       const owner = await contract.ownerOf(polymorphData.tokenid);
+      setPolymorphOwner(owner);
       const isOwner = owner.toUpperCase() === address.toUpperCase();
       setUserIsOwner(isOwner);
+      const morphPrice = await contract.priceForGenomeChange(
+        polymorphData.tokenid
+      );
+      setMorphPrice(ethers.utils.formatEther(morphPrice));
     }
   }, [contract]);
 
@@ -87,7 +98,12 @@ const DetailsWithTabs = ({ polymorphData }) => {
           <span></span>
           {showDropdown && (
             <ul>
-              <li>
+              <li
+                onClick={(event) => {
+                  event.stopPropagation();
+                  window.open(`${marketplaceLinkOut}/${polymorphData.tokenid}`);
+                }}
+              >
                 <img src={linkIcon} alt="View on Marketplace" />
                 View on Marketplace
               </li>
@@ -126,7 +142,13 @@ const DetailsWithTabs = ({ polymorphData }) => {
         {selectedTabIndex === 0 && (
           <PolymorphPropertiesTab data={polymorphData} />
         )}
-        {selectedTabIndex === 1 && <PolymorphMetadataTab />}
+        {selectedTabIndex === 1 && (
+          <PolymorphMetadataTab
+            morphPrice={morphPrice}
+            owner={polymorphOwner}
+            genome={polymorphData.currentgene}
+          />
+        )}
         {selectedTabIndex === 2 && <PolymorphHistoryTab />}
       </div>
       {userIsOwner ? (
