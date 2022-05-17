@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useQuery } from '@apollo/client';
-import { queryPolymorphsGraph, traitRarity } from '../../utils/graphql/polymorphQueries';
-import RarityRankOrangeProperty from './RarityRankOrangeProperty';
-import RarityRankBlueProperty from './RarityRankBlueProperty';
-import RarityRankPinkOrangeProperty from './RarityRankPinkOrangeProperty';
-import RarityRankNoColorProperty from './RarityRankNoColorProperty';
-import RarityRankPinkProperty from './RarityRankPinkProperty';
-import { useGraphQueryHook } from '../../utils/hooks/useGraphQueryHook';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import {
+  queryPolymorphsGraph,
+  traitRarity,
+} from "../../utils/graphql/polymorphQueries";
+import RarityRankOrangeProperty from "./RarityRankOrangeProperty";
+import RarityRankBlueProperty from "./RarityRankBlueProperty";
+import RarityRankPinkOrangeProperty from "./RarityRankPinkOrangeProperty";
+import RarityRankNoColorProperty from "./RarityRankNoColorProperty";
+import RarityRankPinkProperty from "./RarityRankPinkProperty";
 
 function RarityRankPopupProperty({
   mainMatchingAttributes,
@@ -19,7 +20,7 @@ function RarityRankPopupProperty({
 }) {
   const [data, setData] = useState(null);
 
-  let chance = '';
+  let chance = "";
   if (data?.traits?.length) {
     chance = `${Math.round(data.traits[0]?.rarity, 10)}% have this trait`;
   }
@@ -37,7 +38,7 @@ function RarityRankPopupProperty({
   const renderTrait = () => {
     // Checks if hands are matching different set than the main and secondary sets
     if (
-      (propertyName === 'Left Hand' || propertyName === 'Right Hand') &&
+      (propertyName === "Left Hand" || propertyName === "Right Hand") &&
       matchingHands === 2 &&
       !mainMatchingAttributes.includes(propertyName) &&
       !secMatchingAttributes.includes(propertyName)
@@ -87,7 +88,13 @@ function RarityRankPopupProperty({
         />
       );
     }
-    return <RarityRankNoColorProperty propertyName={propertyName} trait={value} chance={chance} />;
+    return (
+      <RarityRankNoColorProperty
+        propertyName={propertyName}
+        trait={value}
+        chance={chance}
+      />
+    );
   };
 
   return renderTrait();
@@ -98,8 +105,12 @@ RarityRankPopupProperty.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string]).isRequired,
   matchingHands: PropTypes.oneOfType([PropTypes.number]).isRequired,
   genesMap: PropTypes.oneOfType([PropTypes.any]).isRequired,
-  mainMatchingAttributes: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string)]).isRequired,
-  secMatchingAttributes: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string)]).isRequired,
+  mainMatchingAttributes: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+  ]).isRequired,
+  secMatchingAttributes: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+  ]).isRequired,
 };
 
 export default RarityRankPopupProperty;
