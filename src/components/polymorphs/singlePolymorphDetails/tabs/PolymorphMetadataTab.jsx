@@ -1,34 +1,35 @@
-import React from 'react';
-import PolymorphMetadataCard from '../../polymorphMetadataCard/PolymorphMetadataCard';
+import React from "react";
+import PolymorphMetadataCard from "../../polymorphMetadataCard/PolymorphMetadataCard";
+import { useContractsStore } from "src/stores/contractsStore";
 
-const PolymorphMetadataTab = () => {
+const PolymorphMetadataTab = ({ morphPrice, owner, genome }) => {
   // Dummy data
   const polymorphMetadata = [
     {
       id: 1,
-      label: 'Next morph price',
-      price: 0.01,
+      label: "Next morph price",
+      price: morphPrice,
       address: null,
     },
     {
       id: 2,
-      label: 'Owner',
-      address: '0x88f107857b9046a07c06D36566b661EDd2993e0b',
+      label: "Owner",
+      address: owner,
     },
     {
       id: 3,
-      label: 'Genome string',
-      address: '0x88f107857b9046a07c06D36566b661EDd2993e0b',
+      label: "Genome string",
+      address: genome,
     },
-  ]
-  
+  ];
+
   return (
-    <div className='polymorph--metadata--tab'>
-      {polymorphMetadata.map(metadata => (
+    <div className="polymorph--metadata--tab">
+      {polymorphMetadata.map((metadata) => (
         <PolymorphMetadataCard key={metadata.id} metadata={metadata} />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default PolymorphMetadataTab;
