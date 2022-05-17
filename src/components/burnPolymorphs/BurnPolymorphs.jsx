@@ -123,10 +123,20 @@ const BurnPolymorphs = ({ characters, type }) => {
         <div className="burn--polymorph--page--wrapper--container">
           {!status ? (
             <>
-              <div className="back--btn" onClick={() => router.back()}>
-                <ArrowLeftIcon />
-                <span>Choose Polymorphs</span>
-              </div>
+              {characters.length > 0 ? (
+                <div className="back--btn" onClick={() => router.back()}>
+                  <ArrowLeftIcon />
+                  <span>Choose Polymorphs</span>
+                </div>
+              ) : (
+                <div
+                  className="back--btn"
+                  onClick={() => router.push("/burn-to-mint/burn")}
+                >
+                  <ArrowLeftIcon />
+                  <span>Choose Polymorphs</span>
+                </div>
+              )}
               <div className="burn--polymorph--grid">
                 <div>
                   <CharactersGrid characters={characters} />
@@ -138,33 +148,44 @@ const BurnPolymorphs = ({ characters, type }) => {
                     />
                   )}
                 </div>
-                <div>
-                  <h1>
-                    {type === "single"
-                      ? `Burn Troll God #${router.query.id}`
-                      : `Burn ${characters.length} Polymorphs`}
-                  </h1>
-                  <p>
-                    You can only burn your polymorph one time. <br /> The new
-                    polymorph will get the same traits and badges.
-                  </p>
-                  <div className="burn--polymorphs--buttons">
-                    <Button
-                      className="light-button"
-                      onClick={handleApproveToken}
-                      disabled={tokenApproved || loadingApprove}
-                    >
-                      {loadingApprove ? <LoadingSpinner /> : null} Approve Token
-                    </Button>
-                    <Button
-                      className="light-button"
-                      onClick={handleBurnToMint}
-                      disabled={!tokenApproved || loadingBurnToMint}
-                    >
-                      {loadingBurnToMint ? <LoadingSpinner /> : null} Burn
-                    </Button>
+                {characters.length > 0 ? (
+                  <div>
+                    <h1>
+                      {type === "single"
+                        ? `Burn Troll God #${router.query.id}`
+                        : `Burn ${characters.length} Polymorphs`}
+                    </h1>
+                    <p>
+                      You can only burn your polymorph one time. <br /> The new
+                      polymorph will get the same traits and badges.
+                    </p>
+                    <div className="burn--polymorphs--buttons">
+                      <Button
+                        className="light-button"
+                        onClick={handleApproveToken}
+                        disabled={tokenApproved || loadingApprove}
+                      >
+                        {loadingApprove ? <LoadingSpinner /> : null} Approve
+                        Token
+                      </Button>
+                      <Button
+                        className="light-button"
+                        onClick={handleBurnToMint}
+                        disabled={!tokenApproved || loadingBurnToMint}
+                      >
+                        {loadingBurnToMint ? <LoadingSpinner /> : null} Burn
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div>
+                    <h1>No Polymorphs selected</h1>
+                    <p>
+                      Please go back and select the polymorphs you'd like to
+                      burn.
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           ) : status === "burning" ? (
