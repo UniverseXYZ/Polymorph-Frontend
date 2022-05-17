@@ -1,5 +1,5 @@
 import { fetchTokensMetadataJson } from "@legacy/api/polymorphs";
-import { queryPolymorphsGraph, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
+import { queryPolymorphsGraph, queryPolymorphsGraphV2, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
 import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
@@ -8,6 +8,8 @@ import { useAuthStore } from "./authStore";
 type IPolymorphStore = {
   // Getters 
   userPolymorphs: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: boolean,
   userSelectedPolymorphsToBurn: []
@@ -28,6 +30,8 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: false,
   userSelectedPolymorphsToBurn: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
   setUserPolymorphs: (userPolymorphs) => {
     set(state => ({
       ...state,
@@ -59,14 +63,26 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     }))
 
     const polymorphs = await queryPolymorphsGraph(transferPolymorphs(newAddress));
-    const userNftIds = polymorphs?.transferEntities.map((nft: any) => ({
+    const polymorphsV2 = await queryPolymorphsGraphV2(transferPolymorphs(newAddress));
+    const allPolymorphs = polymorphs?.transferEntities.concat(polymorphsV2?.transferEntities)
+    const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const polymorphV2Ids = polymorphsV2?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const allPolymorphIds = allPolymorphs.map((nft: any) => ({
       tokenId: nft.tokenId,
       id: parseInt(nft.id, 16),
     }));
 
     set(state => ({
       ...state,
-      userPolymorphs: userNftIds || [],
+      userPolymorphs: polymorphV1Ids || [],
+      userPolymorphsV2: polymorphV2Ids || [],
+      userPolymorphsAll: allPolymorphIds || [],
       userPolymorphsLoaded: true
     }))
   },
