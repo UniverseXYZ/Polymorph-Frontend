@@ -30,6 +30,8 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: false,
   userSelectedPolymorphsToBurn: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
   setUserPolymorphs: (userPolymorphs) => {
     set(state => ({
       ...state,
