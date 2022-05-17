@@ -1,186 +1,181 @@
-@import '../../../assets/scss/mixins';
-@import '../../../assets/scss/variables';
-
+@import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
 
 .polymorphic--therapy--section {
-    background: url("../../../assets/images/polymorphic-therapy-background.png");
-    background-size: cover;
-    background-position: center;
-    padding: 90px 60px;
-    // position: relative;
+  background: url("../../../assets/images/polymorphic-therapy-background.png");
+  background-size: cover;
+  background-position: center;
+  padding: 90px 60px;
+  // position: relative;
 
-    &--container {
-        max-width: 1110px;
-        margin: 0 auto;    
+  &--container {
+    max-width: 1110px;
+    margin: 0 auto;
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 50px;
-            align-items: center;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 50px;
+      align-items: center;
 
-            .TV {
-                display: flex;
-                align-items: center;
-                position: relative;
-                min-height: 414px;
-                // max-width: 540px;
+      .TV {
+        display: flex;
+        align-items: center;
+        position: relative;
+        min-height: 414px;
+        // max-width: 540px;
 
-                @include md{
-                    width: 100%;
-                }
+        @include md {
+          width: 100%;
+        }
 
-                .video-responsive {
-                    padding-bottom: 56.25%;
-                    position: absolute;
-                    min-width: 400px;
+        .video-responsive {
+          padding-bottom: 56.25%;
+          position: absolute;
+          min-width: 400px;
 
-                    div:first-child{
-                        width: 0 !important;
-                        height: 0 !important;
-                    }
+          div:first-child {
+            width: 0 !important;
+            height: 0 !important;
+          }
 
-                    iframe {
-                        border-radius: 1rem;
-                        position: absolute;
-                        top: -15px;
-                        left: 15px;
-                        width: 100%;
-                        height: 100%;
+          iframe {
+            border-radius: 1rem;
+            position: absolute;
+            top: -15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
 
-                        @include xxl {
-                            top: -20px;
-                        }
-
-                        @include xl {
-                            width: 90%;
-                            top: -20px;
-                        }
-
-                        @include lg {
-                            width: 70%;
-                            top: -15px;
-                        }
-
-                        @include md {
-                            width: 100%;
-                            height: 90%;
-                            top: 0px;
-                            left: 20px;
-                        }
-
-                        @media (max-width: 700px)  {
-                            height: 100%;
-                            width: 100%;
-                            max-height: 510px;
-                            max-width: 414px;
-                            top: -20px;
-                        }
-
-                        @include sm {
-                            width: 90%;
-                        }
-
-                        @media (max-width: 440px) {
-                            top: 80px;
-                            height: 60%;
-                        }
-
-                        @media (max-width: 420px) {
-                            top: 90px;
-                            height: 50%;
-                        }
-
-                        @media (max-width: 350px) {
-                            top: 100px;
-                            height: 45%;
-                        }
-
-                        @media (max-width: 320px) {
-                            top: 110px;
-                            height: 40%;
-                        }
-
-                    }
-                    @media (max-width: 440px) {
-                        padding: 0;
-                        position: static;
-                    }
-                }
-
-                img {
-                    position: absolute;
-                }
-
-                &:hover {
-                    cursor: pointer;
-                }
-                
+            @include xxl {
+              top: -20px;
             }
 
-
-            .polymorph-div{
-                display: flex;
-                flex-direction: column;
-
-                h1 {
-                    font-family: $sharpGroteskSemiBoldFont;
-                    font-style: normal;
-                    font-weight: 600;
-                    font-size: 32px;
-                    line-height: 140%;
-                    color: $black;
-                    @include md{
-                        font-size: 26px;
-                        text-align: center;
-    
-                    }
-                }
-    
-                p {
-                    font-family: $spaceGroteskFont;
-                    font-style: normal;
-                    font-weight: normal;
-                    font-size: 16px;
-                    line-height: 160%;
-                    color: #000000CC;
-                    margin: 32px 0;
-                    @include md {
-                        text-align: center;
-                        width: 100%;
-                    }
-                }
-    
-                button {
-                    display: flex;
-                    max-width: 250px;
-                    height: 48px;
-                    @include sm {
-                        max-width: 100%;
-                    }
-
-                    img {
-                        padding: 0 1rem;
-                    }
-                }
-
-                @include md {
-                    width: 100%;
-                    align-items: center;
-                }
+            @include xl {
+              width: 90%;
+              top: -20px;
             }
 
+            @include lg {
+              width: 70%;
+              top: -15px;
+            }
 
             @include md {
-                display: flex;
-                flex-flow: column;
-                width: 100%;
-                text-align: center;
+              width: 100%;
+              height: 90%;
+              top: 0px;
+              left: 20px;
             }
-        }
-    }
-    @include sm {
-        padding: 90px 20px;
-    }
 
+            @media (max-width: 700px) {
+              height: 100%;
+              width: 100%;
+              max-height: 510px;
+              max-width: 414px;
+              top: -20px;
+            }
+
+            @include sm {
+              width: 90%;
+            }
+
+            @media (max-width: 440px) {
+              top: 80px;
+              height: 60%;
+            }
+
+            @media (max-width: 420px) {
+              top: 90px;
+              height: 50%;
+            }
+
+            @media (max-width: 350px) {
+              top: 100px;
+              height: 45%;
+            }
+
+            @media (max-width: 320px) {
+              top: 110px;
+              height: 40%;
+            }
+          }
+          @media (max-width: 440px) {
+            padding: 0;
+            position: static;
+          }
+        }
+
+        img {
+          position: absolute;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .polymorph-div {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+          font-family: $sharpGroteskSemiBoldFont;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 140%;
+          color: $black;
+          @include md {
+            font-size: 26px;
+            text-align: center;
+          }
+        }
+
+        p {
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 160%;
+          color: #000000cc;
+          margin: 32px 0;
+          @include md {
+            text-align: center;
+            width: 100%;
+          }
+        }
+
+        button {
+          display: flex;
+          max-width: fit-content;
+          height: 48px;
+          padding: 8px;
+          border-radius: 16px;
+          @include sm {
+            max-width: 100%;
+          }
+
+          img {
+            margin-right: 10px;
+          }
+        }
+
+        @include md {
+          width: 100%;
+          align-items: center;
+        }
+      }
+
+      @include md {
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+  @include sm {
+    padding: 90px 20px;
+  }
 }
