@@ -28,7 +28,7 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphs();
+  } = useSearchPolymorphs(true);
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
 
