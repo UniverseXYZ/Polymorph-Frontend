@@ -7,7 +7,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  padding: 0 20px;
   .empty__nfts {
     width: 100%;
 
@@ -144,18 +143,9 @@
     position: relative;
     width: 100%;
     display: block;
-    background-image: url("../../assets/images/my-nfts-desktop.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url("../../assets/images//burn-to-mint-images/burn-to-mint-header-bg.png");
     background-size: cover;
-
-    @include lg {
-      background-image: url("../../assets/images/my-nfts-tablet.png");
-    }
-
-    @include sm {
-      background-image: url("../../assets/images/my-nfts-mobile.png");
-    }
+    background-position: center;
     .tabs__wrapper {
       @include sm {
         margin-top: 10px;
@@ -167,9 +157,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
-    margin-top: 0;
-    padding: 60px 20px 0px 0px;
+    margin: 0 auto;
+    padding: 60px 20px;
     flex-wrap: wrap;
 
     h1.title {
@@ -270,6 +259,7 @@
 }
 
 .tab__wallet {
+  padding: 0 20px;
   .search--sort--filters--section {
     padding-top: 0 !important;
   }
