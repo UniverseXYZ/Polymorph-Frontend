@@ -52,13 +52,13 @@ import '../src/components/input/RaritySortBySelect.scss';
 import '../src/components/rarityCharts/filters/RarityFilters.scss';
 import '../src/components/rarityCharts/list/RarityList.scss';
 import '../src/components/rarityCharts/welcome/Welcome.scss';
-import '../src/components/popups/PopupStyle.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/general/LoadingImage.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/components/popups/PopupStyle.scss';
+import '../src/components/polymorphs/scramble/styles/PolymorphScramblePopup.scss'
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
