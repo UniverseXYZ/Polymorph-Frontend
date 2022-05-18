@@ -1,7 +1,12 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/_mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/_mixins";
 
 .rarity--charts--page {
+  background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   &--container {
     max-width: 1110px;
     margin: 0 auto;
@@ -49,7 +54,7 @@
   transform-origin: 40px 40px;
 }
 .card-lds-roller div:after {
-  content: ' ';
+  content: " ";
   display: block;
   position: absolute;
   width: 7px;
