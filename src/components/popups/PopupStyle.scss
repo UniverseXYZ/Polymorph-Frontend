@@ -183,7 +183,8 @@
       transition: 0.5s ease;
 
       &:hover:not([disabled]) {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
       }
 
@@ -473,7 +474,8 @@
                 margin-left: -5px;
                 border-width: 5px;
                 border-style: solid;
-                border-color: rgba(255, 255, 255, 0.4) transparent transparent transparent;
+                border-color: rgba(255, 255, 255, 0.4) transparent transparent
+                  transparent;
               }
               &::after {
                 content: "";
@@ -761,7 +763,14 @@
             cursor: pointer;
 
             input {
-              @include css-checkbox(16px, $black, $white, "middle", $black, 4px);
+              @include css-checkbox(
+                16px,
+                $black,
+                $white,
+                "middle",
+                $black,
+                4px
+              );
             }
           }
         }
@@ -2226,7 +2235,11 @@
     }
   }
   .empty {
-    background: linear-gradient(to right, #000000 132px, rgba(0, 0, 0, 0.2) 10%);
+    background: linear-gradient(
+      to right,
+      #000000 132px,
+      rgba(0, 0, 0, 0.2) 10%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -2304,7 +2317,8 @@
       width: 100%;
 
       &:focus {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
         color: #000;
       }
@@ -2597,6 +2611,7 @@
       width: 295px;
       object-fit: cover;
       border-radius: 6px;
+      margin: 0 auto;
     }
     &.img2x2 {
       display: grid;
@@ -3314,7 +3329,8 @@
       height: 47px;
       margin-bottom: 15px;
       &.opened {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(175deg, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(175deg, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
         .arrow__down {
           transform: rotate(180deg);
@@ -3693,17 +3709,29 @@
             height: 24px;
             margin-right: 12px;
             &:hover {
-              background-image: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+              background-image: linear-gradient(
+                135deg,
+                rgba(188, 235, 0, 1),
+                rgba(0, 234, 234, 1)
+              );
               background-origin: border-box;
               box-shadow: 2px 1000px 1px $white inset;
               border: 1px solid transparent;
             }
 
             &:checked {
-              background: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+              background: linear-gradient(
+                135deg,
+                rgba(188, 235, 0, 1),
+                rgba(0, 234, 234, 1)
+              );
               border: 1px solid $white;
               &:hover {
-                background-image: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+                background-image: linear-gradient(
+                  135deg,
+                  rgba(188, 235, 0, 1),
+                  rgba(0, 234, 234, 1)
+                );
                 background-origin: border-box;
                 box-shadow: 2px 1000px 1px $white inset;
                 border: 1px solid transparent;
@@ -3922,7 +3950,11 @@
             margin-left: 10px;
             padding: 14px 11px;
             &:hover {
-              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+              background: linear-gradient(
+                  0deg,
+                  rgba(255, 255, 255, 0.4),
+                  rgba(255, 255, 255, 0.4)
+                ),
                 linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
             &:disabled {
@@ -4611,7 +4643,11 @@
                 border: 1px solid transparent;
               }
               &:checked {
-                background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+                background: linear-gradient(
+                  135deg,
+                  #bceb00 15.57%,
+                  #00eaea 84.88%
+                );
                 border-color: transparent;
                 &::after {
                   content: "\2518";
