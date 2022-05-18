@@ -198,8 +198,8 @@ const DetailsWithTabs = ({ polymorphData }) => {
         {/* TODO: here need to pass the real data */}
         <PolymorphScramblePopup
           onClose={() => setShowScramblePopup(false)}
-          // polymorph={polymorphData}
-          // id={polymorphId}
+          polymorph={polymorphData}
+          id={polymorphData.tokenid}
           // setPolymorph={setPolymorphData}
           // setPolymorphGene={setPolymorphGene}
           setShowCongratulations={setShowCongratulations}

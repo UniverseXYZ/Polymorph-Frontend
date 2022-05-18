@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { utils } from 'ethers';
-import Tabs from '../tabs/Tabs';
-import Button from '../button/Button';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { utils } from "ethers";
+import Tabs from "../tabs/Tabs";
+import Button from "../button/Button";
 // import '../polymorphs/scramble/styles/PolymorphScramblePopup.scss';
-import closeIcon from '../../assets/images/cross.svg';
-import ethIcon from '../../assets/images/eth.svg';
-import SelectComponent from '../select/SelectComponent';
-import { getPolymorphMeta } from '../../utils/api/polymorphs.js';
-import { convertPolymorphObjects } from '../../utils/helpers/polymorphs';
-import { usePolymorphStore } from 'src/stores/polymorphStore';
-import { useContractsStore } from 'src/stores/contractsStore';
+import closeIcon from "../../assets/images/cross.svg";
+import ethIcon from "../../assets/images/eth.svg";
+import SelectComponent from "../select/SelectComponent";
+import { getPolymorphMeta } from "../../utils/api/polymorphs.js";
+import { convertPolymorphObjects } from "../../utils/helpers/polymorphs";
+import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useContractsStore } from "src/stores/contractsStore";
 
 const GENE_POSITIONS_MAP = {
   BACKGROUND: 1,
@@ -24,14 +24,14 @@ const GENE_POSITIONS_MAP = {
 };
 
 const WEAR_TO_GENE_POSITION_MAP = {
-  Background: GENE_POSITIONS_MAP.BACKGROUND,
-  Pants: GENE_POSITIONS_MAP.PANTS,
-  Torso: GENE_POSITIONS_MAP.TORSO,
-  Footwear: GENE_POSITIONS_MAP.FOOTWEAR,
-  Eyewear: GENE_POSITIONS_MAP.FACE,
-  Headwear: GENE_POSITIONS_MAP.HEAD,
-  'Right Hand': GENE_POSITIONS_MAP.RIGHT_WEAPON,
-  'Left Hand': GENE_POSITIONS_MAP.LEFT_WEAPON,
+  background: GENE_POSITIONS_MAP.BACKGROUND,
+  pants: GENE_POSITIONS_MAP.PANTS,
+  torso: GENE_POSITIONS_MAP.TORSO,
+  footwear: GENE_POSITIONS_MAP.FOOTWEAR,
+  eyewear: GENE_POSITIONS_MAP.FACE,
+  headwear: GENE_POSITIONS_MAP.HEAD,
+  righthand: GENE_POSITIONS_MAP.RIGHT_WEAPON,
+  lefthand: GENE_POSITIONS_MAP.LEFT_WEAPON,
 };
 
 const PolymorphScramblePopup = ({
@@ -44,23 +44,30 @@ const PolymorphScramblePopup = ({
   setShowLoading,
   setShowMetadataLoading,
 }) => {
-  const userPolymorphs = usePolymorphStore(s => s.userPolymorphs);
-  const polymorphContract = useContractsStore(s => s.polymorphContract);
+  const userPolymorphs = usePolymorphStore((s) => s.userPolymorphs);
+  const polymorphContractV2 = useContractsStore((s) => s.polymorphContractV2);
 
   const [singleTraitTabSelected, setSingleTraitSelected] = useState(true);
   const [allTraitsTabSelected, setAllTraitsTabSelected] = useState(false);
-  const [selectedTrait, setSelectedTrait] = useState('');
-  const [randomizeGenePrise, setRandomizeGenePrice] = useState('');
-  const [morphSingleGenePrise, setMorphSingleGenePrice] = useState('');
+  const [selectedTrait, setSelectedTrait] = useState("");
+  const [randomizeGenePrise, setRandomizeGenePrice] = useState("");
+  const [morphSingleGenePrise, setMorphSingleGenePrice] = useState("");
+
+  // const traits = Object.keys(WEAR_TO_GENE_POSITION_MAP).map((key) => ({
+  //   label: `${key}: ${
+  //     polymorph?.data?.attributes.find((attr) => attr?.trait_type === key).value
+  //   }`,
+  //   value: key,
+  // }));
 
   const traits = Object.keys(WEAR_TO_GENE_POSITION_MAP).map((key) => ({
-    label: `${key}: ${polymorph?.data?.attributes.find((attr) => attr?.trait_type === key).value}`,
+    label: `${key.charAt(0).toUpperCase() + key.slice(1)}`,
     value: key,
   }));
 
   const tabs = [
     {
-      name: 'Morph Trait',
+      name: "Single Trait",
       active: singleTraitTabSelected,
       handler: () => {
         setSingleTraitSelected(true);
@@ -68,7 +75,7 @@ const PolymorphScramblePopup = ({
       },
     },
     {
-      name: 'Scramble all traits',
+      name: "All traits",
       active: allTraitsTabSelected,
       handler: () => {
         setSingleTraitSelected(false);
@@ -80,7 +87,7 @@ const PolymorphScramblePopup = ({
   useEffect(async () => {
     try {
       // Fetch randomize Price
-      const amount = await polymorphContract.randomizeGenomePrice();
+      const amount = await polymorphContractV2.randomizeGenomePrice();
       const formatedEther = utils.formatEther(amount);
       setRandomizeGenePrice(formatedEther);
 
@@ -88,7 +95,9 @@ const PolymorphScramblePopup = ({
       setSelectedTrait(traits[0]);
 
       // Fetch single genom change price
-      const genomChangePrice = await polymorphContract.priceForGenomeChange(id);
+      const genomChangePrice = await polymorphContractV2.priceForGenomeChange(
+        id
+      );
       const genomChangePriceToEther = utils.formatEther(genomChangePrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
     } catch (e) {
@@ -105,21 +114,28 @@ const PolymorphScramblePopup = ({
         // Take the Gene Position
         const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
         if (!genePosition) {
-          alert('There is no such Gene !');
+          alert("There is no such Gene !");
           return;
         }
 
         // Morph a Gene
-        const genomeChangePrice = await polymorphContract.priceForGenomeChange(id);
-        const morphGeneT = await polymorphContract.morphGene(id, genePosition, {
-          value: genomeChangePrice,
-        });
+        const genomeChangePrice =
+          await polymorphContractV2.priceForGenomeChange(id);
+        const morphGeneT = await polymorphContractV2.morphGene(
+          id,
+          genePosition,
+          {
+            value: genomeChangePrice,
+          }
+        );
         await morphGeneT.wait();
       } else {
         if (!id) return;
         // Randomize Genom
-        const amount = await polymorphContract.randomizeGenomePrice();
-        const randomizeT = await polymorphContract.randomizeGenome(id, { value: amount });
+        const amount = await polymorphContractV2.randomizeGenomePrice();
+        const randomizeT = await polymorphContractV2.randomizeGenome(id, {
+          value: amount,
+        });
         await randomizeT.wait();
       }
       // Update the view //
@@ -131,7 +147,7 @@ const PolymorphScramblePopup = ({
       setPolymorph(data);
 
       // Update the Gene
-      const gene = await polymorphContract.geneOf(id);
+      const gene = await polymorphContractV2.geneOf(id);
       setPolymorphGene(gene.toString());
 
       // Update userPolymorphs
@@ -166,7 +182,11 @@ const PolymorphScramblePopup = ({
         <div className="scramble--popup">
           <div className="scramble--popup--content">
             <div className="avatar-wrapper-popup">
-              <img src={polymorph?.data?.image} className="avatar-popup" alt="avatar" />
+              <img
+                src={polymorph?.imageurl}
+                className="avatar-popup"
+                alt="avatar"
+              />
             </div>
 
             <div className="scramble--options--popup">
@@ -176,8 +196,8 @@ const PolymorphScramblePopup = ({
               {singleTraitTabSelected ? (
                 <>
                   <div className="description">
-                    Mutating a single trait means you can morph a hat or morph a torso. This option
-                    gene.
+                    Mutating a single trait means you can morph a hat or morph a
+                    torso. This option will only morph 1 gene.
                   </div>
 
                   <div className="traits--popup">
@@ -191,23 +211,25 @@ const PolymorphScramblePopup = ({
                 </>
               ) : (
                 <div className="description">
-                  Would you like to scramble your Polymorph into a brand new one? This will
-                  randomize the genome, and reset the cost of a single trait scramble back to 0.01
-                  ETH.
+                  Would you like to scramble your Polymorph into a brand new
+                  one? This will randomize the genome, and reset the cost of a
+                  single trait scramble back to 0.01 ETH.
                 </div>
               )}
 
               <div className="scramble--action">
                 <div className="scramble--price">
                   <img src={ethIcon} alt="" />
-                  {singleTraitTabSelected ? morphSingleGenePrise : randomizeGenePrise}
+                  {singleTraitTabSelected
+                    ? morphSingleGenePrise
+                    : randomizeGenePrise}
                 </div>
                 <Button
                   className="light-button"
                   onClick={onScramble}
                   disabled={!selectedTrait && singleTraitTabSelected}
                 >
-                  {singleTraitTabSelected ? 'Morph' : 'Scramble'}
+                  {singleTraitTabSelected ? "Morph" : "Scramble"}
                 </Button>
               </div>
 
@@ -217,12 +239,14 @@ const PolymorphScramblePopup = ({
                   <b>
                     {selectedTrait?.label}: {currentTrait?.value}
                   </b>
-                  . Your next scramble will cost more than the last one. You have the same chance to
-                  receive the trait you already have as the trait you may want.
+                  . Your next scramble will cost more than the last one. You
+                  have the same chance to receive the trait you already have as
+                  the trait you may want.
                 </div>
               ) : (
                 <div className="next-price-description">
-                  * This action might change your Character trait and can not be reversed later!
+                  * This action might change your Character trait and can not be
+                  reversed later!
                 </div>
               )}
             </div>
