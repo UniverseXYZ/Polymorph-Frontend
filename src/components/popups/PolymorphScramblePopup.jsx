@@ -143,21 +143,21 @@ const PolymorphScramblePopup = ({
 
       setShowMetadataLoading(true);
       // Get the new Meta
-      const data = await getPolymorphMeta(id);
-      setPolymorph(data);
+      // const data = await getPolymorphMeta(id);
+      // setPolymorph(data);
 
       // Update the Gene
-      const gene = await polymorphContractV2.geneOf(id);
-      setPolymorphGene(gene.toString());
+      // const gene = await polymorphContractV2.geneOf(id);
+      // setPolymorphGene(gene.toString());
 
       // Update userPolymorphs
-      const newPolymorph = convertPolymorphObjects([data]);
-      const updatedPolymorphs = userPolymorphs.map((existingPolymorph) => {
-        if (existingPolymorph.id === newPolymorph[0].id) {
-          return newPolymorph[0];
-        }
-        return existingPolymorph;
-      });
+      // const newPolymorph = convertPolymorphObjects([data]);
+      // const updatedPolymorphs = userPolymorphs.map((existingPolymorph) => {
+      //   if (existingPolymorph.id === newPolymorph[0].id) {
+      //     return newPolymorph[0];
+      //   }
+      //   return existingPolymorph;
+      // });
 
       setShowMetadataLoading(false);
       setShowCongratulations(true);
@@ -259,8 +259,8 @@ const PolymorphScramblePopup = ({
 
 PolymorphScramblePopup.propTypes = {
   onClose: PropTypes.func.isRequired,
-  setPolymorph: PropTypes.func.isRequired,
-  setPolymorphGene: PropTypes.func.isRequired,
+  // setPolymorph: PropTypes.func.isRequired,
+  // setPolymorphGene: PropTypes.func.isRequired,
   polymorph: PropTypes.oneOfType([PropTypes.object]).isRequired,
   id: PropTypes.string.isRequired,
   setShowCongratulations: PropTypes.func.isRequired,

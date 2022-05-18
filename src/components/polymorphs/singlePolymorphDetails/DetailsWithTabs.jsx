@@ -59,6 +59,10 @@ const DetailsWithTabs = ({ polymorphData }) => {
     router.push(`/burn-to-mint/burn/single/${polymorphData.tokenid}`);
   };
 
+  const setPolymorphData = (data) => {
+    console.log("the data is ", data);
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -226,7 +230,7 @@ const DetailsWithTabs = ({ polymorphData }) => {
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
-          // polymorph={polymorphData}
+          polymorph={polymorphData}
         />
       </Popup>
     </div>
