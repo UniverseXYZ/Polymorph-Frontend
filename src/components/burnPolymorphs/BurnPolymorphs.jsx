@@ -181,7 +181,7 @@ const BurnPolymorphs = ({ characters, type }) => {
                   <div>
                     <h1>No Polymorphs selected</h1>
                     <p>
-                      Please go back and select the polymorphs you'd like to
+                      Please go back and select the polymorphs you would like to
                       burn.
                     </p>
                   </div>
