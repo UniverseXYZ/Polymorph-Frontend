@@ -1,7 +1,7 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/mixins";
 
-.wrapper {
+.selected--nfts--wrapper {
   display: flex;
   max-width: 70%;
   min-width: 62px;
@@ -40,7 +40,7 @@
     }
   }
 
-  .no--selected--nfts {
+  .no--selected--nfts-wrap {
     display: flex;
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid rgba(0, 0, 0, 0.1);
