@@ -20,7 +20,7 @@ const SelectedNftsCarousel = ({ nfts, selectedCards }) => {
   };
 
   return (
-    <div className={"wrapper"}>
+    <div className={"selected--nfts--wrapper"}>
       {selectedCards.length ? (
         <ArrowNav direction={"left"} onClick={() => onClickFunc("left")} />
       ) : null}
