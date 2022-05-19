@@ -68,9 +68,10 @@ const buildRarityUrl = (
   }
   if (ids.length) {
     endpoint = `${endpoint}&ids=${ids.join(',')}`;
-  } else {
-    endpoint = `${endpoint}&ids=1000000`;
-  }
+  } 
+  // else {
+  //   endpoint = `${endpoint}&ids=1000000`;
+  // }
 
   return endpoint;
 };
