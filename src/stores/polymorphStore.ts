@@ -104,9 +104,3 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   }
 })))
 
-// Fetch polymorphs when address changes
-useAuthStore.subscribe(s => s.address, () => {
-  const address = useAuthStore.getState().address;
-  usePolymorphStore.getState().setUserPolymorphs([]);
-  usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
-})

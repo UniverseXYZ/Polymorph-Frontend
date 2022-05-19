@@ -10,6 +10,7 @@ import { useContractsStore } from "./contractsStore";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { useErrorStore } from "./errorStore";
 import { subscribeWithSelector } from 'zustand/middleware'
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 type IDefaultAuthStoreGeters = {
   // Getters
@@ -186,6 +187,8 @@ create<
     }));
 
     useUserBalanceStore.getState().setYourBalance(Number(utils.formatEther(balance)));
+    usePolymorphStore.getState().setUserPolymorphs([]);
+    usePolymorphStore.getState().fetchUserPolymorphsTheGraph(accounts[0]);
   },
   resetConnectionState: () => {
     set(state => ({
@@ -195,6 +198,7 @@ create<
 
     useContractsStore.getState().clearContracts();
     useUserBalanceStore.getState().setYourBalance(0);
+    usePolymorphStore.getState().setUserPolymorphs([]);
     clearStorageAuthData();
 
   },
@@ -408,6 +412,7 @@ useAuthStore.subscribe(s => s.signer, async() => {
     await useAuthStore.getState().signMessage();
     useAuthStore.getState().setIsSigning(false);
   }
-
+  usePolymorphStore.getState().setUserPolymorphs([]);
+  usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
   console.log("End of signer subscribe callback")
 })
