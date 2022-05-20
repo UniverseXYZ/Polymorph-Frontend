@@ -145,14 +145,14 @@ const DetailsWithTabs = ({ polymorphData }) => {
         >
           Metadata
         </div>
-        <div
+        {/* <div
           className={`polymorph--tab--item ${
             selectedTabIndex === 2 ? "active" : ""
           }`}
           onClick={() => setSelectedTabIndex(2)}
         >
           History
-        </div>
+        </div> */}
       </div>
       <div className={`polymorph--tabs--content ${burnt ? "pb" : ""}`}>
         {selectedTabIndex === 0 && (
