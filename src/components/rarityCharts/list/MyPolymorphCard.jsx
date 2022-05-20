@@ -7,6 +7,13 @@ import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoa
 import { useRouter } from "next/router";
 import ThreeDotsSVG from "../../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../../assets/images/burn-to-mint-images/link-out.svg";
+import { usePolymorphStore } from "../../../stores/polymorphStore";
+import BurnIconSvg from "../../../assets/images/burn-icon.svg";
+import ScrambleIconSvg from "../../../assets/images/scramble-icon.svg";
+import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
+import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
+import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
+import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -15,6 +22,42 @@ const MyPolymorphCard = ({ item }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [polymorphToScramble, setPolymorphToScramble] = useState(null);
+  const [showScramblePopup, setShowScramblePopup] = useState(false);
+  const [showLoading, setShowLoading] = useState(false);
+  const [showMetadataLoading, setShowMetadataLoading] = useState(false);
+  const [showCongratulations, setShowCongratulations] = useState(false);
+
+  const showScrambleOptions = () => {
+    setShowScramblePopup(true);
+  };
+
+  const { userPolymorphsV2, setUserSelectedPolymorphsToBurn } =
+    usePolymorphStore();
+  const [isV2, setIsV2] = useState(
+    userPolymorphsV2.some((token) => token.id === item.tokenid)
+  );
+
+  const handleBurnToMintClick = (event) => {
+    event.stopPropagation();
+    if (!isV2) {
+      setUserSelectedPolymorphsToBurn([
+        {
+          tokenId: item.tokenid,
+          imageUrl: item.imageurl,
+        },
+      ]);
+      router.push(`/burn-to-mint/burn/single/${item.tokenid}`);
+    }
+  };
+
+  const handleScrambleClick = (event) => {
+    event.stopPropagation();
+    if (isV2) {
+      setPolymorphToScramble(item);
+      setShowScramblePopup(true);
+    }
+  };
 
   const fetchMetadata = async () => {
     setLoading(true);
@@ -27,7 +70,14 @@ const MyPolymorphCard = ({ item }) => {
   ) : (
     <div
       className="card"
-      onClick={() => router.push(`/polymorphs/${item.tokenid}`)}
+      onClick={() =>
+        !showScramblePopup &&
+        !showLoading &&
+        !showMetadataLoading &&
+        !showCongratulations
+          ? router.push(`/polymorphs/${item.tokenid}`)
+          : null
+      }
       aria-hidden="true"
     >
       <div className="card--header">
@@ -59,6 +109,18 @@ const MyPolymorphCard = ({ item }) => {
         </div>
         {dropdownOpen ? (
           <div className={"dropdown"}>
+            {!isV2 && (
+              <button onClick={handleBurnToMintClick}>
+                <img src={BurnIconSvg} />
+                Burn To Mint
+              </button>
+            )}
+            {isV2 && (
+              <button onClick={handleScrambleClick}>
+                <img src={ScrambleIconSvg} />
+                Scramble
+              </button>
+            )}
             <button
               onClick={(event) => {
                 event.stopPropagation();
@@ -71,6 +133,43 @@ const MyPolymorphCard = ({ item }) => {
           </div>
         ) : null}
       </div>
+      {showScramblePopup ? (
+        <Popup closeOnDocumentClick={false} open={showScramblePopup}>
+          <PolymorphScramblePopup
+            onClose={() => setShowScramblePopup(false)}
+            polymorph={item}
+            id={item.tokenid}
+            // setPolymorph={setPolymorphData}
+            // setPolymorphGene={setPolymorphGene}
+            setShowCongratulations={setShowCongratulations}
+            setShowLoading={setShowLoading}
+            setShowMetadataLoading={setShowMetadataLoading}
+          />
+        </Popup>
+      ) : null}
+      {showLoading ? (
+        <Popup closeOnDocumentClick={false} open={showLoading}>
+          <LoadingPopup onClose={() => setShowLoading(false)} />
+        </Popup>
+      ) : null}
+
+      <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
+        {/* TODO: here need to pass the real data */}
+        <PolymorphMetadataLoading
+          onClose={() => setShowMetadataLoading(false)}
+          onOpenOptionsPopUp={showScrambleOptions}
+          // polymorph={polymorphData}
+        />
+      </Popup>
+
+      <Popup closeOnDocumentClick={false} open={showCongratulations}>
+        {/* TODO: here need to pass the real data */}
+        <PolymorphScrambleCongratulationPopup
+          onClose={() => setShowCongratulations(false)}
+          onOpenOptionsPopUp={showScrambleOptions}
+          polymorph={item}
+        />
+      </Popup>
     </div>
   );
 };
