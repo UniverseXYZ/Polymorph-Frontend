@@ -90,8 +90,8 @@ const BurnToMint = ({ burntCount }) => {
             </div>
           </div>
         </div>
-        <div className="fade"></div>
       </div>
+      <div className="fade"></div>
     </div>
   );
 };

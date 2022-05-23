@@ -23,6 +23,7 @@
     position: relative;
     max-width: 1210px;
     padding: 0 50px !important;
+    height: 600px !important;
     mix-blend-mode: screen;
     @include xl {
       height: 900px;
@@ -142,17 +143,15 @@
         }
       }
     }
-
-    .fade {
-      bottom: 0;
-      left: 0;
-      height: 128px;
-      width: 100%;
-      background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
-      transform: rotate(-180deg);
-    }
   }
-
+  .fade {
+    bottom: 0;
+    left: 0;
+    height: 128px;
+    width: 100%;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    transform: rotate(-180deg);
+  }
   .burning--image--container {
     max-width: 50%;
   }
