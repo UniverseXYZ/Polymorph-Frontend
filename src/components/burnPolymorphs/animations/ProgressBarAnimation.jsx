@@ -1,9 +1,10 @@
 import React from "react";
 import Lottie from "react-lottie";
-// import animationData from '../../../utils/animations/burning_polymorph_animation.json';
+import animationData from "./ProgressBar/progress_bar";
 
-const BurnPolymorphAnimation = ({ animationData }) => {
+const ProgressBarAnimation = () => {
   const defaultOptions = {
+    loop: true,
     autoplay: true,
     animationData,
     rendererSettings: {
@@ -13,4 +14,4 @@ const BurnPolymorphAnimation = ({ animationData }) => {
   return <Lottie options={defaultOptions} isClickToPauseDisabled />;
 };
 
-export default BurnPolymorphAnimation;
+export default ProgressBarAnimation;

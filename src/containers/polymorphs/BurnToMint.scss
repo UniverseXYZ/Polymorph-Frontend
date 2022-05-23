@@ -8,9 +8,14 @@
   background-position: center;
 
   // Sets animation as background
-  div:nth-child(1) {
-    svg {
-      position: absolute;
+  .background--animation {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    div {
+      svg {
+        position: absolute;
+      }
     }
   }
 
@@ -116,6 +121,12 @@
       box-shadow: inset -4px -4px 16px rgba(0, 234, 234, 0.32),
         inset 4px 4px 16px rgba(188, 235, 0, 0.32);
       border-radius: 24px;
+      .progress--animation--container {
+        height: 100%;
+        div {
+          border-radius: 24px;
+        }
+      }
     }
   }
 
