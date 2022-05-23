@@ -19,6 +19,7 @@ import BurnPolymorphAnimation from "@legacy/burnPolymorphs/animations/BurnPolymo
 import BurnBackgroundAnimation from "../../utils/animations/burn_polymorph_bg_animation.json";
 import ProgressBarAnimation from "../../components/burnPolymorphs/animations/ProgressBarAnimation";
 import ProgressBarIndicatorAnimation from "../../components/burnPolymorphs/animations/ProgressBarIndicatorAnimation";
+import BurningImageAnimation from "../../components/burnPolymorphs/animations/BurningImageAnimation";
 
 const BurnToMint = ({ burntCount }) => {
   const router = useRouter();
@@ -62,8 +63,9 @@ const BurnToMint = ({ burntCount }) => {
             </div>
           </AnimatedOnScroll>
         </div>
-        <img src={PolymorphGroupFire} alt="" />
-        {/* <img src={BurningPolymorph} alt="" /> */}
+        <div className={"burning--image--container"}>
+          <BurningImageAnimation />
+        </div>
       </div>
       <div className="burn--progress--wrapper">
         <div className="burn--progress--container">
