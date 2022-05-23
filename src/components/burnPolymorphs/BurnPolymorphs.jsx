@@ -13,6 +13,7 @@ import BurnPolymorphSuccessPopup from "../../components/popups/BurnPolymorphSucc
 import { useContractsStore } from "../../stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
+import animationDataBurning from "../../utils/animations/burning_polymorph_animation.json";
 
 const polymorphContractV2Address =
   process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS;
@@ -191,7 +192,7 @@ const BurnPolymorphs = ({ characters, type }) => {
           ) : status === "burning" ? (
             <div className="burning--polymorph--animation">
               <CharactersGrid characters={characters} />
-              <BurnPolymorphAnimation />
+              <BurnPolymorphAnimation animationData={animationDataBurning} />
             </div>
           ) : (
             <></>
