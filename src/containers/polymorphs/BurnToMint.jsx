@@ -15,11 +15,10 @@ import { useWindowSize } from "react-use";
 import { AnimatedOnScroll } from "react-animated-css-onscroll";
 import Button from "@legacy/button/Button";
 import { useThemeStore } from "../../../src/stores/themeStore";
-import BurningPolymorph from "../../assets/images/burn-to-mint-images/burning-polymorph.png";
 import BurnPolymorphAnimation from "@legacy/burnPolymorphs/animations/BurnPolymorphAnimation";
-import BurningPolymorphCard from "../../utils/animations/NFTs_hero.json";
 import BurnBackgroundAnimation from "../../utils/animations/burn_polymorph_bg_animation.json";
 import ProgressBarAnimation from "../../components/burnPolymorphs/animations/ProgressBarAnimation";
+import ProgressBarIndicatorAnimation from "../../components/burnPolymorphs/animations/ProgressBarIndicatorAnimation";
 
 const BurnToMint = ({ burntCount }) => {
   const router = useRouter();
@@ -66,28 +65,30 @@ const BurnToMint = ({ burntCount }) => {
         <img src={PolymorphGroupFire} alt="" />
         {/* <img src={BurningPolymorph} alt="" /> */}
       </div>
-      <div className="burn--progress--container">
-        <div className="progress--indicators">
-          <span>Already Burnt</span>
-          <span>
-            {/* TO DO:  */}
-            {/* Value to be fetched and displayed here */}
-            <span>{burntCount} </span>
-            <span>/ 10000</span>
-          </span>
-        </div>
-        <div className="progress--bar">
-          <div
-            className={"progress--animation--container"}
-            style={{ width: (burntCount / 100).toString() + "%" }}
-          >
-            <ProgressBarAnimation />
+      <div className="burn--progress--wrapper">
+        <div className="burn--progress--container">
+          <div className="progress--indicators">
+            <span>Already Burnt</span>
+            <span>
+              {/* TO DO:  */}
+              {/* Value to be fetched and displayed here */}
+              <span>{burntCount} </span>
+              <span>/ 10000</span>
+            </span>
+          </div>
+          <div className="progress--bar">
+            <div
+              className={"progress--animation--container"}
+              style={{ width: (burntCount / 100).toString() + "%" }}
+            >
+              <ProgressBarAnimation />
+              <div className={"progress--indicator"}>
+                <ProgressBarIndicatorAnimation />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="fade">
-        {/* TO DO:  */}
-        {/* animation to be implemented here */}
+        <div className="fade"></div>
       </div>
     </div>
   );
