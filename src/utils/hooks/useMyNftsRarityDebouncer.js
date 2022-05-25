@@ -13,7 +13,8 @@ const buildRarityUrl = (
   sortField = '',
   sortDir = '',
   filter = '',
-  ids = []
+  ids = [],
+  version = '',
 ) => {
   let filterQuery = '';
   // eslint-disable-next-line prefer-const
@@ -53,7 +54,15 @@ const buildRarityUrl = (
     filterQuery += attrQuery;
   });
 
-  let endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+  let endpoint;
+
+  if(version === 'V1') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+  }
+  if(version === 'V2') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?page=${page}&take=${perPagee}`;
+  }
+
   if (text) {
     endpoint = `${endpoint}&search=${text}`;
   }
@@ -77,9 +86,11 @@ const buildRarityUrl = (
 };
 
 export const useSearchPolymorphs = ( allPolymorphs=false ) => {
-  const userPolymorphs = allPolymorphs
-    ? usePolymorphStore(s => s.userPolymorphsAll)
-    : usePolymorphStore(s => s.userPolymorphs)
+  // const userPolymorphs = allPolymorphs
+  //   ? usePolymorphStore(s => s.userPolymorphsAll)
+  //   : usePolymorphStore(s => s.userPolymorphs)
+
+  const { userPolymorphs,userPolymorphsV2 } = usePolymorphStore();
 
   const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
@@ -90,7 +101,8 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
   const [results, setResults] = useStateIfMounted([]);
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
 
-  const searchPolymorphsRarity = async (endpoint, abortSignal) => {
+  const searchPolymorphsRarity = async (endpoint, endpointV2, abortSignal) => {
+    // Query V1 Rarity
     const result = await fetch(endpoint, {
       signal: abortSignal,
     });
@@ -98,8 +110,19 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
       throw new Error(`bad status = ${result.status}`);
     }
     const json = await result.json();
-    setResults([...json]);
-    return json;
+
+    // Query V2 Rarity
+    const resultV2 = await fetch(endpointV2, {
+      signal: abortSignal,
+    });
+    if (resultV2.status !== 200) {
+      throw new Error(`bad status = ${resultV2.status}`);
+    }
+    const jsonV2 = await resultV2.json();
+
+    const jsonCommon = [...json].concat([...jsonV2]);
+    setResults(jsonCommon);
+    return jsonCommon;
   };
 
   const loadMorePolymorphs = async (endpoint, abortSignal) => {
@@ -136,10 +159,24 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
         sortField,
         sortDir,
         filter,
-        userPolymorphs.map((p) => p.id)
+        userPolymorphs.map((p) => p.id),
+        "V1"
       );
+
+      const endpointV2 = buildRarityUrl(
+        apiPage,
+        perPage,
+        text,
+        sortField,
+        sortDir,
+        filter,
+        userPolymorphsV2.map((p) => p.id),
+        "V2"
+      );
+
       if (apiPage === 1) {
-        return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
+        return debouncedSearchPolymorphsRarity(endpoint, endpointV2, abortSignal);
+        // return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
       }
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
