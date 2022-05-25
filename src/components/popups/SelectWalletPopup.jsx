@@ -87,7 +87,16 @@ const SelectWalletPopup = (props) => {
             installed it, please refresh the page
           </p>
           <div className="links">
-            <Button className="light-button">Install {selectedWallet}</Button>
+            <Button
+              className="light-button"
+              onClick={() =>
+                window.open(
+                  "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                )
+              }
+            >
+              Install {selectedWallet}
+            </Button>
             <Button
               className="light-border-button"
               onClick={() => {
