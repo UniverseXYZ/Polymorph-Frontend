@@ -166,7 +166,7 @@ const DesktopView = ({
             </div>
           </div>
         </li> */}
-        {isWalletConnected && isAuthenticated ? (
+        {isWalletConnected ? (
           <li>
             <button
               // style={{ width: 200 }}
@@ -260,9 +260,9 @@ const DesktopView = ({
                   type="button"
                   className="light-border-button"
                   onClick={() => {
+                    setIsAccountDropdownOpened(false);
                     signOut();
                     router.push("/");
-                    setIsAccountDropdownOpened(false);
                   }}
                 >
                   {/* <img src={signOutIcon} alt="Sign out" /> */}
@@ -277,7 +277,7 @@ const DesktopView = ({
               closeOnDocumentClick={false}
               trigger={
                 <button type="button" className="sign__in">
-                  {isAuthenticating ? "Signing in..." : "Connect Wallet"}
+                  { "Connect Wallet"}
                 </button>
               }
             >

@@ -449,7 +449,7 @@ const TabletView = (props) => {
                   closeOnDocumentClick={false}
                   trigger={
                     <button type="button" className="sign__in">
-                      {isAuthenticating ? "Signing in..." : "Connect Wallet"}
+                      {"Connect Wallet"}
                     </button>
                   }
                 >

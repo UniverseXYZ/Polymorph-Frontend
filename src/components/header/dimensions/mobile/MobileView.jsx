@@ -573,7 +573,7 @@ const MobileView = (props) => {
                       className="sign__in"
                       onClick={() => setShowSelectWallet(true)}
                     >
-                      {isAuthenticating ? "Signing in..." : "Connect Wallet"}
+                      {"Connect Wallet"}
                     </button>
                   </li>
                 )}

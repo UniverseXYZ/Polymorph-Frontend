@@ -34,7 +34,6 @@ type IAuthStore = IDefaultAuthStoreGeters & {
   connectWithWalletConnect: () => Promise<void>;
   web3AuthenticationProccess: (provider: providers.Web3Provider, network: providers.Network, accounts: string[]) => Promise<void>;
   connectWeb3: () => Promise<void>;
-  signMessage: () => Promise<void>;
   signOut: () => void;
 
   // Event handlers
@@ -184,6 +183,7 @@ create<
       signer: signerResult,
       yourEnsDomain: ensDomain,
       ethereumNetwork: network,
+      isWalletConnected: true
     }));
 
     useUserBalanceStore.getState().setYourBalance(Number(utils.formatEther(balance)));
@@ -222,14 +222,6 @@ create<
     }
   },
   connectWeb3: async () => {
-    if (get().isAuthenticating) {
-      // Don't run authentication twice
-      return;
-    }
-    set(state => ({
-      ...state,
-      isAuthenticating: true
-    }));
 
     if (get().providerName === CONNECTORS_NAMES.MetaMask) {
       await get().connectWithMetaMask();
@@ -239,96 +231,6 @@ create<
       await get().connectWithWalletConnect();
     }
 
-  },
-  signMessage: async () => {
-    try {
-      const signer = get().signer;
-      const web3Provider = get().web3Provider;
-      const address = get().address;
-
-      if (signer && web3Provider && address) {
-        const sameUser = address === Cookies.get('user_address');
-        const hasSigned = sameUser && Cookies.get('xyz_access_token');
-
-        if (!hasSigned) {
-          const chanllenge = uuid();
-          const challengeResult = await setChallenge(chanllenge);
-          const data = utils.toUtf8Bytes(chanllenge);
-
-          // we need to use this way of signature, otherwise wrong signer is returned on the BE
-          // see issue here https://github.com/ethers-io/ethers.js/issues/491#issuecomment-483899968 for more info
-          const signedMessage = await web3Provider.send('personal_sign', [
-            utils.hexlify(data),
-            address.toLowerCase(),
-          ]);
-
-          const authInfo: any = await userAuthenticate({
-            address,
-            signedMessage,
-            uuid: challengeResult?.uuid ,
-          });
-
-          if (!authInfo.error) {
-            set(state => ({
-              ...state,
-              isAuthenticated: true,
-              isAuthenticating: false,
-              loggedInArtist: mapUserData(authInfo.user)
-            }))
-
-            // Save xyz_access_token into the local storage for later API requests usage
-            Cookies.set('xyz_access_token', authInfo.token);
-            Cookies.set('user_address', address);
-          } else {
-            set(state => ({
-              ...state,
-              isAuthenticated: false,
-              isAuthenticating: false,
-              isSigning: false,
-            }))
-            
-            useErrorStore.getState().setErrorBody('Please try again in a few minutes.');
-            useErrorStore.getState().setErrorTitle('Failed to authenticate');
-            useErrorStore.getState().setShowError(true);
-          }
-        } else {
-          // THE USER ALREADY HAS SIGNED
-          const userInfo: any = await getProfileInfo(address);
-
-          if (!userInfo.error) {
-            set(state => ({
-              ...state,
-              isAuthenticated: true,
-              isWalletConnected: true,
-              isAuthenticating: false,
-              loggedInArtist: mapUserData(userInfo)
-            }))
-          }
-        }
-        set(state => ({
-          ...state,
-          isAuthenticating: false,
-        }))
-        // closeError();
-      }
-    } catch (err: any) {
-      if (err?.code === 4001) {
-        useErrorStore.getState().setShowError(true);
-        useErrorStore.getState().setErrorTitle('Signature is required');
-        useErrorStore.getState().setErrorBody(
-          "Signing a challenge is part of the authentication process.\nWithout it the application can't authenticate you."
-        );
-      }
-
-      set(state => ({
-        ...state,
-        isWalletConnected: false,
-        isAuthenticated: false,
-        isAuthenticating: false,
-        isSigning: false,
-      }))
-      console.error(err);
-    }
   },
   signOut: () => {
     get().resetConnectionState();
@@ -385,7 +287,6 @@ create<
 })))
 
 const clearStorageAuthData = () => {
-  Cookies.remove('xyz_access_token');
   Cookies.remove('user_address');
   Cookies.remove('providerName');
 };
@@ -406,13 +307,11 @@ useAuthStore.subscribe(s => s.signer, async() => {
   const signerAddress = await signer?.getAddress();
   const address = useAuthStore.getState().address;
   const isSigning = useAuthStore.getState().isSigning;
-  if (!isSigning && (!signer || (signerAddress !== address))) {
-    console.log("Signing in...");
-    useAuthStore.getState().setIsSigning(true);
-    await useAuthStore.getState().signMessage();
-    useAuthStore.getState().setIsSigning(false);
+
+  if (address) {
+    useAuthStore.getState().setIsWalletConnected(true);
+    usePolymorphStore.getState().setUserPolymorphs([]);
+    usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
   }
-  usePolymorphStore.getState().setUserPolymorphs([]);
-  usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
   console.log("End of signer subscribe callback")
 })
