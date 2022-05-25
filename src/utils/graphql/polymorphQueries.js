@@ -14,6 +14,16 @@ export const morphedPolymorphs = `
   }
 `;
 
+export const burnedPolymorphs = `
+  query Polymorphs {
+    burnedEntities(orderDirection: desc) {
+      id
+      tokenId
+      gene
+    }
+  }
+`;
+
 export const transferPolymorphs = (ownerAddress) => `
   query Polymorphs {
     transferEntities(first: 1000, where: { to: "${ownerAddress}" }) {
