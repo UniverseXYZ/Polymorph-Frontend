@@ -133,6 +133,9 @@
           height: 100%;
           div {
             border-radius: 24px;
+            :hover {
+              cursor: default;
+            }
           }
         }
         .progress--indicator {
@@ -154,6 +157,11 @@
   }
   .burning--image--container {
     max-width: 50%;
+    div {
+      :hover {
+        cursor: default;
+      }
+    }
   }
 
   @include sm {
