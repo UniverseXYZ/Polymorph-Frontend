@@ -29,7 +29,7 @@ const WrongNetworkPopup = ({ close }) => (
       }}
       className="light-border-button"
     >
-      Switch wallet
+      Switch Network
     </Button>
   </div>
 );
