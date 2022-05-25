@@ -10,35 +10,14 @@ import { collectionKeys, nftKeys } from '@app/utils/query-keys';
 import Contracts from "../../contracts/contracts.json";
 import { ethers } from "ethers";
 import { useContractsStore } from "src/stores/contractsStore";
+import { usePolymorphStore } from 'src/stores/polymorphStore';
 
 export const PolymorphUniverse = ({} : any) => {
-  const [burntCount, setBurntCount] = useState(0);
-  const { polymorphContractV2 } = useContractsStore();
-
-  useEffect(() => {
-    let contract = polymorphContractV2;
-    if(!contract) {
-      const network = process.env.REACT_APP_NETWORK_CHAIN_ID 
-        ? parseInt(process.env.REACT_APP_NETWORK_CHAIN_ID)
-        : 4
-  
-      const { contracts: contractsData } = (Contracts as any)[network];
-      contract = new ethers.Contract(
-        process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
-        contractsData.PolymorphRoot?.abi,
-        ethers.getDefaultProvider(network)
-      );
-    }
-    // contract
-    //   .totalBurnedV1()
-    //   .then((burned: any) => {
-    //     setBurntCount(burned.toString())
-    //   })
-  }, [polymorphContractV2])
+  const { totalBurnedPolymorphs} = usePolymorphStore();
 
   return (
     <div className="polymorph--universe--general--page">
-      <BurnToMint burntCount={5000}/>
+      <BurnToMint burntCount={totalBurnedPolymorphs?.length}/>
       <WhatsNewSection />
     </div>
   )
