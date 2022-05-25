@@ -647,7 +647,14 @@ const MobileView = (props) => {
                       have installed it, please refresh the page
                     </p>
                     <div className="links">
-                      <Button className="light-button">
+                      <Button
+                        className="light-button"
+                        onClick={() =>
+                          window.open(
+                            "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                          )
+                        }
+                      >
                         Install {selectedWallet}
                       </Button>
                       <Button
