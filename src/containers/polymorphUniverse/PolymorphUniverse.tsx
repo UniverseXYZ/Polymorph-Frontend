@@ -11,7 +11,6 @@ import Contracts from "../../contracts/contracts.json";
 import { ethers } from "ethers";
 import { useContractsStore } from "src/stores/contractsStore";
 
-
 export const PolymorphUniverse = ({} : any) => {
   const [burntCount, setBurntCount] = useState(0);
   const { polymorphContractV2 } = useContractsStore();
@@ -30,17 +29,16 @@ export const PolymorphUniverse = ({} : any) => {
         ethers.getDefaultProvider(network)
       );
     }
-    contract
-      .totalBurnedV1()
-      .then((burned: any) => {
-        setBurntCount(burned.toString())
-      })
+    // contract
+    //   .totalBurnedV1()
+    //   .then((burned: any) => {
+    //     setBurntCount(burned.toString())
+    //   })
   }, [polymorphContractV2])
-
 
   return (
     <div className="polymorph--universe--general--page">
-      <BurnToMint burntCount={burntCount}/>
+      <BurnToMint burntCount={5000}/>
       <WhatsNewSection />
     </div>
   )

@@ -1,9 +1,10 @@
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "./BurnPolymorph/burn_polymorph";
+import animationData from "./BurningImage/NFTs_hero";
 
-const BurnPolymorphAnimation = ({ animationData }) => {
+const BurningImageAnimation = () => {
   const defaultOptions = {
+    loop: true,
     autoplay: true,
     animationData,
     rendererSettings: {
@@ -13,4 +14,4 @@ const BurnPolymorphAnimation = ({ animationData }) => {
   return <Lottie options={defaultOptions} isClickToPauseDisabled />;
 };
 
-export default BurnPolymorphAnimation;
+export default BurningImageAnimation;
