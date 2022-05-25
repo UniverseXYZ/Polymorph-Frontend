@@ -2,7 +2,7 @@ import React from "react";
 import Lottie from "react-lottie";
 import animationData from "./BurningImage/NFTs_hero";
 
-const ProgressBarIndicatorAnimation = () => {
+const BurningImageAnimation = () => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -14,4 +14,4 @@ const ProgressBarIndicatorAnimation = () => {
   return <Lottie options={defaultOptions} isClickToPauseDisabled />;
 };
 
-export default ProgressBarIndicatorAnimation;
+export default BurningImageAnimation;

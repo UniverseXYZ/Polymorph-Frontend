@@ -13,7 +13,7 @@ import BurnPolymorphSuccessPopup from "../../components/popups/BurnPolymorphSucc
 import { useContractsStore } from "../../stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
-import animationDataBurning from "../../utils/animations/burning_polymorph_animation.json";
+import animationDataBurning from "./animations/BurnPolymorph/burn_polymorph";
 
 const polymorphContractV2Address =
   process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS;
