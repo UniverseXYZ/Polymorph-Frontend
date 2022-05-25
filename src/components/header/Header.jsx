@@ -66,7 +66,11 @@ const Header = () => {
   const { headerRef } = useLayout();
 
   const [selectedWallet, setSelectedWallet] = useState("");
-  const [installed, setInstalled] = useState(true);
+  const [installed, setInstalled] = useState(
+    typeof window !== "undefined" && typeof window.ethereum !== "undefined"
+      ? true
+      : false
+  );
   const [showMenu, setShowMenu] = useState(false);
   const [showSelectWallet, setShowSelectWallet] = useState(false);
   const [showInstallWalletPopup, setShowInstallWalletPopup] = useState(false);
