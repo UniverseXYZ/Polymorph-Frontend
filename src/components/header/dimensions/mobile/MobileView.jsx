@@ -591,9 +591,7 @@ const MobileView = (props) => {
                 {!showInstallWalletPopup ? (
                   <>
                     <h1 className="title">Select Wallet</h1>
-                    <p className="desc">
-                      Please pick a wallet to connect to Universe
-                    </p>
+                    <p className="desc">Please pick a wallet to connect</p>
                     <div className="wallets">
                       <button
                         type="button"
