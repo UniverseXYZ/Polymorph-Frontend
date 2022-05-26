@@ -81,7 +81,8 @@ const BurnToMint = ({ burntCount }) => {
           <div className="progress--bar">
             <div
               className={"progress--animation--container"}
-              style={{ width: (burntCount / 100).toString() + "%" }}
+              //
+              style={{ width: (burntCount / 100 + 3).toString() + "%" }}
             >
               <ProgressBarAnimation />
               <div className={"progress--indicator"}>
