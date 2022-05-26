@@ -2,7 +2,7 @@ import React from "react";
 import ImageWithBadges from "../../components/polymorphs/singlePolymorphDetails/ImageWithBadges";
 import DetailsWithTabs from "../../components/polymorphs/singlePolymorphDetails/DetailsWithTabs";
 import { useRouter } from "next/router";
-import { useSearchPolymorphs } from "@legacy/hooks/useRarityDebouncer";
+import { useSearchPolymorphs } from "@legacy/hooks/useMyNftsRarityDebouncerAll";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
 
 export const SinglePolymorphDetails = () => {
