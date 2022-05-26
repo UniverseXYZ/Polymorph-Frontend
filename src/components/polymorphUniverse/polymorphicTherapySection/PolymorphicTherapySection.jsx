@@ -4,6 +4,9 @@ import TV from "../../../assets/images/polymorphic-therapy-tv.png";
 import Button from "@legacy/button/Button";
 import YoutubeIcon from "../../../assets/images/youtube-lg.svg";
 
+const linkToYoutube =
+  "https://www.youtube.com/watch?v=tf-6ele4-Co&list=PLEzjGlBjDUouyywVq5dpuEHmJfyu8Ny_E&ab_channel=Universe";
+
 const PolymorphicTherapySection = () => {
   const [isClicked, setIsClicked] = useState(false);
   return (
@@ -12,10 +15,7 @@ const PolymorphicTherapySection = () => {
         <div className="grid">
           <div className="TV" onClick={() => setIsClicked(!isClicked)}>
             <div className="video-responsive">
-              <ReactPlayer
-                url="https://www.youtube.com/watch?v=7538y2tEC-8&t=2245s&ab_channel=RyanCelsius%C2%B0Sounds"
-                playing={isClicked}
-              />
+              <ReactPlayer url={linkToYoutube} playing={isClicked} />
             </div>
             <img src={TV} alt="tv"></img>
           </div>
