@@ -4,7 +4,7 @@ import ArrowLeftIcon from "@legacy/svgs/ArrowLeftIcon";
 import polymorphImg from "../../../assets/images/burn-polymorph.png";
 import neverScrambledIcon from "../../../assets/images/never-scrambled-badge.svg";
 
-const ImageWithBadges = ({ polymorphData }) => {
+const ImageWithBadges = ({ polymorphData, isV1, iframeData }) => {
   const router = useRouter();
   return (
     <div className="polymorph--image--with--badges">
@@ -16,18 +16,32 @@ const ImageWithBadges = ({ polymorphData }) => {
         <ArrowLeftIcon fillColor="black" />
         <span>Go back</span>
       </div>
-      <div className="polymorph--image">
-        <img src={polymorphData.imageurl} alt="Polymorph" />
-        <div className="polymorph--badge">
-          {/* TO DO: NEVER SCRAMBLED SHOULD BE CONDITIONALLY RENDERED*/}
+      {isV1 && (
+        <div className="polymorph--image">
+          <img src={polymorphData.imageurl} alt="Polymorph" />
+          {/* <div className="polymorph--badge">
+          TO DO: NEVER SCRAMBLED SHOULD BE CONDITIONALLY RENDERED
           <span className="tooltiptext">Never scrambled</span>
           <img
             className="scrambled--icon"
             src={neverScrambledIcon}
             alt="Never Scrambled"
           />
+        </div> */}
         </div>
-      </div>
+      )}
+      {!isV1 && (
+        <div className="polymorph--iframe">
+          <iframe
+            src={iframeData?.animation_url}
+            style={{
+              height: "600px",
+              // maxWidth: "600px",
+              width: "600px",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
