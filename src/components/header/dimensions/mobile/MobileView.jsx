@@ -68,6 +68,9 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 
+const externalLink =
+  "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
+
 const MobileView = (props) => {
   const {
     isWalletConnected,
@@ -649,11 +652,7 @@ const MobileView = (props) => {
                     <div className="links">
                       <Button
                         className="light-button"
-                        onClick={() =>
-                          window.open(
-                            "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                          )
-                        }
+                        onClick={() => window.open(externalLink)}
                       >
                         Install {selectedWallet}
                       </Button>

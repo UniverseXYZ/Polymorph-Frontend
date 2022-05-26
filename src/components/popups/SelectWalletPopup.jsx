@@ -9,6 +9,9 @@ import coinbaseLogo from "../../assets/images/coinbase.png";
 import walletConnectLogo from "../../assets/images/wallet-connect.png";
 import closeIcon from "../../assets/images/close-menu.svg";
 
+const externalLink =
+  "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
+
 const SelectWalletPopup = (props) => {
   const {
     close,
@@ -89,11 +92,7 @@ const SelectWalletPopup = (props) => {
           <div className="links">
             <Button
               className="light-button"
-              onClick={() =>
-                window.open(
-                  "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-                )
-              }
+              onClick={() => window.open(externalLink)}
             >
               Install {selectedWallet}
             </Button>

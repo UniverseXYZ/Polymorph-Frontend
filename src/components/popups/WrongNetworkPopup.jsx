@@ -27,7 +27,7 @@ const WrongNetworkPopup = ({ close }) => {
       <p className="desc">
         Please switch your wallet network to{" "}
         <span>{process.env.REACT_APP_NETWORK_NAME}</span> to use the app. If you
-        still encounter problems, you may want to switch to a different wallet
+        still encounter problems, you may want to switch to a different network
       </p>
       <Button onClick={switchChain} className="light-border-button">
         Switch Network
