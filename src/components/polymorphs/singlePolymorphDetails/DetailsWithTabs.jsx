@@ -203,7 +203,7 @@ const DetailsWithTabs = ({ polymorphData }) => {
         <PolymorphScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphData}
-          id={polymorphData.tokenid}
+          id={polymorphData.tokenid.toString()}
           // setPolymorph={setPolymorphData}
           // setPolymorphGene={setPolymorphGene}
           setShowCongratulations={setShowCongratulations}
