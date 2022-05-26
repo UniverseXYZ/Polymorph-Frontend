@@ -43,7 +43,6 @@ import { ethers } from "ethers";
 
 const Header = () => {
   const {
-    isAuthenticated,
     isWalletConnected,
     setIsWalletConnected,
     connectWithWalletConnect,
@@ -51,7 +50,6 @@ const Header = () => {
     address,
     setLoginFn,
   } = useAuthStore((s) => ({
-    isAuthenticated: s.isAuthenticated,
     isWalletConnected: s.isWalletConnected,
     setIsWalletConnected: s.setIsWalletConnected,
     connectWithWalletConnect: s.connectWithWalletConnect,
@@ -138,16 +136,17 @@ const Header = () => {
       await polymorphContractV2.balanceOf(address)
     ).toNumber();
     const totalCount = polymorphsV1Count + polymorphsV2Count;
+    console.log(totalCount);
     setUserPolymorphsCount(totalCount);
   };
 
   useEffect(() => {
-    if (isAuthenticated && isWalletConnected) {
+    if (isWalletConnected) {
       getUsersPolymorphsCount();
     } else {
       setUserPolymorphsCount(null);
     }
-  }, [isAuthenticated, isWalletConnected]);
+  }, [isWalletConnected]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
