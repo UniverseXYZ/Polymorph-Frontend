@@ -40,6 +40,7 @@ import { useAuthStore } from "../../stores/authStore";
 import { useThemeStore } from "src/stores/themeStore";
 import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const Header = () => {
   const {
@@ -49,6 +50,7 @@ const Header = () => {
     connectWithMetaMask,
     address,
     setLoginFn,
+    onAccountsChanged,
   } = useAuthStore((s) => ({
     isWalletConnected: s.isWalletConnected,
     setIsWalletConnected: s.setIsWalletConnected,
@@ -56,7 +58,10 @@ const Header = () => {
     connectWithMetaMask: s.connectWithMetaMask,
     address: s.address,
     setLoginFn: s.setLoginFn,
+    onAccountsChanged: s.onAccountsChanged,
   }));
+
+  const { userPolymorphsAll } = usePolymorphStore();
 
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
 
@@ -129,15 +134,7 @@ const Header = () => {
   };
 
   const getUsersPolymorphsCount = async () => {
-    const polymorphsV1Count = (
-      await polymorphContract.balanceOf(address)
-    ).toNumber();
-    const polymorphsV2Count = (
-      await polymorphContractV2.balanceOf(address)
-    ).toNumber();
-    const totalCount = polymorphsV1Count + polymorphsV2Count;
-    console.log(totalCount);
-    setUserPolymorphsCount(totalCount);
+    setUserPolymorphsCount(userPolymorphsAll.length);
   };
 
   useEffect(() => {
@@ -146,7 +143,7 @@ const Header = () => {
     } else {
       setUserPolymorphsCount(null);
     }
-  }, [isWalletConnected]);
+  }, [isWalletConnected, onAccountsChanged, userPolymorphsAll]);
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
