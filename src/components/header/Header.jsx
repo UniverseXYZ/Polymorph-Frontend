@@ -107,7 +107,6 @@ const Header = () => {
         typeof window.ethereum !== "undefined"
       ) {
         await connectWithMetaMask();
-        setIsWalletConnected(true);
         setShowMenu(false);
         setShowSelectWallet(false);
       } else if (wallet === CONNECTORS_NAMES.WalletConnect) {
