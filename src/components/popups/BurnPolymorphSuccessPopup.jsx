@@ -9,7 +9,7 @@ import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
   const [loading, setLoading] = useState(true);
-  const [fetchedJson, setFetchedJson] = useState("");
+  const [fetchedImages, setFetchedImages] = useState("");
   const router = useRouter();
 
   const settings = {
@@ -34,7 +34,7 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
         if (res.length > 0) {
           const images = [];
           res.forEach((res) => images.push(res.data.image));
-          setFetchedJson(images);
+          setFetchedImages(images);
           setLoading(false);
         }
       } catch (err) {
@@ -59,12 +59,12 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
       )}
       {characters.length > 1 ? (
         <div className="batch--polymorphs">
-          {!loading && fetchedJson ? (
+          {!loading && fetchedImages ? (
             <Slider {...settings}>
-              {fetchedJson?.map((c, i) => {
+              {fetchedImages?.map((c, i) => {
                 return (
-                  <div className="polymorph--img" key={c.tokenid}>
-                    <img src={fetchedJson[i]} alt="Polymorph" />
+                  <div className="polymorph--img" key={i}>
+                    <img src={fetchedImages[i]} alt="Polymorph" />
                   </div>
                 );
               })}
@@ -75,9 +75,9 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
         </div>
       ) : (
         <div className="single--polymorph">
-          {!loading && fetchedJson ? (
+          {!loading && fetchedImages ? (
             <div className="polymorph--img">
-              <img src={fetchedJson[0]} alt="Polymorph" />
+              <img src={fetchedImages[0]} alt="Polymorph" />
             </div>
           ) : (
             renderLoaders(1)
