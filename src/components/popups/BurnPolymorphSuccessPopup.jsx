@@ -7,8 +7,6 @@ import Button from "@legacy/button/Button";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
 
-const endpointRarityV2 = process.env.REACT_APP_RARITY_METADATA_URL_V2;
-
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
   const [loading, setLoading] = useState(true);
   const [fetchedJson, setFetchedJson] = useState("");
@@ -22,78 +20,29 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
     slidesToScroll: 1,
   };
 
-  const fetchMetadata = async () => {
-    const ids = [...characters.map((character) => character.tokenId)];
-    const endpoint = `${endpointRarityV2}?ids=${ids}`;
-    try {
-      const result = await fetch(endpoint, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const json = await result.json();
-      return json;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // useEffect(async () => {
-  //   if (loading) {
-  //     const resultJson = await fetchMetadata();
-  //     if (resultJson.length > 0) {
-  //       setFetchedJson(resultJson);
-  //     } else {
-  //       setLoading(true);
-  //     }
-  //   }
-  //   if (fetchedJson.length > 0) {
-  //     setLoading(false);
-  //   }
-  // }, [loading, fetchedJson]);
-  console.log("characters", characters);
-
   useEffect(async () => {
-    const promises = [];
-    characters.forEach((character) =>
-      promises.push(getPolymorphMetaV2(character.tokenId))
-    );
-    console.log("promises are", promises);
-
-    console.log("loading is", loading);
     if (loading) {
+      const promises = [];
+      characters.forEach((character) =>
+        promises.push(getPolymorphMetaV2(character.tokenId))
+      );
       try {
         const res = await Promise.all(promises);
-        console.log("res is ", res);
         if (!res.length) {
-          console.error("server error. cannot get meta data");
-          console.log("res length is  0");
           setLoading(true);
         }
-
         if (res.length > 0) {
-          console.log("res length is NOT 0");
-          console.log("res are ", res);
           const images = [];
           res.forEach((res) => images.push(res.data.image));
-          console.log("images", images);
           setFetchedJson(images);
           setLoading(false);
         }
       } catch (err) {
         console.log(err);
       }
-
-      // const { data } = await getPolymorphMetaV2(characters[0].tokenId);
-      // if (data !== "") {
-      //   setFetchedJson(data);
-      //   setLoading(false);
-      // } else {
-      //   setLoading(true);
-      // }
     }
   }, [loading]);
-  console.log("fetched json is", fetchedJson);
+
   return (
     <div className="burn--polymorph--success--popup">
       <button type="button" className="popup-close" onClick={onClose}>
