@@ -10,7 +10,8 @@ const buildRarityUrl = (
   text = '',
   sortField = '',
   sortDir = '',
-  filter = ''
+  filter = '',
+  version = ''
 ) => {
   let filterQuery = '';
   // eslint-disable-next-line prefer-const
@@ -50,7 +51,15 @@ const buildRarityUrl = (
     filterQuery += attrQuery;
   });
 
-  let endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+  let endpoint;
+
+   if(version === 'V1') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+   }
+   if(version === 'V2') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?page=${page}&take=${perPagee}`;
+   }
+
   if (text) {
     endpoint = `${endpoint}&search=${text}`;
   }
@@ -67,7 +76,7 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphs = () => {
+export const useSearchPolymorphs = (version) => {
   const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
@@ -119,7 +128,7 @@ export const useSearchPolymorphs = () => {
       //   return [];
       // }
       // Else we use the debounced api
-      const endpoint = buildRarityUrl(apiPage, perPage, text, sortField, sortDir, filter);
+      const endpoint = buildRarityUrl(apiPage, perPage, text, sortField, sortDir, filter, version);
       if (apiPage === 1) {
         return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
       }
