@@ -7,6 +7,9 @@ const battlePolymorphSection = () => (
   <div className="battle--polymorph--section">
     <div className="battle--polymorph--section--container">
       <div className="grid">
+        <div>
+          <img src={battlePolymorphImage} alt="Battle polymorph" />
+        </div>
         <div className="polymorph-div">
           <h1>Battle Universe</h1>
           <p>
@@ -17,9 +20,6 @@ const battlePolymorphSection = () => (
           <Button className={"light-button"} disabled={true}>
             Coming Soon
           </Button>
-        </div>
-        <div>
-          <img src={battlePolymorphImage} alt="Battle polymorph" />
         </div>
       </div>
     </div>
