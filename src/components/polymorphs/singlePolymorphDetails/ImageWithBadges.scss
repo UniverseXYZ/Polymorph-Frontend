@@ -81,6 +81,7 @@
       border-radius: 12px;
       filter: drop-shadow(0px 10px 36px rgba(136, 120, 172, 0.14));
     }
+
     .polymorph--badge {
       position: absolute;
       top: 12px;
@@ -136,5 +137,37 @@
   }
   @include sm {
     padding: 30px 20px 30px;
+  }
+
+  .polymorph--iframe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    iframe {
+      border-radius: 12px;
+      max-width: 100%;
+      @media (max-width: 1350px) {
+        height: calc(50vw - 200px) !important;
+        width: 50vw !important;
+      }
+      @include xxl {
+        // height: calc(50vw - 200px) !important;
+        // width: 100vw !important;
+      }
+      @include xl {
+        height: calc(60vw) !important;
+        width: 60vw !important;
+      }
+      @include md {
+        height: calc(100vw - 80px) !important;
+        width: 100vw !important;
+      }
+      @include sm {
+        height: calc(100vw - 40px) !important;
+        width: 100vw !important;
+      }
+    }
   }
 }
