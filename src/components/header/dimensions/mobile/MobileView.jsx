@@ -68,6 +68,9 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 
+const externalLink =
+  "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
+
 const MobileView = (props) => {
   const {
     isWalletConnected,
@@ -591,9 +594,7 @@ const MobileView = (props) => {
                 {!showInstallWalletPopup ? (
                   <>
                     <h1 className="title">Select Wallet</h1>
-                    <p className="desc">
-                      Please pick a wallet to connect to Universe
-                    </p>
+                    <p className="desc">Please pick a wallet to connect</p>
                     <div className="wallets">
                       <button
                         type="button"
@@ -649,7 +650,10 @@ const MobileView = (props) => {
                       have installed it, please refresh the page
                     </p>
                     <div className="links">
-                      <Button className="light-button">
+                      <Button
+                        className="light-button"
+                        onClick={() => window.open(externalLink)}
+                      >
                         Install {selectedWallet}
                       </Button>
                       <Button
