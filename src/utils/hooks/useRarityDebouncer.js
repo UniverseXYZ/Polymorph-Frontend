@@ -85,6 +85,7 @@ export const useSearchPolymorphs = (version) => {
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted([]);
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
+  const [tab, setTab] = useStateIfMounted("V1")
 
   const searchPolymorphsRarity = async (endpoint, abortSignal) => {
     const result = await fetch(endpoint, {
@@ -135,7 +136,7 @@ export const useSearchPolymorphs = (version) => {
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter]
+    [inputText, apiPage, sortField, sortDir, filter, tab]
   );
 
   // Return everything needed for the hook consumer
@@ -154,5 +155,7 @@ export const useSearchPolymorphs = (version) => {
     results,
     isLastPage,
     setIsLastPage,
+    tab,
+    setTab,
   };
 };
