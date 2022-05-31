@@ -47,7 +47,7 @@ const animationData = {
       "w": 550,
       "h": 550,
       "u": "",
-      "p": "img_0.jpg",
+      "p": img_0,
       "e": 0
     },
     {
