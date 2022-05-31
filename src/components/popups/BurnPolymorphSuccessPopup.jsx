@@ -5,10 +5,13 @@ import Slider from "react-slick";
 import closeIcon from "../../assets/images/cross.svg";
 import Button from "@legacy/button/Button";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
+import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
   const [loading, setLoading] = useState(true);
+  const [fetchedImages, setFetchedImages] = useState("");
   const router = useRouter();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -17,11 +20,28 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
     slidesToScroll: 1,
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  useEffect(async () => {
+    if (loading) {
+      const promises = [];
+      characters.forEach((character) =>
+        promises.push(getPolymorphMetaV2(character.tokenId))
+      );
+      try {
+        const res = await Promise.all(promises);
+        if (!res.length) {
+          setLoading(true);
+        }
+        if (res.length > 0) {
+          const images = [];
+          res.forEach((res) => images.push(res.data.image));
+          setFetchedImages(images);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [loading]);
 
   return (
     <div className="burn--polymorph--success--popup">
@@ -39,28 +59,28 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
       )}
       {characters.length > 1 ? (
         <div className="batch--polymorphs">
-          {loading ? (
-            renderLoaders(characters.length)
-          ) : (
+          {!loading && fetchedImages ? (
             <Slider {...settings}>
-              {characters.map((c) => {
+              {fetchedImages?.map((c, i) => {
                 return (
-                  <div className="polymorph--img" key={c.tokenId}>
-                    <img src={c.imageUrl} alt="Polymorph" />
+                  <div className="polymorph--img" key={i}>
+                    <img src={fetchedImages[i]} alt="Polymorph" />
                   </div>
                 );
               })}
             </Slider>
+          ) : (
+            renderLoaders(characters.length)
           )}
         </div>
       ) : (
         <div className="single--polymorph">
-          {loading ? (
-            renderLoaders(1)
-          ) : (
+          {!loading && fetchedImages ? (
             <div className="polymorph--img">
-              <img src={characters[0].imageUrl} alt="Polymorph" />
+              <img src={fetchedImages[0]} alt="Polymorph" />
             </div>
+          ) : (
+            renderLoaders(1)
           )}
         </div>
       )}

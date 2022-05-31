@@ -113,7 +113,7 @@ const BurnPolymorphs = ({ characters, type }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  console.log(characters);
+
   console.log(status);
   return (
     <div className="burn--polymorph--page">
