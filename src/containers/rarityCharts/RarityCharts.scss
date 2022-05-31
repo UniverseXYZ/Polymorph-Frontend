@@ -1,6 +1,42 @@
 @import "../../assets/scss/variables";
 @import "../../assets/scss/_mixins";
 
+.tabs--container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: "Sharp Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 130%;
+  background-color: black;
+  position: relative;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 176px;
+    height: 48px;
+    border-radius: 12px 12px 0 0;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .active {
+    background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .inactive {
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .rarity--charts--page {
   background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
   background-position: center;
