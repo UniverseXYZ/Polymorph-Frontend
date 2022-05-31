@@ -1,5 +1,5 @@
-import React from 'react';
-import WelcomeWrapper from '../../ui-elements/WelcomeWrapper';
+import React from "react";
+import WelcomeWrapper from "../../ui-elements/WelcomeWrapper";
 // import './Welcome.scss';
 
 const marquee = () => (
@@ -30,7 +30,7 @@ const Welcome = () => (
       hintText="10,000 Total Polymorphs"
       ellipsesLeft={false}
       ellipsesRight={false}
-      marquee={marquee()}
+      // marquee={marquee()}
       bgTextRight
     />
   </div>
