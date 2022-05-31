@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import Marquee from 'react-fast-marquee';
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import Marquee from "react-fast-marquee";
 // import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { AnimatedOnScroll } from 'react-animated-css-onscroll';
-import Popup from 'reactjs-popup';
-import ellipses from '../../assets/images/ellipses.svg';
-import backgroundTextLeft from '../../assets/images/mint-polymorph-welcome-bg-left.png';
-import backgroundTextRight from '../../assets/images/mint-polymorph-welcome-bg-right.png';
-import Button from '../button/Button.jsx';
-import SubscribePopup from '../popups/SubscribePopup.jsx';
+import { AnimatedOnScroll } from "react-animated-css-onscroll";
+import Popup from "reactjs-popup";
+import ellipses from "../../assets/images/ellipses.svg";
+import backgroundTextLeft from "../../assets/images/mint-polymorph-welcome-bg-left.png";
+import backgroundTextRight from "../../assets/images/mint-polymorph-welcome-bg-right.png";
+import Button from "../button/Button.jsx";
+import SubscribePopup from "../popups/SubscribePopup.jsx";
 // import './styles/WelcomeWrapper.scss';
 
 const WelcomeWrapper = (props) => {
@@ -29,13 +29,17 @@ const WelcomeWrapper = (props) => {
 
   return (
     <div className="welcome--section">
-      {ellipsesLeft && <img className="ellipse-l" src={ellipses} alt="Ellipses" />}
-      {ellipsesRight && <img className="ellipse-r" src={ellipses} alt="Ellipses" />}
+      {ellipsesLeft && (
+        <img className="ellipse-l" src={ellipses} alt="Ellipses" />
+      )}
+      {ellipsesRight && (
+        <img className="ellipse-r" src={ellipses} alt="Ellipses" />
+      )}
       <div className="welcome__section__container">
         {bgTextLeft && (
           <div className="text-l">
             <AnimatedOnScroll animationIn="fadeIn" animationInDelay={300}>
-              <img src={backgroundTextLeft} className="elipses-bg" alt="Ellipses" />
+              {/* <img src={backgroundTextLeft} className="elipses-bg" alt="Ellipses" /> */}
             </AnimatedOnScroll>
             <div className="opacity-l" />
           </div>
@@ -43,7 +47,7 @@ const WelcomeWrapper = (props) => {
         {bgTextRight && (
           <div className="text-r">
             <AnimatedOnScroll animationIn="fadeIn" animationInDelay={300}>
-              <img src={backgroundTextRight} className="elipses-bg" alt="Ellipses" />
+              {/* <img src={backgroundTextRight} className="elipses-bg" alt="Ellipses" /> */}
             </AnimatedOnScroll>
             <div className="opacity-r" />
           </div>
@@ -113,13 +117,13 @@ WelcomeWrapper.propTypes = {
 WelcomeWrapper.defaultProps = {
   ellipsesLeft: true,
   ellipsesRight: true,
-  hintText: '',
+  hintText: "",
   children: null,
   marquee: null,
-  btnText: '',
+  btnText: "",
   btnOnClick: () => {},
   btnAnotherOnClick: () => {},
-  popupBtnText: '',
+  popupBtnText: "",
   bgTextLeft: false,
   bgTextRight: false,
 };
