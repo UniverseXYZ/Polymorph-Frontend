@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uuid from "react-uuid";
 import { useHistory } from "react-router-dom";
@@ -8,6 +8,8 @@ import AppContext from "../../ContextAPI";
 import person from "../../assets/images/randomise-person-images/person.png";
 import { useRouter } from "next/router";
 import { useMyNftsStore } from "src/stores/myNftsStore";
+import { getPolymorphMetaV2 } from "@legacy/api/polymorphs.js";
+import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 
 const PolymorphScrambleCongratulationPopup = ({
   onClose,
@@ -15,12 +17,26 @@ const PolymorphScrambleCongratulationPopup = ({
   polymorph,
 }) => {
   const router = useRouter();
+  const [metadata, setMetadata] = useState("");
+  const [loading, setLoading] = useState(true);
   const { polymorphsFilter, navigateToMyUniverseNFTsTab } = useMyNftsStore(
     (s) => ({
       polymorphsFilter: s.polymorphsFilter,
       navigateToMyUniverseNFTsTab: s.navigateToMyUniverseNFTsTab,
     })
   );
+
+  useEffect(async () => {
+    if (loading) {
+      const { data } = await getPolymorphMetaV2(polymorph.tokenid);
+      if (data !== "") {
+        setMetadata(data);
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+    }
+  }, [loading]);
 
   return (
     <div className="polymorph_popup">
@@ -35,9 +51,17 @@ const PolymorphScrambleCongratulationPopup = ({
       <p className="desc">
         You have sucessfully scrambled your Polymorphic Universe NFT
       </p>
-      <div className="polymorph_confirmation_image">
-        <img src={polymorph?.imageurl} alt="soldier" key={uuid()} />
-      </div>
+      {loading && (
+        <p className="info">Your NFTs may take up to 2 minutes to load</p>
+      )}
+
+      {!loading && metadata ? (
+        <div className="polymorph_confirmation_image">
+          <img src={metadata?.image} alt="soldier" key={uuid()} />
+        </div>
+      ) : (
+        renderLoaders(1)
+      )}
       <div className="button__div_polymorph">
         <Button
           className="light-button"
