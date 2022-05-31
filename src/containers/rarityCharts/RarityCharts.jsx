@@ -17,6 +17,7 @@ const RarityCharts = () => {
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
   const [offset, setOffset] = useState(0);
   const [perPage, setPerPage] = useState(9);
+  const [selectedTab, setSelectedTab] = useState("V1");
 
   const {
     inputText,
@@ -33,11 +34,12 @@ const RarityCharts = () => {
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphs("V1");
+    tab,
+    setTab,
+  } = useSearchPolymorphs(selectedTab);
 
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("V1");
 
   useEffect(() => {
     setDarkMode(true);
@@ -70,6 +72,11 @@ const RarityCharts = () => {
     setFilter(newFilter);
   };
 
+  const selectTabHandler = (version) => {
+    setSelectedTab(version);
+    setTab(version);
+  };
+
   return (
     <div className="rarity--charts--page">
       <OpenGraph
@@ -83,13 +90,13 @@ const RarityCharts = () => {
       <div className={"tabs--container"}>
         <div
           className={`tab ${selectedTab === "V1" ? "active" : "inactive"}`}
-          onClick={() => setSelectedTab("V1")}
+          onClick={() => selectTabHandler("V1")}
         >
           Polymorphs V1
         </div>
         <div
           className={`tab ${selectedTab === "V2" ? "active" : "inactive"}`}
-          onClick={() => setSelectedTab("V2")}
+          onClick={() => selectTabHandler("V2")}
         >
           Polymorphs V2
         </div>
