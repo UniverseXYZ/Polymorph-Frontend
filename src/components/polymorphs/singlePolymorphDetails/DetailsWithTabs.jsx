@@ -216,14 +216,14 @@ const DetailsWithTabs = ({ polymorphData }) => {
         <LoadingPopup onClose={() => setShowLoading(false)} />
       </Popup>
 
-      <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
-        {/* TODO: here need to pass the real data */}
+      {/* <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
+        TODO: here need to pass the real data
         <PolymorphMetadataLoading
           onClose={() => setShowMetadataLoading(false)}
           onOpenOptionsPopUp={showScrambleOptions}
-          // polymorph={polymorphData}
+          polymorph={polymorphData}
         />
-      </Popup>
+      </Popup> */}
 
       <Popup closeOnDocumentClick={false} open={showCongratulations}>
         {/* TODO: here need to pass the real data */}

@@ -2695,6 +2695,16 @@
     width: 90%;
     padding: 20px;
   }
+  .loading {
+    height: unset;
+    background-image: none;
+    position: relative;
+    .lds-roller {
+      transform: translate(0, 0);
+      top: unset;
+      left: unset;
+    }
+  }
 }
 .share--popup {
   background-color: white;
