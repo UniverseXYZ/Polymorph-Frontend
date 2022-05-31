@@ -33,7 +33,7 @@ const ImageWithBadges = ({ polymorphData, isV1, iframeData }) => {
       {!isV1 && (
         <div className="polymorph--iframe">
           <iframe
-            src={iframeData?.animation_url}
+            src={iframeData}
             style={{
               height: "600px",
               // maxWidth: "600px",

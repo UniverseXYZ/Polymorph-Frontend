@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useSearchPolymorphs } from "@legacy/hooks/useMyNftsRarityDebouncerAll";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import { getPolymorphMetaV2 } from "@legacy/api/polymorphs";
 
 export const SinglePolymorphDetails = () => {
   const router = useRouter();
@@ -32,16 +33,8 @@ export const SinglePolymorphDetails = () => {
 
   useEffect(async () => {
     try {
-      const source = await fetch(
-        `https://us-central1-polymorphmetadata.cloudfunctions.net/rinkeby-iframe?id=${polymorphId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const json = await source.json();
-      setIframeData(json);
+      const { data } = await getPolymorphMetaV2(polymorphId);
+      setIframeData(data.animation_url);
     } catch (err) {
       console.log(err);
     }
