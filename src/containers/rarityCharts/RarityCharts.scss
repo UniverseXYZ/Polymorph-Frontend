@@ -2,36 +2,57 @@
 @import "../../assets/scss/_mixins";
 
 .tabs--container {
+  height: 48px;
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
   font-family: "Sharp Grotesk";
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  line-height: 130%;
   background-color: black;
-  position: relative;
 
   .tab {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     width: 176px;
     height: 48px;
-    border-radius: 12px 12px 0 0;
-    background: rgba(255, 255, 255, 0.2);
     z-index: 200;
+    span {
+      z-index: 1;
+    }
+    @include sm {
+      width: 88px;
+    }
   }
   .active {
-    background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
+    background-image: url("../../assets/images/rarity-charts/Tabs/active-tab-desktop.png");
     background-position: center;
-    background-size: cover;
+    background-size: 176px 48px;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    @include sm {
+      background-image: url("../../assets/images/rarity-charts/Tabs/active-tab-mobile.png");
+      background-size: 88px 48px;
+    }
   }
   .inactive {
+    background-image: url("../../assets/images/rarity-charts/Tabs/inactive-tab-desktop.png");
+    background-position: center;
+    background-size: 176px 48px;
+    background-repeat: no-repeat;
+    @include sm {
+      background-image: url("../../assets/images/rarity-charts/Tabs/inactive-tab-mobile.png");
+      background-size: 88px 48px;
+    }
+    &:hover {
+      background-image: url("../../assets/images/rarity-charts/Tabs/hover-tab-desktop.png");
+      @include sm {
+        background-image: url("../../assets/images/rarity-charts/Tabs/hover-tab-mobile.png");
+        background-size: 88px 48px;
+      }
+    }
   }
   &:hover {
     cursor: pointer;
