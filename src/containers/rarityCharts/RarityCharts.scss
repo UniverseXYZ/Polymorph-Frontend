@@ -22,6 +22,7 @@
     height: 48px;
     border-radius: 12px 12px 0 0;
     background: rgba(255, 255, 255, 0.2);
+    z-index: 200;
   }
   .active {
     background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
