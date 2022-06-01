@@ -97,7 +97,12 @@ const MyPolymorphCard = ({ item }) => {
           <h2>{item.character}</h2>
         </div>
         <div className="card--footer--bottom">
-          <span>{`ID: ${item.tokenid}`}</span>
+          <div className={"badge--container"}>
+            <span className={`badge--version${isV2 ? "--v2" : ""}`}>
+              {isV2 ? "V2" : "V1"}
+            </span>
+            <span>{`ID: ${item.tokenid}`}</span>
+          </div>
           <button
             onClick={(event) => {
               event.stopPropagation();
@@ -112,7 +117,7 @@ const MyPolymorphCard = ({ item }) => {
             {!isV2 && (
               <button onClick={handleBurnToMintClick}>
                 <img src={BurnIconSvg} />
-                Burn To Mint
+                Burn to Mint
               </button>
             )}
             {isV2 && (
