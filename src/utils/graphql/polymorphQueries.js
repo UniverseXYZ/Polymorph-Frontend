@@ -16,10 +16,9 @@ export const morphedPolymorphs = `
 
 export const burnedPolymorphs = `
   query Polymorphs {
-    burnedEntities(orderDirection: desc) {
+    burnCount(id: 1) {
       id
-      tokenId
-      gene
+      count
     }
   }
 `;
