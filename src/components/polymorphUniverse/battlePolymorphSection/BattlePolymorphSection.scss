@@ -63,7 +63,7 @@
       }
       @include sm {
         display: flex;
-        flex-flow: column-reverse;
+        flex-flow: column;
         width: 100%;
       }
     }

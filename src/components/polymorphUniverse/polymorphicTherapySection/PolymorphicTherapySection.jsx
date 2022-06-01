@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import TV from "../../../assets/images/polymorphic-therapy-tv.png";
 import Button from "@legacy/button/Button";
-import YoutubeIcon from "../../../assets/images/youtube-lg.svg";
-
+import YoutubeIcon from "../../../assets/images/youtube-red.svg";
+import YoutubeIconMobile from "../../../assets/images/youtube.svg";
 const linkToYoutube =
   "https://www.youtube.com/watch?v=tf-6ele4-Co&list=PLEzjGlBjDUouyywVq5dpuEHmJfyu8Ny_E&ab_channel=Universe";
 
@@ -13,12 +13,6 @@ const PolymorphicTherapySection = () => {
     <div className="polymorphic--therapy--section">
       <div className="polymorphic--therapy--section--container">
         <div className="grid">
-          <div className="TV" onClick={() => setIsClicked(!isClicked)}>
-            <div className="video-responsive">
-              <ReactPlayer url={linkToYoutube} playing={isClicked} />
-            </div>
-            <img src={TV} alt="tv"></img>
-          </div>
           <div className="polymorph-div">
             <h1>Polymorphic Therapy</h1>
             <p>
@@ -27,10 +21,17 @@ const PolymorphicTherapySection = () => {
               point is, when is the last time you have asked your polymorph how
               it feels?
             </p>
-            <Button className={"light-button"} disabled={true}>
-              <img src={YoutubeIcon} alt="youtube" />
+            <Button>
+              <img className="youtube-logo" src={YoutubeIcon} alt="youtube" />
+              <img className="youtube-mobile-logo" src={YoutubeIconMobile} alt="youtube" />
               Watch on Youtube
             </Button>
+          </div>
+          <div className="TV" onClick={() => setIsClicked(!isClicked)}>
+            <div className="video-responsive">
+              <ReactPlayer url={linkToYoutube} playing={isClicked} />
+            </div>
+            <img src={TV} alt="tv"></img>
           </div>
         </div>
       </div>
