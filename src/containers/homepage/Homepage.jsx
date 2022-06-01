@@ -16,14 +16,14 @@ import PolymorphicTherapySection from "../../components/polymorphUniverse/polymo
 import PolymorphsActivity from "@legacy/polymorphs/PolymorphsActivity.jsx";
 import {
   morphedPolymorphs,
-  queryPolymorphsGraph,
+  queryPolymorphsGraphV2,
 } from "../../utils/graphql/polymorphQueries";
 import { useGraphQueryHook } from "../../utils/hooks/useGraphQueryHook";
 import { useErc20PriceStore } from "../../stores/erc20PriceStore";
 import { useWindowSize } from "react-use";
 
 const Homepage = () => {
-  const { data } = useGraphQueryHook(queryPolymorphsGraph(morphedPolymorphs));
+  const { data } = useGraphQueryHook(queryPolymorphsGraphV2(morphedPolymorphs));
   const ethUsdPrice = useErc20PriceStore((state) => state.ethUsdPrice);
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
