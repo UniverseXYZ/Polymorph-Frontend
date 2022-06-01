@@ -117,7 +117,7 @@ const MyPolymorphCard = ({ item }) => {
             {!isV2 && (
               <button onClick={handleBurnToMintClick}>
                 <img src={BurnIconSvg} />
-                Burn To Mint
+                Burn to Mint
               </button>
             )}
             {isV2 && (
