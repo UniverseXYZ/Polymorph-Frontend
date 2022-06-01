@@ -59,6 +59,7 @@
       display: block;
       flex-direction: column;
       position: absolute;
+      width: 100%;
       max-width: 100vw;
       top: 0;
 
@@ -190,7 +191,8 @@
               border-radius: 12px;
               padding: 1px;
               background: linear-gradient(101deg, #bceb00, #00eaea);
-              -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+              -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
               -webkit-mask-composite: xor;
               mask-composite: exclude;
             }
@@ -290,7 +292,16 @@
         margin: 0 auto;
         .universe__protocol {
           background: linear-gradient($white, $white) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           backdrop-filter: blur(20px);
           border-radius: 20px;
@@ -690,9 +701,22 @@
         color: $white;
         margin-bottom: 30px;
         border: 2px solid;
-        border-image-source: linear-gradient(135deg, rgba(188, 235, 0, 0.4) 15.57%, rgba(0, 234, 234, 0.4) 84.88%);
+        border-image-source: linear-gradient(
+          135deg,
+          rgba(188, 235, 0, 0.4) 15.57%,
+          rgba(0, 234, 234, 0.4) 84.88%
+        );
         background: linear-gradient($black, $black) padding-box,
-          linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+          linear-gradient(
+              to right,
+              #2ad0ca,
+              #e1f664,
+              #feb0fe,
+              #abb3fc,
+              #5df7a4,
+              #58c4f6
+            )
+            border-box;
       }
       @include lg {
         align-items: flex-start;
@@ -765,7 +789,16 @@
           align-items: center;
           justify-items: center;
           background: linear-gradient($white, $white) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           backdrop-filter: blur(20px);
           border-radius: 20px;
@@ -909,7 +942,16 @@
 
         &__item {
           background: linear-gradient($black, $black) padding-box,
-            linear-gradient(to right, #2ad0ca, #e1f664, #feb0fe, #abb3fc, #5df7a4, #58c4f6) border-box;
+            linear-gradient(
+                to right,
+                #2ad0ca,
+                #e1f664,
+                #feb0fe,
+                #abb3fc,
+                #5df7a4,
+                #58c4f6
+              )
+              border-box;
           border: 1px solid transparent;
           border-radius: 10px;
           padding: 45px 30px;
