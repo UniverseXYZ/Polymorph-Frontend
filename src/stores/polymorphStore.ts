@@ -95,7 +95,7 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
       userPolymorphsV2: polymorphV2Ids || [],
       userPolymorphsAll: allPolymorphIds || [],
       userPolymorphsLoaded: true,
-      totalBurnedPolymorphs: burned?.burnedEntities || []
+      totalBurnedPolymorphs: burned?.burnCount?.count || 0
     }))
   },
   // This is a new function for loading the metadata of the polymorphs

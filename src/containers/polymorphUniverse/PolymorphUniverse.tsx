@@ -9,7 +9,7 @@ import { burnedPolymorphs } from "@legacy/graphql/polymorphQueries";
 export const PolymorphUniverse = ({burntPolymorphs} : any) => {
   return (
     <div className="polymorph--universe--general--page">
-      <BurnToMint burntCount={burntPolymorphs.burnedEntities?.length}/>
+      <BurnToMint burntCount={burntPolymorphs?.burnCount?.count}/>
       <WhatsNewSection />
     </div>
   )
