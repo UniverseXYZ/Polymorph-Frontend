@@ -18,7 +18,7 @@ const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 import { usePolymorphStore } from "src/stores/polymorphStore";
 
-const DetailsWithTabs = ({ polymorphData }) => {
+const DetailsWithTabs = ({ polymorphData, isV1 }) => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const [burnt, setBurnt] = useState(false);
@@ -156,7 +156,7 @@ const DetailsWithTabs = ({ polymorphData }) => {
       </div>
       <div className={`polymorph--tabs--content ${burnt ? "pb" : ""}`}>
         {selectedTabIndex === 0 && (
-          <PolymorphPropertiesTab data={polymorphData} />
+          <PolymorphPropertiesTab data={polymorphData} isV1={isV1} />
         )}
         {selectedTabIndex === 1 && (
           <PolymorphMetadataTab
