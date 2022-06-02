@@ -4,7 +4,7 @@
 .pagination__container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   margin-top: 60px;
 
@@ -58,6 +58,8 @@
   }
 
   .items__per__page {
+    display: flex;
+    align-items: center;
     span {
       font-family: $spaceGroteskFont;
       font-style: normal;
@@ -67,6 +69,8 @@
       margin-right: 8px;
     }
     button {
+      display: flex;
+      align-items: center;
       background: $white;
       border: 1px solid rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
