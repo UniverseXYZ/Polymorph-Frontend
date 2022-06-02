@@ -97,6 +97,7 @@
   }
   .polymorph--tabs--content {
     max-height: 450px;
+    min-height: 450px;
     overflow-y: auto;
     padding: 40px 20px 80px;
     margin-left: -20px;
@@ -123,6 +124,28 @@
           color: $black;
           margin-right: 12px;
           margin-bottom: 12px;
+          &.gradient {
+            position: relative;
+            background: linear-gradient(white, white) padding-box,
+              linear-gradient(129.89deg, #e1f664 0%, #feb0fe 35.4%, #abb3fc 67.95%, #5df7a4 100%) border-box;
+            border: 1px solid transparent;
+            overflow: hidden;
+            > .gr-bg {
+              pointer-events: none;
+              position: absolute;
+              left: -1px;
+              top: -1px;
+              right: -1px;
+              bottom: -1px;
+              background: linear-gradient(
+                131.29deg,
+                rgba(225, 246, 100, 0.2) 0%,
+                rgba(254, 176, 254, 0.2) 34.66%,
+                rgba(171, 179, 252, 0.2) 63.53%,
+                rgba(93, 247, 164, 0.2) 100%
+              );
+            }
+          }
         }
       }
       .polymorph--properties--grid {
@@ -306,11 +329,7 @@
     left: 0px;
     width: 100%;
     bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(188, 235, 0, 0.03) 15.57%,
-        rgba(0, 234, 234, 0.03) 84.88%
-      ),
+    background: linear-gradient(135deg, rgba(188, 235, 0, 0.03) 15.57%, rgba(0, 234, 234, 0.03) 84.88%),
       rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     padding: 24px 40px;

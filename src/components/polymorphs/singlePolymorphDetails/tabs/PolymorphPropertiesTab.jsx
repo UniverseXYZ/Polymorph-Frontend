@@ -3,6 +3,7 @@ import GeneParser from "@legacy/helpers/GeneParser";
 import RarityRankPopupProperty from "@legacy/popups/RarityRankPopupProperty";
 
 const PolymorphPropertiesTab = ({ data }) => {
+  console.log('data', data)
   const [traitsMap, setTraitsMap] = useState(
     GeneParser.parse(data.currentgene)
   );
@@ -100,6 +101,13 @@ const PolymorphPropertiesTab = ({ data }) => {
   return (
     <div className="polymorph--properties--tab">
       <div className="polymorph--tags">
+        <span>
+          <b>V1</b>
+        </span>
+        <span className="gradient">
+          <b>V2</b>
+          <div className="gr-bg" />
+        </span>
         <span>
           Rank: <b>{data.rank}</b>
         </span>
