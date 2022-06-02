@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   queryPolymorphsGraph,
+  queryPolymorphsGraphV2,
   traitRarity,
 } from "../../utils/graphql/polymorphQueries";
 import RarityRankOrangeProperty from "./RarityRankOrangeProperty";
@@ -17,6 +18,7 @@ function RarityRankPopupProperty({
   value,
   genesMap,
   matchingHands,
+  isV1,
 }) {
   const [data, setData] = useState(null);
 
@@ -26,9 +28,16 @@ function RarityRankPopupProperty({
   }
   useEffect(() => {
     const queryTraitRarity = async () => {
-      const traitData = await queryPolymorphsGraph(
-        traitRarity(genesMap[propertyName.toUpperCase()])
-      );
+      let traitData;
+      if (isV1) {
+        await queryPolymorphsGraph(
+          traitRarity(genesMap[propertyName.toUpperCase()])
+        );
+      } else {
+        traitData = await queryPolymorphsGraphV2(
+          traitRarity(genesMap[propertyName.toUpperCase()])
+        );
+      }
       setData(traitData);
     };
     if (genesMap[propertyName.toUpperCase()]) {
