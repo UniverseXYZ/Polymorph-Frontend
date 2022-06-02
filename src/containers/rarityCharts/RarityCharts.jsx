@@ -9,6 +9,7 @@ import { useThemeStore } from "src/stores/themeStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs-rarity-charts.png";
 import { OpenGraph } from "@app/components";
+import { useWindowSize } from "react-use";
 
 const RarityCharts = () => {
   const setMyUniverseNFTsActiverPage = useMyNftsStore(
@@ -18,6 +19,9 @@ const RarityCharts = () => {
   const [offset, setOffset] = useState(0);
   const [perPage, setPerPage] = useState(9);
   const [selectedTab, setSelectedTab] = useState("V1");
+
+  const [mobile, setMobile] = useState(false);
+  const windowSize = useWindowSize();
 
   const {
     inputText,
@@ -77,6 +81,11 @@ const RarityCharts = () => {
     setTab(version);
   };
 
+  useEffect(() => {
+    if (+windowSize.width <= 575) setMobile(true);
+    else setMobile(false);
+  }, [windowSize.width]);
+
   return (
     <div className="rarity--charts--page">
       <OpenGraph
@@ -90,15 +99,19 @@ const RarityCharts = () => {
       <div className={"tabs--container"}>
         <div
           className={`tab ${selectedTab === "V1" ? "active" : "inactive"}`}
+          style={{ left: "10px" }}
           onClick={() => selectTabHandler("V1")}
         >
-          Polymorphs V1
+          {/* <img src={selectedTab === "V1" ? ActiveTab : InactiveTab} /> */}
+          <span>{mobile ? "V1" : "Polymorphs V1"}</span>
         </div>
         <div
           className={`tab ${selectedTab === "V2" ? "active" : "inactive"}`}
+          style={{ right: "9px" }}
           onClick={() => selectTabHandler("V2")}
         >
-          Polymorphs V2
+          {/* <img src={selectedTab === "V2" ? ActiveTab : InactiveTab} /> */}
+          <span>{mobile ? "V2" : "Polymorphs V2"}</span>
         </div>
       </div>
       <div className="rarity--charts--page--container">

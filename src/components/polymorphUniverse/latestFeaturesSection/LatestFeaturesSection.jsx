@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
 // import './LatestFeaturesSection.scss';
-import { useRouter } from 'next/router'
-import arrowRight from '../../../assets/images/arrow-right.svg';
-import rarityChartIcon from '../../../assets/images/rarity-chart-icon.svg';
-import battleUniverseIcon from '../../../assets/images/battle-universe-icon.svg';
-import burnToMintIcon from '../../../assets/images/burn-to-mint-icon.svg';
-import Button from '@legacy/button/Button';
-import PolymorphicFaces from '../../../assets/images/polymorphic-faces.png'
-import ArrowLeftIcon from '@legacy/svgs/ArrowLeftIcon';
+import { useRouter } from "next/router";
+import arrowRight from "../../../assets/images/arrow-right.svg";
+import rarityChartIcon from "../../../assets/images/rarity-chart-icon.svg";
+import battleUniverseIcon from "../../../assets/images/battle-universe-icon.svg";
+import burnToMintIcon from "../../../assets/images/burn-to-mint-icon.svg";
+import Button from "@legacy/button/Button";
+import PolymorphicFaces from "../../../assets/images/polymorphic-faces.png";
+import ArrowLeftIcon from "@legacy/svgs/ArrowLeftIcon";
+import polymorphicFacesGif from "../../../assets/images/polymorphic-faces-gif.gif";
 
 const LatestFeaturesSection = () => {
   const router = useRouter();
@@ -21,10 +22,13 @@ const LatestFeaturesSection = () => {
             <img src={rarityChartIcon} alt="Rarity chart" />
             <h2>Rarity Chart</h2>
             <p>
-              Compare your Polymorph’s ranking, scoring and information based on the rarity of its
-              traits.
+              Compare your Polymorph’s ranking, scoring and information based on
+              the rarity of its traits.
             </p>
-            <button className='light-border-button' onClick={() => router.push('/polymorph-rarity')}>
+            <button
+              className="light-border-button"
+              onClick={() => router.push("/polymorph-rarity")}
+            >
               Explore
               <ArrowLeftIcon />
             </button>
@@ -33,10 +37,13 @@ const LatestFeaturesSection = () => {
             <img src={burnToMintIcon} alt="Burn to mint" />
             <h2 className="burn-mint-h2">Burn to Mint</h2>
             <p>
-              Say goodbye to the old version of your Polymorph forever and hello to your shiny new
-              one.
+              Say goodbye to the old version of your Polymorph forever and hello
+              to your shiny new one.
             </p>
-            <button className='light-border-button' onClick={() => router.push('/burn-to-mint')}>
+            <button
+              className="light-border-button"
+              onClick={() => router.push("/burn-to-mint")}
+            >
               Explore
               <ArrowLeftIcon />
             </button>
@@ -44,23 +51,27 @@ const LatestFeaturesSection = () => {
           <div>
             <img src={battleUniverseIcon} alt="Battle universe" />
             <h2>Battle Universe</h2>
-            <p>Wager ETH and compete against other Polymorph owners around the world.</p>
-            <button className='button-disabled'>
+            <p>
+              Wager ETH and compete against other Polymorph owners around the
+              world.
+            </p>
+            <button className="button-disabled">
               Coming Soon
               {/* <ArrowLeftIcon /> */}
             </button>
           </div>
         </div>
       </div>
-      <div className='polymorphic--faces--section--container'>
-        <img src={PolymorphicFaces} alt="" />
+      <div className="polymorphic--faces--section--container">
+        <img className={"gif"} src={polymorphicFacesGif} alt="gif" />
         <div>
           <h2>Claim Your Polymorphic Faces for Free</h2>
           <p>
-            Each V1 Polymorph burned grants a free Polymorphic Face claim! 
-            Polymorphic Faces are built to scramble and can only be obtained by burning V1 Polymorphs.
+            Each V1 Polymorph burned grants a free Polymorphic Face claim!
+            Polymorphic Faces are built to scramble and can only be obtained by
+            burning V1 Polymorphs.
           </p>
-          <button className='button-disabled'>Coming soon</button>
+          <button className="button-disabled">Coming soon</button>
         </div>
       </div>
     </div>
