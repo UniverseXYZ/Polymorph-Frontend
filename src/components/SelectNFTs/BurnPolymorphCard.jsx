@@ -23,7 +23,6 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
   const fetchMetadata = async () => {
     setLoading(true);
     const data = await getPolymorphMeta(item.tokenid);
-
     setLoading(false);
   };
 
@@ -69,7 +68,10 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
           <h2>{item.character}</h2>
         </div>
         <div className="card--footer--bottom">
-          <span>{`ID: ${item.tokenid}`}</span>
+          <div className={"badge--container"}>
+            <span className={`badge--version`}>V1</span>
+            <span>{`ID: ${item.tokenid}`}</span>
+          </div>
           <button
             onClick={(event) => {
               event.stopPropagation();
