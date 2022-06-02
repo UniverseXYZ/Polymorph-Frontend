@@ -55,6 +55,7 @@ export const SinglePolymorphDetails = () => {
             <DetailsWithTabs
               polymorphId={polymorphId}
               polymorphData={polymorphMetadata[0]}
+              isV1={isV1}
             />
           </>
         </div>

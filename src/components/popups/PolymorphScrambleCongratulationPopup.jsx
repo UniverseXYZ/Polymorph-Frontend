@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import uuid from "react-uuid";
-import { useHistory } from "react-router-dom";
 import Button from "../button/Button.jsx";
 import closeIcon from "../../assets/images/cross.svg";
-import AppContext from "../../ContextAPI";
-import person from "../../assets/images/randomise-person-images/person.png";
 import { useRouter } from "next/router";
-import { useMyNftsStore } from "src/stores/myNftsStore";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs.js";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 
@@ -19,12 +15,6 @@ const PolymorphScrambleCongratulationPopup = ({
   const router = useRouter();
   const [metadata, setMetadata] = useState("");
   const [loading, setLoading] = useState(true);
-  const { polymorphsFilter, navigateToMyUniverseNFTsTab } = useMyNftsStore(
-    (s) => ({
-      polymorphsFilter: s.polymorphsFilter,
-      navigateToMyUniverseNFTsTab: s.navigateToMyUniverseNFTsTab,
-    })
-  );
 
   useEffect(async () => {
     if (loading) {
@@ -66,7 +56,6 @@ const PolymorphScrambleCongratulationPopup = ({
         <Button
           className="light-button"
           onClick={() => {
-            navigateToMyUniverseNFTsTab(polymorphsFilter);
             router.push("/my-polymorphs");
           }}
         >
