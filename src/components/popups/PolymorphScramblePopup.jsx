@@ -92,7 +92,7 @@ const PolymorphScramblePopup = ({
       setRandomizeGenePrice(formatedEther);
 
       // Set first trait to be selected
-      setSelectedTrait(traits[0]);
+      // setSelectedTrait(traits[0]);
 
       // Fetch single genom change price
       const genomChangePrice = await polymorphContractV2.priceForGenomeChange(

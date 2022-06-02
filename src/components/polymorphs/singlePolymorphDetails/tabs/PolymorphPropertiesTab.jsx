@@ -3,7 +3,6 @@ import GeneParser from "@legacy/helpers/GeneParser";
 import RarityRankPopupProperty from "@legacy/popups/RarityRankPopupProperty";
 
 const PolymorphPropertiesTab = ({ data, isV1 }) => {
-  console.log("data", data);
   const [traitsMap, setTraitsMap] = useState(
     GeneParser.parse(data.currentgene)
   );
