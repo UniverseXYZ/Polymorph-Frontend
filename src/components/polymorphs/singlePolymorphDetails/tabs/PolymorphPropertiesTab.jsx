@@ -129,6 +129,7 @@ const PolymorphPropertiesTab = ({ data, isV1 }) => {
               secMatchingAttributes={prop.secMatchingAttributes}
               genesMap={traitsMap}
               matchingHands={data.matchinghands}
+              isV1={isV1}
             />
           );
         })}
