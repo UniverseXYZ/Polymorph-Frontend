@@ -2,50 +2,78 @@ import React, { useEffect, useState } from "react";
 import ImageWithBadges from "../../components/polymorphs/singlePolymorphDetails/ImageWithBadges";
 import DetailsWithTabs from "../../components/polymorphs/singlePolymorphDetails/DetailsWithTabs";
 import { useRouter } from "next/router";
-import { useSearchPolymorphs } from "@legacy/hooks/useMyNftsRarityDebouncerAll";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
-import { usePolymorphStore } from "src/stores/polymorphStore";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs";
 
 export const SinglePolymorphDetails = () => {
   const router = useRouter();
+  const [polymorphMetadata, setPolymorphMetadata] = useState([]);
   const [iframeData, setIframeData] = useState();
-  const [isV1, setIsV1] = useState();
-
-  const { userPolymorphs } = usePolymorphStore();
-
-  const { results } = useSearchPolymorphs();
+  const [isV1, setIsV1] = useState(true);
   const polymorphId = router.query.id;
-  const polymorphMetadata = results.filter(
-    (result) => polymorphId === result.tokenid.toString()
-  );
 
-  useEffect(() => {
-    const polymorphIsV1 = userPolymorphs.some(
-      (userPolymorph) => userPolymorph.tokenId === polymorphId
-    );
-    if (polymorphIsV1) {
-      setIsV1(true);
-    } else {
-      setIsV1(false);
-    }
-  }, []);
-
+  // Fetch V2 first
   useEffect(async () => {
-    try {
-      const { data } = await getPolymorphMetaV2(polymorphId);
-      setIframeData(data.animation_url);
-    } catch (err) {
-      console.log(err);
+    if (polymorphId) {
+      try {
+        const request = await fetch(
+          `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await request.json();
+        if (data.length > 0) {
+          setIsV1(false);
+          setPolymorphMetadata(data);
+        } else {
+          setIsV1(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [isV1, results]);
+  }, [polymorphId]);
+
+  // Fetch iframe if token is V2
+  useEffect(async () => {
+    if (!isV1 && polymorphId) {
+      try {
+        const { data } = await getPolymorphMetaV2(polymorphId);
+        setIframeData(data.animation_url);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [isV1, polymorphId]);
+
+  // Fetch V1, if token was not V2
+  useEffect(async () => {
+    if (isV1 && polymorphId) {
+      try {
+        const request = await fetch(
+          `${process.env.REACT_APP_RARITY_METADATA_URL}?ids=${polymorphId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await request.json();
+        setPolymorphMetadata(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [isV1, polymorphId]);
 
   return (
     <>
       {polymorphMetadata.length ? (
         <div className="single--polymorph--details--page">
           <>
-            {/* IF V1 */}
             <ImageWithBadges
               polymorphId={polymorphId}
               polymorphData={polymorphMetadata[0]}
