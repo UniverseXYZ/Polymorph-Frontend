@@ -55,6 +55,7 @@ const SelectNfts = (props) => {
   const [totalNfts, getTotalNfts] = useState("-");
   const [perPage, setPerPage] = useState(8);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [showArrows, setShowArrows] = useState(false);
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -117,6 +118,21 @@ const SelectNfts = (props) => {
   useEffect(() => {
     setDarkMode(false);
   }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      let horizontalScrollerWidth = document.querySelector('.horizontal--scroller')?.offsetWidth;
+      let selectedNftsWrapperWidth = document.querySelector('.selected--nfts--wrapper')?.offsetWidth;
+      if(horizontalScrollerWidth > selectedNftsWrapperWidth) {
+        setShowArrows(true);
+      } else {
+        setShowArrows(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   return (
     <div className="select--nfts--container">
@@ -188,6 +204,7 @@ const SelectNfts = (props) => {
               <SelectedNftsCarousel
                 nfts={results}
                 selectedCards={selectedCards}
+                showArrows={showArrows}
               />
               <div className={"button--container"}>
                 {!mobile && (
