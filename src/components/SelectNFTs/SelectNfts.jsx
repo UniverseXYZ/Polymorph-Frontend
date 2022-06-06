@@ -20,6 +20,7 @@ import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useThemeStore } from 'src/stores/themeStore';
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -29,6 +30,7 @@ const SelectNfts = (props) => {
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
   const router = useRouter();
+  const setDarkMode = useThemeStore(s => s.setDarkMode)
 
   const {
     inputText,
@@ -111,6 +113,10 @@ const SelectNfts = (props) => {
     setSelectedCards(cards);
     setUserSelectedPolymorphsToBurn(cards);
   };
+
+  useEffect(() => {
+    setDarkMode(false);
+  }, []);
 
   return (
     <div className="select--nfts--container">

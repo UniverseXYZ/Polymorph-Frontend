@@ -14,7 +14,7 @@ const SelectedNftsCarousel = ({ nfts, selectedCards }) => {
   const onClickFunc = (direction) => {
     if (typeof window !== "undefined") {
       direction === "right"
-        ? (overflowElementRef.current.scrollLeft += 60)
+      ? (overflowElementRef.current.scrollLeft += 60)
         : (overflowElementRef.current.scrollLeft -= 60);
     }
   };
