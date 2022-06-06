@@ -77,13 +77,13 @@ const buildRarityUrl = (
 };
 
 export const useSearchPolymorphs = (version) => {
-  const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
   const [sortDir, setSortDir] = useStateIfMounted('desc');
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted([]);
+  const perPage = useState(results.length);
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
   const [tab, setTab] = useStateIfMounted("V1")
 
