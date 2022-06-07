@@ -90,9 +90,9 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
   //   ? usePolymorphStore(s => s.userPolymorphsAll)
   //   : usePolymorphStore(s => s.userPolymorphs)
 
-  const { userPolymorphs,userPolymorphsV2 } = usePolymorphStore();
+  const { userPolymorphs, userPolymorphsV2, userPolymorphsAll } = usePolymorphStore();
 
-  const perPage = 100;
+  const perPage = userPolymorphsAll.length;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
