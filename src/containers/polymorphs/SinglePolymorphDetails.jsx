@@ -9,12 +9,13 @@ export const SinglePolymorphDetails = () => {
   const router = useRouter();
   const [polymorphMetadata, setPolymorphMetadata] = useState([]);
   const [iframeData, setIframeData] = useState();
-  const [isV1, setIsV1] = useState(true);
+  const [isV1, setIsV1] = useState("");
+  const [update, setUpdate] = useState(false);
   const polymorphId = router.query.id;
 
   // Fetch V2 first
   useEffect(async () => {
-    if (polymorphId) {
+    if (polymorphId || update) {
       try {
         const request = await fetch(
           `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphId}`,
@@ -31,15 +32,16 @@ export const SinglePolymorphDetails = () => {
         } else {
           setIsV1(true);
         }
+        setUpdate(false);
       } catch (error) {
         console.log(error);
       }
     }
-  }, [polymorphId]);
+  }, [polymorphId, update]);
 
   // Fetch iframe if token is V2
   useEffect(async () => {
-    if (!isV1 && polymorphId) {
+    if ((!isV1 && polymorphId) || update) {
       try {
         const { data } = await getPolymorphMetaV2(polymorphId);
         setIframeData(data.animation_url);
@@ -47,7 +49,7 @@ export const SinglePolymorphDetails = () => {
         console.log(error);
       }
     }
-  }, [isV1, polymorphId]);
+  }, [isV1, polymorphId, update]);
 
   // Fetch V1, if token was not V2
   useEffect(async () => {
@@ -69,6 +71,10 @@ export const SinglePolymorphDetails = () => {
     }
   }, [isV1, polymorphId]);
 
+  const updateHandler = (update) => {
+    setUpdate(update);
+  };
+
   return (
     <>
       {polymorphMetadata.length ? (
@@ -84,6 +90,7 @@ export const SinglePolymorphDetails = () => {
               polymorphId={polymorphId}
               polymorphData={polymorphMetadata[0]}
               isV1={isV1}
+              update={updateHandler}
             />
           </>
         </div>

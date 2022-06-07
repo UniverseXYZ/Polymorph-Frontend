@@ -18,7 +18,7 @@ const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 import { usePolymorphStore } from "src/stores/polymorphStore";
 
-const DetailsWithTabs = ({ polymorphData, isV1 }) => {
+const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const [burnt, setBurnt] = useState(false);
@@ -41,6 +41,8 @@ const DetailsWithTabs = ({ polymorphData, isV1 }) => {
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
+    update(true);
+    console.log("show scrample popup again");
   };
 
   const handleClickOutside = (event) => {
@@ -57,10 +59,6 @@ const DetailsWithTabs = ({ polymorphData, isV1 }) => {
       },
     ]);
     router.push(`/burn-to-mint/burn/single/${polymorphData.tokenid}`);
-  };
-
-  const setPolymorphData = (data) => {
-    console.log("the data is ", data);
   };
 
   useEffect(() => {
