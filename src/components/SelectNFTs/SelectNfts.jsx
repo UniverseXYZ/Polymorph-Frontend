@@ -20,6 +20,7 @@ import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useThemeStore } from 'src/stores/themeStore';
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -29,6 +30,7 @@ const SelectNfts = (props) => {
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
   const router = useRouter();
+  const setDarkMode = useThemeStore(s => s.setDarkMode)
 
   const {
     inputText,
@@ -53,6 +55,7 @@ const SelectNfts = (props) => {
   const [totalNfts, getTotalNfts] = useState("-");
   const [perPage, setPerPage] = useState(8);
   const [selectedCards, setSelectedCards] = useState([]);
+  const [showArrows, setShowArrows] = useState(false);
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -111,6 +114,25 @@ const SelectNfts = (props) => {
     setSelectedCards(cards);
     setUserSelectedPolymorphsToBurn(cards);
   };
+
+  useEffect(() => {
+    setDarkMode(false);
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      let horizontalScrollerWidth = document.querySelector('.horizontal--scroller')?.offsetWidth;
+      let selectedNftsWrapperWidth = document.querySelector('.selected--nfts--wrapper')?.offsetWidth;
+      if(horizontalScrollerWidth > selectedNftsWrapperWidth) {
+        setShowArrows(true);
+      } else {
+        setShowArrows(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   return (
     <div className="select--nfts--container">
@@ -182,6 +204,7 @@ const SelectNfts = (props) => {
               <SelectedNftsCarousel
                 nfts={results}
                 selectedCards={selectedCards}
+                showArrows={showArrows}
               />
               <div className={"button--container"}>
                 {!mobile && (

@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
-import SortDownIcon from "../../assets/images/rarity-charts/sort-icon-down.svg";
-import SortUpIcon from "../../assets/images/rarity-charts/sort-icon-up.svg";
-import AppContext from "../../ContextAPI";
+import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import sortArrowUp from '../../assets/images/rarity-charts/sortArrowUp.svg';
+import sortArrowDown from '../../assets/images/rarity-charts/sortArrowDown.svg';
+import AppContext from '../../ContextAPI';
 // import './SortByOrder.scss';
 
 const SortByOrder = ({ setSortDir, sortDir, setApiPage, resetPagination }) => {
@@ -21,8 +21,8 @@ const SortByOrder = ({ setSortDir, sortDir, setApiPage, resetPagination }) => {
     <div className="sort--by--order" aria-hidden="true" onClick={handleChange}>
       <div className="sort--by--order--icon">
         <img
-          src={sortDir === "desc" ? SortDownIcon : SortUpIcon}
-          alt={sortDir === "desc" ? "Arrow Down" : "Arrow Up"}
+          src={sortDir === 'desc' ? sortArrowDown : sortArrowUp}
+          alt={sortDir === 'desc' ? 'Arrow Down' : 'Arrow Up'}
         />
       </div>
       <div className="box--shadow--effect--block" />
