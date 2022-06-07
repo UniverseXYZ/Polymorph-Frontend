@@ -85,14 +85,11 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphs = ( allPolymorphs=false ) => {
-  // const userPolymorphs = allPolymorphs
-  //   ? usePolymorphStore(s => s.userPolymorphsAll)
-  //   : usePolymorphStore(s => s.userPolymorphs)
+export const useSearchPolymorphs = () => {
 
   const { userPolymorphs, userPolymorphsV2, userPolymorphsAll } = usePolymorphStore();
 
-  const perPage = userPolymorphsAll.length;
+  const perPage = userPolymorphsAll.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
@@ -125,7 +122,8 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
     return jsonCommon;
   };
 
-  const loadMorePolymorphs = async (endpoint, abortSignal) => {
+  const loadMorePolymorphs = async (endpoint, endpointV2, abortSignal) => {
+    // Query V1 Rarity
     const result = await fetch(endpoint, {
       signal: abortSignal,
     });
@@ -133,9 +131,20 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
       throw new Error(`bad status = ${result.status}`);
     }
     const json = await result.json();
-    setResults((old) => [...old, ...json]);
+
+    // Query V2 Rarity
+    const resultV2 = await fetch(endpointV2, {
+      signal: abortSignal,
+    });
+    if (resultV2.status !== 200) {
+      throw new Error(`bad status = ${resultV2.status}`);
+    }
+    const jsonV2 = await resultV2.json();
+
+    const jsonCommon = [...json].concat([...jsonV2]);
+    setResults((old) => [...old, ...jsonCommon]);
     setIsLastPage(false);
-    return json;
+    return jsonCommon;
   };
 
   // Debounce the original search async function
@@ -178,7 +187,7 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
         return debouncedSearchPolymorphsRarity(endpoint, endpointV2, abortSignal);
         // return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
       }
-      return debouncedLoadMorePolymorphs(endpoint, abortSignal);
+      return debouncedLoadMorePolymorphs(endpoint, endpointV2, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
     [inputText, apiPage, sortField, sortDir, filter, userPolymorphs]
