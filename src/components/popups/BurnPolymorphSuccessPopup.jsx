@@ -33,7 +33,7 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
         }
         if (res.length > 0) {
           const images = [];
-          res.forEach((res) => images.push(res.data.image));
+          res.forEach((res) => images.push(res.data.image3d));
           setFetchedImages(images);
           setLoading(false);
         }
