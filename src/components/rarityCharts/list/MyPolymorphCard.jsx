@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
 import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
@@ -32,11 +32,22 @@ const MyPolymorphCard = ({ item }) => {
     setShowScramblePopup(true);
   };
 
-  const { userPolymorphsV2, setUserSelectedPolymorphsToBurn } =
+  const { userPolymorphs, setUserSelectedPolymorphsToBurn } =
     usePolymorphStore();
-  const [isV2, setIsV2] = useState(
-    userPolymorphsV2.some((token) => token.id === item.tokenid)
-  );
+  const [isV2, setIsV2] = useState("");
+
+  useEffect(() => {
+    if (item) {
+      const [polymorphV1] = userPolymorphs.filter(
+        (token) => token.id === item.tokenid
+      );
+      if (polymorphV1) {
+        setIsV2(false);
+      } else {
+        setIsV2(true);
+      }
+    }
+  }, [item]);
 
   const handleBurnToMintClick = (event) => {
     event.stopPropagation();
