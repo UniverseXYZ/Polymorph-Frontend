@@ -93,9 +93,9 @@ const RarityCharts = () => {
   return (
     <div className="rarity--charts--page">
       <OpenGraph
-        title={"Polymorph Rarity Chart"}
+        title={"Polymorphic Rarity"}
         description={
-          "Check who has the rarest polymorph with Universe rarity chart."
+          "Find the rarest Polymorphs in the collection."
         }
         image={OpenGraphImage}
       />
