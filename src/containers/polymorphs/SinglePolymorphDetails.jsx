@@ -4,6 +4,7 @@ import DetailsWithTabs from "../../components/polymorphs/singlePolymorphDetails/
 import { useRouter } from "next/router";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs";
+import Head from "next/head";
 
 export const SinglePolymorphDetails = () => {
   const router = useRouter();
@@ -17,14 +18,11 @@ export const SinglePolymorphDetails = () => {
   useEffect(async () => {
     if (polymorphId || update) {
       try {
-        const request = await fetch(
-          `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const request = await fetch(`${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await request.json();
         if (data.length > 0) {
           setIsV1(false);
@@ -55,14 +53,11 @@ export const SinglePolymorphDetails = () => {
   useEffect(async () => {
     if (isV1 && polymorphId) {
       try {
-        const request = await fetch(
-          `${process.env.REACT_APP_RARITY_METADATA_URL}?ids=${polymorphId}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const request = await fetch(`${process.env.REACT_APP_RARITY_METADATA_URL}?ids=${polymorphId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await request.json();
         setPolymorphMetadata(data);
       } catch (error) {
@@ -78,22 +73,36 @@ export const SinglePolymorphDetails = () => {
   return (
     <>
       {polymorphMetadata.length ? (
-        <div className="single--polymorph--details--page">
-          <>
-            <ImageWithBadges
-              polymorphId={polymorphId}
-              polymorphData={polymorphMetadata[0]}
-              isV1={isV1}
-              iframeData={iframeData}
+        <>
+          <Head>
+            <title>
+              Polymorph {polymorphMetadata[0]?.character} #{polymorphMetadata[0]?.tokenid}
+            </title>
+            <meta property="og:image" content={polymorphMetadata[0]?.imageurl} key="ogimage" />
+            <meta
+              property="og:title"
+              content={`Polymorph ${polymorphMetadata[0]?.character} #${polymorphMetadata[0]?.tokenid}`}
+              key="ogtitle"
             />
-            <DetailsWithTabs
-              polymorphId={polymorphId}
-              polymorphData={polymorphMetadata[0]}
-              isV1={isV1}
-              update={updateHandler}
-            />
-          </>
-        </div>
+            <meta property="og:description" content={polymorphMetadata[0]?.description} key="ogdesc" />
+          </Head>
+          <div className="single--polymorph--details--page">
+            <>
+              <ImageWithBadges
+                polymorphId={polymorphId}
+                polymorphData={polymorphMetadata[0]}
+                isV1={isV1}
+                iframeData={iframeData}
+              />
+              <DetailsWithTabs
+                polymorphId={polymorphId}
+                polymorphData={polymorphMetadata[0]}
+                isV1={isV1}
+                update={updateHandler}
+              />
+            </>
+          </div>
+        </>
       ) : (
         <div className="loading">
           <LoadingSpinner />
