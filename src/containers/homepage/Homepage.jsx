@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import OpenGraphImage from "@assets/images/open-graph/home-page.png";
+import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import { OpenGraph } from "@app/components";
 
 import { useThemeStore } from "src/stores/themeStore";
-import About from "../../components/homepage/About.jsx";
-import BuyUniverseNFTs from "../../components/homepage/BuyUniverseNFTs.jsx";
-import NonFungibleUniverse from "../../components/homepage/NonFungibleUniverse.jsx";
 import Welcome from "../../components/homepage/Welcome.jsx";
 import LatestFeaturesSection from "@legacy/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.jsx";
 import AboutSection from "@legacy/polymorphUniverse/aboutSection/AboutSection.jsx";
@@ -41,26 +38,13 @@ const Homepage = () => {
   return (
     <div className="homepage">
       <OpenGraph
-        title={"Universe – Community-Driven NFT Protocol"}
-        titlePostfix={null}
-        description={
-          "Community-driven NFT Universe with the tools to empower artists and endless posibilities for creators"
-        }
+        title={`Polymorphic Universe`}
+        description={`The Polymorphs are a collection of morphing NFTs, with 11 base skins and 200+ traits.`}
         image={OpenGraphImage}
-      >
-        <title>Universe XYZ - The NFT Universe Built on Ethereum</title>
-        <meta
-          name="description"
-          content="Launch your own community-driven NFT universe baked with social tools, media services, and distribution - underpinned by the native $XYZ token."
-        />
-      </OpenGraph>
-
+      />
       <Welcome />
-      {/* <About /> */}
       <LatestFeaturesSection />
       <AboutSection />
-      {/* <NonFungibleUniverse />
-      <BuyUniverseNFTs /> */}
       <BurnToMintSection />
       <PolymorphicTherapySection />
       <BattlePolymorphSection />
