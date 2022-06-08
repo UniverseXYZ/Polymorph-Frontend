@@ -1,18 +1,18 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 // import './RarityList.scss';
 // import './RarityList.scss';
-import PolymorphCard from './PolymorphCard';
-import ItemsPerPageDropdown from '../../pagination/ItemsPerPageDropdown';
-import Pagination from '../../pagination/Pagionation';
+import PolymorphCard from "./PolymorphCard";
+import ItemsPerPageDropdown from "../../pagination/ItemsPerPageDropdown";
+import Pagination from "../../pagination/Pagionation";
 // import '../../../containers/rarityCharts/RarityCharsLoader.scss';
 // import '../../../containers/rarityCharts/RarityCharts.scss';
-import closeIcon from '../../../assets/images/close-menu.svg';
-import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
-import CategoriesFilter from './CategoriesFilter';
-import RarityChartsLoader from '../../../containers/rarityCharts/RarityChartsLoader';
-import RarityPagination from './RarityPagination';
+import closeIcon from "../../../assets/images/close-menu.svg";
+import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
+import CategoriesFilter from "./CategoriesFilter";
+import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
+import RarityPagination from "./RarityPagination";
 
 const List = ({
   data,
@@ -33,6 +33,7 @@ const List = ({
   results,
   apiPage,
   handleCategoryFilterChange,
+  tab,
 }) => {
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
@@ -55,8 +56,10 @@ const List = ({
     const trait = attribute.traits[traitIdx];
     attribute.traits[traitIdx].checked = false;
     let newFilter = [];
-    if (attribute.value === 'righthand' || attribute.value === 'lefthand') {
-      newFilter = filter.filter((f) => !(f[0] === attribute.value && f[1] === trait.name));
+    if (attribute.value === "righthand" || attribute.value === "lefthand") {
+      newFilter = filter.filter(
+        (f) => !(f[0] === attribute.value && f[1] === trait.name)
+      );
     } else {
       newFilter = filter.filter((f) => f[1] !== trait.name);
     }
@@ -92,13 +95,19 @@ const List = ({
       />
       <div className="list--with--selected--filters">
         <div className="selected--filters">
-          {showClearALL && <div className="result">{results.length} results</div>}
+          {showClearALL && (
+            <div className="result">{results.length} results</div>
+          )}
           {categories.map((item, index) => (
             <React.Fragment key={item.id}>
               {item.traits.map(
                 (trait, idx) =>
                   trait.checked && (
-                    <button type="button" className="light-border-button" key={trait.name}>
+                    <button
+                      type="button"
+                      className="light-border-button"
+                      key={trait.name}
+                    >
                       {trait.name}
                       <img
                         className="close"
@@ -113,7 +122,11 @@ const List = ({
             </React.Fragment>
           ))}
           {showClearALL && (
-            <button type="button" className="clear--all" onClick={() => handleClearAll()}>
+            <button
+              type="button"
+              className="clear--all"
+              onClick={() => handleClearAll()}
+            >
               Clear all
             </button>
           )}
@@ -125,7 +138,12 @@ const List = ({
         ) : results.length ? (
           <div className="grid">
             {sliceData.map((item, i) => (
-              <PolymorphCard key={item.id} item={item} index={offset + i + 1} />
+              <PolymorphCard
+                key={item.id}
+                item={item}
+                index={offset + i + 1}
+                tab={tab}
+              />
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
