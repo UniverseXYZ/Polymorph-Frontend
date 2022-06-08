@@ -10,25 +10,9 @@ import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoa
 import loadingBg from "../../../assets/images/mint-polymorph-loading-bg.png";
 import { usePolymorphStore } from "../../../stores/polymorphStore";
 
-const PolymorphCard = ({ item }) => {
+const PolymorphCard = ({ item, tab }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  const { userPolymorphs } = usePolymorphStore();
-  const [isV2, setIsV2] = useState("");
-
-  useEffect(() => {
-    if (item) {
-      const [polymorphV1] = userPolymorphs.filter(
-        (polymorph) => polymorph.id === item.tokenid
-      );
-      if (polymorphV1) {
-        setIsV2(false);
-      } else {
-        setIsV2(true);
-      }
-    }
-  }, [item]);
 
   const fetchMetadata = async () => {
     setLoading(true);
@@ -74,8 +58,8 @@ const PolymorphCard = ({ item }) => {
         </div>
         <div className="card--footer--bottom">
           <div className={"badge--container"}>
-            <span className={`badge--version${isV2 ? "--v2" : ""}`}>
-              {isV2 ? "V2" : "V1"}
+            <span className={`badge--version${tab === "V2" ? "--v2" : ""}`}>
+              {tab === "V2" ? "V2" : "V1"}
             </span>
             <span>{`ID: ${item.tokenid}`}</span>
           </div>{" "}

@@ -155,6 +155,7 @@ const RarityCharts = () => {
           results={results}
           apiPage={apiPage}
           handleCategoryFilterChange={handleCategoryFilterChange}
+          tab={tab}
         />
       </div>
     </div>
