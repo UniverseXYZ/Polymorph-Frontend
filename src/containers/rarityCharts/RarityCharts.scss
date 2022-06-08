@@ -2,6 +2,8 @@
 @import "../../assets/scss/_mixins";
 
 .tabs--container {
+  position: relative;
+  top: -48px;
   height: 48px;
   display: flex;
   justify-content: center;
@@ -10,7 +12,7 @@
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
-  background-color: black;
+  background-color: transparent;
 
   .tab {
     display: flex;
@@ -42,6 +44,7 @@
     background-position: center;
     background-size: 176px 48px;
     background-repeat: no-repeat;
+    color: rgba(255, 255, 255, 0.6);
     @include sm {
       background-image: url("../../assets/images/rarity-charts/Tabs/inactive-tab-mobile.png");
       background-size: 88px 48px;
