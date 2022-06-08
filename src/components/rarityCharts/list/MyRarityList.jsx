@@ -138,7 +138,11 @@ const MyRarityList = ({
         ) : results.length ? (
           <div className="grid">
             {sliceData.map((item, i) => (
-              <MyPolymorphCard key={i} item={item} index={offset + i + 1} />
+              <MyPolymorphCard
+                key={i}
+                polymorphItem={item}
+                index={offset + i + 1}
+              />
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>

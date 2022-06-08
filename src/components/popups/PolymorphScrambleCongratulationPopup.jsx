@@ -10,11 +10,13 @@ import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 const PolymorphScrambleCongratulationPopup = ({
   onClose,
   onOpenOptionsPopUp,
+  updateData,
   polymorph,
 }) => {
   const router = useRouter();
   const [metadata, setMetadata] = useState("");
   const [loading, setLoading] = useState(true);
+
   useEffect(async () => {
     if (loading) {
       const { data } = await getPolymorphMetaV2(polymorph.tokenid);
@@ -65,6 +67,7 @@ const PolymorphScrambleCongratulationPopup = ({
           onClick={() => {
             onClose();
             onOpenOptionsPopUp();
+            updateData();
           }}
         >
           Scramble again

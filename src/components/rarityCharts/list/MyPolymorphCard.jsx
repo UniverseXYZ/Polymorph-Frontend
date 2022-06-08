@@ -18,7 +18,7 @@ import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScramb
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
-const MyPolymorphCard = ({ item }) => {
+const MyPolymorphCard = ({ polymorphItem }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,6 +27,12 @@ const MyPolymorphCard = ({ item }) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
+  const [item, setItem] = useState(polymorphItem);
+  const [update, setUpdate] = useState(false);
+
+  const updateDataHandler = () => {
+    setUpdate(true);
+  };
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -73,9 +79,31 @@ const MyPolymorphCard = ({ item }) => {
   const fetchMetadata = async () => {
     setLoading(true);
     const data = await getPolymorphMeta(item.tokenid);
-
     setLoading(false);
   };
+
+  useEffect(() => {
+    setItem(polymorphItem);
+  }, [polymorphItem]);
+
+  useEffect(async () => {
+    if (update) {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphItem.tokenid}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const [data] = await response.json();
+      setItem(data);
+      setUpdate(false);
+      setLoading(false);
+    }
+  }, [update]);
+
   return loading ? (
     renderLoaderWithData(item)
   ) : (
@@ -183,6 +211,7 @@ const MyPolymorphCard = ({ item }) => {
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
+          updateData={updateDataHandler}
           polymorph={item}
         />
       </Popup>
@@ -191,7 +220,7 @@ const MyPolymorphCard = ({ item }) => {
 };
 
 MyPolymorphCard.propTypes = {
-  item: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  polymorphItem: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default MyPolymorphCard;
