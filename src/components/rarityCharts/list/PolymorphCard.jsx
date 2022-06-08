@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
 import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
@@ -14,18 +14,27 @@ const PolymorphCard = ({ item }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const { userPolymorphsV2, setUserSelectedPolymorphsToBurn } =
-    usePolymorphStore();
-  const [isV2, setIsV2] = useState(
-    userPolymorphsV2.some((token) => token.id === item.tokenid)
-  );
+  const { userPolymorphs } = usePolymorphStore();
+  const [isV2, setIsV2] = useState("");
+
+  useEffect(() => {
+    if (item) {
+      const [polymorphV1] = userPolymorphs.filter(
+        (polymorph) => polymorph.id === item.tokenid
+      );
+      if (polymorphV1) {
+        setIsV2(false);
+      } else {
+        setIsV2(true);
+      }
+    }
+  }, [item]);
 
   const fetchMetadata = async () => {
     setLoading(true);
     const data = await getPolymorphMeta(item.tokenid);
     setLoading(false);
   };
-
   return loading ? (
     renderLoaderWithData(item)
   ) : (
