@@ -21,6 +21,8 @@ import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useThemeStore } from 'src/stores/themeStore';
+import { OpenGraph } from "@app/components";
+import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -135,6 +137,12 @@ const SelectNfts = (props) => {
   }, [])
 
   return (
+    <>
+    <OpenGraph
+      title={`Burn a Polymorph`}
+      description={`Upgrade your Polymorph from a V1 to a V2 to unlock new features and content.`}
+      image={OpenGraphImage}
+    />
     <div className="select--nfts--container">
       {/* {stepData.selectedItem !== 'single' ? ( */}
       <>
@@ -245,6 +253,7 @@ const SelectNfts = (props) => {
         )}
       </>
     </div>
+    </>
   );
 };
 
