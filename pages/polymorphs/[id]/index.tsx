@@ -1,1 +1,1 @@
-export { SinglePolymorphDetails as default } from '../../../src/containers/polymorphs/SinglePolymorphDetails';
+export { SinglePolymorphDetails as default, getStaticPaths, getStaticProps } from '../../../src/containers/polymorphs/SinglePolymorphDetails';
