@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { OpenGraph } from "@app/components";
 import ImageWithBadges from "../../components/polymorphs/singlePolymorphDetails/ImageWithBadges";
 import DetailsWithTabs from "../../components/polymorphs/singlePolymorphDetails/DetailsWithTabs";
 import { useRouter } from "next/router";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs";
-import Head from "next/head";
 
 export const SinglePolymorphDetails = () => {
   const router = useRouter();
@@ -70,22 +70,19 @@ export const SinglePolymorphDetails = () => {
     setUpdate(update);
   };
 
+  const openGraph = (
+    <OpenGraph
+      title={`Polymorph ${polymorphMetadata[0]?.character} #${polymorphMetadata[0]?.tokenid}`}
+      description={polymorphMetadata[0]?.description || undefined}
+      image={polymorphMetadata[0]?.imageurl || undefined}
+    />
+  );
+
   return (
     <>
+      {openGraph}
       {polymorphMetadata.length ? (
         <>
-          <Head>
-            <title>
-              Polymorph {polymorphMetadata[0]?.character} #{polymorphMetadata[0]?.tokenid}
-            </title>
-            <meta property="og:image" content={polymorphMetadata[0]?.imageurl} key="ogimage" />
-            <meta
-              property="og:title"
-              content={`Polymorph ${polymorphMetadata[0]?.character} #${polymorphMetadata[0]?.tokenid}`}
-              key="ogtitle"
-            />
-            <meta property="og:description" content={polymorphMetadata[0]?.description} key="ogdesc" />
-          </Head>
           <div className="single--polymorph--details--page">
             <>
               <ImageWithBadges
