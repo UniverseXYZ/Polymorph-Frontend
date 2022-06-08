@@ -70,18 +70,15 @@ export const SinglePolymorphDetails = () => {
     setUpdate(update);
   };
 
-  const openGraph = (
-    <OpenGraph
-      title={`Polymorph ${polymorphMetadata[0]?.character} #${polymorphMetadata[0]?.tokenid}`}
-      description={polymorphMetadata[0]?.description || undefined}
-      image={polymorphMetadata[0]?.imageurl || undefined}
-    />
-  );
-
   return (
     <>
-      {openGraph}
       {polymorphMetadata.length ? (
+        <>
+          <OpenGraph
+            title={`Polymorph ${polymorphMetadata[0]?.character} #${polymorphMetadata[0]?.tokenid}`}
+            description={polymorphMetadata[0]?.description || undefined}
+            image={polymorphMetadata[0]?.imageurl || undefined}
+          />
         <>
           <div className="single--polymorph--details--page">
             <>
@@ -99,6 +96,7 @@ export const SinglePolymorphDetails = () => {
               />
             </>
           </div>
+        </>
         </>
       ) : (
         <div className="loading">
