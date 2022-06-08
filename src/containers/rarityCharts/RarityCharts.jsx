@@ -86,6 +86,10 @@ const RarityCharts = () => {
     else setMobile(false);
   }, [windowSize.width]);
 
+  useEffect(() => {
+    resetPagination();
+  }, [tab]);
+
   return (
     <div className="rarity--charts--page">
       <OpenGraph
