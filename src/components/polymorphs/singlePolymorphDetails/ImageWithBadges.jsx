@@ -6,6 +6,8 @@ import neverScrambledIcon from "../../../assets/images/never-scrambled-badge.svg
 
 const ImageWithBadges = ({ polymorphData, isV1, iframeData }) => {
   const router = useRouter();
+  // Get the ipfsHash from the animation_url
+  const ipfsHash = iframeData?.substr(7);
   return (
     <div className="polymorph--image--with--badges">
       <div className="go--back--btn" onClick={() => router.back()}>
@@ -30,10 +32,10 @@ const ImageWithBadges = ({ polymorphData, isV1, iframeData }) => {
         </div> */}
         </div>
       )}
-      {!isV1 && (
+      {!isV1 && ipfsHash && (
         <div className="polymorph--iframe">
           <iframe
-            src={iframeData}
+            src={`${process.env.REACT_APP_UNIVERSE_PINATA_GATEWAY}${ipfsHash}`}
             style={{
               height: "600px",
               // maxWidth: "600px",
