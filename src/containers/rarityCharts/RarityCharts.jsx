@@ -86,6 +86,10 @@ const RarityCharts = () => {
     else setMobile(false);
   }, [windowSize.width]);
 
+  useEffect(() => {
+    resetPagination();
+  }, [tab]);
+
   return (
     <div className="rarity--charts--page">
       <OpenGraph
@@ -151,6 +155,7 @@ const RarityCharts = () => {
           results={results}
           apiPage={apiPage}
           handleCategoryFilterChange={handleCategoryFilterChange}
+          tab={tab}
         />
       </div>
     </div>

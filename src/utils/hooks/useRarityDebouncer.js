@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import useConstant from 'use-constant';
 import { useAsyncAbortable } from 'react-async-hook';
@@ -72,20 +72,23 @@ const buildRarityUrl = (
   if (filter) {
     endpoint = `${endpoint}&filter=${filterQuery}`;
   }
-
   return endpoint;
 };
 
 export const useSearchPolymorphs = (version) => {
+  const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
   const [sortDir, setSortDir] = useStateIfMounted('desc');
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted([]);
-  const perPage = useState(results.length);
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
   const [tab, setTab] = useStateIfMounted("V1")
+
+  useEffect(() => {
+    setApiPage(1)
+  }, [tab])
 
   const searchPolymorphsRarity = async (endpoint, abortSignal) => {
     const result = await fetch(endpoint, {
