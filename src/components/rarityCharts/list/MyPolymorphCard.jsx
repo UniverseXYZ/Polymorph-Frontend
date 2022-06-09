@@ -18,7 +18,7 @@ import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScramb
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
-const MyPolymorphCard = ({ polymorphItem }) => {
+const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -104,6 +104,11 @@ const MyPolymorphCard = ({ polymorphItem }) => {
     }
   }, [update]);
 
+  const redirectHandler = () => {
+    router.push(`/polymorphs/${item.tokenid}`);
+    redirect();
+  };
+
   return loading ? (
     renderLoaderWithData(item)
   ) : (
@@ -114,7 +119,7 @@ const MyPolymorphCard = ({ polymorphItem }) => {
         !showLoading &&
         !showMetadataLoading &&
         !showCongratulations
-          ? router.push(`/polymorphs/${item.tokenid}`)
+          ? redirectHandler()
           : null
       }
       aria-hidden="true"

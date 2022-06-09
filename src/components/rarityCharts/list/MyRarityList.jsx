@@ -13,6 +13,8 @@ import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
 import CategoriesFilter from "./CategoriesFilter";
 import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
 import RarityPagination from "./RarityPagination";
+import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
+import Popup from "reactjs-popup";
 
 const MyRarityList = ({
   data,
@@ -37,6 +39,7 @@ const MyRarityList = ({
   const sliceData = data.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -64,6 +67,10 @@ const MyRarityList = ({
     }
     setCategories(newCategories);
     setFilter(newFilter);
+  };
+
+  const redirectHandler = () => {
+    setRedirect(true);
   };
 
   useEffect(() => {
@@ -142,6 +149,7 @@ const MyRarityList = ({
                 key={i}
                 polymorphItem={item}
                 index={offset + i + 1}
+                redirect={redirectHandler}
               />
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
@@ -164,6 +172,9 @@ const MyRarityList = ({
             <ItemsPerPageDropdown perPage={perPage} setPerPage={setPerPage} />
           </div>
         ) : null}
+        <Popup open={redirect}>
+          <LoadingSpinner />
+        </Popup>
       </div>
     </div>
   );
