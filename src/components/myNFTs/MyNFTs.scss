@@ -4,7 +4,8 @@
 .mynfts__page {
   background-image: url("../../assets/images/minting_page_bg.jpg");
   min-height: 100vh;
-  //background-position: center;
+  overflow-y: scroll;
+  // background-position: center;
   // background-size: cover;
   // background-repeat: no-repeat;
   // background-attachment: fixed;
