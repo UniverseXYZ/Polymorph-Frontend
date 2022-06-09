@@ -11,6 +11,7 @@ import { renderLoaderWithData } from "../../containers/rarityCharts/renderLoader
 import SelectedSVG from "../../assets/images/activity-icons/Selected.svg";
 import ThreeDotsSVG from "../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../assets/images/burn-to-mint-images/link-out.svg";
+import Image from 'next/image';
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -39,12 +40,14 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
         <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
       </div>
       <div className="card--body">
-        <img
+        <Image
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
           alt={item.name}
-        />
+          layout="fill"
+        >
+        </Image>
       </div>
       <div className="card--footer">
         <div className="card--footer--top">

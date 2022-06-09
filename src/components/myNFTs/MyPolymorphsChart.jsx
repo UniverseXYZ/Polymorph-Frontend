@@ -59,23 +59,23 @@ const MyPolymorphsChart = ({
     setFilter(newFilter);
   };
 
-  const scrollToNftContainer = () => {
-    if (scrollContainer && scrollContainer.current) {
-      scrollContainer.current.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
-  };
+  // const scrollToNftContainer = () => {
+  //   if (scrollContainer && scrollContainer.current) {
+  //     scrollContainer.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "nearest",
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
-    scrollToNftContainer();
+    //scrollToNftContainer();
   }, [apiPage, perPage, categories, myUniverseNFTsActiverPage]);
 
   const resetPagination = () => {
     setMyUniverseNFTsActiverPage(0);
     setOffset(0);
-    scrollToNftContainer();
+    //scrollToNftContainer();
   };
 
   return (
