@@ -34,23 +34,6 @@ const PolymorphCard = ({ item, tab }) => {
           src={item.imageurl}
           alt={item.name}
         />
-
-        {item.scrambles === 0 && item.morphs > 0 ? (
-          <div className="card--scrambled">
-            <img
-              alt="Single trait scrambled badge"
-              src={singleTraitScrambledIcon}
-            />
-            <span className="tooltiptext">Single trait scrambled</span>
-          </div>
-        ) : item.isvirgin ? (
-          <div className="card--scrambled">
-            <img alt="Never scrambled badge" src={neverScrambledIcon} />
-            <span className="tooltiptext">Never scrambled</span>
-          </div>
-        ) : (
-          <></>
-        )}
       </div>
       <div className="card--footer">
         <div className="card--footer--top">
