@@ -9,6 +9,7 @@ import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
 import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
 import loadingBg from "../../../assets/images/mint-polymorph-loading-bg.png";
 import { usePolymorphStore } from "../../../stores/polymorphStore";
+import Image from 'next/image';
 
 const PolymorphCard = ({ item, tab }) => {
   const [loading, setLoading] = useState(false);
@@ -28,12 +29,14 @@ const PolymorphCard = ({ item, tab }) => {
         <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
       </div>
       <div className="card--body">
-        <img
+        <Image
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
           alt={item.name}
-        />
+          layout="fill"
+        >
+        </Image>
       </div>
       <div className="card--footer">
         <div className="card--footer--top">

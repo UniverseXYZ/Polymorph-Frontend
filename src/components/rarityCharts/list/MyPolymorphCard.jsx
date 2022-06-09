@@ -14,6 +14,7 @@ import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
+import Image from 'next/image';
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -129,12 +130,14 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
         <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
       </div>
       <div className="card--body">
-        <img
+        <Image
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
           alt={item.name}
-        />
+          layout="fill"
+        >
+        </Image>
       </div>
       <div className="card--footer">
         <div className="card--footer--top">
