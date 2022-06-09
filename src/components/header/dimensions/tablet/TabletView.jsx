@@ -52,6 +52,7 @@ import Badge from "../../../badge/Badge";
 import arrowUP from "../../../../assets/images/arrow-down.svg";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
+import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 
 const TabletView = (props) => {
   const {
@@ -308,7 +309,7 @@ const TabletView = (props) => {
                     </button>
                   </div>
                 </div> */}
-                <div>
+                <div className="menu__row">
                   <p
                     className="title"
                     onClick={() => {
@@ -318,8 +319,9 @@ const TabletView = (props) => {
                   >
                     Burn to Mint
                   </p>
+                  <img src={arrowRight} alt="arrow" />
                 </div>
-                <div>
+                <div className="menu__row">
                   <p
                     className="title"
                     onClick={() => {
@@ -329,8 +331,9 @@ const TabletView = (props) => {
                   >
                     Rarity Chart
                   </p>
+                  <img src={arrowRight} alt="arrow" />
                 </div>
-                <div>
+                <div className="menu__row">
                   <p
                     className="title"
                     onClick={() => {
@@ -343,6 +346,7 @@ const TabletView = (props) => {
                       <span>{userPolymorphsCount}</span>
                     ) : null}
                   </p>
+                  <img src={arrowRight} alt="arrow" />
                 </div>
                 {/* <div>
                   <p className="title">Info</p>
