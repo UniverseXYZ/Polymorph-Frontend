@@ -57,7 +57,8 @@ const PolymorphScrambleCongratulationPopup = ({
         <Button
           className="light-button"
           onClick={() => {
-            router.push("/my-polymorphs");
+            onClose();
+            updateData();
           }}
         >
           My Polymorphs
