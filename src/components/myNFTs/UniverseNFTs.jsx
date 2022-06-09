@@ -19,24 +19,12 @@ const UniverseNFTs = ({ scrollContainer }) => {
     setCollectionFilter(polymorphsFilter);
   }, [polymorphsFilter]);
 
-  const renderMyNFTsNew = () => {
-    if (collectionFilter === polymorphsFilter) {
-      return (
-        <MyPolymorphsChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
-      );
-    }
-
-    return <div>Invalid collection</div>;
-  };
-
   return (
-    <div className="tab__saved__nfts">
-      <div className="tab__wallet">{renderMyNFTsNew()}</div>
-    </div>
+    <MyPolymorphsChart
+      isDropdownOpened={isDropdownOpened}
+      setIsDropdownOpened={setIsDropdownOpened}
+      scrollContainer={scrollContainer}
+    />
   );
 };
 UniverseNFTs.propTypes = {
