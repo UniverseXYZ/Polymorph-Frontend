@@ -15,6 +15,7 @@ import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoa
 import RarityPagination from "./RarityPagination";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 import Popup from "reactjs-popup";
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const MyRarityList = ({
   data,
@@ -40,6 +41,7 @@ const MyRarityList = ({
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const { userPolymorphsAll } = usePolymorphStore();
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -90,7 +92,7 @@ const MyRarityList = ({
 
   return (
     <div className="rarity--charts--list">
-      {loading || results?.length ? (
+      {loading || userPolymorphsAll.length > 0 ? (
         <CategoriesFilter
           categories={categories}
           setCategories={setCategories}
