@@ -95,7 +95,7 @@ export const useSearchPolymorphs = () => {
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
   const [sortDir, setSortDir] = useStateIfMounted('desc');
   const [filter, setFilter] = useStateIfMounted([]);
-  const [results, setResults] = useStateIfMounted([]);
+  const [results, setResults] = useStateIfMounted();
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
 
   const searchPolymorphsRarity = async (endpoint, endpointV2, abortSignal) => {

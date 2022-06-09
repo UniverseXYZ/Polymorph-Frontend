@@ -36,7 +36,7 @@ const MyRarityList = ({
   apiPage,
   handleCategoryFilterChange,
 }) => {
-  const sliceData = data.slice(offset, offset + perPage) || [];
+  const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -90,16 +90,18 @@ const MyRarityList = ({
 
   return (
     <div className="rarity--charts--list">
-      <CategoriesFilter
-        categories={categories}
-        setCategories={setCategories}
-        categoriesIndexes={categoriesIndexes}
-        setCategoriesIndexes={setCategoriesIndexes}
-        setFilter={setFilter}
-        filter={filter}
-        handleCategoryFilterChange={handleCategoryFilterChange}
-        resultsCount={results?.length || 0}
-      />
+      {loading || results?.length ? (
+        <CategoriesFilter
+          categories={categories}
+          setCategories={setCategories}
+          categoriesIndexes={categoriesIndexes}
+          setCategoriesIndexes={setCategoriesIndexes}
+          setFilter={setFilter}
+          filter={filter}
+          handleCategoryFilterChange={handleCategoryFilterChange}
+          resultsCount={results?.length || 0}
+        />
+      ) : null}
       <div className="list--with--selected--filters">
         <div className="selected--filters">
           {showClearALL && (
@@ -142,9 +144,9 @@ const MyRarityList = ({
           <div className="grid">
             <RarityChartsLoader number={9} />
           </div>
-        ) : results.length ? (
+        ) : results?.length ? (
           <div className="grid">
-            {sliceData.map((item, i) => (
+            {sliceData?.map((item, i) => (
               <MyPolymorphCard
                 key={i}
                 polymorphItem={item}
@@ -159,7 +161,7 @@ const MyRarityList = ({
             <p>No Polymorph could be found :’(</p>
           </div>
         )}
-        {data.length >= perPage ? (
+        {data?.length >= perPage ? (
           <div className="pagination__container">
             <RarityPagination
               data={data}
