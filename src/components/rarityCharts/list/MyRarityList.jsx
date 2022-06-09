@@ -16,6 +16,10 @@ import RarityPagination from "./RarityPagination";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 import Popup from "reactjs-popup";
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import { Button } from "@chakra-ui/react";
+import BubbleIcon from "../../../assets/images/text-bubble.png";
+
+const marketplaceLink = "https://universe.xyz/marketplace";
 
 const MyRarityList = ({
   data,
@@ -91,7 +95,11 @@ const MyRarityList = ({
   }, [categories]);
 
   return (
-    <div className="rarity--charts--list">
+    <div
+      className={`rarity--charts--list ${
+        loading || userPolymorphsAll.length > 0 ? "" : "unset--grid"
+      }`}
+    >
       {loading || userPolymorphsAll.length > 0 ? (
         <CategoriesFilter
           categories={categories}
@@ -160,7 +168,16 @@ const MyRarityList = ({
           </div>
         ) : (
           <div className="rarity--charts--empty polymorphs">
-            <p>No Polymorph could be found :’(</p>
+            <img src={BubbleIcon} />
+            <p>No Polymorph found</p>
+            <span>You can always buy them on the Marketplace</span>
+            <Button
+              onClick={() => {
+                window.open(marketplaceLink);
+              }}
+            >
+              Marketplace
+            </Button>
           </div>
         )}
         {data?.length >= perPage ? (
