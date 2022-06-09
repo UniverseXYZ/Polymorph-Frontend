@@ -20,9 +20,10 @@ import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
-import { useThemeStore } from 'src/stores/themeStore';
+import { useThemeStore } from "src/stores/themeStore";
 import { OpenGraph } from "@app/components";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
+import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 
 const SelectNfts = (props) => {
   // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
@@ -32,7 +33,7 @@ const SelectNfts = (props) => {
   const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
   const router = useRouter();
-  const setDarkMode = useThemeStore(s => s.setDarkMode)
+  const setDarkMode = useThemeStore((s) => s.setDarkMode);
 
   const {
     inputText,
@@ -123,136 +124,144 @@ const SelectNfts = (props) => {
 
   useEffect(() => {
     function handleResize() {
-      let horizontalScrollerWidth = document.querySelector('.horizontal--scroller')?.offsetWidth;
-      let selectedNftsWrapperWidth = document.querySelector('.selected--nfts--wrapper')?.offsetWidth;
-      if(horizontalScrollerWidth > selectedNftsWrapperWidth) {
+      let horizontalScrollerWidth = document.querySelector(
+        ".horizontal--scroller"
+      )?.offsetWidth;
+      let selectedNftsWrapperWidth = document.querySelector(
+        ".selected--nfts--wrapper"
+      )?.offsetWidth;
+      if (horizontalScrollerWidth > selectedNftsWrapperWidth) {
         setShowArrows(true);
       } else {
         setShowArrows(false);
       }
     }
-    window.addEventListener('resize', handleResize);
-    
-    return () => window.removeEventListener('resize', handleResize);
-  }, [])
+    window.addEventListener("resize", handleResize);
 
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  console.log("results", results);
   return (
     <>
-    <OpenGraph
-      title={`Burn a Polymorph`}
-      description={`Upgrade your Polymorph from a V1 to a V2 to unlock new features and content.`}
-      image={OpenGraphImage}
-    />
-    <div className="select--nfts--container">
-      {/* {stepData.selectedItem !== 'single' ? ( */}
-      <>
-        <div className="section--header">
-          <div className="section--title--block">
-            <Button
-              className={"button--back"}
-              onClick={() => router.push("/burn-to-mint")}
-            >
-              <img src={Arrow} /> Burn To Mint
-            </Button>
-            <h3 className="section--title">Choose Polymorphs</h3>
-            <p className="section--hint--text">
-              Select polymorphs you’d like to burn from your wallet. You can
-              burn up to 20 Polymorphs at a time.
-            </p>
-          </div>
-        </div>
-        {results.length > 0 ? (
-          <>
-            <div className="rarity--charts--page--container">
-              <RarityFilters
-                setSortField={setSortField}
-                searchText={inputText}
-                setSearchText={setInputText}
-                setSortDir={setSortDir}
-                sortDir={sortDir}
-                setApiPage={setApiPage}
-                resetPagination={resetPagination}
-                categories={categories}
-                setCategories={setCategories}
-                categoriesIndexes={categoriesIndexes}
-                setCategoriesIndexes={setCategoriesIndexes}
-                resultsCount={results.length}
-                handleCategoryFilterChange={handleCategoryFilterChange}
-                setFilter={setFilter}
-                filter={filter}
-              />
-              <BurnRarityList
-                data={results}
-                isLastPage={isLastPage}
-                perPage={perPage}
-                offset={offset}
-                setOffset={setOffset}
-                setPerPage={setPerPage}
-                setApiPage={setApiPage}
-                setIsLastPage={setIsLastPage}
-                categories={categories}
-                setCategories={setCategories}
-                categoriesIndexes={categoriesIndexes}
-                setCategoriesIndexes={setCategoriesIndexes}
-                setFilter={setFilter}
-                filter={filter}
-                loading={search.loading}
-                results={results}
-                apiPage={apiPage}
-                handleCategoryFilterChange={handleCategoryFilterChange}
-                getSelectedCards={getSelectedCards}
-              />
+      <OpenGraph
+        title={`Burn a Polymorph`}
+        description={`Upgrade your Polymorph from a V1 to a V2 to unlock new features and content.`}
+        image={OpenGraphImage}
+      />
+      <div className="select--nfts--container">
+        {/* {stepData.selectedItem !== 'single' ? ( */}
+        <>
+          <div className="section--header">
+            <div className="section--title--block">
+              <Button
+                className={"button--back"}
+                onClick={() => router.push("/burn-to-mint")}
+              >
+                <img src={Arrow} /> Burn To Mint
+              </Button>
+              <h3 className="section--title">Choose Polymorphs</h3>
+              <p className="section--hint--text">
+                Select polymorphs you’d like to burn from your wallet. You can
+                burn up to 20 Polymorphs at a time.
+              </p>
             </div>
-            <div className={"selected--cards--bar"}>
-              {mobile && (
-                <p>
-                  NFTs: <b>{selectedCards.length}</b>
-                </p>
-              )}
-              <SelectedNftsCarousel
-                nfts={results}
-                selectedCards={selectedCards}
-                showArrows={showArrows}
-              />
-              <div className={"button--container"}>
-                {!mobile && (
-                  <span>
-                    NFTs: <b>{selectedCards.length}</b>
-                  </span>
-                )}
-                <Button
-                  className={"light-button"}
-                  onClick={
-                    selectedCards.length > 0
-                      ? () => {
-                          router.push(
-                            selectedCards.length === 1
-                              ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
-                              : "/burn-to-mint/burn/batch"
-                          );
-                        }
-                      : null
-                  }
-                >
-                  Burn
-                </Button>
+          </div>
+          {results === null ? (
+            <div className={"no--polymorphs--found"}>
+              <LoadingSpinner />
+            </div>
+          ) : results.length > 0 ? (
+            <>
+              <div className="rarity--charts--page--container">
+                <RarityFilters
+                  setSortField={setSortField}
+                  searchText={inputText}
+                  setSearchText={setInputText}
+                  setSortDir={setSortDir}
+                  sortDir={sortDir}
+                  setApiPage={setApiPage}
+                  resetPagination={resetPagination}
+                  categories={categories}
+                  setCategories={setCategories}
+                  categoriesIndexes={categoriesIndexes}
+                  setCategoriesIndexes={setCategoriesIndexes}
+                  resultsCount={results.length}
+                  handleCategoryFilterChange={handleCategoryFilterChange}
+                  setFilter={setFilter}
+                  filter={filter}
+                />
+                <BurnRarityList
+                  data={results}
+                  isLastPage={isLastPage}
+                  perPage={perPage}
+                  offset={offset}
+                  setOffset={setOffset}
+                  setPerPage={setPerPage}
+                  setApiPage={setApiPage}
+                  setIsLastPage={setIsLastPage}
+                  categories={categories}
+                  setCategories={setCategories}
+                  categoriesIndexes={categoriesIndexes}
+                  setCategoriesIndexes={setCategoriesIndexes}
+                  setFilter={setFilter}
+                  filter={filter}
+                  loading={search.loading}
+                  results={results}
+                  apiPage={apiPage}
+                  handleCategoryFilterChange={handleCategoryFilterChange}
+                  getSelectedCards={getSelectedCards}
+                />
               </div>
+              <div className={"selected--cards--bar"}>
+                {mobile && (
+                  <p>
+                    NFTs: <b>{selectedCards.length}</b>
+                  </p>
+                )}
+                <SelectedNftsCarousel
+                  nfts={results}
+                  selectedCards={selectedCards}
+                  showArrows={showArrows}
+                />
+                <div className={"button--container"}>
+                  {!mobile && (
+                    <span>
+                      NFTs: <b>{selectedCards.length}</b>
+                    </span>
+                  )}
+                  <Button
+                    className={"light-button"}
+                    onClick={
+                      selectedCards.length > 0
+                        ? () => {
+                            router.push(
+                              selectedCards.length === 1
+                                ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
+                                : "/burn-to-mint/burn/batch"
+                            );
+                          }
+                        : null
+                    }
+                  >
+                    Burn
+                  </Button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className={"no--polymorphs--found"}>
+              <img src={BubbleIcon} />
+              <p>You have no V1 Polymorphs to burn</p>
+              <Button
+                className={"light-button"}
+                onClick={() => router.push("/burn-to-mint")}
+              >
+                Go Back
+              </Button>
             </div>
-          </>
-        ) : (
-          <div className={"no--polymorphs--found"}>
-            <img src={BubbleIcon} />
-            <p>You have no V1 Polymorphs to burn</p>
-            <Button
-              className={"light-button"}
-              onClick={() => router.push("/burn-to-mint")}
-            >
-              Go Back
-            </Button>
-          </div>
-        )}
-      </>
-    </div>
+          )}
+        </>
+      </div>
     </>
   );
 };
