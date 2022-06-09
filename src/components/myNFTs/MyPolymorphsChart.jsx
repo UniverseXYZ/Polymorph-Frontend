@@ -96,6 +96,7 @@ const MyPolymorphsChart = ({
         handleCategoryFilterChange={handleCategoryFilterChange}
         setFilter={setFilter}
         filter={filter}
+        loading={search.loading}
       />
       <MyRarityList
         data={results}
