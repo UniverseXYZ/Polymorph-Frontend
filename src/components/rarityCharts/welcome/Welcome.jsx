@@ -5,6 +5,7 @@ import Lottie from "react-lottie";
 import animationDataDesktop from "../../../utils/animations/rarity_header_animation_desktop.json";
 import animationDataTablet from "../../../utils/animations/rarity_header_animation_tablet.json";
 import animationDataMobile from "../../../utils/animations/rarity_header_animation_mobile.json";
+import Background from "../../../assets/images/rarity-charts/rarity-mobile-background.png";
 // import './Welcome.scss';
 
 const Welcome = () => {
@@ -12,7 +13,6 @@ const Welcome = () => {
   const windowSize = useWindowSize();
 
   useEffect(() => {
-    if (+windowSize.width <= 575) setAnimation(animationDataMobile);
     if (+windowSize.width <= 1024) setAnimation(animationDataTablet);
     else setAnimation(animationDataDesktop);
   }, [windowSize.width]);
@@ -29,7 +29,9 @@ const Welcome = () => {
   return (
     <div className="welcome--section--rarity--charts">
       <div className={"rarity--background--animation"}>
-        <Lottie options={defaultOptions} isClickToPauseDisabled />
+        {windowSize.width >= 575 ? (
+          <Lottie options={defaultOptions} isClickToPauseDisabled />
+        ) : null}
       </div>
       <WelcomeWrapper
         title="Polymorph Rarity Chart"
