@@ -138,8 +138,12 @@ export default class AutoPlayMethods extends Component {
       prevArrow: <ArrowNav />,
       pauseOnHover: false,
       pauseOnFocus: false,
+      pauseOnDotsHover: false,
       speed: 700,
       fade: true,
+      swipe: false,
+      draggable: false,
+      accessibility: false,
       // afterChange: () => {},
       beforeChange: (current, next) =>
         this.setState({ slideIndex: next }, () => {
