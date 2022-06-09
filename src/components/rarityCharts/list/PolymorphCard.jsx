@@ -33,8 +33,10 @@ const PolymorphCard = ({ item, tab }) => {
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
-          alt={item.name}
-          layout="fill"
+          alt={item.name} 
+          quality="25"
+          width={500}
+          height={500}
         >
         </Image>
       </div>
