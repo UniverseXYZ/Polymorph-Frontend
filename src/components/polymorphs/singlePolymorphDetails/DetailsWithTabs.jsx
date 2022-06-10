@@ -160,7 +160,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
           <PolymorphMetadataTab
             morphPrice={morphPrice}
             owner={polymorphOwner}
-            genome={polymorphData.currentgene}
+            genome={polymorphData?.currentgene}
           />
         )}
         {selectedTabIndex === 2 && <PolymorphHistoryTab />}
