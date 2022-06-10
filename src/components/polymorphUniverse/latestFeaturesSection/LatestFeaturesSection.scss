@@ -25,12 +25,20 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 30px;
-      > div {
+
+      .grid--item {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
         position: relative;
         border-radius: 12px;
-        // border: 1px solid transparent;
         background-color: rgba(255, 255, 255, 0.1);
         padding: 2rem;
+
+        img {
+          height: 64px;
+          width: 64px;
+        }
 
         @include md {
           padding: 1rem;
@@ -73,6 +81,13 @@
           color: $white;
           position: relative;
           box-shadow: 2px 1000px 1px rgba(26, 26, 26, 1) inset;
+          margin-top: auto;
+          max-width: 136px;
+          /* Website/Buttons (normal) */
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
 
           &::before {
             content: "";
@@ -109,7 +124,14 @@
           color: rgba(255, 255, 255, 0.2);
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 12px;
-          padding: 11px 26px;
+          padding: 11px 16px;
+          margin-top: auto;
+          max-width: 136px;
+          /* Website/Buttons (normal) */
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
           &:hover {
             cursor: default;
           }
