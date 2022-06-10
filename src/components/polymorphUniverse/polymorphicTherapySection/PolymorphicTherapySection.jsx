@@ -21,9 +21,13 @@ const PolymorphicTherapySection = () => {
               point is, when is the last time you have asked your polymorph how
               it feels?
             </p>
-            <Button>
+            <Button onClick={() => window.open(linkToYoutube)}>
               <img className="youtube-logo" src={YoutubeIcon} alt="youtube" />
-              <img className="youtube-mobile-logo" src={YoutubeIconMobile} alt="youtube" />
+              <img
+                className="youtube-mobile-logo"
+                src={YoutubeIconMobile}
+                alt="youtube"
+              />
               Watch on Youtube
             </Button>
           </div>
