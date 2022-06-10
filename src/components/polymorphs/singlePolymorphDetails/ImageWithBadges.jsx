@@ -10,11 +10,17 @@ const ImageWithBadges = ({ polymorphData, isV1, iframeData }) => {
   const ipfsHash = iframeData?.substr(7);
   return (
     <div className="polymorph--image--with--badges">
-      <div className="go--back--btn" onClick={() => router.back()}>
+      <div
+        className="go--back--btn"
+        onClick={() => router.push("/my-polymorphs")}
+      >
         <span className="tooltiptext">Go back</span>
         <ArrowLeftIcon fillColor="black" />
       </div>
-      <div className="go--back--btn--mobile" onClick={() => router.back()}>
+      <div
+        className="go--back--btn--mobile"
+        onClick={() => router.push("/my-polymorphs")}
+      >
         <ArrowLeftIcon fillColor="black" />
         <span>Go back</span>
       </div>
