@@ -18,7 +18,7 @@ const LatestFeaturesSection = () => {
       <div className="latest--features--section--container">
         <h1 className="title">Latest features</h1>
         <div className="grid">
-          <div>
+          <div className="grid--item">
             <img src={rarityChartIcon} alt="Rarity chart" />
             <h2>Rarity Chart</h2>
             <p>
@@ -33,7 +33,7 @@ const LatestFeaturesSection = () => {
               <ArrowLeftIcon />
             </button>
           </div>
-          <div>
+          <div className="grid--item">
             <img src={burnToMintIcon} alt="Burn to mint" />
             <h2 className="burn-mint-h2">Burn to Mint</h2>
             <p>
@@ -48,7 +48,7 @@ const LatestFeaturesSection = () => {
               <ArrowLeftIcon />
             </button>
           </div>
-          <div>
+          <div className="grid--item">
             <img src={battleUniverseIcon} alt="Battle universe" />
             <h2>Battle Universe</h2>
             <p>
@@ -56,7 +56,7 @@ const LatestFeaturesSection = () => {
               world.
             </p>
             <button className="button-disabled">
-              Coming Soon
+              Coming soon
               {/* <ArrowLeftIcon /> */}
             </button>
           </div>
