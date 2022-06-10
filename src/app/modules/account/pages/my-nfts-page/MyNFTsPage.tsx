@@ -60,10 +60,11 @@ export const MyNFTsPage = () => {
   const renderIfNFTsExist = () => (
     <>
       <OpenGraph title={`My Polymorphs`} description={`Explore and scramble your Polymorphs.`} image={OpenGraphImage} />
-      <div className="mynfts__page__gradient">
-        <div className="container mynfts__page__header">
-          <h1 className="title">My Polymorphs</h1>
-        </div>
+
+      <div className="mynfts__page__gradient" />
+
+      <div className="container mynfts__page__header">
+        <h1 className="title">My Polymorphs</h1>
       </div>
 
       {myNFTsSelectedTabIndex === 0 && (
