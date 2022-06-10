@@ -14,7 +14,7 @@ import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
-import Image from 'next/image';
+import Image from "next/image";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -31,11 +31,8 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
 
-  const updateDataHandler = () => {
-    setUpdate(true);
-  };
-
   const showScrambleOptions = () => {
+    setUpdate(true);
     setShowScramblePopup(true);
   };
 
@@ -134,12 +131,11 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
-          alt={item.name} 
+          alt={item.name}
           quality="25"
           width={500}
           height={500}
-        >
-        </Image>
+        ></Image>
       </div>
       <div className="card--footer">
         <div className="card--footer--top">
@@ -221,7 +217,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
-          updateData={updateDataHandler}
           polymorph={item}
         />
       </Popup>

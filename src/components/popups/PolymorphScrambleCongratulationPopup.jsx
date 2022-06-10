@@ -10,7 +10,6 @@ import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 const PolymorphScrambleCongratulationPopup = ({
   onClose,
   onOpenOptionsPopUp,
-  updateData,
   polymorph,
 }) => {
   const router = useRouter();
@@ -67,7 +66,6 @@ const PolymorphScrambleCongratulationPopup = ({
           onClick={() => {
             onClose();
             onOpenOptionsPopUp();
-            updateData();
           }}
         >
           Scramble again
