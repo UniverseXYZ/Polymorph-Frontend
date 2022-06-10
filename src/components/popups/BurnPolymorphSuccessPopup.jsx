@@ -52,16 +52,16 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
       <p className="desc">{`You have successfully burnt your old polymorph${
         characters.length > 1 ? "s" : ""
       } and minted ${characters.length > 1 ? "new ones" : "a new one"}.`}</p>
-      {loading ? (
-        <p className="info">Your NFTs may take up to 2 minutes to load</p>
-      ) : (
+      {/* {loading ? ( */}
+      <p className="info">Your NFTs may take up to 2 minutes to load</p>
+      {/* ) : (
         <></>
-      )}
+      )} */}
       {characters.length > 1 ? (
         <div className="batch--polymorphs">
           {/* {!loading && fetchedImages ? ( */}
           <Slider {...settings}>
-            {fetchedImages?.map((c, i) => {
+            {characters?.map((c, i) => {
               return (
                 <div className="polymorph--img" key={i}>
                   <img src={characters[i].imageUrl} alt="Polymorph" />
@@ -85,7 +85,13 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
         </div>
       )}
       <div className="actions">
-        <Button className="light-button" onClick={onClose}>
+        <Button
+          className="light-button"
+          onClick={() => {
+            onClose();
+            router.push("/burn-to-mint/burn");
+          }}
+        >
           Burn More
         </Button>
         <Button
