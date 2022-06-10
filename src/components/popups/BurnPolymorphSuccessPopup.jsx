@@ -8,8 +8,8 @@ import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
-  const [loading, setLoading] = useState(true);
-  const [fetchedImages, setFetchedImages] = useState("");
+  // const [loading, setLoading] = useState(true);
+  // const [fetchedImages, setFetchedImages] = useState("");
   const router = useRouter();
 
   const settings = {
@@ -20,28 +20,28 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
     slidesToScroll: 1,
   };
 
-  useEffect(async () => {
-    if (loading) {
-      const promises = [];
-      characters.forEach((character) =>
-        promises.push(getPolymorphMetaV2(character.tokenId))
-      );
-      try {
-        const res = await Promise.all(promises);
-        if (!res.length) {
-          setLoading(true);
-        }
-        if (res.length > 0) {
-          const images = [];
-          res.forEach((res) => images.push(res.data.image3d));
-          setFetchedImages(images);
-          setLoading(false);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }, [loading]);
+  // useEffect(async () => {
+  //   if (loading) {
+  //     const promises = [];
+  //     characters.forEach((character) =>
+  //       promises.push(getPolymorphMetaV2(character.tokenId))
+  //     );
+  //     try {
+  //       const res = await Promise.all(promises);
+  //       if (!res.length) {
+  //         setLoading(true);
+  //       }
+  //       if (res.length > 0) {
+  //         const images = [];
+  //         res.forEach((res) => images.push(res.data.image3d));
+  //         setFetchedImages(images);
+  //         setLoading(false);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // }, [loading]);
 
   return (
     <div className="burn--polymorph--success--popup">
@@ -51,41 +51,47 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
       <h2 className="title">Congratulations!</h2>
       <p className="desc">{`You have successfully burnt your old polymorph${
         characters.length > 1 ? "s" : ""
-      } and minted a new one${characters.length > 1 ? "s" : ""}`}</p>
-      {loading ? (
-        <p className="info">Your NFTs may take up to 2 minutes to load</p>
-      ) : (
+      } and minted ${characters.length > 1 ? "new ones" : "a new one"}.`}</p>
+      {/* {loading ? ( */}
+      <p className="info">Your NFTs may take up to 2 minutes to load</p>
+      {/* ) : (
         <></>
-      )}
+      )} */}
       {characters.length > 1 ? (
         <div className="batch--polymorphs">
-          {!loading && fetchedImages ? (
-            <Slider {...settings}>
-              {fetchedImages?.map((c, i) => {
-                return (
-                  <div className="polymorph--img" key={i}>
-                    <img src={fetchedImages[i]} alt="Polymorph" />
-                  </div>
-                );
-              })}
-            </Slider>
-          ) : (
+          {/* {!loading && fetchedImages ? ( */}
+          <Slider {...settings}>
+            {characters?.map((c, i) => {
+              return (
+                <div className="polymorph--img" key={i}>
+                  <img src={characters[i].imageUrl} alt="Polymorph" />
+                </div>
+              );
+            })}
+          </Slider>
+          {/* ) : (
             renderLoaders(characters.length)
-          )}
+          )} */}
         </div>
       ) : (
         <div className="single--polymorph">
-          {!loading && fetchedImages ? (
-            <div className="polymorph--img">
-              <img src={fetchedImages[0]} alt="Polymorph" />
-            </div>
-          ) : (
+          {/* {loading && fetchedImages ? ( */}
+          <div className="polymorph--img">
+            <img src={characters[0].imageUrl} alt="Polymorph" />
+          </div>
+          {/* ) : (
             renderLoaders(1)
-          )}
+          )} */}
         </div>
       )}
       <div className="actions">
-        <Button className="light-button" onClick={onClose}>
+        <Button
+          className="light-button"
+          onClick={() => {
+            onClose();
+            router.push("/burn-to-mint/burn");
+          }}
+        >
           Burn More
         </Button>
         <Button
