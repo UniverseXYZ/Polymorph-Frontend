@@ -207,6 +207,13 @@
           align-items: center;
           justify-content: space-between;
           padding: 14px 16px;
+          background: radial-gradient(
+              289.96% 2371.58% at 0% 50%,
+              rgba(225, 246, 100, 0.1) 0%,
+              rgba(254, 176, 254, 0.1) 49.34%,
+              rgba(171, 179, 252, 0.1) 100%
+            )
+            /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
           .card--number {
             font-family: $spaceGroteskFont;
             font-style: normal;
