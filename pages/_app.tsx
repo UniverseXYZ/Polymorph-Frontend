@@ -1,9 +1,21 @@
 import '../styles/globals.css'
 
-import '../src/assets/scss/normalize.scss';
-import '../src/assets/scss/_variables.scss';
-
 import '../public/fonts/style.css';
+import '../src/assets/scss/normalize.scss'
+import '../src/assets/scss/_variables.scss'
+
+import '../src/containers/homepage/Homepage.scss';
+import '../src/containers/polymorphs/Polymorphs.scss';
+import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
+import '../src/containers/rarityCharts/RarityCharts.scss';
+import '../src/containers/rarityCharts/RarityCharsLoader.scss';
+import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
+import '../src/containers/burnPolymorphs/BurnPolymorph.scss';
+import '../src/containers/rarityCharts/RarityCharts.scss';
+import '../src/containers/rarityCharts/RarityChartsLoader';
+import '../src/containers/polymorphs/BurnToMint.scss';
+import '../src/containers/polymorphs/WhatsNewSection.scss';
+import '../src/containers/polymorphs/SinglePolymorphDetails.scss';
 
 import '../src/components/input/Inputs.scss';
 import '../src/components/header/Header.scss';
@@ -12,7 +24,6 @@ import '../src/components/header/dimensions/mobile/MobileView.scss';
 import '../src/components/header/dimensions/tablet/TabletView.scss';
 import '../src/components/footer/Footer.scss';
 import '../src/components/button/Button.scss';
-import '../src/components/polymorphs/styles/About.scss';
 import '../src/components/polymorphs/styles/Characters.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivity.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivityTableRow.scss';
@@ -24,95 +35,51 @@ import '../src/components/polymorphs/styles/WrapperCenterTwoColumns.scss';
 import '../src/components/ui-elements/styles/WelcomeWrapper.scss';
 import '../src/components/pagination/Pagination.scss';
 import '../src/components/polymorphUniverse/aboutSection/AboutSection.scss';
+import '../src/components/polymorphUniverse/burnToMintSection/BurnToMintSection.scss';
+import '../src/components/polymorphUniverse/polymorphicTherapySection/PolymorphicTherapySection.scss'
 import '../src/components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.scss';
 import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
+import '../src/components/polymorphs/singlePolymorphDetails/DetailsWithTabs.scss';
+import '../src/components/polymorphs/singlePolymorphDetails/ImageWithBadges.scss';
+import '../src/components/polymorphs/polymorphPropertyCard/PolymorphPropertyCard.scss';
+import '../src/components/polymorphs/polymorphMetadataCard/PolymorphMetadataCard.scss';
+import '../src/components/polymorphs/polymorphHistoryCard/PolymorphHistoryCard.scss';
+import '../src/components/charactersGrid/CharactersGrid.scss';
 import '../src/components/notFound/NotFound.scss';
-import '../src/components/input/SearchField.scss';
 import '../src/components/input/RaritySortByOrder.scss';
 import '../src/components/input/RaritySortBySelect.scss';
 import '../src/components/rarityCharts/filters/RarityFilters.scss';
 import '../src/components/rarityCharts/list/RarityList.scss';
 import '../src/components/rarityCharts/welcome/Welcome.scss';
-import '../src/components/myProfile/styles/CommunitieItem.scss';
-import '../src/components/myProfile/styles/CoverPhoto.scss';
-import '../src/components/myProfile/styles/GalleryPhotoItem.scss';
-import '../src/components/myProfile/styles/GallerySection.scss';
-import '../src/components/myProfile/styles/MyCommunities.scss';
-import '../src/components/myProfile/styles/MyProfileContainer.scss';
-import '../src/components/myProfile/styles/RecentActivity.scss';
-import '../src/components/myProfile/styles/RightBlockTopLinks.scss';
-import '../src/components/myProfile/styles/Tabs.scss';
-import '../src/components/myProfile/styles/Transactions.scss';
-import '../src/components/myProfile/styles/UserDataBlock.scss';
-import '../src/components/popups/PopupStyle.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
-import '../src/components/products/minting/Minting.scss';
 import '../src/components/general/LoadingImage.scss';
-import '../src/components/input/SearchField.scss';
-import '../src/components/input/SearchTokenIdField.scss';
-import '../src/components/marketplace/browseNFT/NFTsList.scss';
-import '../src/components/marketplaceNFT/BrokenNFT.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
-import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
-import '../src/components/nft/NFTCard.scss';
-import '../src/components/nft/SearchFilters.scss';
-import '../src/components/rarityCharts/filters/LobsterRarityFilters.scss';
-
-import '../src/containers/homepage/Homepage.scss';
-import '../src/containers/products/about/About.scss';
-import '../src/containers/team/Team.scss'
-import '../src/containers/polymorphs/Polymorphs.scss';
-import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
-import '../src/containers/rarityCharts/RarityCharts.scss';
-import '../src/containers/rarityCharts/RarityCharsLoader.scss';
-import '../src/containers/myProfile/MyProfile';
-import '../src/containers/myAccount/MyAccount.scss';
-import '../src/containers/rarityCharts/PolymorphRarityCharts.scss';
-import '../src/containers/rarityCharts/LobsterRarityCharts.scss';
-
-import '../src/components/rarityCharts/list/RarityLobsterList.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
-import '../src/containers/rarityCharts/RarityCharts.scss';
-import '../src/containers/rarityCharts/RarityChartsLoader';
-import '../src/containers/marketplaceNFT/MarketplaceNFT.scss';
-import '../src/components/myNFTs/create/CreateNFT.scss';
-import '../src/components/myNFTs/create/CreateSingleNft.scss';
-import '../src/components/nft/SearchFilters.scss';
-import '../src/containers/collection/Collection.scss';
-import '../src/components/lobbyLobsters/donate/Donate.scss';
-import '../src/components/lobbyLobsters/helpUs/HelpUsBeHeard.scss';
-import '../src/components/lobbyLobsters/heroSection/HeroSection.scss';
-import '../src/components/lobbyLobsters/mintSection/MintLobbyLobsterSection.scss';
-import '../src/components/lobbyLobsters/sliderSection/SliderSection.scss';
-import '../src/components/polymorphs/mint-polymorph/styles/BondingCurve.scss';
 import '../src/components/popups/PopupStyle.scss';
-import '../src/components/popups/LobsterLoader.scss';
-import '../src/components/ui-elements/styles/HorizontalSlider.scss';
+import '../src/components/polymorphs/scramble/styles/PolymorphScramblePopup.scss'
 import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
-import '../src/components/auctionsCard/ActiveAuctionsCard.scss';
-import '../src/components/auctionsCard/FutureAuctionsCard.scss';
-import '../src/containers/artist/Artist.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
-import '../src/components/lobbyLobsters/info/styles/LobstersInfoPage.scss';
-import '../src/components/marketplaceTabComponents/MarketplaceTabComponent.scss';
-
 import '../src/components/badge/Badge.scss';
-import '../src/components/nft/NFTCard.scss';
-import '../src/components/popups/transferNFT/TransferNFTPopup.scss';
+// import '../src/components/input/SearchTokenIdField.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingAccordion/PendingAccordion.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingCollections/PendingCollections.scss';
+// import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
+
+
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
-import '../src/app/modules/marketplace/pages/sell-page/components/tab-summary/SummaryTab.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
-import '../src/containers/collection/Collection.scss';
-import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
-import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
+// import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
+// import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
+import '../src/components/SelectNFTs/SelectNfts.scss'
+import '../src/components/nft/SearchFilters.scss';
+import '../src/components/SelectNFTs/BurnRarityList.scss'
+import '../src/components/SelectNFTs/SelectedNftsCarousel.scss'
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -122,7 +89,6 @@ import type { AppProps } from 'next/app'
 import React, { useCallback, useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
-import { AuctionContextProvider } from '../src/contexts/AuctionContext';
 import Header from '../src/components/header/Header';
 import Footer from '../src/components/footer/Footer';
 import { Popups } from '../src/app/components/AppPopups';
@@ -167,7 +133,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <AuctionContextProvider>
             <LayoutProvider>
               <Theme>
                 <div id="root">
@@ -178,7 +143,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 </div>
               </Theme>
             </LayoutProvider>
-        </AuctionContextProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>

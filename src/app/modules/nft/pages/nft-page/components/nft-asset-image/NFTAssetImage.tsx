@@ -2,7 +2,7 @@ import { Box, BoxProps } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import NextImage from 'next/image';
 
-import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
+// import BrokenNFT from '../../../../../../../components/marketplaceNFT/BrokenNFT';
 import { NFTAssetFullscreen } from '../nft-asset-full-screen';
 import * as NFTInfoStyles from '../nft-info/NFTInfo.style';
 import * as styles from './NFTAssetImage.styles';
@@ -27,7 +27,8 @@ export const NFTAssetImage = (props: INFTAssetImageProps) => {
 
   return showError ? (
     <Box {...NFTInfoStyles.BrokenAssetStyle}>
-      <BrokenNFT />
+      {/* <BrokenNFT /> */}
+      <p>BrokenNFT</p>
     </Box>)
    : (
     <>

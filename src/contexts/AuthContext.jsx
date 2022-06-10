@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
   });
 
   const [polymorphContract, setPolymorphContract] = useState(null);
-  const [lobsterContract, setLobsterContract] = useState(null);
   const [providerName, setProviderName] = useState(Cookies.get('providerName') || '');
   const [web3Provider, setWeb3Provider] = useState(null);
   const [address, setAddress] = useState('');
@@ -89,30 +88,11 @@ const AuthContextProvider = ({ children }) => {
 
     const { contracts: contractsData } = Contracts[network.chainId];
 
-    // Minting
-    const universeERC721CoreContractResult = new Contract(
-      contractsData.UniverseERC721Core.address,
-      contractsData.UniverseERC721Core.abi,
-      signerResult
-    );
-    const universeERC721FactoryContractResult = new Contract(
-      contractsData.UniverseERC721Factory.address,
-      contractsData.UniverseERC721Factory.abi,
-      signerResult
-    );
-
     const polymContract = contractsData.PolymorphWithGeneChanger;
 
     const polymorphContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
       polymContract?.abi,
-      signerResult
-    );
-
-    const lobsContract = contractsData.Lobster;
-    const lobsterContractInstance = new Contract(
-      process.env.REACT_APP_LOBSTERS_CONTRACT_ADDRESS,
-      lobsContract?.abi,
       signerResult
     );
 
@@ -124,12 +104,9 @@ const AuthContextProvider = ({ children }) => {
     setYourEnsDomain(ensDomain);
     // setIsWalletConnected(true);
     setEthereumNetwork(network);
-    setUniverseERC721CoreContract(universeERC721CoreContractResult);
-    setUniverseERC721FactoryContract(universeERC721FactoryContractResult);
     setContracts(contractsData);
 
     setPolymorphContract(polymorphContractInstance);
-    setLobsterContract(lobsterContractInstance);
   };
 
   const resetConnectionState = async (walletConnectEvent) => {
@@ -149,7 +126,6 @@ const AuthContextProvider = ({ children }) => {
     setIsAuthenticated(false);
 
     setPolymorphContract(null);
-    setLobsterContract(null);
   };
 
   const onAccountsChanged = async ([account]) => {
@@ -372,8 +348,6 @@ const AuthContextProvider = ({ children }) => {
         setLoggedInArtist,
         polymorphContract,
         setPolymorphContract,
-        lobsterContract,
-        setLobsterContract,
         providerName,
         setProviderName,
         web3Provider,

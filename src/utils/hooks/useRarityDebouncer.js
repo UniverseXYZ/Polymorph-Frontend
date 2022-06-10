@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import useConstant from 'use-constant';
 import { useAsyncAbortable } from 'react-async-hook';
@@ -10,7 +10,8 @@ const buildRarityUrl = (
   text = '',
   sortField = '',
   sortDir = '',
-  filter = ''
+  filter = '',
+  version = ''
 ) => {
   let filterQuery = '';
   // eslint-disable-next-line prefer-const
@@ -50,7 +51,15 @@ const buildRarityUrl = (
     filterQuery += attrQuery;
   });
 
-  let endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+  let endpoint;
+
+   if(version === 'V1') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL}?page=${page}&take=${perPagee}`;
+   }
+   if(version === 'V2') {
+    endpoint = `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?page=${page}&take=${perPagee}`;
+   }
+
   if (text) {
     endpoint = `${endpoint}&search=${text}`;
   }
@@ -63,11 +72,10 @@ const buildRarityUrl = (
   if (filter) {
     endpoint = `${endpoint}&filter=${filterQuery}`;
   }
-
   return endpoint;
 };
 
-export const useSearchPolymorphs = () => {
+export const useSearchPolymorphs = (version) => {
   const perPage = 100;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
@@ -76,6 +84,11 @@ export const useSearchPolymorphs = () => {
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted([]);
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
+  const [tab, setTab] = useStateIfMounted("V1")
+
+  useEffect(() => {
+    setApiPage(1)
+  }, [tab])
 
   const searchPolymorphsRarity = async (endpoint, abortSignal) => {
     const result = await fetch(endpoint, {
@@ -119,14 +132,14 @@ export const useSearchPolymorphs = () => {
       //   return [];
       // }
       // Else we use the debounced api
-      const endpoint = buildRarityUrl(apiPage, perPage, text, sortField, sortDir, filter);
+      const endpoint = buildRarityUrl(apiPage, perPage, text, sortField, sortDir, filter, version);
       if (apiPage === 1) {
         return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
       }
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter]
+    [inputText, apiPage, sortField, sortDir, filter, tab]
   );
 
   // Return everything needed for the hook consumer
@@ -145,5 +158,7 @@ export const useSearchPolymorphs = () => {
     results,
     isLastPage,
     setIsLastPage,
+    tab,
+    setTab,
   };
 };

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Popup from 'reactjs-popup';
-import RaritySortBySelect from '../../input/RaritySortBySelect';
-import RaritySortByOrder from '../../input/RaritySortByOrder';
-import priceIcon from '../../../assets/images/eth-icon-new.svg';
-import filterIcon from '../../../assets/images/filters-icon-black.svg';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Popup from "reactjs-popup";
+import RaritySortBySelect from "../../input/RaritySortBySelect";
+import RaritySortByOrder from "../../input/RaritySortByOrder";
+import priceIcon from "../../../assets/images/eth-icon-new.svg";
+import filterIcon from "../../../assets/images/filters-icon-black.svg";
 // import './RarityFilters.scss';
-import RarityChartFiltersPopup from '../../popups/RarityChartFiltersPopup';
-import RaritySearchField from '../../input/RaritySearchField';
+import RarityChartFiltersPopup from "../../popups/RarityChartFiltersPopup";
+import RaritySearchField from "../../input/RaritySearchField";
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const RarityFilters = (props) => {
   const {
@@ -28,69 +29,78 @@ const RarityFilters = (props) => {
     setFilter,
     filter,
     CollectionFilter,
+    loading,
   } = props;
   const [selectedFiltersLength, setSelectedFiltersLength] = useState(0);
+  const { userPolymorphsAll } = usePolymorphStore();
 
   return (
     <div className="rarity--charts--search--and--filters--container">
-      <div className="rarity--charts--search--and--filters--row">
-        {/* <CollectionFilter /> */}
-        <div className="rarity--charts--search--and--floor--price">
-          <RaritySearchField
-            placeholder="Search items"
-            searchText={searchText}
-            setSearchText={setSearchText}
+      {loading || userPolymorphsAll.length > 0 ? (
+        <div className="rarity--charts--search--and--filters--row">
+          {/* <CollectionFilter /> */}
+          <div className="rarity--charts--search--and--floor--price">
+            <RaritySearchField
+              placeholder="Search items"
+              searchText={searchText}
+              setSearchText={setSearchText}
+              setApiPage={setApiPage}
+              resetPagination={resetPagination}
+            />
+            <div className="mobile--filters">
+              <Popup
+                trigger={
+                  <button type="button" className="light-button">
+                    <img src={filterIcon} alt="Filter" />
+                  </button>
+                }
+              >
+                {(close) => (
+                  <RarityChartFiltersPopup
+                    close={close}
+                    categories={categories}
+                    setCategories={setCategories}
+                    categoriesIndexes={categoriesIndexes}
+                    setCategoriesIndexes={setCategoriesIndexes}
+                    selectedFiltersLength={selectedFiltersLength}
+                    setSelectedFiltersLength={setSelectedFiltersLength}
+                    resultsCount={resultsCount}
+                    handleCategoryFilterChange={handleCategoryFilterChange}
+                    setFilter={setFilter}
+                    filter={filter}
+                  />
+                )}
+              </Popup>
+              {selectedFiltersLength !== 0 && (
+                <div className="count">{selectedFiltersLength}</div>
+              )}
+            </div>
+          </div>
+          <RaritySortBySelect
+            id="sort--select"
+            defaultValue="Rarity Score"
+            sortData={["Rarity Score", "Rank", "Polymorph Id"]}
+            setSortField={setSortField}
             setApiPage={setApiPage}
             resetPagination={resetPagination}
           />
-          <div className="mobile--filters">
-            <Popup
-              trigger={
-                <button type="button" className="light-button">
-                  <img src={filterIcon} alt="Filter" />
-                </button>
-              }
-            >
-              {(close) => (
-                <RarityChartFiltersPopup
-                  close={close}
-                  categories={categories}
-                  setCategories={setCategories}
-                  categoriesIndexes={categoriesIndexes}
-                  setCategoriesIndexes={setCategoriesIndexes}
-                  selectedFiltersLength={selectedFiltersLength}
-                  setSelectedFiltersLength={setSelectedFiltersLength}
-                  resultsCount={resultsCount}
-                  handleCategoryFilterChange={handleCategoryFilterChange}
-                  setFilter={setFilter}
-                  filter={filter}
-                />
-              )}
-            </Popup>
-            {selectedFiltersLength !== 0 && <div className="count">{selectedFiltersLength}</div>}
-          </div>
+          <RaritySortByOrder
+            setSortDir={setSortDir}
+            sortDir={sortDir}
+            setApiPage={setApiPage}
+            resetPagination={resetPagination}
+          />
         </div>
-        <RaritySortByOrder
-          setSortDir={setSortDir}
-          sortDir={sortDir}
-          setApiPage={setApiPage}
-          resetPagination={resetPagination}
-        />
-        <RaritySortBySelect
-          id="sort--select"
-          defaultValue="Rarity Score"
-          sortData={['Rarity Score', 'Rank', 'Polymorph Id']}
-          setSortField={setSortField}
-          setApiPage={setApiPage}
-          resetPagination={resetPagination}
-        />
-      </div>
+      ) : null}
     </div>
   );
 };
 
 RarityFilters.propTypes = {
-  floorPrice: PropTypes.shape({ price: PropTypes.number, priceType: PropTypes.string }),
+  floorPrice: PropTypes.shape({
+    price: PropTypes.number,
+    priceType: PropTypes.string,
+  }),
   searchText: PropTypes.string,
   setSearchText: PropTypes.func.isRequired,
   setSortField: PropTypes.func.isRequired,
@@ -111,7 +121,7 @@ RarityFilters.propTypes = {
 
 RarityFilters.defaultProps = {
   floorPrice: { price: 0.8, priceIcon },
-  searchText: '',
+  searchText: "",
   CollectionFilter: () => <></>,
 };
 

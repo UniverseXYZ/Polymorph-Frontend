@@ -1,59 +1,58 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useHistory } from 'react-router-dom';
-import Popup from 'reactjs-popup';
-import { Animated } from 'react-animated-css';
+import React, { useState, useEffect, useContext, useRef } from "react";
+import PropTypes from "prop-types";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useRouter } from "next/router";
+import Popup from "reactjs-popup";
+import { Animated } from "react-animated-css";
 // import './TabletView.scss';
-import HeaderAvatar from '../../HeaderAvatar';
-import SelectWalletPopup from '../../../popups/SelectWalletPopup.jsx';
-import hamburgerIcon from '../../../../assets/images/hamburger.svg';
-import closeIcon from '../../../../assets/images/close-menu.svg';
-import accountIcon from '../../../../assets/images/icon1.svg';
-import accountDarkIcon from '../../../../assets/images/account-dark-icon.svg';
-import AppContext from '../../../../ContextAPI';
-import Group2 from '../../../../assets/images/Group2.svg';
-import Group1 from '../../../../assets/images/Group1.svg';
-import copyIcon from '../../../../assets/images/copy.svg';
-import auctionHouseIcon from '../../../../assets/images/auction-house.svg';
-import myProfileIcon from '../../../../assets/images/my-profile.svg';
-import myNFTsIcon from '../../../../assets/images/my-nfts.svg';
-import signOutIcon from '../../../../assets/images/sign-out.svg';
-import marketplaceIcon from '../../../../assets/images/nft-marketplace.svg';
-import socialMediaIcon from '../../../../assets/images/social-media.svg';
-import polymorphsIcon from '../../../../assets/images/polymorphs.svg';
-import coreDropsIcon from '../../../../assets/images/core-drops.svg';
-import lobbyLobstersIcon from '../../../../assets/images/lobby-lobsters.svg';
-import rarityChartIcon from '../../../../assets/images/rarity-chart.svg';
-import navChartIcon from '../../../../assets/images/chart-nav-icon.svg';
-import aboutIcon from '../../../../assets/images/about.svg';
-import whitepaperIcon from '../../../../assets/images/whitepaper.svg';
-import teamIcon from '../../../../assets/images/team.svg';
-import governanceIcon from '../../../../assets/images/governance.svg';
-import yieldFarmingIcon from '../../../../assets/images/yield-farming.svg';
-import forumIcon from '../../../../assets/images/forum.svg';
-import signalIcon from '../../../../assets/images/signal.svg';
-import docsIcon from '../../../../assets/images/docs.svg';
-import mintingIcon from '../../../../assets/images/Minting.svg';
-import SubscribePopup from '../../../popups/SubscribePopup.jsx';
-import searchIcon from '../../../../assets/images/search-icon.svg';
-import img from '../../../../assets/images/search-gray.svg';
-import img2 from '../../../../assets/images/crossclose.svg';
-import Button from '../../../button/Button';
+import HeaderAvatar from "../../HeaderAvatar";
+import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
+import hamburgerIcon from "../../../../assets/images/hamburger.svg";
+import closeIcon from "../../../../assets/images/close-menu.svg";
+import accountIcon from "../../../../assets/images/icon1.svg";
+import accountDarkIcon from "../../../../assets/images/account-dark-icon.svg";
+import AppContext from "../../../../ContextAPI";
+import Group2 from "../../../../assets/images/Group2.svg";
+import Group1 from "../../../../assets/images/Group1.svg";
+import copyIcon from "../../../../assets/images/copy.svg";
+import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
+import myProfileIcon from "../../../../assets/images/my-profile.svg";
+import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
+import signOutIcon from "../../../../assets/images/sign-out.svg";
+import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
+import socialMediaIcon from "../../../../assets/images/social-media.svg";
+import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
+import coreDropsIcon from "../../../../assets/images/core-drops.svg";
+import rarityChartIcon from "../../../../assets/images/rarity-chart.svg";
+import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
+import aboutIcon from "../../../../assets/images/about.svg";
+import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
+import teamIcon from "../../../../assets/images/team.svg";
+import governanceIcon from "../../../../assets/images/governance.svg";
+import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
+import forumIcon from "../../../../assets/images/forum.svg";
+import signalIcon from "../../../../assets/images/signal.svg";
+import docsIcon from "../../../../assets/images/docs.svg";
+import SubscribePopup from "../../../popups/SubscribePopup.jsx";
+import searchIcon from "../../../../assets/images/search-icon.svg";
+import img from "../../../../assets/images/search-gray.svg";
+import img2 from "../../../../assets/images/crossclose.svg";
+import Button from "../../../button/Button";
 // import '../../Header.scss';
-import mp3Icon from '../../../../assets/images/mp3-icon.png';
-import audioIcon from '../../../../assets/images/marketplace/audio-icon.svg';
-import { defaultColors, handleClickOutside } from '../../../../utils/helpers';
+import mp3Icon from "../../../../assets/images/mp3-icon.png";
+import audioIcon from "../../../../assets/images/marketplace/audio-icon.svg";
+import { defaultColors, handleClickOutside } from "../../../../utils/helpers";
 import {
   shortenEnsDomain,
   shortenEthereumAddress,
   toFixed,
-} from '../../../../utils/helpers/format';
-import { useAuctionContext } from '../../../../contexts/AuctionContext';
-import supportIcon from '../../../../assets/images/supportIcon.svg';
-import Badge from '../../../badge/Badge';
-import { useUserBalanceStore } from '../../../../stores/balanceStore';
-import { useAuthStore } from '../../../../stores/authStore';
+} from "../../../../utils/helpers/format";
+import supportIcon from "../../../../assets/images/supportIcon.svg";
+import Badge from "../../../badge/Badge";
+import arrowUP from "../../../../assets/images/arrow-down.svg";
+import { useUserBalanceStore } from "../../../../stores/balanceStore";
+import { useAuthStore } from "../../../../stores/authStore";
+import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 
 const TabletView = (props) => {
   const {
@@ -69,68 +68,71 @@ const TabletView = (props) => {
     setShowMenu,
     showSearch,
     setShowSearch,
+    userPolymorphsCount,
   } = props;
-  const {
-    yourEnsDomain,
-    signOut,
-    isAuthenticating,
-  } = useAuthStore(s => ({yourEnsDomain: s.yourEnsDomain, signOut: s.signOut, isAuthenticating: s.isAuthenticating}))
+  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
+    yourEnsDomain: s.yourEnsDomain,
+    signOut: s.signOut,
+    isAuthenticating: s.isAuthenticating,
+  }));
 
-  const { yourBalance, usdEthBalance } = useUserBalanceStore(state => ({yourBalance: state.yourBalance, usdEthBalance: state.usdEthBalance}));
+  const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
+    yourBalance: state.yourBalance,
+    usdEthBalance: state.usdEthBalance,
+  }));
 
-  const { editProfileButtonClick } = useAuctionContext();
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const searchRef = useRef();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const ref = useRef(null);
-  const history = useHistory();
+  const router = useRouter();
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
       if (searchValue) {
-        history.push(`/search`, { query: searchValue });
-        setSearchValue('');
+        router.push(`/search`, { query: searchValue });
+        setSearchValue("");
         searchRef.current.blur();
         setShowSearch(false);
       }
     }
   };
   const handleAllResults = () => {
-    history.push(`/search`, { query: searchValue });
-    setSearchValue('');
+    router.push(`/search`, { query: searchValue });
+    setSearchValue("");
     searchRef.current.blur();
     setShowSearch(false);
   };
 
   useEffect(() => {
     if (showSearch) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showSearch]);
 
   useEffect(() => {
     if (showMenu) {
-      document.body.classList.add('no__scroll');
+      document.body.classList.add("no__scroll");
     } else {
-      document.body.classList.remove('no__scroll');
+      document.body.classList.remove("no__scroll");
     }
   }, [showMenu]);
 
   useEffect(() => {
     document.addEventListener(
-      'click',
-      (e) => handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened),
+      "click",
+      (e) => handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened),
       true
     );
     return () => {
       document.removeEventListener(
-        'click',
+        "click",
         (e) => {
-          handleClickOutside(e, 'blockie', ref, setIsAccountDropdownOpened);
+          handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened);
         },
         true
       );
@@ -144,233 +146,31 @@ const TabletView = (props) => {
 
   return (
     <div className="tablet__nav">
-      {/* <button
-        className="search--box"
-        type="button"
-        onClick={() => {
-          setShowSearch(!showSearch);
-        }}
-      >
-        <img src={searchIcon} alt="icon" />
-      </button> */}
-      {/* {showSearch && (
-        <>
-          <div className="search--section">
-            <div className="input--search--box">
-              <div className={`input--box ${searchFocus || searchValue ? 'focus' : ''}`}>
-                <div className="box--shadow--effect--block" />
-                <input
-                  placeholder="Search"
-                  ref={searchRef}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  value={searchValue}
-                  onKeyDown={handleSearchKeyDown}
-                  type="text"
-                  onFocus={() => setSearchFocus(true)}
-                  onBlur={() => setSearchFocus(false)}
-                />
-                <img src={img} alt="search" className="searchicon" />
-                <img
-                  src={img2}
-                  alt="close"
-                  className="closeicon"
-                  onClick={() => {
-                    setShowSearch(false);
-                    setSearchValue('');
-                  }}
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
-            <div className="search--results">
-              {searchValue.length > 0 && (
-                <>
-                  <div className="search__results" ref={ref}>
-                    {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ? (
-                      // PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                      //   item.name.toLowerCase().includes(searchValue.toLowerCase())
-                      // ).length > 0 ||
-                      // PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                      //   item.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-                      // ).length ? (
-                      <div className="search__nfts">
-                        {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>NFTs</h4>}
-                        {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((nft) => (
-                          <div className="nft__div">
-                            <div className="nft--image">
-                              {nft.media.type !== 'audio/mpeg' &&
-                                nft.media.type !== 'video/mp4' && (
-                                  <img src={nft.media.url} alt="NFT" />
-                                )}
-                              {nft.media.type === 'video/mp4' && (
-                                <video
-                                  onMouseOver={(event) => event.target.play()}
-                                  onFocus={(event) => event.target.play()}
-                                  onMouseOut={(event) => event.target.pause()}
-                                  onBlur={(event) => event.target.pause()}
-                                >
-                                  <source src={nft.media.url} type="video/mp4" />
-                                  <track kind="captions" />
-                                  Your browser does not support the video tag.
-                                </video>
-                              )}
-                              {nft.media.type === 'audio/mpeg' && (
-                                <img className="nft--image" src={mp3Icon} alt={nft.name} />
-                              )}
-                              {nft.media.type === 'audio/mpeg' && (
-                                <div className="video__icon">
-                                  <img src={audioIcon} alt="Video Icon" />
-                                </div>
-                              )}
-                            </div>
-                            <div className="nft--desc">
-                              <h5 className="nft--name">{nft.name}</h5>
-                              <p className="nft--price">
-                                {nft.price} ETH / {nft.editions.split('/')[0]} of{' '}
-                                {nft.editions.split('/')[1]}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Users</h4>}
-                        {PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((user) => (
-                          <div className="users__div">
-                            <div className="user--avatar">
-                              <img src={user.avatar} alt="User" />
-                            </div>
-                            <div className="user--desc">
-                              <h5 className="user--name">{user.name}</h5>
-                              <p className="user--followers">{user.followers} Followers</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Auctions</h4>}
-                        {PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((auction) => (
-                          <div className="auction__div">
-                            <div className="auction--image">
-                              <img src={auction.photo} alt="Auction" />
-                            </div>
-                            <div className="auction--desc">
-                              <h5 className="auction--title">{auction.name}</h5>
-                              <p className="auction--artist">by {auction.creator.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Collections</h4>}
-                        {PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((collection) => (
-                          <div className="collection__div">
-                            {!collection.photo ? (
-                              <div
-                                className="random--avatar--color"
-                                style={{
-                                  backgroundColor:
-                                    defaultColors[Math.floor(Math.random() * defaultColors.length)],
-                                }}
-                              >
-                                {collection.name.charAt(0)}
-                              </div>
-                            ) : (
-                              <div className="collection--image">
-                                <img src={collection.photo} alt="Coll" />
-                              </div>
-                            )}
-                            <div className="collection--desc">
-                              <h5 className="collection--name">{collection.name}</h5>
-                              <p className="collection--owner">by {collection.owner.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Communities</h4>}
-                        {PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((communities) => (
-                          <div className="communities__div">
-                            <div className="communities--photo">
-                              <img src={communities.photo} alt="Comm" />
-                            </div>
-                            <div className="communities--desc">
-                              <h5 className="communities--name">{communities.name}</h5>
-                              <p className="communities--members">{communities.members} Members</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-                        ).length > 0 && <h4>Galleries</h4>}
-                        {PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((galleries) => (
-                          <div className="galleries__div">
-                            <div className="galleries--photo">
-                              <img src={galleries.photos[0]} alt="Gall" />
-                            </div>
-                            <div className="galleries--desc">
-                              <h5 className="galleries--name">{galleries.name}</h5>
-                              <p className="galleries--likes">{galleries.likesCount} Likes</p>
-                            </div>
-                          </div>
-                        ))}
-                        <Button
-                          type="button"
-                          className="light-border-button"
-                          onClick={() => handleAllResults()}
-                        >
-                          All results
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="no__result">
-                        <p>No items found</p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-              <p>
-                Search by auction, NFT, user,
-                <br /> collection, community or gallery
-              </p>
-            </div>
-          </div>
-        </>
-      )} */}
       {isWalletConnected && (
         <div className="wallet__connected__tablet">
           <div
-            style={{ marginRight: 20, display: 'flex', cursor: 'pointer' }}
+            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleDropdown}
           >
-            <HeaderAvatar scale={4} />
+            <button
+              // style={{ width: 200 }}
+              type="button"
+              className="menu-li myAccount"
+              onClick={() =>
+                setIsAccountDropdownOpened(!isAccountDropdownOpened)
+              }
+            >
+              <HeaderAvatar scale={4} />
+              <span className="nav__link__title">
+                <div className="ethereum__address__tablet">
+                  {yourEnsDomain
+                    ? shortenEnsDomain(yourEnsDomain)
+                    : shortenEthereumAddress(ethereumAddress)}
+                </div>
+              </span>
+              <img className="arrow" src={arrowUP} alt="arrow" />
+            </button>
           </div>
           {/* <img
             className="account__icon show__on__tablet"
@@ -410,7 +210,11 @@ const TabletView = (props) => {
                           }}
                         >
                           <span>
-                            <img src={copyIcon} alt="Copy to clipboard icon" className="copyImg" />
+                            <img
+                              src={copyIcon}
+                              alt="Copy to clipboard icon"
+                              className="copyImg"
+                            />
                           </span>
                         </CopyToClipboard>
                       </div>
@@ -418,8 +222,12 @@ const TabletView = (props) => {
                   </div>
                   <div className="group1">
                     <img src={Group1} alt="ETH" />
-                    <span className="first-span">{toFixed(yourBalance, 2)} ETH</span>
-                    <span className="second-span">${toFixed(usdEthBalance, 2)}</span>
+                    <span className="first-span">
+                      {toFixed(yourBalance, 2)} ETH
+                    </span>
+                    <span className="second-span">
+                      ${toFixed(usdEthBalance, 2)}
+                    </span>
                   </div>
                   {/* <div className="group2">
                     <img src={Group2} alt="WETH" />
@@ -430,59 +238,14 @@ const TabletView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    onClick={() => {
-                      history.push('/my-account');
-                      setIsAccountDropdownOpened(false);
-                      // if (
-                      //   loggedInArtist.name &&
-                      //   loggedInArtist.universePageAddress &&
-                      //   loggedInArtist.avatar &&
-                      //   loggedInArtist.about &&
-                      //   editProfileButtonClick
-                      // ) {
-                      //   history.push(`/${loggedInArtist.universePageAddress}`, {
-                      //     id: loggedInArtist.id,
-                      //   });
-                      // } else {
-                      //   history.push('/my-account');
-                      // }
-                      // setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myProfileIcon} alt="My Profile" />
-                    Edit My Profile
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-nfts');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={myNFTsIcon} alt="My NFTs" />
-                    My NTFs
-                  </button>
-                  {/* <button
-                    type="button"
-                    onClick={() => {
-                      history.push('/my-auctions');
-                      setIsAccountDropdownOpened(!isAccountDropdownOpened);
-                    }}
-                  >
-                    <img src={auctionHouseIcon} alt="My Auctions" />
-                    My auctions
-                  </button> */}
-                  <button
-                    type="button"
-                    className="signOut"
+                    className="light-border-button"
                     onClick={() => {
                       signOut();
-                      history.push('/');
+                      router.push("/");
                       setIsAccountDropdownOpened(false);
                     }}
                   >
-                    <img src={signOutIcon} alt="Sign out" />
-                    Sign out
+                    Disconnect
                   </button>
                 </div>
               </div>
@@ -490,7 +253,11 @@ const TabletView = (props) => {
           )}
         </div>
       )}
-      <button type="button" className="hamburger" onClick={() => setShowMenu(!showMenu)}>
+      <button
+        type="button"
+        className="hamburger"
+        onClick={() => setShowMenu(!showMenu)}
+      >
         {!showMenu ? (
           <img src={hamburgerIcon} alt="Hamburger" />
         ) : (
@@ -503,63 +270,14 @@ const TabletView = (props) => {
           <ul className="nav__menu">
             <li>
               <div className="grid__menu">
-                <div>
-                  <p className="title">Products</p>
-                  <div>
-                    <button
-                      type="button"
-                      // className="disable"
-                      onClick={() => {
-                        setShowMenu(false);
-                        history.push('/marketplace');
-                      }}
-                    >
-                      <img src={marketplaceIcon} alt="NFT Marketplace" />
-                      <span>
-                        NFT Marketplace <Badge text="beta" />
-                      </span>
-                      {/* <span className="tooltiptext">Coming soon</span> */}
-                    </button>
-                  </div>
-                  <div>
-                    <button type="button" onClick={() => history.push('/minting')}>
-                      <img src={mintingIcon} alt="Minting" />
-                      <span>
-                        Minting
-                        <Badge text="new" />
-                      </span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      className="disable"
-                      onClick={() => {
-                        // setShowMenu(false);
-                        // history.push('/minting-and-auctions/marketplace/active-auctions');
-                      }}
-                    >
-                      <img src={auctionHouseIcon} alt="Auction House" />
-                      <span>Auction House</span>
-                      <span className="tooltiptext">Coming soon</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button type="button" className="disable">
-                      <img src={socialMediaIcon} alt="Social Media" />
-                      <span>Social Media</span>
-                      <span className="tooltiptext">Coming soon</span>
-                    </button>
-                  </div>
-                </div>
-                <div>
+                {/* <div>
                   <p className="title">NFT Drops</p>
                   <div>
                     <button
                       type="button"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/polymorphs');
+                        router.push('/polymorphs');
                       }}
                     >
                       <img src={polymorphsIcon} alt="Polymorphs" />
@@ -570,7 +288,7 @@ const TabletView = (props) => {
                     <button
                       type="button"
                       onClick={() => {
-                        history.push('/lobby-lobsters');
+                        router.push('/lobby-lobsters');
                       }}
                     >
                       <img src={lobbyLobstersIcon} alt="Lobby Lobsters" />
@@ -581,7 +299,7 @@ const TabletView = (props) => {
                     <button
                       type="button"
                       // onClick={() => {
-                      //   history.push('/core-drops');
+                      //   router.push('/core-drops');
                       // }}
                       className="disable"
                     >
@@ -590,39 +308,54 @@ const TabletView = (props) => {
                       <span className="tooltiptext">Coming soon</span>
                     </button>
                   </div>
+                </div> */}
+                <div className="menu__row">
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/burn-to-mint");
+                    }}
+                  >
+                    Burn to Mint
+                  </p>
+                  <img src={arrowRight} alt="arrow" />
                 </div>
-                <div>
-                  <p className="title">Rarity Charts</p>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowMenu(false);
-                        history.push('/polymorph-rarity');
-                      }}
-                    >
-                      <img src={navChartIcon} alt="Polymorphs" />
-                      <span>Polymorphs</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://rarity.tools/lobby-lobsters')}
-                    >
-                      <img src={navChartIcon} alt="Lobby Lobsters" />
-                      <span>Lobby Lobsters</span>
-                    </button>
-                  </div>
+                <div className="menu__row">
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/polymorph-rarity");
+                    }}
+                  >
+                    Rarity Chart
+                  </p>
+                  <img src={arrowRight} alt="arrow" />
                 </div>
-                <div>
+                <div className="menu__row">
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
+                      router.push("/my-polymorphs");
+                    }}
+                  >
+                    My Polymorphs
+                    {userPolymorphsCount ? (
+                      <span>{userPolymorphsCount}</span>
+                    ) : null}
+                  </p>
+                  <img src={arrowRight} alt="arrow" />
+                </div>
+                {/* <div>
                   <p className="title">Info</p>
                   <div>
                     <button
                       type="button"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/about');
+                        router.push('/about');
                       }}
                     >
                       <img src={aboutIcon} alt="About" />
@@ -646,7 +379,7 @@ const TabletView = (props) => {
                       className="team"
                       onClick={() => {
                         setShowMenu(false);
-                        history.push('/team');
+                        router.push('/team');
                       }}
                     >
                       <img src={teamIcon} alt="Team" />
@@ -669,8 +402,8 @@ const TabletView = (props) => {
                       <span>Support</span>
                     </button>
                   </div>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <p className="title">DAO</p>
                   <div>
                     <button
@@ -708,7 +441,7 @@ const TabletView = (props) => {
                       <span>Signal</span>
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </li>
             {!isWalletConnected && (
@@ -720,7 +453,7 @@ const TabletView = (props) => {
                   closeOnDocumentClick={false}
                   trigger={
                     <button type="button" className="sign__in">
-                      {isAuthenticating ? 'Signing in...' : 'Sign in'}
+                      {"Connect Wallet"}
                     </button>
                   }
                 >

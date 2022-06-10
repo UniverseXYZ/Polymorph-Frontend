@@ -14,6 +14,15 @@ export const morphedPolymorphs = `
   }
 `;
 
+export const burnedPolymorphs = `
+  query Polymorphs {
+    burnCount(id: 1) {
+      id
+      count
+    }
+  }
+`;
+
 export const transferPolymorphs = (ownerAddress) => `
   query Polymorphs {
     transferEntities(first: 1000, where: { to: "${ownerAddress}" }) {
@@ -76,6 +85,22 @@ export const queryPolymorphsGraph = async (graphQuery) => {
 
   return graphData?.data;
 };
+
+export const queryPolymorphsGraphV2 = async (graphQuery) => {
+  const client = new ApolloClient({
+    uri: process.env.REACT_APP_POLYMORPHS_GRAPH_V2_URL,
+    cache: new InMemoryCache(),
+  });
+
+  const graphData = await client.query({
+    query: gql`
+      ${graphQuery}
+    `,
+  });
+
+  return graphData?.data;
+};
+
 
 export const queryPolymorphsGraph2 = async (graphQuery) => {
   return await request(

@@ -1,5 +1,5 @@
-@import '../../../../assets/scss/variables';
-@import '../../../../assets/scss/mixins';
+@import "../../../../assets/scss/variables";
+@import "../../../../assets/scss/mixins";
 
 .scramble-popup {
   max-height: 90%;
@@ -20,7 +20,7 @@
 
   .popup-close {
     cursor: pointer;
-    padding: 2px 8px;
+    padding: 8px;
     margin-top: -12px;
     margin-right: -12px;
     line-height: 2em;
@@ -73,17 +73,17 @@
         .avatar-wrapper-popup {
           // flex-basis: 445px;
           // flex-shrink: 0;
+          max-width: 365px;
           margin-right: 50px;
           @media (max-width: 1200px) {
+            max-width: unset;
             margin-right: 0px;
             margin-bottom: 40px;
           }
 
           .avatar-popup {
-            // height: 356px;
             width: 100%;
             object-fit: contain;
-            // max-width: 90%;
             background-repeat: no-repeat;
             background-size: 100%;
             mix-blend-mode: normal;
@@ -91,17 +91,11 @@
             box-sizing: border-box;
             filter: drop-shadow(0px 10px 36px rgba(136, 120, 172, 0.14));
             border-radius: 12px;
-            @include lg {
-              height: 344px;
-            }
-            @include sm {
-              height: 295px;
-            }
           }
         }
 
         .scramble--options--popup {
-          // height: 445px;
+          min-height: 365px;
           width: 445px;
           // max-width: 90%;
 
@@ -147,7 +141,7 @@
               display: flex;
               align-items: center;
               text-align: center;
-              font-feature-settings: 'ss02' on, 'ss03' on, 'ss04' on;
+              font-feature-settings: "ss02" on, "ss03" on, "ss04" on;
 
               img {
                 margin-right: 10px;
@@ -169,6 +163,7 @@
           }
 
           .tabs__wrapper {
+            width: unset;
             padding: 0;
             margin: 15px 0;
 

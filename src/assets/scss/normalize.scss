@@ -233,7 +233,6 @@ html {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .container {
@@ -255,8 +254,8 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

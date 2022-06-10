@@ -1,0 +1,411 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/mixins";
+
+.polymorph--details--with--tabs {
+  position: relative;
+  background: $white;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  .polymorph--header--section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1 {
+      font-family: $sharpGroteskSemiBoldFont;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 26px;
+      line-height: 140%;
+      color: $black;
+    }
+    .view--on--marketplace--dropdown {
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      > span {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background-color: $black;
+        &:nth-of-type(2) {
+          margin: 0 3px;
+        }
+      }
+      ul {
+        position: absolute;
+        right: 0px;
+        top: 42px;
+        width: 213px;
+        background: $white;
+        box-shadow: 0px 10px 36px rgba(136, 120, 172, 0.14);
+        border-radius: 12px;
+        padding: 8px;
+        li {
+          display: flex;
+          align-items: center;
+          padding: 15px;
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 140%;
+          color: $black;
+          img {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+  .polymorph--desc {
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 30px 0px 40px;
+  }
+  .polymorph--tabs {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .polymorph--tab--item {
+      cursor: pointer;
+      padding-bottom: 10px;
+      font-family: $spaceGroteskFont;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: $black;
+      opacity: 0.4;
+      &:nth-of-type(2) {
+        margin: 0px 40px;
+      }
+      &.active {
+        opacity: 1;
+        border-bottom: 2px solid $black;
+      }
+    }
+  }
+  .polymorph--tabs--content {
+    max-height: 450px;
+    min-height: 450px;
+    overflow-y: auto;
+    padding: 40px 20px 80px;
+    margin-left: -20px;
+    margin-right: -20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .polymorph--properties--tab {
+      .polymorph--tags {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        span {
+          display: block;
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 8px;
+          padding: 6px 16px;
+          font-family: $spaceGroteskFont;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 150%;
+          color: $black;
+          margin-right: 12px;
+          margin-bottom: 12px;
+          &.gradient {
+            position: relative;
+            background: linear-gradient(white, white) padding-box,
+              linear-gradient(129.89deg, #e1f664 0%, #feb0fe 35.4%, #abb3fc 67.95%, #5df7a4 100%) border-box;
+            border: 1px solid transparent;
+            overflow: hidden;
+            > .gr-bg {
+              pointer-events: none;
+              position: absolute;
+              left: -1px;
+              top: -1px;
+              right: -1px;
+              bottom: -1px;
+              background: linear-gradient(
+                131.29deg,
+                rgba(225, 246, 100, 0.2) 0%,
+                rgba(254, 176, 254, 0.2) 34.66%,
+                rgba(171, 179, 252, 0.2) 63.53%,
+                rgba(93, 247, 164, 0.2) 100%
+              );
+            }
+          }
+        }
+      }
+      .polymorph--properties--grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 16px;
+        @include lg {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        @include md {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include sm {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .rarity--description--gradient {
+          position: relative;
+          .rarity--description {
+            z-index: 100;
+          }
+          .rarity--rank--border {
+            position: absolute;
+            width: calc(100% + 2px);
+            min-height: 58px;
+            background: linear-gradient(90deg, #c857ca 50%, #fb8c00 50%);
+            left: -1px;
+            right: 0px;
+            top: -1px;
+            bottom: -1px;
+            margin: auto;
+            border-radius: 12px;
+            opacity: 0.8;
+          }
+        }
+
+        .rarity--description {
+          position: relative;
+          background: rgba(0, 0, 0, 0.02);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-sizing: border-box;
+          border-radius: 12px;
+          padding: 13px;
+          text-align: center;
+
+          .matching {
+            img {
+              position: absolute;
+              top: -15px;
+              right: -15px;
+              @include sm {
+                top: 4px;
+                right: 4px;
+              }
+            }
+            .tooltiptext {
+              visibility: hidden;
+              font-family: $spaceGroteskFont;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 12px;
+              background-color: $black;
+              color: $white;
+              text-align: center;
+              border-radius: 100px;
+              padding: 4px 12px;
+              position: absolute;
+              z-index: 1111;
+              top: -48px;
+              right: -54px;
+              &::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+                @include xl {
+                  left: 84%;
+                }
+              }
+              @include xl {
+                right: -15px;
+              }
+              @include sm {
+                right: 2px;
+                top: -29px;
+              }
+            }
+            &:hover {
+              .tooltiptext {
+                visibility: visible;
+              }
+            }
+          }
+
+          h4 {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 160%;
+            text-transform: uppercase;
+            color: $black;
+            margin-bottom: 3px;
+
+            @include xl {
+              font-weight: normal;
+            }
+          }
+          h3 {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 130%;
+            color: $black;
+            margin-bottom: 3px;
+
+            @include xl {
+              font-size: 12px;
+            }
+            @include md {
+              font-size: 14px;
+            }
+          }
+          .description {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 160%;
+            color: rgba(0, 0, 0, 0.4);
+          }
+          @include xl {
+            padding: 13px 5px;
+          }
+        }
+      }
+      .selected {
+        box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.8) inset !important;
+        background-image: linear-gradient(101deg, #bceb00, #00eaea) !important;
+        background-origin: border-box;
+      }
+      .selected--blue {
+        background: rgba(30, 136, 229, 0.05) !important;
+        border: 1px solid #1e88e5 !important;
+      }
+      .selected--pink {
+        background: rgba(200, 87, 202, 0.1) !important;
+        border: 1px solid #c857ca !important;
+      }
+      .selected--orange {
+        background: rgba(251, 140, 0, 0.05) !important;
+        border: 1px solid #fb8c00 !important;
+      }
+      .selected--pink--orange {
+        background: linear-gradient(90deg, #f9eef9 50%, #fff9f2 50%) !important;
+      }
+    }
+    .polymorph--metadata--tab {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 16px;
+    }
+    &.pb {
+      @include sm {
+        padding: 40px 20px 105px;
+      }
+    }
+    @include sm {
+      padding: 40px 20px 165px;
+    }
+  }
+  .polymorph--actions {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(188, 235, 0, 0.03) 15.57%, rgba(0, 234, 234, 0.03) 84.88%),
+      rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 24px 40px;
+    z-index: 100;
+    .polymorph--actions--gradient {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(
+        90deg,
+        #2ad0ca 0%,
+        #e1f664 22.92%,
+        #feb0fe 46.88%,
+        #abb3fc 68.23%,
+        #5df7a4 87.5%,
+        #58c4f6 100%
+      );
+    }
+    .burn--to--mint--btn {
+      width: 100%;
+      &.mr {
+        margin-right: 16px;
+        @include sm {
+          margin-right: 0px;
+          margin-bottom: 16px;
+        }
+      }
+    }
+    .scramble--btn {
+      position: relative;
+      width: 100%;
+      .tooltiptext {
+        visibility: hidden;
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        width: 249px;
+        background-color: $black;
+        color: $white;
+        text-align: center;
+        border-radius: 8px;
+        padding: 12px 16px;
+        position: absolute;
+        z-index: 999;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: black transparent transparent transparent;
+        }
+      }
+      &:hover {
+        .tooltiptext {
+          visibility: visible;
+        }
+      }
+    }
+    button {
+      width: 100%;
+    }
+    @include sm {
+      padding: 24px 20px;
+      flex-wrap: wrap;
+    }
+  }
+  @include sm {
+    padding: 20px;
+  }
+}

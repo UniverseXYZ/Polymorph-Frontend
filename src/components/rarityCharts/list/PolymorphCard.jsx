@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Popup from 'reactjs-popup';
-import RarityRankPopup from '../../popups/RarityRankPopup.jsx';
-import priceIcon from '../../../assets/images/eth-icon-new.svg';
-import neverScrambledIcon from '../../../assets/images/never-scrambled-badge.svg';
-import singleTraitScrambledIcon from '../../../assets/images/single-trait-scrambled-badge.svg';
-import { getPolymorphMeta } from '../../../utils/api/polymorphs.js';
-import { renderLoaderWithData } from '../../../containers/rarityCharts/renderLoaders.js';
-import loadingBg from '../../../assets/images/mint-polymorph-loading-bg.png';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Popup from "reactjs-popup";
+import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
+import priceIcon from "../../../assets/images/eth-icon-new.svg";
+import neverScrambledIcon from "../../../assets/images/never-scrambled-badge.svg";
+import singleTraitScrambledIcon from "../../../assets/images/single-trait-scrambled-badge.svg";
+import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
+import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
+import loadingBg from "../../../assets/images/mint-polymorph-loading-bg.png";
+import { usePolymorphStore } from "../../../stores/polymorphStore";
+import Image from 'next/image';
 
-const PolymorphCard = ({ item }) => {
+const PolymorphCard = ({ item, tab }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
   const fetchMetadata = async () => {
     setLoading(true);
     const data = await getPolymorphMeta(item.tokenid);
-
     setLoading(false);
   };
-
   return loading ? (
     renderLoaderWithData(item)
   ) : (
@@ -28,30 +29,29 @@ const PolymorphCard = ({ item }) => {
         <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
       </div>
       <div className="card--body">
-        <img
+        <Image
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
-          alt={item.name}
-        />
-
-        {item.scrambles === 0 && item.morphs > 0 ? (
-          <div className="card--scrambled">
-            <img alt="Single trait scrambled badge" src={singleTraitScrambledIcon} />
-            <span className="tooltiptext">Single trait scrambled</span>
-          </div>
-        ) : item.isvirgin ? (
-          <div className="card--scrambled">
-            <img alt="Never scrambled badge" src={neverScrambledIcon} />
-            <span className="tooltiptext">Never scrambled</span>
-          </div>
-        ) : (
-          <></>
-        )}
+          alt={item.name} 
+          quality="25"
+          width={500}
+          height={500}
+        >
+        </Image>
       </div>
       <div className="card--footer">
-        <h2>{item.character}</h2>
-        <p>{`ID: #${item.tokenid}`}</p>
+        <div className="card--footer--top">
+          <h2>{item.character}</h2>
+        </div>
+        <div className="card--footer--bottom">
+          <div className={"badge--container"}>
+            <span className={`badge--version${tab === "V2" ? "--v2" : ""}`}>
+              {tab === "V2" ? "V2" : "V1"}
+            </span>
+            <span>{`ID: ${item.tokenid}`}</span>
+          </div>{" "}
+        </div>
       </div>
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />

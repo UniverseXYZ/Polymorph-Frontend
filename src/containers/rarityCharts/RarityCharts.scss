@@ -1,7 +1,73 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/_mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/_mixins";
+
+.tabs--container {
+  position: relative;
+  top: -48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: "Sharp Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  background-color: transparent;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 176px;
+    height: 48px;
+    z-index: 200;
+    span {
+      z-index: 1;
+    }
+    @include sm {
+      width: 88px;
+    }
+  }
+  .active {
+    background-image: url("../../assets/images/rarity-charts/Tabs/active-tab-desktop.png");
+    background-position: center;
+    background-size: 176px 48px;
+    background-repeat: no-repeat;
+    @include sm {
+      background-image: url("../../assets/images/rarity-charts/Tabs/active-tab-mobile.png");
+      background-size: 88px 48px;
+    }
+  }
+  .inactive {
+    background-image: url("../../assets/images/rarity-charts/Tabs/inactive-tab-desktop.png");
+    background-position: center;
+    background-size: 176px 48px;
+    background-repeat: no-repeat;
+    color: rgba(255, 255, 255, 0.6);
+    @include sm {
+      background-image: url("../../assets/images/rarity-charts/Tabs/inactive-tab-mobile.png");
+      background-size: 88px 48px;
+    }
+    &:hover {
+      background-image: url("../../assets/images/rarity-charts/Tabs/hover-tab-desktop.png");
+      @include sm {
+        background-image: url("../../assets/images/rarity-charts/Tabs/hover-tab-mobile.png");
+        background-size: 88px 48px;
+      }
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
 
 .rarity--charts--page {
+  background-image: url("../../assets/images/burn-to-mint-images/burn-to-mint-bg.jpg");
+  // background-position: center;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
   &--container {
     max-width: 1110px;
     margin: 0 auto;
@@ -49,7 +115,7 @@
   transform-origin: 40px 40px;
 }
 .card-lds-roller div:after {
-  content: ' ';
+  content: " ";
   display: block;
   position: absolute;
   width: 7px;

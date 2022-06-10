@@ -15,7 +15,6 @@ const MyNFTsContextProvider = ({ children }) => {
 
   const allCharactersFilter = 'All Characters';
   const polymorphsFilter = 'Polymorphs';
-  const lobstersFilter = 'Lobby Lobsters';
 
   const [collectionsIdAddressMapping, setCollectionsIdAddressMapping] = useState({});
   const [savedNfts, setSavedNfts] = useState([]);
@@ -55,7 +54,6 @@ const MyNFTsContextProvider = ({ children }) => {
       value={{
         allCharactersFilter,
         polymorphsFilter,
-        lobstersFilter,
         navigateToMyUniverseNFTsTab,
         collectionsIdAddressMapping,
         setCollectionsIdAddressMapping,

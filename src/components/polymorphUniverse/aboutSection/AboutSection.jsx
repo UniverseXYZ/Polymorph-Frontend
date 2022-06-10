@@ -1,6 +1,6 @@
 import React from 'react';
 import { AnimatedOnScroll } from 'react-animated-css-onscroll';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import WrapperCenter from '../../polymorphs/WrapperCenter';
 import WrapperCenterTwoColumns from '../../polymorphs/WrapperCenterTwoColumns';
 import ImgRow1 from '../../../assets/images/Section1-Illustration-min.png';
@@ -8,6 +8,28 @@ import ImgRow1 from '../../../assets/images/Section1-Illustration-min.png';
 import Button from '../../button/Button';
 import imgRow2Chart from '../../../assets/images/universelandscape.png';
 import imgRow2ChartMobile from '../../../assets/images/universelandscapemobile.png';
+import Marquee from 'react-fast-marquee';
+
+const marquee = () => (
+  <p>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+    <span className="marquee--text--polymorph">POLYMORPH</span>
+    <span className="marquee--text--universe">UNIVERSE</span>
+  </p>
+);
 
 const row1RightBlock = () => (
   <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
@@ -22,17 +44,17 @@ const row1RightBlock = () => (
 );
 
 const row2LeftBlock = () => {
-  const history = useHistory();
+  const router = useRouter();
   return (
     <>
       <AnimatedOnScroll animationIn="fadeIn" animationInDelay={200}>
-        <h2>Polymorph Rarity Chart</h2>
+        <h2>Rarity Chart</h2>
         <p>
           Your Polymorph’s traits determine its rarity rating. Having a full set of matching traits
           will help you climb the rarity chart. One sure way to obtain matching traits is to
           scramble your way to the top.
         </p>
-        <Button className="light-button" onClick={() => history.push('/polymorph-rarity')}>
+        <Button className="light-button" onClick={() => router.push('/polymorph-rarity')}>
           Rarity chart
         </Button>
       </AnimatedOnScroll>
@@ -42,6 +64,10 @@ const row2LeftBlock = () => {
 
 const AboutSection = () => (
   <>
+    <Marquee gradient={false} className="welcome--marquee">
+      <div className="border--top" />
+      {marquee()}
+    </Marquee>
     <WrapperCenter className="about--wrapper--row1">
       <WrapperCenterTwoColumns
         leftBlock={
@@ -62,7 +88,7 @@ const AboutSection = () => (
             <div className="images--charts--parent">
               <h2>Polymorph Rarity Chart</h2>
               <img src={imgRow2Chart} alt="img" className="row2-chart" />
-              <img src={imgRow2ChartMobile} alt="img" className="row2-chart-mobile" />
+              {/* <img src={imgRow2ChartMobile} alt="img" className="row2-chart-mobile" /> */}
             </div>
           </AnimatedOnScroll>
         }

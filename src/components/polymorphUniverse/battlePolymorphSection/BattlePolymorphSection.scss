@@ -1,69 +1,74 @@
-@import '../../../assets/scss/mixins';
-@import '../../../assets/scss/variables';
+@import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
 
 .battle--polymorph--section {
-    background: radial-gradient(208.62% 367% at -7.47% -21.19%, rgba(42, 208, 202, 0.2) 0%, rgba(225, 246, 100, 0.2) 22.92%, rgba(254, 176, 254, 0.2) 46.88%, rgba(171, 179, 252, 0.2) 68.23%, rgba(93, 247, 164, 0.2) 87.5%, rgba(88, 196, 246, 0.2) 100%), #FFFFFF;
-    padding: 90px 60px;
-    &--container {
-        max-width: 1110px;
-        margin: 0 auto;
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-gap: 50px;
-            align-items: center;
-            .polymorph-div{
-                @include sm{
-                    text-align: center;
-                }
-            }
-            h1 {
-                font-family: $sharpGroteskSemiBoldFont;
-                font-style: normal;
-                font-weight: 600;
-                font-size: 32px;
-                line-height: 140%;
-                color: $black;
-                @include md{
-                    font-size: 26px;
-                }
-                @include sm{
-                    font-size: 26px;
-                    display: none;
-                }
-            }
-            p {
-                font-family: $spaceGroteskFont;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 16px;
-                line-height: 160%;
-                color: #666666;
-                margin-top: 20px;
-                margin-bottom: 62px;
-                max-width: 421px;
-                @include md {
-                    margin-bottom: 35px;
-                }
-                @include sm {
-                    margin-top: unset;    
-                }
-            }
-            @include sm {
-                display: flex;
-                flex-flow: column-reverse;
-                width: 100%;
-            }
-            .hidden-battle{
-                display: none;
-              @include sm {
-                display: block;
-                text-align: center;
-            }
-            }
+  background: linear-gradient(
+    101.86deg,
+    rgba(42, 208, 202, 0.2) 0%,
+    rgba(254, 176, 254, 0.2) 50.52%,
+    rgba(88, 196, 246, 0.2) 100%
+  );
+  padding: 90px 60px;
+  &--container {
+    max-width: 1110px;
+    margin: 0 auto;
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 50px;
+      align-items: center;
+      .polymorph-div {
+        @include sm {
+          text-align: center;
         }
+      }
+      h1 {
+        font-family: $sharpGroteskSemiBoldFont;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 140%;
+        color: $black;
+        @include md {
+          font-size: 26px;
+        }
+        @include sm {
+          font-size: 26px;
+          text-align: left;
+          // display: none;
+        }
+      }
+      p {
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 160%;
+        color: #666666;
+        margin-top: 20px;
+        margin-bottom: 62px;
+        max-width: 421px;
+        @include md {
+          margin-bottom: 35px;
+        }
+        @include sm {
+          text-align: left;
+          // margin-top: unset;
+        }
+      }
+      button {
+        @include sm {
+          width: 100%;
+        }
+      }
+      @include sm {
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+      }
     }
-    @include sm {
-        padding: 90px 20px;
-    }
+  }
+  @include sm {
+    padding: 90px 20px;
+  }
 }

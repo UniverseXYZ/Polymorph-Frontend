@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import uuid from 'react-uuid';
-import arrowIcon from '../../../assets/images/browse-nft-arrow-down.svg';
+import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import uuid from "react-uuid";
+import arrowIcon from "../../../assets/images/browse-nft-arrow-down.svg";
 
 const CategoriesFilter = ({
   categories,
@@ -25,15 +25,14 @@ const CategoriesFilter = ({
   );
 
   return (
-    <div
-      className="categories--filters"
-      style={{ visibility: resultsCount ? 'inherit' : 'hidden' }}
-    >
+    <div className="categories--filters">
       <h2>Filters</h2>
       {categories.map((item, index) => (
         <div className="each--category" key={uuid()}>
           <div
-            className={`dropdown ${categoriesIndexes.includes(index) ? 'open' : ''}`}
+            className={`dropdown ${
+              categoriesIndexes.includes(index) ? "open" : ""
+            }`}
             aria-hidden="true"
             onClick={() => handleClick(index)}
           >
@@ -46,12 +45,16 @@ const CategoriesFilter = ({
               {item.traits.map((trait, traitIndex) => (
                 <div className="trait" key={uuid()}>
                   <input
-                    id={trait.name.toLowerCase().replaceAll(' ', '--')}
+                    id={trait.name.toLowerCase().replaceAll(" ", "--")}
                     type="checkbox"
                     checked={trait.checked}
-                    onChange={() => handleCategoryFilterChange(index, traitIndex)}
+                    onChange={() =>
+                      handleCategoryFilterChange(index, traitIndex)
+                    }
                   />
-                  <label htmlFor={trait.name.toLowerCase().replaceAll(' ', '--')}>
+                  <label
+                    htmlFor={trait.name.toLowerCase().replaceAll(" ", "--")}
+                  >
                     {trait.name}
                   </label>
                 </div>

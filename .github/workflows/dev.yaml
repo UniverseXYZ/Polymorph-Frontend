@@ -46,14 +46,10 @@ jobs:
         REACT_APP_API_BASE_URL: "https://dev.api.universe.xyz"
         REACT_APP_NETWORK_CHAIN_ID: 4
         REACT_APP_NETWORK_NAME: "Rinkeby"
-        REACT_APP_BATCH_MINTING_CHUNK_SIZE: 40
-        REACT_APP_POLYMORPHS_GRAPH_URL: "https://api.thegraph.com/subgraphs/name/vikinatora/rarity-rinkeby"
-        REACT_APP_LOBSTERS_GRAPH_URL: "https://api.thegraph.com/subgraphs/name/vikinatora/lobster-rarity"
+        REACT_APP_POLYMORPHS_GRAPH_URL: "https://api.thegraph.com/subgraphs/name/universexyz/polymorph-v1-rinkeby"
         REACT_APP_POLYMORPHS_CONTRACT_ADDRESS: "0xF3641531e55DB83A39a6d505DfDecA614812F7a0"
-        REACT_APP_LOBSTERS_CONTRACT_ADDRESS: "0x06CBD34025776BA264Ae14D5e0dDa91369F24fB8"
         REACT_APP_RARITY_METADATA_URL: "https://us-central1-polymorphmetadata.cloudfunctions.net/rarity-rinkeby"
         REACT_APP_POLYMORPHS_IMAGES_URL: "https://us-central1-polymorphmetadata.cloudfunctions.net/images-function-rinkeby?id="
-        REACT_APP_LOBSTER_IMAGES_URL: "https://us-central1-polymorphmetadata.cloudfunctions.net/lobster-images-function-ropsten?id="
         REACT_APP_ETHERSCAN_URL: "https://rinkeby.etherscan.io"
         REACT_APP_UNIVERSE_ERC_721_ADDRESS: "0x5a322b56ed080c559da183b69aa720d19690eaf2"
         REACT_APP_UNIVERSE_ERC_721_FACTORY_ADDRESS: "0xbdfff8b0306fd7af337c4842350625f50fd2be3a"

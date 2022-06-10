@@ -289,8 +289,6 @@
     right: 0;
     top: 80px;
     width: 100%;
-    height: 0;
-    // max-height: calc(100vh - 88px);
     max-height: 400px;
     overflow-y: auto;
     padding: 0 20px 20px;
@@ -298,7 +296,6 @@
     z-index: 11;
     animation: mobileMenuSlideIn 0.3s ease-in-out forwards;
     border-radius: 0 0 12px 12px;
-    // border-top: 1px solid rgba(0, 0, 0, 0.1);
 
     /* width */
     &::-webkit-scrollbar {
@@ -336,6 +333,14 @@
           font-size: 12px;
           line-height: 22px;
           color: $black;
+          span {
+            margin-left: 8px;
+            font-size: 10px;
+            background-color: $black;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+          }
         }
         img {
           transition: 0.1s ease-in-out;
@@ -487,13 +492,14 @@
           transition: 0.5s ease;
 
           &:hover:not([disabled]) {
-            background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+            background: linear-gradient($white, $white) padding-box,
+              linear-gradient(to right, #bceb00, #00eaea) border-box;
             border: 1px solid transparent;
           }
-    
+
           &[disabled] {
             cursor: not-allowed;
-    
+
             img {
               opacity: 0.2;
             }
@@ -547,13 +553,13 @@
 
       &__header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: 24px;
         .copy-div {
           position: relative;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
           .copy__div {
             padding-top: 2px;
             padding-right: 8px;
@@ -586,8 +592,8 @@
               line-height: 150%;
               text-align: center;
               color: #ffffff;
-              margin-top: -12%;
-              left: 68%;
+              top: -25px;
+              left: 65%;
               padding: 4px 12px;
 
               span {
@@ -623,6 +629,10 @@
           margin: 0px 12px;
         }
 
+        .group1 {
+          display: flex;
+        }
+
         .group1 > img,
         .group2 > img {
           margin: 0px 12px 0 0;
@@ -651,31 +661,9 @@
       }
 
       &__body {
-        padding: 6px;
+        padding: 24px;
         button {
-          display: flex;
-          align-items: center;
           width: 100%;
-          padding: 20px;
-          background-color: $white;
-          text-align: left;
-          font-family: $spaceGroteskFont;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          border-radius: 10px;
-          &:hover {
-            background: rgba(0, 0, 0, 0.05);
-          }
-          &.signOut {
-            color: #ff4949;
-            &:hover {
-              background: rgba(255, 73, 73, 0.05) !important;
-            }
-          }
-          img {
-            margin-right: 8px;
-          }
         }
       }
     }

@@ -7,7 +7,6 @@ import {
   saveCollection,
   attachTxHashToCollection,
 } from '../../utils/api/mintNFT';
-import { createAuction, editAuction } from '../../utils/api/auctions';
 import { resolveAllPromises } from '../../utils/helpers/pureFunctions/minting';
 
 /**
@@ -89,16 +88,4 @@ export const sendSaveCollectionRequest = async ({ collection, helpers }) => {
 //   return response;
 // };
 
-//
-// Auctions
-//
 
-export const sendCreateAuctionRequest = async ({ requestObject }) => {
-  const res = await createAuction(requestObject);
-  return res;
-};
-
-export const sendUpdateAuctionRequest = async ({ requestObject }) => {
-  const res = await editAuction(requestObject);
-  return res;
-};

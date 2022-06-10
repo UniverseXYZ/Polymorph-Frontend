@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'react-uuid';
-import SearchTokenIdField from '../input/SearchTokenIdField';
+// import SearchTokenIdField from '../input/SearchTokenIdField';
 
 const NftEditions = ({ push, searchValue, nft, setSearchValue, collectionAddress }) => (
   <div className="editions">
@@ -10,7 +10,7 @@ const NftEditions = ({ push, searchValue, nft, setSearchValue, collectionAddress
     }`}</p>
     {nft.tokenIds && nft.tokenIds.length ? (
       <div className="tokenIds-dropdown">
-        <SearchTokenIdField searchValue={searchValue} setSearchValue={setSearchValue} />
+        {/* <SearchTokenIdField searchValue={searchValue} setSearchValue={setSearchValue} /> */}
         <ul className="tokenIds">
           {nft.tokenIds.filter((tokenId) => tokenId.toString().includes(searchValue)).length ? (
             <>
@@ -21,7 +21,9 @@ const NftEditions = ({ push, searchValue, nft, setSearchValue, collectionAddress
                     key={uuid()}
                     aria-hidden="true"
                     onClick={() => {
-                      push(`/nft/${nft.collection?.address || collectionAddress}/${tokenId}`);
+                      push(`/nft/${nft.collection?.address || collectionAddress}/${tokenId}`, {
+                        nft,
+                      });
                     }}
                   >{`#${tokenId}`}</li>
                 ))}

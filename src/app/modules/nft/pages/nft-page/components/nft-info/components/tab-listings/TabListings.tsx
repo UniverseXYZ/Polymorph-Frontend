@@ -1,6 +1,5 @@
 import { Box } from '@chakra-ui/react';
 import React, { useCallback, useMemo, useState } from 'react';
-import { NFTCancelListingPopup } from '../../..';
 import { useAuthStore } from '../../../../../../../../../stores/authStore';
 import { OrderSide, OrderStatus } from '../../../../../../../marketplace/enums';
 import { IOrder, IUser } from '../../../../../../types';
@@ -33,11 +32,6 @@ export const TabListings = (props: ITabListingsProps) => {
               onlyListings
               cancelListing={setIsCancelListingPopupOpened}
               isOwner={owner?.address === address}
-            />
-            <NFTCancelListingPopup
-              order={listing}
-              isOpen={isCancelListingPopupOpened}
-              onClose={() => setIsCancelListingPopupOpened(false)}
             />
           </React.Fragment>
         );

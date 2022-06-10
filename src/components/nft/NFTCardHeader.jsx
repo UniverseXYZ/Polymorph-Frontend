@@ -15,18 +15,16 @@ import unhideNFTIcon from '../../assets/images/unhide-nft.svg';
 import burnNFTIcon from '../../assets/images/burn-nft.svg';
 import universeIcon from '../../assets/images/universe-img.svg';
 import { getCollectionBackgroundColor } from '../../utils/helpers';
-import { useAuthContext } from '../../contexts/AuthContext';
-import TransferNFTPopup from '../popups/transferNFT/TransferNFTPopup';
+// import { useMyNftsContext } from '../../contexts/MyNFTsContext';
+import { useMyNftsStore } from '../../stores/myNftsStore'
+// import { useAuthContext } from '../../contexts/AuthContext';
+import { useAuthStore } from '../../stores/authStore';
 import { shortenEthereumAddress } from '../../utils/helpers/format';
-import { useMyNftsStore } from 'src/stores/myNftsStore';
 
 const NFTCardHeader = ({ nft, creator, owner, collection }) => {
   const history = useHistory();
-  const { myNFTs, setMyNFTs } = useMyNftsStore(s => ({
-    myNFTs: s.setMyNFTs,
-    setMyNFTs: s.setMyNFTs
-  }))
-  const { address } = useAuthContext();
+  const { myNFTs, setMyNFTs } = useMyNftsStore();
+  const { address } = useAuthStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownID, setDropdownID] = useState(0);
   const ref = useRef();
@@ -269,16 +267,16 @@ const NFTCardHeader = ({ nft, creator, owner, collection }) => {
           <></>
         )} */}
       </div>
-      <Popup closeOnDocumentClick={false} open={showTransferNFTPopup}>
+      {/* <Popup closeOnDocumentClick={false} open={showTransferNFTPopup}>
         <TransferNFTPopup close={() => setShowTransferNFTPopup(false)} nft={nft} />
-      </Popup>
+      </Popup> */}
     </div>
   );
 };
 
 NFTCardHeader.propTypes = {
   owner: PropTypes.oneOfType([PropTypes.object]).isRequired,
-  creator: PropTypes.oneOfType([PropTypes.object]),
+  creator: PropTypes.oneOfType([PropTypes.object]).isRequired,
   collection: PropTypes.oneOfType([PropTypes.object]).isRequired,
   nft: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };

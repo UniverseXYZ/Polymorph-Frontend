@@ -1,5 +1,5 @@
 import { fetchTokensMetadataJson } from "@legacy/api/polymorphs";
-import { queryPolymorphsGraph, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
+import { burnedPolymorphs, queryPolymorphsGraph, queryPolymorphsGraphV2, transferPolymorphs } from "@legacy/graphql/polymorphQueries";
 import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
@@ -8,13 +8,19 @@ import { useAuthStore } from "./authStore";
 type IPolymorphStore = {
   // Getters 
   userPolymorphs: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: boolean,
+  userSelectedPolymorphsToBurn: [],
+  totalBurnedPolymorphs: []
   
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void,
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void,
   setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void,
+  setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void,
+  setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>
@@ -25,6 +31,10 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   userPolymorphs: [],
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: false,
+  userSelectedPolymorphsToBurn: [],
+  userPolymorphsV2: [],
+  userPolymorphsAll: [],
+  totalBurnedPolymorphs: [],
   setUserPolymorphs: (userPolymorphs) => {
     set(state => ({
       ...state,
@@ -37,10 +47,22 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
       userPolymorphsLoaded
     }))
   },
+  setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn) => {
+    set(state => ({
+      ...state,
+      userSelectedPolymorphsToBurn
+    }))
+  },
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata) => {
     set(state => ({
       ...state,
       userPolymorphWithMetadata
+    }))
+  },
+  setTotalBurnedPolymorphs: (totalBurnedPolymorphs) => {
+    set(state => ({
+      ...state,
+      totalBurnedPolymorphs
     }))
   },
   fetchUserPolymorphsTheGraph: async (newAddress) => {
@@ -50,15 +72,30 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     }))
 
     const polymorphs = await queryPolymorphsGraph(transferPolymorphs(newAddress));
-    const userNftIds = polymorphs?.transferEntities.map((nft: any) => ({
+    const polymorphsV2 = await queryPolymorphsGraphV2(transferPolymorphs(newAddress));
+    const allPolymorphs = polymorphs?.transferEntities.concat(polymorphsV2?.transferEntities)
+    const burned = await queryPolymorphsGraphV2(burnedPolymorphs);
+
+    const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const polymorphV2Ids = polymorphsV2?.transferEntities.map((nft: any) => ({
+      tokenId: nft.tokenId,
+      id: parseInt(nft.id, 16),
+    }));
+    const allPolymorphIds = allPolymorphs.map((nft: any) => ({
       tokenId: nft.tokenId,
       id: parseInt(nft.id, 16),
     }));
 
     set(state => ({
       ...state,
-      userPolymorphs: userNftIds || [],
-      userPolymorphsLoaded: true
+      userPolymorphs: polymorphV1Ids || [],
+      userPolymorphsV2: polymorphV2Ids || [],
+      userPolymorphsAll: allPolymorphIds || [],
+      userPolymorphsLoaded: true,
+      totalBurnedPolymorphs: burned?.burnCount?.count || 0
     }))
   },
   // This is a new function for loading the metadata of the polymorphs
@@ -79,9 +116,3 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   }
 })))
 
-// Fetch polymorphs when address changes
-useAuthStore.subscribe(s => s.address, () => {
-  const address = useAuthStore.getState().address;
-  usePolymorphStore.getState().setUserPolymorphs([]);
-  usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
-})

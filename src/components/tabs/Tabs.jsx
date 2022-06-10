@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { handleTabLeftScrolling, handleTabRightScrolling } from '../../utils/scrollingHandlers';
-import tabArrow from '../../assets/images/tab-arrow.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  handleTabLeftScrolling,
+  handleTabRightScrolling,
+} from "../../utils/scrollingHandlers";
+import tabArrow from "../../assets/images/tab-arrow.svg";
 // import './Tabs.scss';
 
 const Tabs = ({ items, scrollContainer }) => (
@@ -9,10 +12,10 @@ const Tabs = ({ items, scrollContainer }) => (
     <div className="tabs" ref={scrollContainer}>
       <ul className="tab_items">
         {items.map((tab, index) =>
-          tab.name !== 'Hidden' && tab.name !== 'Liked' ? (
+          tab.name !== "Hidden" && tab.name !== "Liked" ? (
             <li
               key={tab.name}
-              className={tab.active ? 'active' : ''}
+              className={tab.active ? "active" : ""}
               aria-hidden="true"
               onClick={() => tab.handler && tab.handler(index, tab.name)}
             >
@@ -23,14 +26,14 @@ const Tabs = ({ items, scrollContainer }) => (
                 </div>
               ) : (
                 <>
-                  {tab.name} {<span>{tab.length || 0}</span>}
+                  {tab.name} {tab.length ? <span>{tab.length}</span> : null}
                 </>
               )}
             </li>
           ) : tab.length ? (
             <li
               key={tab.name}
-              className={tab.active ? 'active' : ''}
+              className={tab.active ? "active" : ""}
               aria-hidden="true"
               onClick={() => tab.handler && tab.handler(index, tab.name)}
             >

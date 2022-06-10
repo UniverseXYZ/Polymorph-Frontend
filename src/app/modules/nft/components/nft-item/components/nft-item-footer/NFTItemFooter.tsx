@@ -2,7 +2,6 @@ import { Box, BoxProps, Flex } from '@chakra-ui/react';
 import React from 'react';
 
 import { ICollection, INFT, IOrder, NFTStandard } from '../../../../types';
-import { NFTLike } from '../nft-like';
 import * as styles from './styles';
 import {
   NFTItemFooterEditionsLabel,
@@ -73,10 +72,7 @@ export const NFTItemFooter = (
             </Box>
           </Flex>
 
-          <Box>
-            {/*TODO: likes*/}
-            {showLikes && <NFTLike likes={[]} isLiked={true} />}
-          </Box>
+
         </>
       )}
     </Flex>

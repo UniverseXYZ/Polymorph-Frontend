@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import loadingBg from '../../assets/images/loading-white-background.png';
 // import './LoadingImage.scss';
 import { useImageLoaded } from '../../utils/hooks/useImageLoaded';
-import BrokenNFT from '../marketplaceNFT/BrokenNFT';
+// import BrokenNFT from '../marketplaceNFT/BrokenNFT';
 
 const LoadingImage = React.memo(({ placeholderImage, src, alt, className, showSpinner, style }) => {
   const [ref, loaded, onLoad, errored, onError, setLoaded] = useImageLoaded();
@@ -16,7 +16,8 @@ const LoadingImage = React.memo(({ placeholderImage, src, alt, className, showSp
   );
 
   return errored ? (
-    <BrokenNFT />
+    // <BrokenNFT />
+    <p>BrokenNFT</p>
   ) : (
     <>
       <img

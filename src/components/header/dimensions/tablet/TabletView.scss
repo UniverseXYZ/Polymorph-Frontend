@@ -284,21 +284,28 @@
     right: 0;
     top: 80px;
     width: 100%;
-    height: 0;
-    max-height: 628px;
-    padding: 0px 60px;
+    height: auto;
+    padding: 0px 20px;
     background-color: $white;
+    border-radius: 0px 0px 12px 12px;
     z-index: 999;
     animation: tabletMenuSlideIn 0.3s ease-in-out forwards;
     overflow-y: auto;
-    @media(max-width: 993px) {
+    @media (max-width: 993px) {
+      border-radius: 0px 0px 12px 12px;
       max-height: 678px;
     }
     li {
       .grid__menu {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        padding: 40px 0;
+        .menu__row {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          img {
+            width: 10px;
+          }
+        }
         p.title {
           font-family: $sharpGroteskSemiBoldFont;
           font-style: normal;
@@ -306,8 +313,24 @@
           font-size: 12px;
           line-height: 22px;
           color: $black;
-          margin-bottom: 30px;
+          padding: 24px 0;
+
+          span {
+            color: white;
+            background-color: black;
+            border-radius: 4px;
+            margin-left: 1rem;
+            padding: 2px 4px;
+          }
+
+          &__:hover {
+            cursor: pointer;
+          }
         }
+        &:hover {
+          cursor: pointer;
+        }
+
         button {
           display: flex;
           align-items: center;
@@ -369,17 +392,13 @@
             color: $black;
           }
         }
-        @include lg {
-          grid-row-gap: 40px;
-          grid-template-columns: repeat(3, 1fr);
-        }
       }
       &.sign__in {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
+
         button {
           font-family: $spaceGroteskFont;
           font-style: normal;
@@ -395,15 +414,63 @@
             linear-gradient(to right, #bceb00, #00eaea) border-box;
           border: 1px solid transparent;
           border-radius: 12px;
+          width: 100%;
         }
       }
     }
   }
   .wallet__connected__tablet {
     position: relative;
+    .menu-li {
+      display: flex;
+      align-items: center;
+      font-family: $spaceGroteskFont;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: black;
+      cursor: pointer;
+      background: transparent;
+      img:not(.icon-img) {
+        transition: 0.5s ease;
+      }
+    }
+
+    &:hover {
+      img.arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    .myAccount {
+      justify-content: center;
+      border: 1px #ffffff33 solid;
+      padding: 4px;
+      padding-right: 12px;
+      border-radius: 10px;
+    }
+
+    .nav__link__title {
+      margin: 0 12px;
+      white-space: nowrap;
+      span {
+        color: black;
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 2px 4px;
+        margin: 0 8px;
+      }
+    }
+
+    img.arrow {
+      filter: invert(1);
+    }
+
     .blockie {
       border-radius: 5px;
     }
+
     img.account__icon {
       width: 40px;
       height: 40px;
@@ -436,13 +503,13 @@
 
       &__header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 20px;
+        padding: 24px;
         .copy-div {
           position: relative;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 20px;
+          margin-bottom: 24px;
           .copy__div {
             padding-top: 2px;
             padding-right: 8px;
@@ -476,8 +543,8 @@
               line-height: 150%;
               text-align: center;
               color: #ffffff;
-              margin-top: -12%;
-              left: 68%;
+              top: -25px;
+              left: 65%;
               padding: 4px 12px;
 
               span {
@@ -513,6 +580,10 @@
           margin: 0px 12px;
         }
 
+        .group1 {
+          display: flex;
+        }
+
         .group1 > img,
         .group2 > img {
           margin: 0px 12px 0 0;
@@ -527,7 +598,7 @@
           border-radius: 50%;
           padding: 5px 6px;
         }
-        .ethereum__address {
+        .ethereum__address__tablet {
           font-family: $spaceGroteskFont;
           font-style: normal;
           font-weight: bold;
@@ -541,32 +612,9 @@
       }
 
       &__body {
-        padding: 6px;
+        padding: 24px;
         button {
-          display: flex;
-          align-items: center;
           width: 100%;
-          padding: 20px;
-          background-color: $white;
-          text-align: left;
-          font-family: $spaceGroteskFont;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 20px;
-          border-radius: 10px;
-          &:hover {
-            background: rgba(0, 0, 0, 0.05);
-          }
-          &.signOut {
-            color: #ff4949;
-            &:hover {
-              background: rgba(255, 73, 73, 0.05) !important;
-            }
-          }
-          img {
-            margin-right: 8px;
-          }
         }
       }
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
-// import './SearchFilters.scss';
+import './SearchFilters.scss';
 import SearchNFTsField from '../input/SearchNFTsField.jsx';
 import SortingDropdowns from '../marketplace/browseNFT/selectedFiltersAndSorting/SortingDropdowns.jsx';
 import CollectionSortingFilters from '../marketplace/browseNFT/selectedFiltersAndSorting/CollectionSortingFilters';

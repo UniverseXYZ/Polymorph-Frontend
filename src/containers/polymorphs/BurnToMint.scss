@@ -1,194 +1,171 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
 
-.burn--to--mint{
-    .welcome--section {
-        background-image: url('../../assets/images/BurnPolymorphBackground.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+.welcome--section {
+  background-image: url("../../assets/images/BurnPolymorphBackground.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  flex-direction: column;
+
+  // Sets animation as background
+  .background--animation {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    div {
+      svg {
+        position: absolute;
+      }
+    }
+  }
+
+  .welcome__section__container {
+    position: relative;
+    max-width: 1210px;
+    padding: 0 50px !important;
+    height: 600px !important;
+    mix-blend-mode: screen;
+    @include xl {
+      height: 900px;
+      overflow: visible;
+      padding: 0 60px;
+      justify-content: center;
+      flex-direction: column-reverse;
+    }
+    @include lg {
+      min-height: 685px;
+      height: auto;
+      padding: 114px 0;
+    }
+    @include sm {
+      height: 600px;
+      min-height: unset;
+      padding: 0 20px;
+    }
+
+    @media (max-width: 576px) and (min-width: 460px) {
+      margin: 100px 0;
+
+      .text-l {
+        bottom: -130px;
+      }
+    }
+  }
+  .left {
+    @include md {
+      width: 335px;
+    }
+    .links {
+      @include xl {
+        justify-content: center;
+      }
+      @include sm {
+        margin-bottom: unset !important;
+      }
+      @include lg {
+        margin-bottom: unset;
+      }
+
+      button {
         @include xl {
-            padding: 0;
-            overflow: hidden;
+          margin-right: unset;
         }
         @include sm {
-            min-height: 600px;
-            padding: 0;
+          margin-bottom: unset !important;
         }
-        .welcome__section__container {
-            position: relative;
-            max-width: 1210px;
-            width: 100%;
-            padding: 0 50px;
-            mix-blend-mode: screen;
-            @include xl {
-                height: 900px;
-                overflow: visible;
-                padding: 0 60px;
-                justify-content: center;
-                flex-direction: column-reverse;
-            }
-            @include lg {
-                min-height: 685px;
-                height: auto;
-                padding: 114px 0;
-            }
-            @include sm {
-                height: 600px;
-                min-height: unset;
-                padding: 0 20px;
-            }
-            .text-l {
-                left: -100px;
-                @include xl {
-                    left: 30px;
-                }
-                @include md {
-                    left: -40px;
-                }
-                img {
-                    @include md {
-                        width: 100%;
-                    }
-                }
-            }
-            .text-r {
-                right: -70px;
-                @include xl {
-                    right: 80px;
-                }
-                @include lg {
-                    right: 0;
-                }
-                @include md {
-                    display: none;
-                }
-            }
-            @media (max-width: 576px) and (min-width: 460px) {
-                margin: 100px 0;
-
-                .text-l {
-                    bottom: -130px;
-                }
-            }
-        }
-        .left {
-            @include md {
-                width: 335px;
-            }
-            .links {
-                @include xl {
-                    justify-content: center;
-                }
-                @include sm {
-                    margin-bottom: unset !important;
-                }
-                @include lg {
-                    margin-bottom: unset;
-                }
-
-                button {
-                    @include xl {
-                        margin-right: unset;
-                    }
-                    @include sm {
-                        margin-bottom: unset !important;
-                    }
-                }
-            }
-            button {
-                @include md {
-                    margin-right: unset;
-                }
-            }
-        }
-        .right--cont {
-            mix-blend-mode: screen;
-        }
-        .right {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            margin: auto;
-            // @include xl {
-            //     width: 122%;
-            // }
-            @include lg {
-                right: 0;
-                width: 100%;
-            }
-            @include md {
-                margin-bottom: 27px;
-            }
-            >div {
-                height: 535px;
-                top: 50px;
-                @include xl {
-                    height: auto;
-                }
-                @include lg {
-                    max-width: 100%;
-                }
-            }
-            img {
-                max-width: 781px;
-                max-height: 532px;
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-                @include sm {
-                    right: 0;
-                }
-            }
-            @include xl {
-                position: relative;
-            }
-        }
-        .welcome--marquee {
-            position: relative;
-            .border--top {
-                height: 1px;
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                margin-bottom: 2px;
-                background-image: linear-gradient(90deg, rgba(42,208,202,0.5018382352941176) 0%, rgba(225,246,100,0.5) 20%, rgba(254,176,254,0.5) 40%, rgba(171,179,252,0.5) 60%, rgba(93,247,164,0.5) 80%, rgba(88,196,246,0.5) 100%);
-            }
-            span {
-                font-family: $sharpGroteskBoldFont;
-                font-style: normal;
-                font-weight: bold;
-                font-size: 19.371px;
-                line-height: 100%;
-                letter-spacing: 0.06em;
-                text-transform: uppercase;
-                mix-blend-mode: normal;  
-                margin: 0 2px; 
-            }
-            .marquee--text--polymorph {
-                background-blend-mode: screen;
-                background: conic-gradient(from 176.21deg at 50% 50%, #000000 -24.66deg, #FFFFFF 0.25deg, #000000 50.63deg, #000000 51.97deg, #FFFFFF 88.12deg, #000000 142.5deg, #FFFFFF 196.87deg, #000000 256.87deg, #FFFFFF 300deg, #000000 335.2deg, #000000 335.34deg, #FFFFFF 360.25deg);
-                background: radial-gradient(95.11% 95.11% at 36.64% 4.89%, #2AD0CA 0%, #E1F664 22.92%, #FEB0FE 46.88%, #ABB3FC 68.23%, #5DF7A4 87.5%, #58C4F6 100%);
-                background-clip: text;
-                -webkit-text-fill-color: transparent;
-                
-            }
-            .marquee--text--universe {
-                background: radial-gradient(95.11% 95.11% at 36.64% 4.89%, #2AD0CA 0%, #E1F664 22.92%, #FEB0FE 46.88%, #ABB3FC 68.23%, #5DF7A4 87.5%, #58C4F6 100%),
-                conic-gradient(from 176.21deg at 50% 50%, #000000 -24.66deg, #FFFFFF 0.25deg, #000000 50.63deg, #000000 51.97deg, #FFFFFF 88.12deg, #000000 142.5deg, #FFFFFF 196.87deg, #000000 256.87deg, #FFFFFF 300deg, #000000 335.2deg, #000000 335.34deg, #FFFFFF 360.25deg);
-                background-clip: text;
-                -webkit-text-stroke: 2px transparent;
-                color: $black;
-                letter-spacing: 2px;
-            }
-        }
+      }
     }
-    .polymorphs--activity--wrapper--center {
-        padding: 10px 20px 60px;
-        .pagination__container {
-            margin-top: 20px;
-        }
+    button {
+      @include md {
+        margin-right: unset;
+      }
     }
+  }
+
+  @include xl {
+    padding: 0;
+    overflow: hidden;
+  }
+  @include sm {
+    min-height: 600px;
+    padding: 0;
+  }
+
+  .burn--progress--wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 1210px;
+    width: 100%;
+    .burn--progress--container {
+      padding: 0 50px;
+
+      position: relative;
+      .progress--indicators {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-family: $sharpGroteskBoldFont;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 600;
+        color: white;
+        margin: 2rem 0;
+
+        span span:last-child {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      .progress--bar {
+        display: flex;
+        width: 100%;
+        height: 48px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: inset -4px -4px 16px rgba(0, 234, 234, 0.32),
+          inset 4px 4px 16px rgba(188, 235, 0, 0.32);
+        border-radius: 24px;
+        position: relative;
+
+        .progress--animation--container {
+          position: relative;
+          display: flex;
+          height: 100%;
+          div {
+            border-radius: 24px;
+            :hover {
+              cursor: default;
+            }
+          }
+        }
+        .progress--indicator {
+          top: -125px;
+          width: 119px;
+          right: -40px;
+          position: absolute;
+        }
+      }
+    }
+  }
+  .fade {
+    bottom: 0;
+    left: 0;
+    height: 128px;
+    width: 100%;
+    background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
+    transform: rotate(-180deg);
+  }
+  .burning--image--container {
+    max-width: 50%;
+    div {
+      :hover {
+        cursor: default;
+      }
+    }
+  }
+
+  @include sm {
+    padding: 0 !important;
+  }
 }

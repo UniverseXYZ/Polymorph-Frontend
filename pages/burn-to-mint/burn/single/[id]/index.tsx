@@ -1,0 +1,1 @@
+export { BurnSinglePolymorph as default } from '../../../../../src/containers/burnPolymorphs/BurnSinglePolymorph';

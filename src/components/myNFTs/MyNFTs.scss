@@ -3,10 +3,11 @@
 
 .mynfts__page {
   background-image: url("../../assets/images/minting_page_bg.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  min-height: 100vh;
+  //background-position: center;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
   .empty__nfts {
     width: 100%;
 
@@ -78,7 +79,11 @@
       }
 
       &:hover {
-        background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.4)
+          ),
           linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
       }
 
@@ -136,21 +141,15 @@
     }
   }
   &__gradient {
-    position: relative;
+    top: 80px;
+    left: 0;
+    position: absolute;
+    height: 200px;
     width: 100%;
     display: block;
-    background-image: url("../../assets/images/my-nfts-desktop.png");
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url("../../assets/images//burn-to-mint-images/burn-to-mint-header-bg.png");
     background-size: cover;
-
-    @include lg {
-      background-image: url("../../assets/images/my-nfts-tablet.png");
-    }
-
-    @include sm {
-      background-image: url("../../assets/images/my-nfts-mobile.png");
-    }
+    background-position: center;
     .tabs__wrapper {
       @include sm {
         margin-top: 10px;
@@ -162,10 +161,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
-    margin-top: 0;
-    padding: 60px 20px 0px 0px;
+    margin: 0 auto;
+    padding: 60px 0;
+    max-width: 1110px;
+    width: 100%;
     flex-wrap: wrap;
+    position: relative;
 
     h1.title {
       font-family: $sharpGroteskSemiBoldFont;
@@ -223,7 +224,11 @@
         }
 
         &:hover {
-          background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+          background: linear-gradient(
+              0deg,
+              rgba(255, 255, 255, 0.4),
+              rgba(255, 255, 255, 0.4)
+            ),
             linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
         }
 
@@ -250,7 +255,7 @@
       }
     }
     @include xl {
-      padding: 60px 20px 0 20px;
+      padding: 60px 0;
     }
     @include sm {
       flex-wrap: wrap;
@@ -258,9 +263,13 @@
       padding: 40px 20px 0;
     }
   }
+  @include xl {
+    padding: 60px 20px;
+  }
 }
 
 .tab__wallet {
+  padding: 0 20px;
   .search--sort--filters--section {
     padding-top: 0 !important;
   }
@@ -780,7 +789,8 @@
     }
 
     > div {
-      background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+      background: linear-gradient($white, $white) padding-box,
+        linear-gradient(to right, #bceb00, #00eaea) border-box;
       box-shadow: 0px 10px 20px rgba(136, 120, 172, 0.2);
       border: 1px solid transparent;
       box-sizing: border-box;
@@ -865,7 +875,8 @@
       }
 
       &.selected {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 2px solid transparent;
 
         .nft__box__highlight__one {
@@ -1610,7 +1621,8 @@
       }
 
       &.selected {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 2px solid transparent;
 
         .saved__nft__box__highlight__one {

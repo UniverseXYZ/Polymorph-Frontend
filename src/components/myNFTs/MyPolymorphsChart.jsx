@@ -1,21 +1,21 @@
-// import './UniverseNFTs.scss';
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-// import '../pagination/Pagination.scss';
-// import '../../containers/rarityCharts/PolymorphRarityCharts.scss';
-import { useSearchPolymorphs } from '../../utils/hooks/useMyNftsRarityDebouncer';
-import { categoriesArray } from '../../containers/rarityCharts/categories';
-import CollectionDropdown from './CollectionDropdown';
-import LobsterRarityFilters from '../rarityCharts/filters/LobsterRarityFilters';
-import MyRarityList from '../rarityCharts/list/MyRarityList';
-import { useThemeStore } from 'src/stores/themeStore';
-import { useMyNftsStore } from 'src/stores/myNftsStore';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncerAll";
+import { categoriesArray } from "../../containers/rarityCharts/categories";
+import MyRarityList from "../rarityCharts/list/MyRarityList";
+import { useMyNftsStore } from "src/stores/myNftsStore";
+import RarityFilters from "../rarityCharts/filters/RarityFilters";
 
-const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContainer }) => {
-  const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } = useMyNftsStore(s => ({
-    setMyUniverseNFTsActiverPage: s.setMyUniverseNFTsActiverPage,
-    myUniverseNFTsActiverPage: s.myUniverseNFTsActiverPage
-  }));
+const MyPolymorphsChart = ({
+  isDropdownOpened,
+  setIsDropdownOpened,
+  scrollContainer,
+}) => {
+  const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } =
+    useMyNftsStore((s) => ({
+      setMyUniverseNFTsActiverPage: s.setMyUniverseNFTsActiverPage,
+      myUniverseNFTsActiverPage: s.myUniverseNFTsActiverPage,
+    }));
   const [offset, setOffset] = useState(0);
   const [perPage, setPerPage] = useState(9);
   const {
@@ -33,7 +33,7 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphs();
+  } = useSearchPolymorphs(true);
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
 
@@ -46,33 +46,41 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
     let newFilter = [];
     if (trait.checked) {
       newFilter = [...filter, [attribute.value, trait.name]];
-    } else if (attribute.value === 'righthand' || attribute.value === 'lefthand') {
-      newFilter = filter.filter((f) => !(f[0] === attribute.value && f[1] === trait.name));
+    } else if (
+      attribute.value === "righthand" ||
+      attribute.value === "lefthand"
+    ) {
+      newFilter = filter.filter(
+        (f) => !(f[0] === attribute.value && f[1] === trait.name)
+      );
     } else {
       newFilter = filter.filter((f) => f[1] !== trait.name);
     }
     setFilter(newFilter);
   };
 
-  const scrollToNftContainer = () => {
-    if (scrollContainer && scrollContainer.current) {
-      scrollContainer.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  };
+  // const scrollToNftContainer = () => {
+  //   if (scrollContainer && scrollContainer.current) {
+  //     scrollContainer.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "nearest",
+  //     });
+  //   }
+  // };
 
   useEffect(() => {
-    scrollToNftContainer();
+    //scrollToNftContainer();
   }, [apiPage, perPage, categories, myUniverseNFTsActiverPage]);
 
   const resetPagination = () => {
     setMyUniverseNFTsActiverPage(0);
     setOffset(0);
-    scrollToNftContainer();
+    //scrollToNftContainer();
   };
 
   return (
     <div className="polymorph-rarity--charts--page--container">
-      <LobsterRarityFilters
+      <RarityFilters
         setSortField={setSortField}
         searchText={inputText}
         setSearchText={setInputText}
@@ -84,16 +92,11 @@ const MyPolymorphsChart = ({ isDropdownOpened, setIsDropdownOpened, scrollContai
         setCategories={setCategories}
         categoriesIndexes={categoriesIndexes}
         setCategoriesIndexes={setCategoriesIndexes}
-        resultsCount={results.length}
+        resultsCount={results?.length}
         handleCategoryFilterChange={handleCategoryFilterChange}
         setFilter={setFilter}
         filter={filter}
-        CollectionFilter={() => (
-          <CollectionDropdown
-            isDropdownOpened={isDropdownOpened}
-            setIsDropdownOpened={setIsDropdownOpened}
-          />
-        )}
+        loading={search.loading}
       />
       <MyRarityList
         data={results}

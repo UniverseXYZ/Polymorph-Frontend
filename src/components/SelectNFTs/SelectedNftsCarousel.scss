@@ -1,0 +1,90 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.selected--nfts--wrapper {
+  display: flex;
+  max-width: 70%;
+  min-width: 62px;
+  align-items: center;
+  position: relative;
+
+  .arrow--nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: $white;
+    border-radius: 36px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    z-index: 1;
+
+    &.left {
+      left: -16px;
+      top: 25%;
+    }
+
+    &.right {
+      right: -16px;
+      top: 25%;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  .no--selected--nfts-wrap {
+    display: flex;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 54px;
+    width: 54px;
+  }
+
+  .horizontal--scroller--container {
+    width: 100%;
+    flex-wrap: nowrap;
+    display: flex;
+    overflow-x: scroll;
+    position: relative;
+
+    .horizontal--scroller {
+      display: flex;
+      div {
+        display: flex;
+        flex-direction: row;
+        overflow: scroll;
+      }
+      span {
+        height: 54px;
+        width: 54px;
+        border-radius: 4px;
+        margin-right: 8px;
+
+        img {
+          height: 54px;
+          width: 54px;
+          border-radius: 4px;
+          height: 54px;
+          width: 54px;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  @include sm {
+    max-width: 100%;
+    width: 100%;
+  }
+}

@@ -1,45 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import closeIcon from '../../assets/images/close-menu.svg';
-import neverScrumbledIcon from '../../assets/images/never-scrambled-badge.svg';
-import scrumbledIcon from '../../assets/images/single-trait-scrambled-badge.svg';
-import GeneParser from '../../utils/helpers/GeneParser.js';
-import RarityRankPopupProperty from './RarityRankPopupProperty';
-import linkIcon from '../../assets/images/rarity-charts/linkIcon.svg';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import closeIcon from "../../assets/images/close-menu.svg";
+import neverScrumbledIcon from "../../assets/images/never-scrambled-badge.svg";
+import scrumbledIcon from "../../assets/images/single-trait-scrambled-badge.svg";
+import GeneParser from "../../utils/helpers/GeneParser.js";
+import RarityRankPopupProperty from "./RarityRankPopupProperty";
+import linkIcon from "../../assets/images/rarity-charts/linkIcon.svg";
 
 const RarityRankPopup = ({ onClose, item }) => {
-  const [traitsMap, setTraitsMap] = useState(GeneParser.parse(item.currentgene));
+  const [traitsMap, setTraitsMap] = useState(
+    GeneParser.parse(item.currentgene)
+  );
 
   return (
     <div className="rarity--rank--popup">
-      <img src={closeIcon} alt="Close" className="close" onClick={onClose} aria-hidden="true" />
+      <img
+        src={closeIcon}
+        alt="Close"
+        className="close"
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <div className="rarity--rank">
         <div className="rarity--rank--image">
-          {item.scrambles === 0 && item.morphs > 0 ? (
-            <div className="never--scrumbled">
-              <img src={scrumbledIcon} alt="Single trait scrambled badge" />
-              <span className="tooltiptext">Single trait scrambled</span>
-            </div>
-          ) : item.isvirgin ? (
-            <div className="never--scrumbled">
-              <img src={neverScrumbledIcon} alt="Never scrambled badge" />
-              <span className="tooltiptext">Never scrambled</span>
-            </div>
-          ) : (
-            <></>
-          )}
           <img src={item.imageurl} alt={item.name} />
         </div>
         <div className="rarity--rank--body">
           <div className="rarity--rank--header">
             <div>
               <h1>{`Rarity Rank #${item.rank}`}</h1>
-              <Link
-                to={`/nft/${process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS}/${item.tokenid}`}
+              <a
+                href={`https://universe.xyz/nft/${process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS}/${item.tokenid}`}
               >
                 View on Universe <img src={linkIcon} alt="Link Icon" />
-              </Link>{' '}
+              </a>{" "}
             </div>
             <p className="number">{`#${item.tokenid}`}</p>
           </div>

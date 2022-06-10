@@ -1,0 +1,1 @@
+export { BurnBatchPolymorphs as default } from '../../../../src/containers/burnPolymorphs/BurnBatchPolymorphs';

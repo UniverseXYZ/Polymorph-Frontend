@@ -3,51 +3,28 @@ import React, { useState, useEffect } from 'react';
 // import './UniverseNFTs.scss';
 import PropTypes from 'prop-types';
 import MyPolymorphsChart from './MyPolymorphsChart';
-import MyLobstersChart from './MyLobstersChart';
 import { useMyNftsStore } from 'src/stores/myNftsStore';
 
 const UniverseNFTs = ({ scrollContainer }) => {
-  const { collectionFilter, setCollectionFilter, polymorphsFilter, lobstersFilter } =
+  const { collectionFilter, setCollectionFilter, polymorphsFilter } =
     useMyNftsStore(s => ({
       collectionFilter: s.collectionFilter,
       setCollectionFilter: s.setCollectionFilter,
       polymorphsFilter: s.polymorphsFilter,
-      lobstersFilter: s.lobstersFilter,
     }));
 
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   useEffect(() => {
-    setCollectionFilter(collectionFilter);
-  }, [collectionFilter]);
-
-  const renderMyNFTsNew = () => {
-    if (collectionFilter === polymorphsFilter) {
-      return (
-        <MyPolymorphsChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
-      );
-    }
-    if (collectionFilter === lobstersFilter) {
-      return (
-        <MyLobstersChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
-      );
-    }
-
-    return <div>Invalid collection</div>;
-  };
+    setCollectionFilter(polymorphsFilter);
+  }, [polymorphsFilter]);
 
   return (
-    <div className="tab__saved__nfts">
-      <div className="tab__wallet">{renderMyNFTsNew()}</div>
-    </div>
+    <MyPolymorphsChart
+      isDropdownOpened={isDropdownOpened}
+      setIsDropdownOpened={setIsDropdownOpened}
+      scrollContainer={scrollContainer}
+    />
   );
 };
 UniverseNFTs.propTypes = {

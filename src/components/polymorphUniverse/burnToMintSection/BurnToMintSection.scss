@@ -1,0 +1,117 @@
+@import '../../../assets/scss/variables';
+@import '../../../assets/scss/mixins';
+
+.burnToMint__section {
+    background: url('../../../assets/images/burn-to-mint-section-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    // background-color: opacify(black, 0.5);
+    background-color: black;
+    color: white;
+    padding: 90px 60px;
+
+    @include sm {
+        padding: 90px 20px;
+    }
+}
+
+.burnToMint--wrapper--row1 {
+    min-height: 600px;
+    width: 90%;
+    @include lg {
+        min-height: 355px;
+    }
+    @include sm {
+      width: 100%;
+      flex-wrap: wrap-reverse;
+      align-items: center;
+      div {
+        max-width: 627px;
+        width: 100%;
+        align-items: center;
+      }
+    }
+    .polymorph--section1--row1--left--block {
+      img {
+        position: relative;
+        right: 45px;
+        @include xl {
+          right: 30px;
+        }
+        @include lg {
+          right: 10px;
+        }
+        @include sm {
+          right: 0;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          // margin-top: 65px;
+        }
+      }
+      h2{
+        display: none;
+        @include sm {
+        display: block;
+        font-family: $sharpGroteskSemiBoldFont;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 36px;
+        text-align: center;
+      }
+      }
+    }
+    
+    .burn--incentive {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0 40px;
+      @include sm {
+        padding: 0;
+      }
+      h2 {
+        @include lg {
+          font-size: 26px;
+        }
+        @include sm {
+        //   display: none;
+        width: 100%;
+        }
+        margin-top: 15px;
+        font-family: $sharpGroteskSemiBoldFont;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 45px;
+        text-align: left;
+        max-width: 350px;
+      }
+      p {
+        @include lg {
+          font-size: 14px;
+        }
+        @include sm {
+          font-size: 16px;
+        }
+        max-width: 445px;
+        margin-top: 30px;
+        font-family: $spaceGroteskFont;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: 0px;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      button {
+          margin-top: 32px;
+          @include sm {
+              width: 100%;
+          }
+      }
+    }
+  }

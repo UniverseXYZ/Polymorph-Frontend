@@ -27,7 +27,7 @@ import { IERC20AssetType, IERC721AssetType, INFT, IOrder } from '../../../../../
 import { isNFTAssetAudio, isNFTAssetImage, isNFTAssetVideo } from '../../../../../../../../helpers';
 import { TOKENS_MAP, getTokenByAddress } from '../../../../../../../../../../constants';
 import { TokenTicker } from '../../../../../../../../../../enums';
-import { Fee } from '../../../../../../../../../marketplace/pages/sell-page/components/tab-summary/compoents';
+// import { Fee } from '../../../../../../../../../marketplace/pages/sell-page/components/tab-summary/compoents';
 import { getRoyaltiesFromRegistry } from '../../../../../../../../../../../utils/marketplace/utils';
 import { useTokenPrice } from '../../../../../../../../../../hooks';
 import { nftKeys, orderKeys } from '../../../../../../../../../../utils/query-keys';
@@ -351,12 +351,12 @@ export const NFTAcceptOfferPopup = ({ NFT, NFTs, order, isOpen, onClose }: INFTA
                 <Text fontSize={'16px'} fontWeight={700}>
                   Fees
                 </Text>
-                <Box layerStyle={'Grey'} {...styles.FeesContainerStyle}>
+                {/* <Box layerStyle={'Grey'} {...styles.FeesContainerStyle}>
                   <Fee name={'Creator'} amount={nftRoyalties} total={listingPrice} ticker={tokenTicker} />
                   <Fee name={'Collection'} amount={collectionRoyalties} total={listingPrice - nftRoyaltiesValue} ticker={tokenTicker}  />
                   <Fee name={'Universe'} amount={daoFee} total={listingPrice - nftRoyaltiesValue - collectionRoyaltiesValue} ticker={tokenTicker}  />
                   <Fee name={'Total Fees'} total={nftRoyaltiesValue + collectionRoyaltiesValue + daoFeeValue} ticker={tokenTicker} />
-                </Box>
+                </Box> */}
               </Box>
 
               <Flex {...styles.TotalContainerStyle}>

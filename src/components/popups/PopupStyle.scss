@@ -1,5 +1,5 @@
-@import '../../assets/scss/variables';
-@import '../../assets/scss/mixins';
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
 
 .popup-overlay {
   background: rgba(0, 0, 0, 0.7);
@@ -183,7 +183,8 @@
       transition: 0.5s ease;
 
       &:hover:not([disabled]) {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
       }
 
@@ -205,6 +206,7 @@
   }
 }
 .wrong__network__popup {
+  text-align: center;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -226,6 +228,13 @@
     box-shadow: 0px 10px 40px rgba(136, 120, 172, 0.2);
     cursor: pointer;
   }
+
+  img:nth-child(2) {
+    margin: 0 auto;
+    height: 128px;
+    width: 128px;
+  }
+
   h1.title {
     font-family: $sharpGroteskSemiBoldFont;
     font-style: normal;
@@ -254,6 +263,10 @@
       color: $black;
       text-decoration: underline;
     }
+  }
+
+  button {
+    box-shadow: unset;
   }
 }
 .bid__rankings__popup {
@@ -465,7 +478,7 @@
               cursor: default;
               min-width: 140px;
               &::before {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 100%;
                 left: 50%;
@@ -473,10 +486,11 @@
                 margin-left: -5px;
                 border-width: 5px;
                 border-style: solid;
-                border-color: rgba(255, 255, 255, 0.4) transparent transparent transparent;
+                border-color: rgba(255, 255, 255, 0.4) transparent transparent
+                  transparent;
               }
               &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 100%;
                 left: 50%;
@@ -761,7 +775,14 @@
             cursor: pointer;
 
             input {
-              @include css-checkbox(16px, $black, $white, 'middle', $black, 4px);
+              @include css-checkbox(
+                16px,
+                $black,
+                $white,
+                "middle",
+                $black,
+                4px
+              );
             }
           }
         }
@@ -1775,7 +1796,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  padding: 40px;
+  padding: 32px;
   background: $white;
   box-shadow: 0px 10px 40px rgba(136, 120, 172, 0.2);
   border-radius: 12px;
@@ -1787,13 +1808,13 @@
     width: 70%;
   }
   @include sm {
-    padding: 40px 26px;
+    padding: 24px;
     width: 85%;
   }
 }
 .popup-close {
   cursor: pointer;
-  padding: 2px 8px;
+  padding: 8px;
   margin-top: -12px;
   margin-right: -12px;
   line-height: 2em;
@@ -1941,6 +1962,19 @@
   .popup-semi-text {
     margin-top: 15px;
     opacity: 0.8;
+  }
+}
+.loading-text > h2 {
+  font-family: $sharpGroteskSemiBoldFont;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 130%;
+  text-align: center;
+  color: $black;
+  margin-bottom: 8px;
+  @include sm {
+    font-size: 16px;
   }
 }
 .loading-text > p {
@@ -2213,7 +2247,11 @@
     }
   }
   .empty {
-    background: linear-gradient(to right, #000000 132px, rgba(0, 0, 0, 0.2) 10%);
+    background: linear-gradient(
+      to right,
+      #000000 132px,
+      rgba(0, 0, 0, 0.2) 10%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -2291,7 +2329,8 @@
       width: 100%;
 
       &:focus {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(to right, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
         color: #000;
       }
@@ -2584,6 +2623,7 @@
       width: 295px;
       object-fit: cover;
       border-radius: 6px;
+      margin: 0 auto;
     }
     &.img2x2 {
       display: grid;
@@ -2666,6 +2706,16 @@
   @include sm {
     width: 90%;
     padding: 20px;
+  }
+  .loading {
+    height: unset;
+    background-image: none;
+    position: relative;
+    .lds-roller {
+      transform: translate(0, 0);
+      top: unset;
+      left: unset;
+    }
   }
 }
 .share--popup {
@@ -2772,7 +2822,7 @@
             font-weight: normal;
             font-size: 16px;
             color: #cacaca;
-            background-image: url('../../assets/images/search-gray.svg');
+            background-image: url("../../assets/images/search-gray.svg");
             background-repeat: no-repeat;
             text-indent: 25px;
           }
@@ -3098,7 +3148,7 @@
           cursor: pointer;
 
           input {
-            @include css-checkbox(16px, $black, $white, 'middle', $black, 4px);
+            @include css-checkbox(16px, $black, $white, "middle", $black, 4px);
           }
         }
       }
@@ -3301,7 +3351,8 @@
       height: 47px;
       margin-bottom: 15px;
       &.opened {
-        background: linear-gradient($white, $white) padding-box, linear-gradient(175deg, #bceb00, #00eaea) border-box;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(175deg, #bceb00, #00eaea) border-box;
         border: 1px solid transparent;
         .arrow__down {
           transform: rotate(180deg);
@@ -3680,24 +3731,36 @@
             height: 24px;
             margin-right: 12px;
             &:hover {
-              background-image: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+              background-image: linear-gradient(
+                135deg,
+                rgba(188, 235, 0, 1),
+                rgba(0, 234, 234, 1)
+              );
               background-origin: border-box;
               box-shadow: 2px 1000px 1px $white inset;
               border: 1px solid transparent;
             }
 
             &:checked {
-              background: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+              background: linear-gradient(
+                135deg,
+                rgba(188, 235, 0, 1),
+                rgba(0, 234, 234, 1)
+              );
               border: 1px solid $white;
               &:hover {
-                background-image: linear-gradient(135deg, rgba(188, 235, 0, 1), rgba(0, 234, 234, 1));
+                background-image: linear-gradient(
+                  135deg,
+                  rgba(188, 235, 0, 1),
+                  rgba(0, 234, 234, 1)
+                );
                 background-origin: border-box;
                 box-shadow: 2px 1000px 1px $white inset;
                 border: 1px solid transparent;
               }
 
               &::after {
-                content: '\2518';
+                content: "\2518";
                 color: #000000;
                 font-size: 16px;
                 position: absolute;
@@ -3909,7 +3972,11 @@
             margin-left: 10px;
             padding: 14px 11px;
             &:hover {
-              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+              background: linear-gradient(
+                  0deg,
+                  rgba(255, 255, 255, 0.4),
+                  rgba(255, 255, 255, 0.4)
+                ),
                 linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
             &:disabled {
@@ -4055,6 +4122,7 @@
   width: fit-content;
 
   .close {
+    box-shadow: 0px 5px 20px rgba(136, 120, 172, 0.2);
     position: absolute;
     right: -13px;
     top: -13px;
@@ -4068,7 +4136,7 @@
   .rarity--rank {
     display: flex;
     justify-content: space-between;
-    padding: 75px 60px;
+    padding: 40px;
     max-height: 962px;
     overflow-y: auto;
 
@@ -4077,8 +4145,8 @@
       border-radius: 12px;
       box-sizing: border-box;
       margin-right: 40px;
-      width: 373px;
-      height: 373px;
+      width: 384px;
+      height: 384px;
       > img {
         width: 100%;
         height: 100%;
@@ -4104,7 +4172,7 @@
           top: -19px;
           right: -51px;
           &::after {
-            content: '';
+            content: "";
             position: absolute;
             top: 100%;
             left: 50%;
@@ -4178,6 +4246,7 @@
           }
         }
         a {
+          display: flex;
           font-family: $spaceGroteskFont;
           font-style: normal;
           font-weight: normal;
@@ -4239,6 +4308,11 @@
           text-align: center;
 
           .matching {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             img {
               position: absolute;
               top: -15px;
@@ -4249,22 +4323,28 @@
               }
             }
             .tooltiptext {
+              min-height: 44px;
+              width: 150px;
               visibility: hidden;
               font-family: $spaceGroteskFont;
               font-style: normal;
               font-weight: 400;
-              font-size: 12px;
+              font-size: 14px;
+              line-height: 140%;
               background-color: $black;
               color: $white;
               text-align: center;
-              border-radius: 100px;
+              border-radius: 8px;
               padding: 4px 12px;
               position: absolute;
               z-index: 1111;
-              top: -48px;
-              right: -54px;
+              top: -70px;
+              right: -75px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
               &::after {
-                content: '';
+                content: "";
                 position: absolute;
                 top: 100%;
                 left: 50%;
@@ -4598,10 +4678,14 @@
                 border: 1px solid transparent;
               }
               &:checked {
-                background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+                background: linear-gradient(
+                  135deg,
+                  #bceb00 15.57%,
+                  #00eaea 84.88%
+                );
                 border-color: transparent;
                 &::after {
-                  content: '\2518';
+                  content: "\2518";
                   color: #000000;
                   font-size: 16px;
                   position: absolute;
@@ -4658,5 +4742,206 @@
       height: auto;
       width: 100%;
     }
+  }
+}
+
+.burn--polymorph--success--popup {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 32px;
+  background: $white;
+  box-shadow: 0px 10px 40px rgba(136, 120, 172, 0.2);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+
+  h2.title {
+    font-family: $sharpGroteskSemiBoldFont;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    text-align: center;
+    color: $black;
+  }
+
+  p.desc {
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 8px auto;
+  }
+
+  p.info {
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    text-align: center;
+    color: #e4b613;
+  }
+
+  .single--polymorph {
+    margin: 32px 0px;
+    width: 100%;
+    height: 336px;
+    border-radius: 6px;
+    .loading {
+      position: relative;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .lds-roller {
+        transform: translate(-50%, -50%) !important;
+      }
+    }
+    .polymorph--img {
+      position: relative;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+      }
+    }
+    @include sm {
+      height: 288px;
+    }
+  }
+
+  .batch--polymorphs {
+    margin: 32px 0px;
+    width: 100%;
+    height: 336px;
+    border-radius: 6px;
+    .slick-slider {
+      height: 100%;
+    }
+    .loading {
+      position: relative;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .lds-roller {
+        transform: translate(-50%, -50%) !important;
+      }
+    }
+    .polymorph--img {
+      position: relative;
+      height: 100%;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+      }
+    }
+    @include sm {
+      height: 288px;
+    }
+  }
+
+  .slick-next {
+    right: 10px;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    &:before {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 25px;
+    }
+  }
+
+  .slick-prev {
+    left: 10px;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    &:before {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 25px;
+    }
+  }
+
+  .slick-dots {
+    bottom: 17px;
+    li {
+      width: 8px;
+      height: 8px;
+      margin: 0 6px;
+      button {
+        width: 8px;
+        height: 8px;
+        &:before {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          color: unset;
+          content: "";
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+      &.slick-active {
+        button {
+          &:before {
+            background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    button {
+      &.light-button {
+        margin-right: 16px;
+        @include sm {
+          margin-right: 0px;
+          margin-bottom: 16px;
+        }
+      }
+      @include sm {
+        width: 100%;
+      }
+    }
+  }
+
+  @include sm {
+    padding: 24px;
+    width: 90%;
   }
 }

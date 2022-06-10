@@ -1,13 +1,11 @@
 import { Contract } from "ethers";
 import create from "zustand";
-import Contracts from '../contracts/contracts.json';
+import Contracts from "../contracts/contracts.json";
 
 interface IContracts {
   // Getters
   polymorphContract: Contract | null;
-  lobsterContract:  Contract | null;
-  universeERC721CoreContract: Contract | null;
-  universeERC721FactoryContract: Contract | null;
+  polymorphContractV2: Contract | null;
 }
 
 interface IContractsStore extends IContracts {
@@ -18,25 +16,10 @@ interface IContractsStore extends IContracts {
 
 export const useContractsStore = create<IContractsStore>((set) => ({
   polymorphContract: null,
-  lobsterContract: null,
-  universeERC721CoreContract: null,
-  universeERC721FactoryContract: null,
+  polymorphContractV2: null,
+
   setContracts: (signer, network) => {
     const { contracts: contractsData } = (Contracts as any)[network.chainId];
-
-    // Minting
-    const universeERC721CoreContractResult = new Contract(
-      process.env.REACT_APP_UNIVERSE_ERC_721_ADDRESS as any,
-      contractsData.UniverseERC721Core.abi,
-      signer
-      
-    );
-    const universeERC721FactoryContractResult = new Contract(
-      process.env.REACT_APP_UNIVERSE_ERC_721_FACTORY_ADDRESS as any,
-      contractsData.UniverseERC721Factory.abi,
-      signer
-    );
-
 
     const polymorphContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS as any,
@@ -44,26 +27,22 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       signer
     );
 
-    const lobsterContractInstance = new Contract(
-      process.env.REACT_APP_LOBSTERS_CONTRACT_ADDRESS as any,
-      contractsData.Lobster?.abi,
+    const polymorphContractV2Instance = new Contract(
+      process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
+      contractsData.PolymorphRoot?.abi,
       signer
     );
 
-    set(state => ({
+    set((state) => ({
       ...state,
       polymorphContract: polymorphContractInstance,
-      lobsterContract: lobsterContractInstance,
-      universeERC721CoreContract: universeERC721CoreContractResult,
-      universeERC721FactoryContract: universeERC721FactoryContractResult
-    }))
+      polymorphContractV2: polymorphContractV2Instance,
+    }));
   },
   clearContracts: () => {
     set(() => ({
       polymorphContract: null,
-      lobsterContract: null,
-      universeERC721CoreContract: null,
-      universeERC721FactoryContract: null,
-    }))
-  }
-}))
+      polymorphContractV2: null,
+    }));
+  },
+}));
