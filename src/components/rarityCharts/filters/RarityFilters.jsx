@@ -113,7 +113,7 @@ RarityFilters.propTypes = {
   categoriesIndexes: PropTypes.oneOfType([PropTypes.array]).isRequired,
   filter: PropTypes.oneOfType([PropTypes.array]).isRequired,
   setCategoriesIndexes: PropTypes.func.isRequired,
-  resultsCount: PropTypes.number.isRequired,
+  resultsCount: PropTypes.number,
   handleCategoryFilterChange: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   CollectionFilter: PropTypes.elementType,

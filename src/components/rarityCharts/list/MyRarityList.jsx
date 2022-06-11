@@ -202,7 +202,7 @@ const MyRarityList = ({
 };
 
 MyRarityList.propTypes = {
-  data: PropTypes.oneOfType([PropTypes.array]).isRequired,
+  data: PropTypes.oneOfType([PropTypes.array]),
   perPage: PropTypes.number.isRequired,
   apiPage: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
@@ -217,7 +217,7 @@ MyRarityList.propTypes = {
   setCategoriesIndexes: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   filter: PropTypes.oneOfType([PropTypes.array]).isRequired,
-  results: PropTypes.oneOfType([PropTypes.array]).isRequired,
+  results: PropTypes.oneOfType([PropTypes.array]),
   loading: PropTypes.bool.isRequired,
   handleCategoryFilterChange: PropTypes.func.isRequired,
 };
