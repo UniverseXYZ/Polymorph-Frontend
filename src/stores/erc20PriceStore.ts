@@ -33,12 +33,6 @@ export const useErc20PriceStore = create<IErc20PriceStoreState>((set, get) => ({
         getERC20PriceCoingecko('universe-xyz'),
         getERC20PriceCoingecko('weth'),
       ]);
-
-      console.log(`wethPrice: ${wethInfo?.market_data?.current_price?.usd}`);
-      console.log(`ethPrice: ${ethPrice?.market_data?.current_price?.usd}`);
-      console.log(`usdcPrice: ${usdcInfo?.market_data?.current_price?.usd}`);
-      console.log(`daiPrice: ${daiInfo?.market_data?.current_price?.usd}`);
-      console.log(`xyzPrice: ${xyzInfo?.market_data?.current_price?.usd}`);
       
       set(() => ({
         ethUsdPrice: ethPrice?.market_data?.current_price?.usd ?? 0,
