@@ -1,11 +1,11 @@
 import { Contract } from 'ethers';
-import Contracts from '../../contracts/contracts.json';
+import RoyaltyRegistryContract from '../../abis/RoyaltyRegistry.json'
+import MarketplaceContract from '../../abis/Marketplace.json'
 
 export const fetchRoyalties = async (collectionAddress, signer, tokenId = '0') => {
-  const { contracts } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
   const contract = new Contract(
     process.env.REACT_APP_ROYALTY_REGISTRY_CONTRACT,
-    contracts.RoyaltyRegistry.abi,
+    RoyaltyRegistryContract.abi,
     signer
   );
   let royalties = [];
@@ -19,10 +19,9 @@ export const fetchRoyalties = async (collectionAddress, signer, tokenId = '0') =
 };
 
 export const fetchDAOFee = async (signer) => {
-  const { contracts } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
   const contract = new Contract(
     process.env.REACT_APP_MARKETPLACE_CONTRACT,
-    contracts.Marketplace.abi,
+    MarketplaceContract.abi,
     signer
   );
 

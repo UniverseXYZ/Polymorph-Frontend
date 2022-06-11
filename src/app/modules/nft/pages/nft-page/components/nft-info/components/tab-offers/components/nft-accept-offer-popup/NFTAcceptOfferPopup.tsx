@@ -34,7 +34,7 @@ import { nftKeys, orderKeys } from '../../../../../../../../../../utils/query-ke
 import { GetActiveListingApi, GetNFT2Api, GetOrdersApi } from '../../../../../../../../api';
 import { useNFTPageData } from '../../../../../../NFTPage.context';
 import CheckIcon from '../../../../../../../../../../../assets/images/check-vector.svg';
-import Contracts from '../../../../../../../../../../../contracts/contracts.json';
+import ERC721Contract from '../../../../../../../../../../../abis/ERC721.json';
 import { NFTCustomError } from '../../../../../nft-custom-error/NFTCustomError';
 import { useAuthStore } from '../../../../../../../../../../../stores/authStore';
 import { useErrorStore } from '../../../../../../../../../../../stores/errorStore';
@@ -47,15 +47,12 @@ interface INFTAcceptOfferPopupProps {
   onClose: () => void;
 }
 
-// @ts-ignore
-const { contracts: contractsData } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
-
 export const NFTAcceptOfferPopup = ({ NFT, NFTs, order, isOpen, onClose }: INFTAcceptOfferPopupProps) => {
   const { address, signer } = useAuthStore(s => ({address: s.address, signer: s.signer}))
 
   const { setShowError, setErrorBody } = useErrorStore(s => ({setErrorBody: s.setErrorBody, setShowError: s.setShowError}))
 
-  const contract = useMemo(() => !signer ? null : new Contract(`${NFT?._collectionAddress}`, contractsData[NFT?.standard].abi, signer), [signer]);
+  const contract = useMemo(() => !signer ? null : new Contract(`${NFT?._collectionAddress}`, ERC721Contract.abi, signer), [signer]);
 
   const queryClient = useQueryClient();
   const { offers } = useNFTPageData();
@@ -129,7 +126,7 @@ export const NFTAcceptOfferPopup = ({ NFT, NFTs, order, isOpen, onClose }: INFTA
       }
       const paymentToken = getTokenByAddress((order?.make?.assetType as IERC20AssetType)?.contract);
       const paymentAmount = EthersBigNumber.from(order?.make?.value)
-      const tokenContract = new Contract(contractsData[paymentToken.contractName].address, contractsData[paymentToken.contractName].abi, signer);
+      const tokenContract = new Contract(address, ERC721Contract.abi, signer);
       const balance = await tokenContract.balanceOf(order.maker);
 
       if (paymentAmount.gt(balance)) {

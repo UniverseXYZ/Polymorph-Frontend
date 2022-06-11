@@ -8,16 +8,12 @@ import useStateIfMounted from "../../../../../utils/hooks/useStateIfMounted";
 import UniverseNFTs from "../../../../../components/myNFTs/UniverseNFTs";
 import FiltersContextProvider from "../../../account/pages/my-nfts-page/components/search-filters/search-filters.context";
 import { useAuthStore } from "../../../../../stores/authStore";
-import Contracts from "../../../../../contracts/contracts.json";
 import { useErrorStore } from "../../../../../stores/errorStore";
 import { useThemeStore } from "src/stores/themeStore";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import { OpenGraph } from "@app/components";
-
-// @ts-ignore
-const { contracts } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
 
 export const MyNFTsPage = () => {
   const router = useRouter();

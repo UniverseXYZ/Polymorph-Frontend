@@ -1,6 +1,7 @@
 import { Contract } from "ethers";
 import create from "zustand";
-import Contracts from "../contracts/contracts.json";
+import PolymorphV1Contract from "../abis/PolymorphWithGeneChanger.json";
+import PolymorphV2Contract from "../abis/PolymorphRoot.json";
 
 interface IContracts {
   // Getters
@@ -19,17 +20,16 @@ export const useContractsStore = create<IContractsStore>((set) => ({
   polymorphContractV2: null,
 
   setContracts: (signer, network) => {
-    const { contracts: contractsData } = (Contracts as any)[network.chainId];
 
     const polymorphContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS as any,
-      contractsData.PolymorphWithGeneChanger?.abi,
+      PolymorphV1Contract?.abi,
       signer
     );
 
     const polymorphContractV2Instance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
-      contractsData.PolymorphRoot?.abi,
+      PolymorphV2Contract?.abi,
       signer
     );
 

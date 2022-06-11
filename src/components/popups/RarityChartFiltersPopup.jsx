@@ -163,7 +163,7 @@ RarityChartFiltersPopup.propTypes = {
   categoriesIndexes: PropTypes.oneOfType([PropTypes.array]).isRequired,
   setCategoriesIndexes: PropTypes.func.isRequired,
   selectedFiltersLength: PropTypes.number.isRequired,
-  resultsCount: PropTypes.number.isRequired,
+  resultsCount: PropTypes.number,
   setSelectedFiltersLength: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   handleCategoryFilterChange: PropTypes.func.isRequired,

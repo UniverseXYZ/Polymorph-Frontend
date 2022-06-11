@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Button from '../button/Button.jsx';
 // import './PopupStyle.scss';
 import closeIcon from '../../assets/images/cross.svg';
-import Contracts from '../../contracts/contracts.json';
 import { formatAddress } from '../../utils/helpers/format.js';
 import { getEtherscanTxUrl } from '../../utils/helpers.js';
 import { useMyNftsStore } from 'src/stores/myNftsStore';

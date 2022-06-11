@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Contract, providers, utils } from 'ethers';
 import uuid from 'react-uuid';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import Contracts from '../contracts/contracts.json';
+import PolymorphV1Contract from "../abis/PolymorphWithGeneChanger.json";
 import { CONNECTORS_NAMES } from '../utils/dictionary';
 import { getProfileInfo, setChallenge, userAuthenticate } from '../utils/api/profile';
 import { mapUserData } from '../utils/helpers';
@@ -86,13 +86,9 @@ const AuthContextProvider = ({ children }) => {
     const ensDomain = await provider.lookupAddress(accounts[0]);
     const signerResult = provider.getSigner(accounts[0]).connectUnchecked();
 
-    const { contracts: contractsData } = Contracts[network.chainId];
-
-    const polymContract = contractsData.PolymorphWithGeneChanger;
-
     const polymorphContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
-      polymContract?.abi,
+      PolymorphV1Contract?.abi,
       signerResult
     );
 

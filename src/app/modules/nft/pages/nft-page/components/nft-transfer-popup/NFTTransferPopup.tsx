@@ -26,7 +26,7 @@ import SuccessIcon from '../../../../../../../assets/images/bid-submitted.png';
 import * as styles from './styles';
 import { Loading, Select } from '../../../../../../components';
 import { INFT, NFTStandard } from '../../../../types';
-import Contracts from '../../../../../../../contracts/contracts.json';
+import ERC721Contract from '../../../../../../../abis/ERC721.json';
 import { useAuthStore } from '../../../../../../../stores/authStore';
 
 export enum INFTTransferState {
@@ -48,9 +48,6 @@ const getTransferSchema = (NFT: INFT) =>
       .min(1)
       .max(NFT.amount || 1),
   });
-
-// @ts-ignore
-const { contracts: contractsData } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
 
 interface INFTTransferPopupProps {
   NFT: INFT;
@@ -77,7 +74,7 @@ export const NFTTransferPopup = ({ NFT, isOpen, onClose, }: INFTTransferPopupPro
         }
         setState(INFTTransferState.PROCESSING);
 
-        const contract = new Contract(`${NFT._collectionAddress}`, contractsData[NFT.standard].abi, signer);
+        const contract = new Contract(`${NFT._collectionAddress}`, ERC721Contract?.abi, signer);
         const address = await signer.getAddress();
 
         let methodName = 'safeTransferFrom(address,address,uint256)';

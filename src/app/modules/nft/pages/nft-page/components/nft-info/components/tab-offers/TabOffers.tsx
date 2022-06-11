@@ -6,7 +6,7 @@ import { NFTOffer } from './components/nft-offer/NFTOffer';
 import { Contract } from 'ethers';
 import { useMutation, useQueryClient } from 'react-query';
 import { EncodeOrderApi } from '../../../../../../../../api';
-import Contracts from '../../../../../../../../../contracts/contracts.json';
+import MarketplaceContract from '../../../../../../../../../abis/Marketplace.json';
 import { GetActiveListingApi, GetOrdersApi } from '../../../../../../api';
 import { orderKeys } from '../../../../../../../../utils/query-keys';
 import { useNFTPageData } from '../../../../NFTPage.context';
@@ -41,9 +41,6 @@ export const TabOffers: React.FC<ITabOffersProps> = ({
   const [orderInterval, setOrderInterval] = useState<NodeJS.Timer>();
   const queryClient = useQueryClient();
 
-  // @ts-ignore
-  const { contracts: contractsData } = Contracts[process.env.REACT_APP_NETWORK_CHAIN_ID];
-
   const encodeOrderMutation = useMutation(EncodeOrderApi);
 
   useEffect(() => {
@@ -63,7 +60,7 @@ export const TabOffers: React.FC<ITabOffersProps> = ({
     setOfferCancelingText(CancelingText.PROGRESS);
     const contract = new Contract(
       `${process.env.REACT_APP_MARKETPLACE_CONTRACT}`,
-      contractsData.Marketplace.abi,
+      MarketplaceContract.abi,
       signer
     );
 
