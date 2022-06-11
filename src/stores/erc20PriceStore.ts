@@ -26,20 +26,12 @@ export const useErc20PriceStore = create<IErc20PriceStoreState>((set, get) => ({
   // fetching functions
   fetchPrices: async () => {
     try {
-      const [ethPrice, daiInfo, usdcInfo, xyzInfo, wethInfo] = await Promise.all([
+      const [ethPrice] = await Promise.all([
         getEthPriceCoingecko(),
-        getERC20PriceCoingecko('dai'),
-        getERC20PriceCoingecko('usd-coin'),
-        getERC20PriceCoingecko('universe-xyz'),
-        getERC20PriceCoingecko('weth'),
       ]);
       
       set(() => ({
         ethUsdPrice: ethPrice?.market_data?.current_price?.usd ?? 0,
-        daiUsdPrice: daiInfo?.market_data?.current_price?.usd ?? 0,
-        usdcUsdPrice: usdcInfo?.market_data?.current_price?.usd ?? 0,
-        xyzUsdPrice: xyzInfo?.market_data?.current_price?.usd ?? 0,
-        wethUsdPrice: wethInfo?.market_data?.current_price?.usd ?? 0
       }));
 
       const newUsdPrice = get().ethUsdPrice;
