@@ -309,20 +309,16 @@ const clearStorageAuthData = () => {
 useAuthStore.subscribe(
   (s) => s.providerName,
   () => {
-    console.log("Provider name changed");
     const providerName = useAuthStore.getState().providerName;
     if (providerName) {
-      console.log("Connecting web3...");
       useAuthStore.getState().connectWeb3();
     }
-    console.log("End of provider subscribe callback");
   }
 );
 
 useAuthStore.subscribe(
   (s) => s.signer,
   async () => {
-    console.log("Signer changed");
     const signer = useAuthStore.getState().signer;
     const signerAddress = await signer?.getAddress();
     const address = useAuthStore.getState().address;
@@ -333,6 +329,5 @@ useAuthStore.subscribe(
       usePolymorphStore.getState().setUserPolymorphs([]);
       usePolymorphStore.getState().fetchUserPolymorphsTheGraph(address);
     }
-    console.log("End of signer subscribe callback");
   }
 );
