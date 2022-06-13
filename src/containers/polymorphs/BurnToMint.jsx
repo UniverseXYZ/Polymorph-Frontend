@@ -72,8 +72,6 @@ const BurnToMint = ({ burntCount }) => {
           <div className="progress--indicators">
             <span>Already Burnt</span>
             <span>
-              {/* TO DO:  */}
-              {/* Value to be fetched and displayed here */}
               <span>{burntCount} </span>
               <span>/ 10000</span>
             </span>
