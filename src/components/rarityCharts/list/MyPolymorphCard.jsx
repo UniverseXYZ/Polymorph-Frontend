@@ -154,20 +154,20 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
               setDropdownOpen(!dropdownOpen);
             }}
           >
-            <img src={ThreeDotsSVG} />
+            <img src={ThreeDotsSVG} alt="dropdown-icon" />
           </button>
         </div>
         {dropdownOpen ? (
           <div className={"dropdown"}>
             {!isV2 && (
               <button onClick={handleBurnToMintClick}>
-                <img src={BurnIconSvg} />
+                <img src={BurnIconSvg} alt="burn-icon" />
                 Burn to Mint
               </button>
             )}
             {isV2 && (
               <button onClick={handleScrambleClick}>
-                <img src={ScrambleIconSvg} />
+                <img src={ScrambleIconSvg} alt="scramble-icon" />
                 Scramble
               </button>
             )}
@@ -177,7 +177,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
                 window.open(`${marketplaceLinkOut}/${item.tokenid}`);
               }}
             >
-              <img src={LinkOut} />
+              <img src={LinkOut} alt="link-icon" />
               View on marketplace
             </button>
           </div>

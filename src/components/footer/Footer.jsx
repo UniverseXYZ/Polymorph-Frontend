@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Popup from 'reactjs-popup';
+import React, { useState } from "react";
+import axios from "axios";
+import Popup from "reactjs-popup";
 // import './Footer.scss';
-import { useRouter } from 'next/router'
-import Logo from '../../assets/images/light.svg';
-import polymorphsLightLogo from '../../assets/images/polymorphs-logo-light.svg';
-import twitterIcon from '../../assets/images/twitter-icon.svg';
-import discordIcon from '../../assets/images/discord-icon.svg';
-import coinGesco from '../../assets/images/coingecko-icon.svg';
-import youtubeIcon from '../../assets/images/youtube.svg';
-import mediumIcon from '../../assets/images/medium.svg';
-import SubscribePopup from '../popups/SubscribePopup.jsx';
-import { useLayout } from '../../app/providers';
-import Badge from '../badge/Badge';
-import appLightLogo from '../../assets/images/light.svg';
-
+import { useRouter } from "next/router";
+import Logo from "../../assets/images/light.svg";
+import polymorphsLightLogo from "../../assets/images/polymorphs-logo-light.svg";
+import twitterIcon from "../../assets/images/twitter-icon.svg";
+import discordIcon from "../../assets/images/discord-icon.svg";
+import coinGesco from "../../assets/images/coingecko-icon.svg";
+import youtubeIcon from "../../assets/images/youtube.svg";
+import mediumIcon from "../../assets/images/medium.svg";
+import SubscribePopup from "../popups/SubscribePopup.jsx";
+import { useLayout } from "../../app/providers";
+import Badge from "../badge/Badge";
+import appLightLogo from "../../assets/images/light.svg";
 
 const Footer = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const { footerRef } = useLayout();
 
   const handleSubscribe = () => {
@@ -26,26 +25,26 @@ const Footer = () => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+)")@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(String(email).toLowerCase())) {
       const config = {
-        headers: { 'Access-Control-Allow-Origin': '*' },
+        headers: { "Access-Control-Allow-Origin": "*" },
         params: {
           email,
         },
       };
       axios
-        .get('https://shielded-sands-48363.herokuapp.com/addContact', config)
+        .get("https://shielded-sands-48363.herokuapp.com/addContact", config)
         .then((response) => {
           if (response.status === 200) {
-            setEmail('');
-            document.getElementById('subscribed-hidden-btn').click();
+            setEmail("");
+            document.getElementById("subscribed-hidden-btn").click();
           } else {
-            alert('OOPS! Something went wrong.');
+            alert("OOPS! Something went wrong.");
           }
         })
         .catch((error) => {
           console.log(error);
         });
     } else {
-      alert('Email address is invalid.');
+      alert("Email address is invalid.");
     }
   };
   return (
@@ -56,7 +55,7 @@ const Footer = () => {
             type="button"
             id="subscribed-hidden-btn"
             aria-label="hidden"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
         }
       >
@@ -97,23 +96,30 @@ const Footer = () => {
                 <img src={polymorphsLightLogo} alt="logo" />
               </div>
               <p>
-              The Polymorphs are a collection of morphing NFTs, with 11 base skins and 200+ traits.
+                The Polymorphs are a collection of morphing NFTs, with 11 base
+                skins and 200+ traits.
               </p>
             </div>
             <div className="universe-list">
               <div>
                 <ul>
                   <li>Polymorphs</li>
-                  <li onClick={() => router.push('/burn-to-mint')} aria-hidden="true">
+                  <li
+                    onClick={() => router.push("/burn-to-mint")}
+                    aria-hidden="true"
+                  >
                     Burn to Mint
                   </li>
                   <li
-                    onClick={() => router.push('/my-polymorphs')}
+                    onClick={() => router.push("/my-polymorphs")}
                     aria-hidden="true"
                   >
                     My Polymorphs
                   </li>
-                  <li onClick={() => router.push('/polymorph-rarity')} aria-hidden="true">
+                  <li
+                    onClick={() => router.push("/polymorph-rarity")}
+                    aria-hidden="true"
+                  >
                     Rarity Chart
                   </li>
                 </ul>
@@ -121,18 +127,25 @@ const Footer = () => {
               <div>
                 <ul>
                   <li>Universe</li>
-                  <li onClick={() => window.open('https://universe.xyz/')} aria-hidden="true">
+                  <li
+                    onClick={() => window.open("https://universe.xyz/")}
+                    aria-hidden="true"
+                  >
                     Home
                   </li>
                   <li
                     onClick={() =>
-                      window.open('https://universe.xyz/marketplace/')
+                      window.open("https://universe.xyz/marketplace/")
                     }
                     aria-hidden="true"
                   >
-                    Marketplace<Badge text='beta'/>
+                    Marketplace
+                    <Badge text="beta" />
                   </li>
-                  <li onClick={() => window.open('https://dao.universe.xyz/')} aria-hidden="true">
+                  <li
+                    onClick={() => window.open("https://dao.universe.xyz/")}
+                    aria-hidden="true"
+                  >
                     DAO
                   </li>
                 </ul>
@@ -145,10 +158,10 @@ const Footer = () => {
         <div className="footer__bottom__container">
           <div className="powered-by">
             <span className="op-sourced">
-              Polymorphs © {new Date().getFullYear()}. 
+              Polymorphs © {new Date().getFullYear()}.
             </span>
             <span>
-              Powered by <img src={appLightLogo}/>
+              Powered by <img src={appLightLogo} alt="logo" />
             </span>
             {/* <span
               aria-hidden="true"
@@ -178,7 +191,9 @@ const Footer = () => {
                   src={twitterIcon}
                   alt="Twiter"
                   aria-hidden="true"
-                  onClick={() => window.open('https://twitter.com/universe_xyz')}
+                  onClick={() =>
+                    window.open("https://twitter.com/universe_xyz")
+                  }
                 />
               </div>
               <div>
@@ -186,7 +201,7 @@ const Footer = () => {
                   src={discordIcon}
                   alt="Discord"
                   aria-hidden="true"
-                  onClick={() => window.open('https://t.co/0hQWlbElpB?amp=1')}
+                  onClick={() => window.open("https://t.co/0hQWlbElpB?amp=1")}
                 />
               </div>
               <div>
@@ -194,7 +209,11 @@ const Footer = () => {
                   src={coinGesco}
                   alt="Coin Gesko"
                   aria-hidden="true"
-                  onClick={() => window.open('https://www.coingecko.com/en/coins/universe-xyz')}
+                  onClick={() =>
+                    window.open(
+                      "https://www.coingecko.com/en/coins/universe-xyz"
+                    )
+                  }
                 />
               </div>
               <div>
@@ -204,7 +223,7 @@ const Footer = () => {
                   aria-hidden="true"
                   onClick={() =>
                     window.open(
-                      'http://youtube.com/channel/UCWt00md9T2b4iTsHWp_Fapw?sub_confirmation=1'
+                      "http://youtube.com/channel/UCWt00md9T2b4iTsHWp_Fapw?sub_confirmation=1"
                     )
                   }
                 />
@@ -214,7 +233,7 @@ const Footer = () => {
                   src={mediumIcon}
                   alt="Medium"
                   aria-hidden="true"
-                  onClick={() => window.open('https://medium.com/universe-xyz')}
+                  onClick={() => window.open("https://medium.com/universe-xyz")}
                 />
               </div>
             </div>
