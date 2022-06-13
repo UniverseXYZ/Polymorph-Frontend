@@ -13,14 +13,14 @@ type IPolymorphStore = {
   userPolymorphWithMetadata: [],
   userPolymorphsLoaded: boolean,
   userSelectedPolymorphsToBurn: [],
-  totalBurnedPolymorphs: []
+  // totalBurnedPolymorphs: []
   
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void,
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void,
   setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void,
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void,
-  setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
+  // setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>
@@ -34,7 +34,7 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
   userSelectedPolymorphsToBurn: [],
   userPolymorphsV2: [],
   userPolymorphsAll: [],
-  totalBurnedPolymorphs: [],
+  // totalBurnedPolymorphs: [],
   setUserPolymorphs: (userPolymorphs) => {
     set(state => ({
       ...state,
@@ -59,12 +59,12 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
       userPolymorphWithMetadata
     }))
   },
-  setTotalBurnedPolymorphs: (totalBurnedPolymorphs) => {
-    set(state => ({
-      ...state,
-      totalBurnedPolymorphs
-    }))
-  },
+  // setTotalBurnedPolymorphs: (totalBurnedPolymorphs) => {
+  //   set(state => ({
+  //     ...state,
+  //     totalBurnedPolymorphs
+  //   }))
+  // },
   fetchUserPolymorphsTheGraph: async (newAddress) => {
     set(state => ({
       ...state,
@@ -74,7 +74,7 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
     const polymorphs = await queryPolymorphsGraph(transferPolymorphs(newAddress));
     const polymorphsV2 = await queryPolymorphsGraphV2(transferPolymorphs(newAddress));
     const allPolymorphs = polymorphs?.transferEntities.concat(polymorphsV2?.transferEntities)
-    const burned = await queryPolymorphsGraphV2(burnedPolymorphs);
+    // const burned = await queryPolymorphsGraphV2(burnedPolymorphs);
 
     const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
       tokenId: nft.tokenId,
@@ -95,7 +95,7 @@ export const usePolymorphStore = create<IPolymorphStore>(subscribeWithSelector((
       userPolymorphsV2: polymorphV2Ids || [],
       userPolymorphsAll: allPolymorphIds || [],
       userPolymorphsLoaded: true,
-      totalBurnedPolymorphs: burned?.burnCount?.count || 0
+      // totalBurnedPolymorphs: burned?.burnCount?.count || 0
     }))
   },
   // This is a new function for loading the metadata of the polymorphs

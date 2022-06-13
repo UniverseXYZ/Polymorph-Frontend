@@ -207,7 +207,6 @@ export const useAuthStore = create<
         .getState()
         .setYourBalance(Number(utils.formatEther(balance)));
       usePolymorphStore.getState().setUserPolymorphs([]);
-      usePolymorphStore.getState().fetchUserPolymorphsTheGraph(accounts[0]);
     },
     resetConnectionState: () => {
       set((state) => ({
