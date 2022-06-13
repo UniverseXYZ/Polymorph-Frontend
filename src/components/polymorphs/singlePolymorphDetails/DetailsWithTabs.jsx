@@ -115,7 +115,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
               <li
                 onClick={(event) => {
                   event.stopPropagation();
-                  window.open(`${marketplaceLinkOut}/${polymorphData.tokenid}`);
+                  window.open(`${marketplaceLinkOut}${contract?.address}/${polymorphData.tokenid}`);
                 }}
               >
                 <img src={linkIcon} alt="View on Marketplace" />

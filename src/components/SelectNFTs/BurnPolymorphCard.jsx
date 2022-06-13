@@ -15,6 +15,8 @@ import Image from "next/image";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
+const PolymorphV1Contract = 
+  process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS;
 
 const PolymorphCard = ({ item, selected, setSelected }) => {
   const [loading, setLoading] = useState(false);
@@ -73,7 +75,7 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
             <button
               onClick={(event) => {
                 event.stopPropagation();
-                window.open(`${marketplaceLinkOut}/${item.tokenid}`);
+                window.open(`${marketplaceLinkOut}${PolymorphV1Contract}/${item.tokenid}`);
               }}
             >
               <img src={LinkOut} alt="link-icon" />
