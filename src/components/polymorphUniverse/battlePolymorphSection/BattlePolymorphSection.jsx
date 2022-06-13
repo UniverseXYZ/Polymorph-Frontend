@@ -2,13 +2,19 @@ import React from "react";
 // import './BattlePolymorphSection.scss';
 import battlePolymorphImage from "../../../assets/images/battle-polymorph-section-image.png";
 import Button from "../../button/Button";
+import Image from "next/image";
 
 const battlePolymorphSection = () => (
   <div className="battle--polymorph--section">
     <div className="battle--polymorph--section--container">
       <div className="grid">
         <div>
-          <img src={battlePolymorphImage} alt="Battle polymorph" />
+          <Image
+            src={battlePolymorphImage}
+            width={601}
+            height={491}
+            alt="Battle polymorph"
+          />
         </div>
         <div className="polymorph-div">
           <h1>Battle Universe</h1>
