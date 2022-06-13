@@ -245,8 +245,8 @@ const PolymorphScramblePopup = ({
                 </div>
               ) : (
                 <div className="next-price-description">
-                  * This action might change your Character trait and can not be
-                  reversed later!
+                  * This action will randomise all traits of your Polymorph and
+                  can not be reversed later!
                 </div>
               )}
             </div>
