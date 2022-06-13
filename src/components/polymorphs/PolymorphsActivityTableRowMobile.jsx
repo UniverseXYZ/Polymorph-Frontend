@@ -1,64 +1,64 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { utils } from 'ethers';
-import ScrambleTypeImg from '../../assets/images/eventTypeScramble.svg';
-import MintTypeImg from '../../assets/images/eventTypeMint.svg';
-import TradeTypeImg from '../../assets/images/eventTypeTrade.svg';
-import ListedTypeImg from '../../assets/images/eventTypeListed.svg';
-import TransferTypeImg from '../../assets/images/eventTypeTransfer.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import { utils } from "ethers";
+import ScrambleTypeImg from "../../assets/images/eventTypeScramble.svg";
+import MintTypeImg from "../../assets/images/eventTypeMint.svg";
+import TradeTypeImg from "../../assets/images/eventTypeTrade.svg";
+import ListedTypeImg from "../../assets/images/eventTypeListed.svg";
+import TransferTypeImg from "../../assets/images/eventTypeTransfer.svg";
 // import './styles/PolymorphsActivityTableRowMobile.scss';
-import imgDiamondPaws from '../../assets/images/Diamond-paws.png';
-import imgEsCrow from '../../assets/images/Escrow-small.png';
-import imgFrankie from '../../assets/images/Frankie-small.png';
-import imgGlenn from '../../assets/images/Glenn-small.png';
-import imgGoldtooth from '../../assets/images/Goldtooth-small.png';
-import imgGrishnak from '../../assets/images/Grishnak-small.png';
-import imgCharles from '../../assets/images/Charles-small.png';
-import imgMariguana from '../../assets/images/Mariguana-small.png';
-import imgPaul from '../../assets/images/Paul-small.png';
-import imgRagnar from '../../assets/images/Ragnar-small.png';
-import imgXYZBot from '../../assets/images/XYZbot-small.png';
-import ETHIcon from '../../assets/images/v2/tokens/ETH_white.svg'
+import imgDiamondPaws from "../../assets/images/Diamond-paws.png";
+import imgEsCrow from "../../assets/images/Escrow-small.png";
+import imgFrankie from "../../assets/images/Frankie-small.png";
+import imgGlenn from "../../assets/images/Glenn-small.png";
+import imgGoldtooth from "../../assets/images/Goldtooth-small.png";
+import imgGrishnak from "../../assets/images/Grishnak-small.png";
+import imgCharles from "../../assets/images/Charles-small.png";
+import imgMariguana from "../../assets/images/Mariguana-small.png";
+import imgPaul from "../../assets/images/Paul-small.png";
+import imgRagnar from "../../assets/images/Ragnar-small.png";
+import imgXYZBot from "../../assets/images/XYZbot-small.png";
+import ETHIcon from "../../assets/images/v2/tokens/ETH_white.svg";
 
 const characters = [
-  'Diamond Paws',
-  'EsCrow',
-  'Frankie',
-  'Glenn',
-  'Goldtooth',
-  'Troll God',
-  'Charles',
-  'Mariguana',
-  'Vitalik',
-  'Ragnar',
-  'X-YZ',
+  "Diamond Paws",
+  "EsCrow",
+  "Frankie",
+  "Glenn",
+  "Goldtooth",
+  "Troll God",
+  "Charles",
+  "Mariguana",
+  "Vitalik",
+  "Ragnar",
+  "X-YZ",
 ];
 
 const characterImages = {
-  'Diamond Paws': imgDiamondPaws,
+  "Diamond Paws": imgDiamondPaws,
   EsCrow: imgEsCrow,
   Frankie: imgFrankie,
   Glenn: imgGlenn,
   Goldtooth: imgGoldtooth,
-  'Troll God': imgGrishnak,
+  "Troll God": imgGrishnak,
   Charles: imgCharles,
   Mariguana: imgMariguana,
   Vitalik: imgPaul,
   Ragnar: imgRagnar,
-  'X-YZ': imgXYZBot,
+  "X-YZ": imgXYZBot,
 };
 
 const getTypeImage = (type) => {
-  if (type === 'scramble') {
+  if (type === "scramble") {
     return ScrambleTypeImg;
   }
-  if (type === 'mint') {
+  if (type === "mint") {
     return MintTypeImg;
   }
-  if (type === 'trade') {
+  if (type === "trade") {
     return TradeTypeImg;
   }
-  if (type === 'listed') {
+  if (type === "listed") {
     return ListedTypeImg;
   }
   return TransferTypeImg;
@@ -67,13 +67,13 @@ const getTypeImage = (type) => {
 const getTypeEvent = (type) => {
   switch (type) {
     case 0:
-      return 'mint';
+      return "mint";
     case 1:
-      return 'scramble';
+      return "scramble";
     case 2:
-      return 'transfer';
+      return "transfer";
     default:
-      return 'transfer';
+      return "transfer";
   }
 };
 
@@ -93,24 +93,36 @@ const PolymorphsActivityTableRowMobile = (props) => {
     <div className={`item table--row--mobile ${className}`}>
       <div className="left--block image--block">
         <div>
-          <img alt="img" src={getCharacterBaseImage(getSkinFromGenome(data.newGene))} />
+          <img
+            alt="img"
+            src={getCharacterBaseImage(getSkinFromGenome(data.newGene))}
+          />
         </div>
       </div>
       <div className="center--block data--block">
         <p className="name--block">
-          {getName(getSkinFromGenome(data.newGene), data.tokenId)} .{' '}
+          {getName(getSkinFromGenome(data.newGene), data.tokenId)} .{" "}
           <span>{getSkinFromGenome(data.newGene)}</span>
         </p>
         <div className="event--block">
-          <div className={`event--type event--type--${getTypeEvent(data.eventType)}`}>
+          <div
+            className={`event--type event--type--${getTypeEvent(
+              data.eventType
+            )}`}
+          >
             <img alt="img" src={getTypeImage(getTypeEvent(data.eventType))} />
             <span className="event--text">{getTypeEvent(data.eventType)}</span>
           </div>
         </div>
       </div>
       <div className="right--block price--block">
-        <p className="price--eth"><img src={ETHIcon}/>{utils.formatEther(data.price)}</p>
-        <p className="price--usd">(${(ethPrice * utils.formatEther(data.price)).toFixed(2)})</p>
+        <p className="price--eth">
+          <img src={ETHIcon} alt="eth-icon" />
+          {utils.formatEther(data.price)}
+        </p>
+        <p className="price--usd">
+          (${(ethPrice * utils.formatEther(data.price)).toFixed(2)})
+        </p>
       </div>
     </div>
   );
@@ -132,8 +144,8 @@ PolymorphsActivityTableRowMobile.propTypes = {
 };
 
 PolymorphsActivityTableRowMobile.defaultProps = {
-  className: '',
-  ethPrice: '',
+  className: "",
+  ethPrice: "",
 };
 
 export default PolymorphsActivityTableRowMobile;

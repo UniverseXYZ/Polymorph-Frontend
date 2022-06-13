@@ -157,7 +157,7 @@ const SelectNfts = (props) => {
                 className={"button--back"}
                 onClick={() => router.push("/burn-to-mint")}
               >
-                <img src={Arrow} /> Burn To Mint
+                <img src={Arrow} alt="arrow" /> Burn To Mint
               </Button>
               <h3 className="section--title">Choose Polymorphs</h3>
               <p className="section--hint--text">
@@ -250,7 +250,7 @@ const SelectNfts = (props) => {
             </>
           ) : (
             <div className={"no--polymorphs--found"}>
-              <img src={BubbleIcon} />
+              <img src={BubbleIcon} alt="bubble" />
               <p>You have no V1 Polymorphs to burn</p>
               <Button
                 className={"light-button"}

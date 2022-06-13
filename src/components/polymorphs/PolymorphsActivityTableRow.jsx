@@ -138,7 +138,7 @@ const PolymorphsActivityTableRow = ({ data, className, ethPrice }) => {
         </span>
       </td>
       <td className="td--price">
-        <img className="eth--icon" src={ETHIcon} />
+        <img className="eth--icon" src={ETHIcon} alt="eth-icon" />
         <span className="price--eth">{utils.formatEther(data.price)}</span>
         <span className="price--usd">
           {" "}
