@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import ThreeDotsSVG from "../../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../../assets/images/burn-to-mint-images/link-out.svg";
 import { usePolymorphStore } from "../../../stores/polymorphStore";
+import { useContractsStore } from "src/stores/contractsStore";
 import BurnIconSvg from "../../../assets/images/burn-icon.svg";
 import ScrambleIconSvg from "../../../assets/images/scramble-icon.svg";
 import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
@@ -30,6 +31,8 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
+  const [contract, setContract] = useState(null);
+  const { polymorphContract, polymorphContractV2 } = useContractsStore();
 
   const showScrambleOptions = () => {
     setUpdate(true);
@@ -47,8 +50,10 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
       );
       if (polymorphV1) {
         setIsV2(false);
+        setContract(polymorphContract?.address)
       } else {
         setIsV2(true);
+        setContract(polymorphContractV2?.address)
       }
     }
   }, [item]);
@@ -174,7 +179,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
             <button
               onClick={(event) => {
                 event.stopPropagation();
-                window.open(`${marketplaceLinkOut}/${item.tokenid}`);
+                window.open(`${marketplaceLinkOut}${contract}/${item.tokenid}`);
               }}
             >
               <img src={LinkOut} alt="link-icon" />
