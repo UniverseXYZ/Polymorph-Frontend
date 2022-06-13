@@ -4,6 +4,11 @@ import CharlesVideo from "../../assets/images/carousel-images/charles-video.mp4"
 import GoldtoothVideo from "../../assets/images/carousel-images/goldtooth-video.mp4";
 import AlienVideo from "../../assets/images/carousel-images/alien-video.mp4";
 import SkeletonVideo from "../../assets/images/carousel-images/skeleton-video.mp4";
+import Image from "next/image";
+import CharlesImage from "../../assets/images/carousel-images/Charles-slide.png";
+import SkeletonImage from "../../assets/images/carousel-images/Skeleton-slide.png";
+import GoldtoothImage from "../../assets/images/carousel-images/Goldtooth-slide.png";
+import AlienImage from "../../assets/images/carousel-images/Alien-slide.png";
 
 export default class AutoPlayMethods extends Component {
   state = {
@@ -155,12 +160,8 @@ export default class AutoPlayMethods extends Component {
     return (
       <div className="slider--container">
         <Slider ref={(slider) => (this.slider = slider)} {...settings}>
-          <div
-            className={`background--image ${
-              this.state.isMobile && "background--image--charles"
-            }`}
-          >
-            {!this.state.isMobile && (
+          <div className={`background--image`}>
+            {!this.state.isMobile ? (
               <video
                 id="charles--video"
                 autoPlay={this.state.slideIndex === 0 ? true : false}
@@ -168,15 +169,20 @@ export default class AutoPlayMethods extends Component {
               >
                 <source src={CharlesVideo} type="video/mp4" />
               </video>
+            ) : (
+              <Image
+                src={CharlesImage}
+                objectFit={"cover"}
+                objectPosition={"70%"}
+                layout="fill"
+                quality={90}
+                alt={"charles"}
+              />
             )}
           </div>
 
-          <div
-            className={`background--image ${
-              this.state.isMobile && "background--image--skeleton"
-            }`}
-          >
-            {!this.state.isMobile && (
+          <div className={`background--image`}>
+            {!this.state.isMobile ? (
               <video
                 id="skeleton--video"
                 autoPlay={this.state.slideIndex === 1 ? true : false}
@@ -184,15 +190,20 @@ export default class AutoPlayMethods extends Component {
               >
                 <source src={SkeletonVideo} type="video/mp4" />
               </video>
+            ) : (
+              <Image
+                src={SkeletonImage}
+                objectFit={"cover"}
+                objectPosition={"60%"}
+                layout="fill"
+                quality={90}
+                alt={"skeleton"}
+              />
             )}
           </div>
 
-          <div
-            className={`background--image ${
-              this.state.isMobile && "background--image--goldtooth"
-            }`}
-          >
-            {!this.state.isMobile && (
+          <div className={`background--image`}>
+            {!this.state.isMobile ? (
               <video
                 id="goldtooth--video"
                 autoPlay={this.state.slideIndex === 2 ? true : false}
@@ -200,15 +211,20 @@ export default class AutoPlayMethods extends Component {
               >
                 <source src={GoldtoothVideo} type="video/mp4" />
               </video>
+            ) : (
+              <Image
+                src={GoldtoothImage}
+                objectFit={"cover"}
+                objectPosition={"60%"}
+                layout="fill"
+                quality={90}
+                alt={"goldtooth"}
+              />
             )}
           </div>
 
-          <div
-            className={`background--image ${
-              this.state.isMobile && "background--image--alien"
-            }`}
-          >
-            {!this.state.isMobile && (
+          <div className={`background--image`}>
+            {!this.state.isMobile ? (
               <video
                 id="alien--video"
                 autoPlay={this.state.slideIndex === 3 ? true : false}
@@ -216,6 +232,15 @@ export default class AutoPlayMethods extends Component {
               >
                 <source src={AlienVideo} type="video/mp4" />
               </video>
+            ) : (
+              <Image
+                src={AlienImage}
+                objectFit={"cover"}
+                objectPosition={"60%"}
+                layout="fill"
+                quality={90}
+                alt={"skeleton"}
+              />
             )}
           </div>
         </Slider>

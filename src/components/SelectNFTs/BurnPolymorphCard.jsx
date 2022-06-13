@@ -11,7 +11,7 @@ import { renderLoaderWithData } from "../../containers/rarityCharts/renderLoader
 import SelectedSVG from "../../assets/images/activity-icons/Selected.svg";
 import ThreeDotsSVG from "../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../assets/images/burn-to-mint-images/link-out.svg";
-import Image from 'next/image';
+import Image from "next/image";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -44,12 +44,11 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
           onError={fetchMetadata}
           className="rarity--chart"
           src={item.imageurl}
-          alt={item.name} 
+          alt={item.name}
           quality="25"
           width={500}
           height={500}
-        >
-        </Image>
+        ></Image>
       </div>
       <div className="card--footer">
         <div className="card--footer--top">
@@ -66,7 +65,7 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
               setDropdownOpen(!dropdownOpen);
             }}
           >
-            <img src={ThreeDotsSVG} />
+            <img src={ThreeDotsSVG} alt="dropdown-icon" />
           </button>
         </div>
         {dropdownOpen ? (
@@ -77,7 +76,7 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
                 window.open(`${marketplaceLinkOut}/${item.tokenid}`);
               }}
             >
-              <img src={LinkOut} />
+              <img src={LinkOut} alt="link-icon" />
               View on marketplace
             </button>
           </div>
@@ -87,7 +86,9 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
       </Popup>
-      {selected ? <img className={"checkmark"} src={SelectedSVG} /> : null}
+      {selected ? (
+        <img className={"checkmark"} src={SelectedSVG} alt="checkmark-icon" />
+      ) : null}
     </div>
   );
 };

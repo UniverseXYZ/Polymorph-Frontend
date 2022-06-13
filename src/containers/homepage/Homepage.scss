@@ -77,47 +77,6 @@
         background-repeat: no-repeat;
         max-width: 100vw;
         min-height: 720px;
-
-        &--charles {
-          background-image: url("../../assets/images/carousel-images/Charles-slide.png");
-          @include lg {
-            background-size: cover;
-            background-position: 70%;
-          }
-        }
-
-        &--alien {
-          background-image: url("../../assets/images/carousel-images/Alien-slide.png");
-          @include lg {
-            background-size: cover;
-            background-position: 50%;
-          }
-          @include sm {
-            background-position: 60%;
-          }
-        }
-
-        &--skeleton {
-          background-image: url("../../assets/images/carousel-images/Skeleton-slide.png");
-          @include lg {
-            background-size: cover;
-            background-position: 50%;
-          }
-          @include sm {
-            background-position: 60%;
-          }
-        }
-
-        &--goldtooth {
-          background-image: url("../../assets/images/carousel-images/Goldtooth-slide.png");
-          @include lg {
-            background-size: cover;
-            background-position: 50%;
-          }
-          @include sm {
-            background-position: 60%;
-          }
-        }
       }
 
       @include xxl {

@@ -168,7 +168,7 @@ const MyRarityList = ({
           </div>
         ) : (
           <div className="rarity--charts--empty polymorphs">
-            <img src={BubbleIcon} />
+            <img src={BubbleIcon} alt="bubble" />
             <p>No Polymorph found</p>
             <span>You can always buy them on the Marketplace</span>
             <Button
