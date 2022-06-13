@@ -20,9 +20,9 @@ import { useErc20PriceStore } from "../../stores/erc20PriceStore";
 import { useWindowSize } from "react-use";
 
 const Homepage = () => {
-  const { data } = useGraphQueryHook(queryPolymorphsGraphV2(morphedPolymorphs));
   const ethUsdPrice = useErc20PriceStore((state) => state.ethUsdPrice);
   const [mobile, setMobile] = useState(false);
+  const [data, setData] = useState();
   const windowSize = useWindowSize();
 
   useEffect(() => {
@@ -33,6 +33,11 @@ const Homepage = () => {
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
   useEffect(() => {
     setDarkMode(true);
+  }, []);
+
+  useEffect(async () => {
+    const query = await queryPolymorphsGraphV2(morphedPolymorphs);
+    setData(query);
   }, []);
 
   return (
