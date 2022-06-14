@@ -28,21 +28,17 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
-  const [contract, setContract] = useState(null);
-  const [disableBurnButton, setDisableBurnButton] = useState(true);
-  const [disableScrambleButton, setDisableScrambleButton] = useState(true);
   const [userIsOwner, setUserIsOwner] = useState(false);
   const [polymorphOwner, setPolymorphOwner] = useState("");
   const [morphPrice, setMorphPrice] = useState("");
 
-  const { address } = useAuthStore();
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
-  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
+  const { setUserSelectedPolymorphsToBurn, userPolymorphsAll } =
+    usePolymorphStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
     update(true);
-    console.log("show scrample popup again");
   };
 
   const handleClickOutside = (event) => {
@@ -68,35 +64,38 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
     };
   });
 
-  useEffect(async () => {
-    if (polymorphContract && polymorphContractV2) {
-      try {
-        if (await polymorphContract.ownerOf(polymorphData.tokenid)) {
-          setContract(polymorphContract);
-          setDisableBurnButton(false);
-        }
-      } catch (err) {
-        if (await polymorphContractV2.ownerOf(polymorphData.tokenid)) {
-          setContract(polymorphContractV2);
-          setDisableScrambleButton(false);
-          setBurnt(true);
-        }
-      }
+  useEffect(() => {
+    if (
+      userPolymorphsAll?.some(
+        (polymorph) => polymorph.id === polymorphData.tokenid
+      )
+    ) {
+      setUserIsOwner(true);
     }
-  }, [polymorphContract, polymorphContractV2]);
+  }, [userPolymorphsAll]);
 
   useEffect(async () => {
-    if (contract) {
-      const owner = await contract.ownerOf(polymorphData.tokenid);
-      setPolymorphOwner(owner);
-      const isOwner = owner.toUpperCase() === address.toUpperCase();
-      setUserIsOwner(isOwner);
-      const morphPrice = await contract.priceForGenomeChange(
+    if (isV1 && polymorphContract) {
+      const morphPrice = await polymorphContract.priceForGenomeChange(
         polymorphData.tokenid
       );
       setMorphPrice(ethers.utils.formatEther(morphPrice));
+      const ownerAddress = await polymorphContract.ownerOf(
+        polymorphData.tokenid
+      );
+      setPolymorphOwner(ownerAddress);
     }
-  }, [contract]);
+    if (!isV1 && polymorphContractV2) {
+      const morphPrice = await polymorphContractV2.priceForGenomeChange(
+        polymorphData.tokenid
+      );
+      setMorphPrice(ethers.utils.formatEther(morphPrice));
+      const ownerAddress = await polymorphContractV2.ownerOf(
+        polymorphData.tokenid
+      );
+      setPolymorphOwner(ownerAddress);
+    }
+  }, [isV1, polymorphContract, polymorphContractV2]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -115,7 +114,9 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
               <li
                 onClick={(event) => {
                   event.stopPropagation();
-                  window.open(`${marketplaceLinkOut}${contract?.address}/${polymorphData.tokenid}`);
+                  window.open(
+                    `${marketplaceLinkOut}${contract?.address}/${polymorphData.tokenid}`
+                  );
                 }}
               >
                 <img src={linkIcon} alt="View on Marketplace" />
@@ -152,7 +153,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
           History
         </div> */}
       </div>
-      <div className={`polymorph--tabs--content ${burnt ? "pb" : ""}`}>
+      <div className={`polymorph--tabs--content ${!isV1 ? "pb" : ""}`}>
         {selectedTabIndex === 0 && (
           <PolymorphPropertiesTab data={polymorphData} isV1={isV1} />
         )}
@@ -168,11 +169,11 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
       {userIsOwner ? (
         <div className="polymorph--actions">
           <div className="polymorph--actions--gradient"></div>
-          {!burnt && (
+          {isV1 && (
             <div className="burn--to--mint--btn mr">
               <Button
                 className="light-button"
-                disabled={disableBurnButton}
+                disabled={!isV1}
                 onClick={handleBurnToMintClick}
               >
                 Burn to Mint
@@ -180,14 +181,14 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
             </div>
           )}
           <div className="scramble--btn">
-            {!burnt && (
+            {isV1 && (
               <div className="tooltiptext">
                 Scrambling will be enabled after you burn your polymorph
               </div>
             )}
             <Button
               className="light-button"
-              disabled={!burnt && disableScrambleButton}
+              disabled={isV1}
               onClick={() => setShowScramblePopup(true)}
             >
               Scramble
