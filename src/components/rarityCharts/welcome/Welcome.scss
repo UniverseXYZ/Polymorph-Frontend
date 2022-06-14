@@ -21,6 +21,8 @@
     min-height: 410px;
     background-image: unset;
     @include sm {
+      background-color: unset;
+      z-index: 100;
       padding: 0;
     }
     .welcome__section__container {
