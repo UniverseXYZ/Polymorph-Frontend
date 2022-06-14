@@ -97,6 +97,7 @@ const MyPolymorphsChart = ({
         setFilter={setFilter}
         filter={filter}
         loading={search.loading}
+        usedOnPage={"My-polymorphs"}
       />
       <MyRarityList
         data={results}

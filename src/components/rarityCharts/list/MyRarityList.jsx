@@ -115,7 +115,7 @@ const MyRarityList = ({
       <div className="list--with--selected--filters">
         <div className="selected--filters">
           {showClearALL && (
-            <div className="result">{results.length} results</div>
+            <div className="result">{results?.length} results</div>
           )}
           {categories.map((item, index) => (
             <React.Fragment key={item.id}>
@@ -166,7 +166,7 @@ const MyRarityList = ({
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
-        ) : (
+        ) : !userPolymorphsAll.length > 0 ? (
           <div className="rarity--charts--empty polymorphs">
             <img src={BubbleIcon} alt="bubble" />
             <p>No Polymorph found</p>
@@ -178,6 +178,10 @@ const MyRarityList = ({
             >
               Marketplace
             </Button>
+          </div>
+        ) : (
+          <div className="rarity--charts--empty polymorphs">
+            <p>No Polymorph found</p>
           </div>
         )}
         {data?.length >= perPage ? (

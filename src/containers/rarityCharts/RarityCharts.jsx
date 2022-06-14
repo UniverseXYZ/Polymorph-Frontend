@@ -135,6 +135,8 @@ const RarityCharts = () => {
           handleCategoryFilterChange={handleCategoryFilterChange}
           setFilter={setFilter}
           filter={filter}
+          loading={search.loading}
+          usedOnPage={"Rarity"}
         />
         <RarityList
           data={results}
