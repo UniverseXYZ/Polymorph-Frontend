@@ -5,6 +5,7 @@ import WrapperCenterTwoColumns from "../../polymorphs/WrapperCenterTwoColumns";
 import { AnimatedOnScroll } from "react-animated-css-onscroll";
 import Button from "../../button/Button";
 import Image from "next/image";
+import SectionBackground from "../../../assets/images/burn-to-mint-section-background.png";
 
 const row1RightBlock = () => {
   const router = useRouter();
@@ -34,6 +35,13 @@ const BurnToMintSection = () => {
 
   return (
     <div className="burnToMint__section">
+      <Image
+        className={"section--background"}
+        src={SectionBackground}
+        layout={"fill"}
+        objectFit={"cover"}
+        alt="img"
+      />
       <WrapperCenter className="burnToMint--wrapper--row1">
         <WrapperCenterTwoColumns
           leftBlock={
