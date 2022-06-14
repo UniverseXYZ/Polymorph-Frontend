@@ -140,7 +140,7 @@ const SelectNfts = (props) => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  console.log("results", results);
+
   return (
     <>
       <OpenGraph
