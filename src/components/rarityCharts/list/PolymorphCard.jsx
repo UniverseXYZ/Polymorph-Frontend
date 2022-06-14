@@ -54,7 +54,11 @@ const PolymorphCard = ({ item, tab }) => {
         </div>
       </div>
       <Popup open={showPopup} closeOnDocumentClick={false}>
-        <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
+        <RarityRankPopup
+          onClose={() => setShowPopup(false)}
+          item={item}
+          tab={tab}
+        />
       </Popup>
     </div>
   );
