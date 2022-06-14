@@ -33,7 +33,8 @@ function RarityRankPopupProperty({
         traitData = await queryPolymorphsGraph(
           traitRarity(genesMap[propertyName.toUpperCase()])
         );
-      } else {
+      }
+      if (!isV1) {
         traitData = await queryPolymorphsGraphV2(
           traitRarity(genesMap[propertyName.toUpperCase()])
         );

@@ -8,11 +8,10 @@ import GeneParser from "../../utils/helpers/GeneParser.js";
 import RarityRankPopupProperty from "./RarityRankPopupProperty";
 import linkIcon from "../../assets/images/rarity-charts/linkIcon.svg";
 
-const RarityRankPopup = ({ onClose, item }) => {
+const RarityRankPopup = ({ onClose, item, tab }) => {
   const [traitsMap, setTraitsMap] = useState(
     GeneParser.parse(item.currentgene)
   );
-
   return (
     <div className="rarity--rank--popup">
       <img
@@ -46,6 +45,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Footwear"
@@ -54,6 +54,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Pants"
@@ -62,6 +63,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Torso"
@@ -70,6 +72,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Eyewear"
@@ -78,6 +81,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Headwear"
@@ -86,6 +90,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
 
             <RarityRankPopupProperty
@@ -95,6 +100,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Right Hand"
@@ -103,6 +109,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
             <RarityRankPopupProperty
               propertyName="Background"
@@ -111,6 +118,7 @@ const RarityRankPopup = ({ onClose, item }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isV1={tab === "V1" ? true : false}
             />
           </div>
         </div>
