@@ -53,7 +53,6 @@ import '../src/components/rarityCharts/filters/RarityFilters.scss';
 import '../src/components/rarityCharts/RarityList.scss';
 import '../src/components/rarityCharts/welcome/Welcome.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
-import '../src/components/general/LoadingImage.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
 import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
@@ -77,7 +76,7 @@ import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleto
 // import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
 // import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
 import '../src/components/SelectNFTs/SelectNfts.scss'
-import '../src/components/nft/SearchFilters.scss';
+// import '../src/components/nft/SearchFilters.scss';
 import '../src/components/SelectNFTs/BurnRarityList.scss'
 import '../src/components/SelectNFTs/SelectedNftsCarousel.scss'
 
