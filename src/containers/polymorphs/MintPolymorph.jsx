@@ -6,11 +6,11 @@ import BondingCurve from '../../components/polymorphs/mint-polymorph/BondingCurv
 import Section3Randomise from '../../components/polymorphs/mint-polymorph/Section3Randomise';
 import './MintPolymorph.scss';
 import data from '../../utils/fixtures/horizontalScrollCharactersData';
-import { useThemeContext } from '../../contexts/ThemeContext';
+import { useThemeStore } from '../../stores/themeStore'
 import { useWindowSize } from 'react-use';
 
 const MintPolymorph = () => {
-  const { setDarkMode } = useThemeContext();
+  const { setDarkMode } = useThemeStore();
   const [quantity, setQuantity] = useState(1);
   const [sliderValue, setSliderValue] = useState(0);
   const [mobile, setMobile] = useState(false);
