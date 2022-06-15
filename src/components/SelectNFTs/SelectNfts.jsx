@@ -1,20 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-// import './SelectNfts.scss';
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Button from "../button/Button";
-import closeIconWhite from "../../assets/images/marketplace/close.svg";
-import mp3Icon from "../../assets/images/mp3-icon.png";
-import AppContext from "../../ContextAPI";
-// import SearchFilters from '../nft/SearchFilters';
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
 import BurnRarityList from "./BurnRarityList";
 import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncerV1";
 import { categoriesArray } from "../../containers/rarityCharts/categories";
-import NFTCard from "../nft/NFTCard";
-import { useMyNftsStore } from "src/stores/myNftsStore";
-import { WalletTab } from "@app/modules/account/pages/my-nfts-page/components";
-import FiltersContextProvider from "../../app/modules/account/pages/my-nfts-page/components/search-filters/search-filters.context";
 import { useWindowSize } from "react-use";
 import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
 import SelectedNftsCarousel from "./SelectedNftsCarousel";
@@ -25,13 +16,8 @@ import { OpenGraph } from "@app/components";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 
-const SelectNfts = (props) => {
-  // const { myNFTs, setSellNFTBundleEnglishAuctionData } = useContext(AppContext);
-  const { myNFTs } = useMyNftsStore();
+const SelectNfts = () => {
   const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
-  const { stepData, setStepData, bundleData } = props;
-  const [selectedNFTsIds, setSelectedNFTsIds] = useState([]);
-  const [selectedGalleryItem, setSelectedGalleryItem] = useState([]);
   const router = useRouter();
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
 
@@ -55,7 +41,6 @@ const SelectNfts = (props) => {
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
   const [offset, setOffset] = useState(0);
-  const [totalNfts, getTotalNfts] = useState("-");
   const [perPage, setPerPage] = useState(8);
   const [selectedCards, setSelectedCards] = useState([]);
   const [showArrows, setShowArrows] = useState(false);
@@ -90,28 +75,10 @@ const SelectNfts = (props) => {
     setOffset(0);
   };
 
-  const clickContinue = () => {
-    let dataBundleSale = bundleData;
-    dataBundleSale = { ...dataBundleSale, selectedNfts: selectedGalleryItem };
-    setStepData({ ...stepData, settings: { ...dataBundleSale } });
-    setSellNFTBundleEnglishAuctionData(bundleData);
-    router.push("/nft-marketplace/summary");
-  };
-
   useEffect(() => {
     if (+windowSize.width <= 575) setMobile(true);
     else setMobile(false);
   }, [windowSize.width]);
-
-  // useEffect(() => {
-  //   const getSelectedNFTs = [];
-  //   myNFTs.forEach((nft) => {
-  //     if (selectedNFTsIds.includes(nft.id)) {
-  //       getSelectedNFTs.push(nft);
-  //     }
-  //   });
-  //   setSelectedGalleryItem(getSelectedNFTs);
-  // }, [selectedNFTsIds]);
 
   const getSelectedCards = ([cards]) => {
     setSelectedCards(cards);
