@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RarityFilters from "../../components/rarityCharts/filters/RarityFilters";
 import Welcome from "../../components/rarityCharts/welcome/Welcome";
-// import './RarityCharts.scss';
 import { useSearchPolymorphs } from "../../utils/hooks/useRarityDebouncer";
 import { categoriesArray } from "./categories";
 import RarityList from "../../components/rarityCharts/list/RarityList";
@@ -106,7 +105,6 @@ const RarityCharts = () => {
           style={{ left: "10px" }}
           onClick={() => selectTabHandler("V1")}
         >
-          {/* <img src={selectedTab === "V1" ? ActiveTab : InactiveTab} /> */}
           <span>{mobile ? "V1" : "Polymorphs V1"}</span>
         </div>
         <div
@@ -114,7 +112,6 @@ const RarityCharts = () => {
           style={{ right: "9px" }}
           onClick={() => selectTabHandler("V2")}
         >
-          {/* <img src={selectedTab === "V2" ? ActiveTab : InactiveTab} /> */}
           <span>{mobile ? "V2" : "Polymorphs V2"}</span>
         </div>
       </div>
