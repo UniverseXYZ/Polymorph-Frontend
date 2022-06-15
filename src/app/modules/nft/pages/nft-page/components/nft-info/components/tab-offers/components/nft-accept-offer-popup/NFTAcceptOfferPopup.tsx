@@ -28,7 +28,7 @@ import { isNFTAssetAudio, isNFTAssetImage, isNFTAssetVideo } from '../../../../.
 import { TOKENS_MAP, getTokenByAddress } from '../../../../../../../../../../constants';
 import { TokenTicker } from '../../../../../../../../../../enums';
 // import { Fee } from '../../../../../../../../../marketplace/pages/sell-page/components/tab-summary/compoents';
-import { getRoyaltiesFromRegistry } from '../../../../../../../../../../../utils/marketplace/utils';
+// import { getRoyaltiesFromRegistry } from '../../../../../../../../../../../utils/marketplace/utils';
 import { useTokenPrice } from '../../../../../../../../../../hooks';
 import { nftKeys, orderKeys } from '../../../../../../../../../../utils/query-keys';
 import { GetActiveListingApi, GetNFT2Api, GetOrdersApi } from '../../../../../../../../api';
@@ -257,18 +257,18 @@ export const NFTAcceptOfferPopup = ({ NFT, NFTs, order, isOpen, onClose }: INFTA
 
   const fetchNftRoyalties = async () => {
     if (NFT?._collectionAddress && NFT.tokenId) {
-      try {
-        const { nftRoyaltiesPercent, collectionRoyaltiesPercent, daoFee } = await getRoyaltiesFromRegistry(
-          NFT._collectionAddress,
-          NFT.tokenId,
-          signer
-        );
-        setNftRoyalties(+nftRoyaltiesPercent / 100);
-        setCollectionRoyalties(+collectionRoyaltiesPercent / 100);
-        setDaoFee(+daoFee / 100);
-      } catch (err) {
-        console.log(err);
-      }
+      // try {
+      //   const { nftRoyaltiesPercent, collectionRoyaltiesPercent, daoFee } = await getRoyaltiesFromRegistry(
+      //     NFT._collectionAddress,
+      //     NFT.tokenId,
+      //     signer
+      //   );
+      //   setNftRoyalties(+nftRoyaltiesPercent / 100);
+      //   setCollectionRoyalties(+collectionRoyaltiesPercent / 100);
+      //   setDaoFee(+daoFee / 100);
+      // } catch (err) {
+      //   console.log(err);
+      // }
     }
   };
 
