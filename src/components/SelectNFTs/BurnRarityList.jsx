@@ -1,15 +1,8 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// import './RarityList.scss';
-// import './RarityList.scss';
 import BurnPolymorphCard from "./BurnPolymorphCard";
-// import ItemsPerPageDropdown from '../rarityCharts/list/pagination/ItemsPerPageDropdown';
-// import Pagination from '../../pagination/Pagionation';
-// import '../../../containers/rarityCharts/RarityCharsLoader.scss';
-// import '../../../containers/rarityCharts/RarityCharts.scss';
 import closeIcon from "../../assets/images/close-menu.svg";
-// import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
 import CategoriesFilter from "../rarityCharts/list/CategoriesFilter";
 import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader";
 import RarityPagination from "../rarityCharts/list/RarityPagination";
@@ -226,7 +219,6 @@ List.propTypes = {
   results: PropTypes.oneOfType([PropTypes.array]).isRequired,
   loading: PropTypes.bool.isRequired,
   handleCategoryFilterChange: PropTypes.func.isRequired,
-  // withFilter: PropTypes.bool.isRequired,
 };
 
 export default List;
