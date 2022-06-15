@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import Button from '../button/Button';
 // import './NotFound.scss';
 import notFoundImg from '../../assets/images/404img.png';
@@ -7,7 +7,7 @@ import { useThemeStore } from 'src/stores/themeStore';
 
 const NotFound = () => {
   const setDarkMode = useThemeStore(s => s.setDarkMode);
-  const history = useHistory();
+  const router = useRouter();
   useEffect(() => {
     setDarkMode(false);
     document.title = `Universe Minting - 404 - page not found`;
@@ -22,7 +22,7 @@ const NotFound = () => {
           <img src={notFoundImg} alt="404" />
         </h1>
         <p>Oops.. page not found</p>
-        <Button className="light-button" onClick={() => history.push('/')}>
+        <Button className="light-button" onClick={() => router.push('/')}>
           Go back
         </Button>
       </div>
