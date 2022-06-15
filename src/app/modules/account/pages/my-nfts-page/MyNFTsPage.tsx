@@ -1,19 +1,14 @@
-import { Contract, utils } from "ethers";
-import React, { useEffect, useRef, useState } from "react";
-import Popup from "reactjs-popup";
-import { useClickAway, useTitle } from "react-use";
-import { useRouter } from "next/router";
-
+import React, { useEffect, useRef } from "react";
+import { useTitle } from "react-use";
 import useStateIfMounted from "../../../../../utils/hooks/useStateIfMounted";
 import UniverseNFTs from "../../../../../components/myNFTs/UniverseNFTs";
 import FiltersContextProvider from "../../../account/pages/my-nfts-page/components/search-filters/search-filters.context";
-import { useAuthStore } from "../../../../../stores/authStore";
-import { useErrorStore } from "../../../../../stores/errorStore";
 import { useThemeStore } from "src/stores/themeStore";
-import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import { OpenGraph } from "@app/components";
+import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useRouter } from "next/router";
 
 export const MyNFTsPage = () => {
   const router = useRouter();
@@ -39,13 +34,8 @@ export const MyNFTsPage = () => {
 
   // State hooks
   const [showLoading, setShowLoading] = useStateIfMounted(false);
-  const [isDropdownOpened, setIsDropdownOpened] = useStateIfMounted(false);
 
   useTitle("My Polymorphs", { restoreOnUnmount: true });
-
-  useClickAway(createButtonRef, () => {
-    setIsDropdownOpened(false);
-  });
 
   useEffect(() => {
     if (!showLoading) {
