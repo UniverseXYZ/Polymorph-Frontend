@@ -17,7 +17,6 @@ import universeIcon from '../../assets/images/universe-img.svg';
 import { getCollectionBackgroundColor } from '../../utils/helpers';
 // import { useMyNftsContext } from '../../contexts/MyNFTsContext';
 import { useMyNftsStore } from '../../stores/myNftsStore'
-// import { useAuthContext } from '../../contexts/AuthContext';
 import { useAuthStore } from '../../stores/authStore';
 import { shortenEthereumAddress } from '../../utils/helpers/format';
 

@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import videoIcon from '../../assets/images/marketplace/video-icon.svg';
 import audioIcon from '../../assets/images/marketplace/audio-icon.svg';
 import mp3Icon from '../../assets/images/mp3-icon.png';
-// import { useAuthContext } from '../../contexts/AuthContext';
 import { useAuthStore } from '../../stores/authStore'
 import LoadingImage from '../general/LoadingImage';
 import clockIcon from '../../assets/images/marketplace/green-clock.svg';
