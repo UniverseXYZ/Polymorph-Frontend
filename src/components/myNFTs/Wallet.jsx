@@ -8,7 +8,7 @@ import NFTCard from '../nft/NFTCard';
 import NftCardSkeleton from '../skeletons/nftCardSkeleton/NftCardSkeleton';
 import { CollectionPageLoader } from '../../containers/collection/CollectionPageLoader.jsx';
 import NoNftsFound from './NoNftsFound.jsx';
-import { useErrorContext } from '../../contexts/ErrorContext';
+import { useErrorStore } from '../../stores/errorStore.js';
 import { getNftsPerAddress } from '../../utils/api/marketplace.ts';
 import { useAuthStore } from '../../stores/authStore.js';
 import LoadMore from '../pagination/LoadMore';
@@ -24,7 +24,7 @@ const Wallet = React.memo(() => {
   const [showLoadMore, setShowLoadMore] = useState(false);
 
   const { address } = useAuthStore();
-  const { setShowError, setErrorTitle, setErrorBody } = useErrorContext();
+  const { setShowError, setErrorTitle, setErrorBody } = useErrorStore();
 
   const getMyNfts = async () => {
     if (address) {
