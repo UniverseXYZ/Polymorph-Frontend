@@ -1,15 +1,9 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// import './RarityList.scss';
-// import uuid from 'react-uuid';
 import MyPolymorphCard from "./MyPolymorphCard";
 import ItemsPerPageDropdown from "../../pagination/ItemsPerPageDropdown";
-import Pagination from "../../pagination/Pagionation";
-// import '../../../containers/rarityCharts/RarityCharsLoader.scss';
-// import '../../../containers/rarityCharts/RarityCharts.scss';
 import closeIcon from "../../../assets/images/close-menu.svg";
-import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
 import CategoriesFilter from "./CategoriesFilter";
 import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
 import RarityPagination from "./RarityPagination";
