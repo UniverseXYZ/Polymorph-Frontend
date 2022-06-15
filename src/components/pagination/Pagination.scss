@@ -119,9 +119,8 @@
             color: $black;
           }
 
-          &:last-child {
-            border-bottom: none;
-            border-radius: 12px 12px;
+          &:first-child {
+            border-radius: 12px 12px 0 0;
           }
 
           &:last-child {
