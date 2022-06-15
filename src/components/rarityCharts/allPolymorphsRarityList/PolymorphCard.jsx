@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
 import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
-import priceIcon from "../../../assets/images/eth-icon-new.svg";
-import neverScrambledIcon from "../../../assets/images/never-scrambled-badge.svg";
-import singleTraitScrambledIcon from "../../../assets/images/single-trait-scrambled-badge.svg";
 import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
 import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
-import loadingBg from "../../../assets/images/mint-polymorph-loading-bg.png";
-import { usePolymorphStore } from "../../../stores/polymorphStore";
 import Image from 'next/image';
 
 const PolymorphCard = ({ item, tab }) => {
