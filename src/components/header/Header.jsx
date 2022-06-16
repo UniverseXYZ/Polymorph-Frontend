@@ -8,14 +8,6 @@ import React, {
 import { useHistory, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import {
-  PLACEHOLDER_MARKETPLACE_AUCTIONS,
-  PLACEHOLDER_MARKETPLACE_NFTS,
-  PLACEHOLDER_MARKETPLACE_USERS,
-  PLACEHOLDER_MARKETPLACE_COLLECTIONS,
-  PLACEHOLDER_MARKETPLACE_COMMUNITIES,
-  PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from "../../utils/fixtures/BrowseNFTsDummyData";
 // import './Header.scss';
 import Button from "../button/Button";
 import DesktopView from "./dimensions/desktop/DesktopView.jsx";

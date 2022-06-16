@@ -6,14 +6,6 @@ import { Animated } from "react-animated-css";
 import Popup from "reactjs-popup";
 // import './MobileView.scss';
 import HeaderAvatar from "../../HeaderAvatar";
-import {
-  PLACEHOLDER_MARKETPLACE_AUCTIONS,
-  PLACEHOLDER_MARKETPLACE_NFTS,
-  PLACEHOLDER_MARKETPLACE_USERS,
-  PLACEHOLDER_MARKETPLACE_COLLECTIONS,
-  PLACEHOLDER_MARKETPLACE_COMMUNITIES,
-  PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from "../../../../utils/fixtures/BrowseNFTsDummyData";
 import AppContext from "../../../../ContextAPI";
 import Button from "../../../button/Button.jsx";
 import hamburgerIcon from "../../../../assets/images/hamburger.svg";
