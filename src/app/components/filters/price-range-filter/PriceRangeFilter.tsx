@@ -20,15 +20,15 @@ import { IPriceRangeFilterProps, IPriceRangeFilterValue } from './types';
 // import { coins } from '../../../mocks';
 
 export const usePriceRangeFilter = () => {
-  const form = useFormik<IPriceRangeFilterValue>({
-    initialValues: {
-      currency: coins[0],
-      price: [0, 0],
-    },
-    onSubmit: () => {},
-  });
+  // const form = useFormik<IPriceRangeFilterValue>({
+  //   initialValues: {
+  //     currency: coins[0],
+  //     price: [0, 0],
+  //   },
+  //   onSubmit: () => {},
+  // });
 
-  return { form };
+  // return { form };
 };
 
 export const PriceRangeFilter = (props: IPriceRangeFilterProps) => {

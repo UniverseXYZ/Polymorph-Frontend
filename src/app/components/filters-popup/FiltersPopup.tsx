@@ -48,7 +48,7 @@ export const FiltersPopup = (props: IFiltersPopupProps) => {
     children,
   } = props;
 
-  const isMobile = useMedia(`(max-width: ${breakpoints.md})`);
+  const isMobile = useMedia(`(max-width: 768px)`);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [values, setValues] = useState<Record<number, any>>();

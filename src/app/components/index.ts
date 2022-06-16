@@ -13,4 +13,3 @@ export * from './search-input';
 export * from './select';
 export * from './tabs/line-tab-list';
 export * from './tabs/tab-label';
-export * from './token-icon';

@@ -50,30 +50,31 @@ export const CurrencySelect = ({ value, onChange }: ICurrencySelectProps) => {
   }, [onChange]);
 
   return (
-    <Select
-      label={''}
-      // items={coins}
-      value={value}
-      popoverProps={{
-        matchWidth: true,
-      }}
-      popoverContentProps={{
-        width: '100%',
-      }}
-      containerProps={{
-        maxHeight: '110px',
-        overflowY: 'scroll',
-        width: 'auto',
-      }}
-      renderItem={(item) => (<CurrencySelectItem {...item} />)}
-      renderSelectedItem={(value) => !value ? null : (<CurrencySelectItem {...value} />)}
-      buttonProps={{
-        mr: '12px',
-        minWidth: '225px',
-        justifyContent: 'space-between',
-        isFullWidth: true,
-      }}
-      onSelect={handleChange}
-    />
+    // <Select
+    //   label={''}
+    //   items={coins}
+    //   value={value}
+    //   popoverProps={{
+    //     matchWidth: true,
+    //   }}
+    //   popoverContentProps={{
+    //     width: '100%',
+    //   }}
+    //   containerProps={{
+    //     maxHeight: '110px',
+    //     overflowY: 'scroll',
+    //     width: 'auto',
+    //   }}
+    //   renderItem={(item) => (<CurrencySelectItem {...item} />)}
+    //   renderSelectedItem={(value) => !value ? null : (<CurrencySelectItem {...value} />)}
+    //   buttonProps={{
+    //     mr: '12px',
+    //     minWidth: '225px',
+    //     justifyContent: 'space-between',
+    //     isFullWidth: true,
+    //   }}
+    //   onSelect={handleChange}
+    // />
+    null
   );
 };
