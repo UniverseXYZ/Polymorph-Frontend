@@ -52,7 +52,7 @@ export const CurrencySelect = ({ value, onChange }: ICurrencySelectProps) => {
   return (
     <Select
       label={''}
-      items={coins}
+      // items={coins}
       value={value}
       popoverProps={{
         matchWidth: true,
