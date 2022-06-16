@@ -2,7 +2,7 @@ import { Box, BoxProps, Flex, FlexProps, Image, ImageProps } from '@chakra-ui/re
 import React, { useCallback } from 'react';
 
 import { Select } from '../select';
-import { coins } from '../../mocks';
+// import { coins } from '../../mocks';
 
 type ICurrencyValue = any | null;
 

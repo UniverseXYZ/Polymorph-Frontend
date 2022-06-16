@@ -17,7 +17,7 @@ import PriceRangeIcon from '../../../../assets/images/v2/marketplace/filter-pric
 
 import { CurrencySelect, Dropdown, DropdownFilterContainer } from '../../../components';
 import { IPriceRangeFilterProps, IPriceRangeFilterValue } from './types';
-import { coins } from '../../../mocks';
+// import { coins } from '../../../mocks';
 
 export const usePriceRangeFilter = () => {
   const form = useFormik<IPriceRangeFilterValue>({

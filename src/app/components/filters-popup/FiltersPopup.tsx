@@ -23,7 +23,7 @@ import { useMedia } from 'react-use';
 import FilterIcon from '../../../assets/images/marketplace/filters2.svg';
 import CloseIcon from '../../../assets/images/close-menu.svg';
 
-import { breakpoints } from '../../theme/constants';
+// import { breakpoints } from '../../theme/constants';
 import { ClearAllButton } from '../filters';
 import * as styles from './FiltersPopup.styles';
 

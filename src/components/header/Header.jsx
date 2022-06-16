@@ -24,7 +24,7 @@ import mp3Icon from "../../assets/images/mp3-icon.png";
 import audioIcon from "../../assets/images/marketplace/audio-icon.svg";
 import { defaultColors, handleScroll } from "../../utils/helpers";
 import { CONNECTORS_NAMES } from "../../utils/dictionary";
-import { useLayout } from "../../app/providers";
+// import { useLayout } from "../../app/providers";
 import SelectWalletPopup from "../popups/SelectWalletPopup";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -60,7 +60,7 @@ const Header = () => {
   const router = useRouter();
 
   const darkMode = useThemeStore((s) => s.darkMode);
-  const { headerRef } = useLayout();
+  // const { headerRef } = useLayout();
 
   const [selectedWallet, setSelectedWallet] = useState("");
   const [installed, setInstalled] = useState(
@@ -185,7 +185,7 @@ const Header = () => {
   }, [setLoginFn]);
 
   return (
-    <header ref={headerRef}>
+    <header>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <div className="app__logo">
         <Link href="/">

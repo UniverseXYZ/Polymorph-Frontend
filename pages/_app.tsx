@@ -69,9 +69,9 @@ import '../src/components/badge/Badge.scss';
 // import '../src/components/myNFTs/pendingDropdown/pendingNFTs/PendingNFTs.scss';
 
 
-import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
+// import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
-import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
+// import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 // import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 // import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
 // import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
@@ -92,7 +92,7 @@ import Header from '../src/components/header/Header';
 import Footer from '../src/components/footer/Footer';
 import { Popups } from '../src/app/components/AppPopups';
 import { Theme } from '../src/app/theme';
-import { LayoutProvider } from '../src/app/providers';
+// import { LayoutProvider } from '../src/app/providers';
 import { useErc20PriceStore } from '../src/stores/erc20PriceStore';
 import { useAuthStore } from '../src/stores/authStore';
 import Cookies from 'js-cookie'
@@ -132,7 +132,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-            <LayoutProvider>
+            {/* <LayoutProvider> */}
               <Theme>
                 <div id="root">
                   <Header />
@@ -141,7 +141,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   <Popups />
                 </div>
               </Theme>
-            </LayoutProvider>
+            {/* </LayoutProvider> */}
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>
     </QueryClientProvider>
