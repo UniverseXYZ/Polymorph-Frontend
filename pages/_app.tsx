@@ -5,7 +5,7 @@ import '../src/assets/scss/normalize.scss'
 import '../src/assets/scss/_variables.scss'
 
 import '../src/containers/homepage/Homepage.scss';
-import '../src/containers/polymorphs/Polymorphs.scss';
+// import '../src/containers/polymorphs/Polymorphs.scss';
 import '../src/containers/polymorphUniverse/PolymorphUniverse.scss';
 import '../src/containers/rarityCharts/RarityCharts.scss';
 import '../src/containers/rarityCharts/RarityCharsLoader.scss';
@@ -24,12 +24,12 @@ import '../src/components/header/dimensions/mobile/MobileView.scss';
 import '../src/components/header/dimensions/tablet/TabletView.scss';
 import '../src/components/footer/Footer.scss';
 import '../src/components/button/Button.scss';
-import '../src/components/polymorphs/styles/Characters.scss';
+// import '../src/components/polymorphs/styles/Characters.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivity.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivityTableRow.scss';
 import '../src/components/polymorphs/styles/PolymorphsActivityTableRowMobile.scss';
-import '../src/components/polymorphs/styles/Section4.scss';
-import '../src/components/polymorphs/styles/Section6.scss';
+// import '../src/components/polymorphs/styles/Section4.scss';
+// import '../src/components/polymorphs/styles/Section6.scss';
 import '../src/components/polymorphs/styles/WrapperCenter.scss';
 import '../src/components/polymorphs/styles/WrapperCenterTwoColumns.scss';
 import '../src/components/ui-elements/styles/WelcomeWrapper.scss';
@@ -38,7 +38,7 @@ import '../src/components/polymorphUniverse/aboutSection/AboutSection.scss';
 import '../src/components/polymorphUniverse/burnToMintSection/BurnToMintSection.scss';
 import '../src/components/polymorphUniverse/polymorphicTherapySection/PolymorphicTherapySection.scss'
 import '../src/components/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.scss';
-import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
+// import '../src/components/polymorphUniverse/heroSection/HeroSection.scss';
 import '../src/components/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.scss';
 import '../src/components/polymorphs/singlePolymorphDetails/DetailsWithTabs.scss';
 import '../src/components/polymorphs/singlePolymorphDetails/ImageWithBadges.scss';
@@ -54,11 +54,11 @@ import '../src/components/rarityCharts/RarityList.scss';
 import '../src/components/rarityCharts/welcome/Welcome.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/myNFTs/UniverseNFTs.scss';
-import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
+// import '../src/components/skeletons/nftCardSkeleton/NftCardSkeleton.scss';
 import '../src/components/tabs/Tabs.scss';
 import '../src/components/popups/PopupStyle.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePopup.scss'
-import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
+// import '../src/components/ui-elements/styles/QuantityUpDownGroup.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScramblePage.scss';
 import '../src/components/polymorphs/scramble/styles/PolymorphScrambleProp.scss';
 import '../src/components/select/SelectComponent.scss';
@@ -72,7 +72,7 @@ import '../src/components/badge/Badge.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
 import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
 import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
-import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
+// import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 // import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
 // import '../src/components/myNFTs/socialConnections/SocialConnections.scss';
 import '../src/components/SelectNFTs/SelectNfts.scss'
