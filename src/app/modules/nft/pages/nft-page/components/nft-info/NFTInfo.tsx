@@ -183,7 +183,7 @@ export const NFTInfo = () => {
       />
       {isLoading ? (
         <div className="loader-wrapper">
-          <CollectionPageLoader />
+          {/* <CollectionPageLoader /> */}
         </div>
       ) : NFT ? (
         <>

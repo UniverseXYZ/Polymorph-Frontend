@@ -4,8 +4,8 @@ import { Button, SimpleGrid, Box } from '@chakra-ui/react';
 import { useFiltersContext } from '../search-filters/search-filters.context';
 
 // Components
-import NftCardSkeleton from '../../../../../../../components/skeletons/nftCardSkeleton/NftCardSkeleton';
-import NoNftsFound from '../../../../../../../components/myNFTs/NoNftsFound';
+// import NftCardSkeleton from '../../../../../../../components/skeletons/nftCardSkeleton/NftCardSkeleton';
+// import NoNftsFound from '../../../../../../../components/myNFTs/NoNftsFound';
 import { NftItem, NFTItemContentWithPrice } from '../../../../../nft/components';
 import { SearchFilters } from '../search-filters';
 
@@ -146,16 +146,17 @@ export const WalletTab = ({ getTotalNfts }: IWalletTabProps) => {
 
                 {waitingOrders && (
                   <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={'30px'} mt={10}>
+                    {/* <NftCardSkeleton />
                     <NftCardSkeleton />
                     <NftCardSkeleton />
-                    <NftCardSkeleton />
-                    <NftCardSkeleton />
+                    <NftCardSkeleton /> */}
                   </SimpleGrid>
                 )}
               </div>
             </div>
           ) : (
-            !waitingOrders && <NoNftsFound />
+            // !waitingOrders && <NoNftsFound /> 
+            null
           )
         ) : // User NFTs
         hasUserNFTs || waitingUserNFTs ? (
@@ -210,16 +211,17 @@ export const WalletTab = ({ getTotalNfts }: IWalletTabProps) => {
 
               {waitingUserNFTs && (
                 <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={'30px'} mt={10}>
+                  {/* <NftCardSkeleton />
                   <NftCardSkeleton />
                   <NftCardSkeleton />
-                  <NftCardSkeleton />
-                  <NftCardSkeleton />
+                  <NftCardSkeleton /> */}
                 </SimpleGrid>
               )}
             </div>
           </div>
         ) : (
-          !waitingUserNFTs && <NoNftsFound />
+          // !waitingUserNFTs && <NoNftsFound />
+          null
         )}
       </div>
     </>
