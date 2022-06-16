@@ -28,7 +28,7 @@ import {
   NFTPageOwnerRelation,
 } from '../../../../components';
 import { TabHistory, TabMetadata, TabOffers, TabOwners, TabProperties } from './components';
-import { CollectionPageLoader } from '../../../../../../../containers/collection/CollectionPageLoader';
+// import { CollectionPageLoader } from '../../../../../../../containers/collection/CollectionPageLoader';
 import NotFound from '../../../../../../../components/notFound/NotFound';
 import { NFTItemContentWithPrice } from '../../../../components/nft-item/components';
 import { NFTTransferPopup } from '../nft-transfer-popup';
