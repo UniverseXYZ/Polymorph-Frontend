@@ -1,6 +1,6 @@
 import { SystemStyleObject } from '@chakra-ui/theme-tools';
 
-import BGImage from '../../../assets/images/v2/stone_bg.jpg';
+import BGImage from '../../assets/images/v2/stone_bg.jpg';
 
 export const StoneBG: SystemStyleObject = {
   _before: {
