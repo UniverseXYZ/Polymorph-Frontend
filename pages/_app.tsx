@@ -90,8 +90,8 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import Header from '../src/components/header/Header';
 import Footer from '../src/components/footer/Footer';
-import { Popups } from '../src/app/components/AppPopups';
-import { Theme } from '../src/app/theme';
+import { Popups } from '../src/components/popups/AppPopups';
+import { Theme } from '../src/theme';
 // import { LayoutProvider } from '../src/app/providers';
 import { useErc20PriceStore } from '../src/stores/erc20PriceStore';
 import { useAuthStore } from '../src/stores/authStore';

@@ -1,7 +1,7 @@
 import Popup from 'reactjs-popup';
 import React from 'react';
-import WrongNetworkPopup from '../../components/popups/WrongNetworkPopup';
-import ErrorPopup from '../../components/popups/ErrorPopup';
+import WrongNetworkPopup from './WrongNetworkPopup';
+import ErrorPopup from './ErrorPopup';
 import { useAuthStore } from '../../stores/authStore';
 import { useErrorStore } from '../../stores/errorStore';
 
