@@ -70,7 +70,7 @@ import '../src/components/badge/Badge.scss';
 
 
 // import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-filters/SearchFilters.scss';
-import '../src/app/modules/account/pages/my-nfts-page/components/search-filters/search-nft-filed/SearchField.scss';
+import '../src/components/input/SearchField.scss';
 // import '../src/app/modules/nft/pages/nft-page/components/nft-info/components/tab-properties/TabProperties.scss';
 // import '../src/components/skeletons/collectionCardSkeleton/CollectionCardSkeleton.scss';
 // import '../src/components/myNFTs/revenueSplits/RevenueSplits.scss';
