@@ -87,6 +87,38 @@
         }
       }
 
+      .faces-to-claim {
+        position: relative;
+        padding: 11px 16px;
+        border-radius: 12px;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 12px;
+          padding: 1px;
+          background: linear-gradient(
+            90deg,
+            rgba(42, 208, 202, 1),
+            rgba(225, 246, 100, 1),
+            rgba(254, 176, 254, 1),
+            rgba(171, 179, 252, 1),
+            rgba(93, 247, 164, 1),
+            rgba(88, 196, 246, 1)
+          );
+          -webkit-mask: linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+        }
+        &:hover {
+          box-shadow: 2px 1000px 1px rgb(255 255 255 / 20%) inset !important;
+        }
+      }
+
       .myAccount {
         justify-content: center;
         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -123,7 +155,8 @@
         transform-origin: top center;
         backface-visibility: hidden;
         transform: rotateX(-3deg);
-        transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.59, 1.21), opacity 0.1s 0.1s;
+        transition: transform 0.4s cubic-bezier(0.17, 0.67, 0.59, 1.21),
+          opacity 0.1s 0.1s;
         opacity: 0;
         pointer-events: none;
         &.drop-account {
@@ -239,6 +272,100 @@
           padding: 24px;
           button {
             width: 100%;
+          }
+        }
+      }
+      .drop-faces-to-claim {
+        width: 206px;
+        position: absolute;
+        top: 58px;
+
+        .dropdown__header {
+          background: linear-gradient(
+              119.02deg,
+              rgba(42, 208, 202, 0.24) 0%,
+              rgba(254, 176, 254, 0.24) 47.58%,
+              rgba(93, 247, 164, 0.24) 101.51%
+            ),
+            #ffffff;
+          border-radius: 12px 12px 0 0;
+          div:first-child {
+            font-family: "Space Grotesk";
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
+          }
+          div:nth-child(2) {
+            font-family: "Space Grotesk";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: rgba(0, 0, 0, 0.4);
+            margin-bottom: 16px;
+          }
+          .buttons--wrapper {
+            display: flex;
+          }
+          .claim--amount {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+
+            button:first-child {
+              border-radius: 8px 0px 0px 8px;
+              width: 32px;
+              height: 100%;
+            }
+            span {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 32px;
+              height: 30px;
+              background-color: $white;
+            }
+            button:last-child {
+              border-radius: 0px 8px 8px 0px;
+              width: 32px;
+              height: 100%;
+            }
+          }
+          .claim--button {
+            background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+            box-shadow: 0px 10px 20px rgba(136, 120, 172, 0.2);
+            border: unset;
+            padding: 6px 14px;
+            margin-left: 8px;
+            &:hover {
+              background: transparent !important;
+              box-shadow: unset !important;
+            }
+          }
+        }
+        .dropdown__body {
+          div:first-child {
+            font-family: "Space Grotesk";
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
+          }
+          div:nth-child(2) {
+            font-family: "Space Grotesk";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 18px;
+            color: rgba(0, 0, 0, 0.4);
+            margin-bottom: 16px;
+          }
+          button {
+            padding: 6px 14px;
           }
         }
       }

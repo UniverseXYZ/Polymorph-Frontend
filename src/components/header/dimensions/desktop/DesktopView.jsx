@@ -48,15 +48,10 @@ const DesktopView = ({
   userPolymorphsCount,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
-  const [isMintingDropdownOpened, setIsMintingDropdownOpened] = useState(false);
-  const [isPolymorphsDropdownOpened, setIsPolymorphsDropdownOpened] =
-    useState(false);
-  const [isAboutDropdownOpened, setIsAboutDropdownOpened] = useState(false);
-  const [isDAODropdownOpened, setIsDAODropdownOpened] = useState(false);
+  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [copied, setCopied] = useState(false);
   const router = useRouter();
 
-  // const location = useLocation();
   const {
     address,
     isAuthenticated,
@@ -77,6 +72,15 @@ const DesktopView = ({
     yourBalance: state.yourBalance,
     usdEthBalance: state.usdEthBalance,
   }));
+
+  const facesClaimCountHandler = (method) => {
+    if (method === "add" && facesAmountToClaim < 20) {
+      setFacesAmountToClaim(facesAmountToClaim + 1);
+    }
+    if (method === "sub" && facesAmountToClaim > 0) {
+      setFacesAmountToClaim(facesAmountToClaim - 1);
+    }
+  };
 
   return (
     <div className="desktop__nav">
@@ -112,60 +116,49 @@ const DesktopView = ({
             </span>
           </button>
         </li>
-        {/* <li>
-          <button
-            type="button"
-            className="menu-li"
-            onClick={() => setIsDAODropdownOpened(!isDAODropdownOpened)}
-          >
-            <span className="nav__link__title">DAO</span>
+        <li>
+          <button type="button" className={"menu-li faces-to-claim"}>
+            <span className="nav__link__title">
+              Faces to Claim
+              {userPolymorphsCount ? <span>{userPolymorphsCount}</span> : null}
+            </span>
             <img className="arrow" src={arrowUP} alt="arrow" />
           </button>
-          <div className="dropdown minting-drop">
+          <div className="dropdown drop-faces-to-claim">
+            <div className="dropdown__header">
+              <div className={"heading"}>X Faces to Claim</div>
+              <div>{"Y"} Faces claimed</div>
+              <div className={"buttons--wrapper"}>
+                <div className={"claim--amount"}>
+                  <button onClick={() => facesClaimCountHandler("sub")}>
+                    -
+                  </button>
+                  <span>{facesAmountToClaim}</span>
+                  <button onClick={() => facesClaimCountHandler("add")}>
+                    +
+                  </button>
+                </div>
+                <button className={"light-border-button claim--button"}>
+                  Claim
+                </button>
+              </div>
+            </div>
             <div className="dropdown__body">
+              <div>{"X"} Polymorphs to Burn</div>
+              <div>{"Y"} Polymorphs burnt</div>
               <button
                 type="button"
+                className="light-border-button"
                 onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://dao.universe.xyz/governance');
+                  router.push("/burn-to-mint/burn");
                 }}
               >
-                <img src={governanceIcon} alt="Governance" />
-                <span>Governance</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://dao.universe.xyz/yield-farming');
-                }}
-              >
-                <img src={yieldFarmingIcon} alt="Yield Farming" />
-                <span>Yield Farming</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://forum.universe.xyz/');
-                }}
-              >
-                <img src={forumIcon} alt="Forum" />
-                <span>Forum</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsDAODropdownOpened(false);
-                  window.open('https://signal.universe.xyz/#/');
-                }}
-              >
-                <img src={signalIcon} alt="Signal" />
-                <span>Signal</span>
+                Burn to Mint
               </button>
             </div>
           </div>
-        </li> */}
+        </li>
+
         {isWalletConnected ? (
           <li>
             <button
@@ -249,11 +242,6 @@ const DesktopView = ({
                     ~${toFixed(usdEthBalance, 2)}
                   </span>
                 </div>
-                {/* <div className="group2">
-                  <img src={Group2} alt="WETH" />
-                  <span className="first-span">6,24 WETH</span>
-                  <span className="second-span">$10,554</span>
-                </div> */}
               </div>
               <div className="dropdown__body">
                 <button
@@ -277,7 +265,7 @@ const DesktopView = ({
               closeOnDocumentClick={false}
               trigger={
                 <button type="button" className="sign__in">
-                  { "Connect Wallet"}
+                  {"Connect Wallet"}
                 </button>
               }
             >
