@@ -67,6 +67,7 @@ import Badge from "../../../badge/Badge";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
+import arrowLeft from "../../../../assets/images/burn-to-mint-images/arrow-left-white.svg";
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -115,6 +116,18 @@ const MobileView = (props) => {
   const rarityChartsRef = useRef(null);
   const infoRef = useRef(null);
   const daoRef = useRef(null);
+  const [showFacesMenu, setShowFacesMenu] = useState(false);
+  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
+  const [isFacesDropdownOpened, setIsFacesDropdownOpened] = useState(false);
+
+  const facesClaimCountHandler = (method) => {
+    if (method === "add" && facesAmountToClaim < 20) {
+      setFacesAmountToClaim(facesAmountToClaim + 1);
+    }
+    if (method === "sub" && facesAmountToClaim > 0) {
+      setFacesAmountToClaim(facesAmountToClaim - 1);
+    }
+  };
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -192,247 +205,8 @@ const MobileView = (props) => {
 
   return (
     <div className="mobile__nav">
-      {/* <button
-        type="button"
-        className="mobile--search--box"
-        onClick={() => {
-          setShowMobileSearch(!showMobileSearch);
-        }}
-      >
-        <img src={searchIcon} alt="icon" />
-      </button>
-      {showMobileSearch && (
-        <>
-          <div className="mobile--search--section">
-            <div className="input--search--box">
-              <div className={`input--box ${searchFocus || searchValue ? 'focus' : ''}`}>
-                <div className="box--shadow--effect--block" />
-                <input
-                  placeholder=""
-                  ref={searchRef}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  value={searchValue}
-                  onKeyDown={handleSearchKeyDown}
-                  type="text"
-                  onFocus={() => setSearchFocus(true)}
-                  onBlur={() => setSearchFocus(false)}
-                />
-                <img src={img} alt="search" className="searchicon" />
-                <img
-                  src={img2}
-                  alt="close"
-                  className="closeicon"
-                  onClick={() => {
-                    setShowMobileSearch(false);
-                    setSearchValue('');
-                  }}
-                  aria-hidden="true"
-                />
-              </div>
-            </div>
-            <div className="search--results">
-              {searchValue.length > 0 && (
-                <>
-                  <div className="search__results" ref={ref}>
-                    {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ||
-                    PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                      item.name.toLowerCase().includes(searchValue.toLowerCase())
-                    ).length > 0 ? (
-                      // PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                      //   item.name.toLowerCase().includes(searchValue.toLowerCase())
-                      // ).length > 0 ||
-                      // PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                      //   item.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-                      // ).length ? (
-                      <div className="search__nfts">
-                        {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>NFTs</h4>}
-                        {PLACEHOLDER_MARKETPLACE_NFTS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((nft) => (
-                          <div className="nft__div">
-                            <div className="nft--image">
-                              {nft.media.type !== 'audio/mpeg' &&
-                                nft.media.type !== 'video/mp4' && (
-                                  <img src={nft.media.url} alt="NFT" />
-                                )}
-                              {nft.media.type === 'video/mp4' && (
-                                <video
-                                  onMouseOver={(event) => event.target.play()}
-                                  onFocus={(event) => event.target.play()}
-                                  onMouseOut={(event) => event.target.pause()}
-                                  onBlur={(event) => event.target.pause()}
-                                >
-                                  <source src={nft.media.url} type="video/mp4" />
-                                  <track kind="captions" />
-                                  Your browser does not support the video tag.
-                                </video>
-                              )}
-                              {nft.media.type === 'audio/mpeg' && (
-                                <img className="nft--image" src={mp3Icon} alt={nft.name} />
-                              )}
-                              {nft.media.type === 'audio/mpeg' && (
-                                <div className="video__icon">
-                                  <img src={audioIcon} alt="Video Icon" />
-                                </div>
-                              )}
-                            </div>
-                            <div className="nft--desc">
-                              <h5 className="nft--name">{nft.name}</h5>
-                              <p className="nft--price">
-                                {nft.price} ETH / {nft.editions.split('/')[0]} of{' '}
-                                {nft.editions.split('/')[1]}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Users</h4>}
-                        {PLACEHOLDER_MARKETPLACE_USERS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((user) => (
-                          <div className="users__div">
-                            <div className="user--avatar">
-                              <img src={user.avatar} alt="User" />
-                            </div>
-                            <div className="user--desc">
-                              <h5 className="user--name">{user.name}</h5>
-                              <p className="user--followers">{user.followers} Followers</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Auctions</h4>}
-                        {PLACEHOLDER_MARKETPLACE_AUCTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((auction) => (
-                          <div className="auction__div">
-                            <div className="auction--image">
-                              <img src={auction.photo} alt="Auction" />
-                            </div>
-                            <div className="auction--desc">
-                              <h5 className="auction--title">{auction.name}</h5>
-                              <p className="auction--artist">by {auction.creator.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Collections</h4>}
-                        {PLACEHOLDER_MARKETPLACE_COLLECTIONS.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((collection) => (
-                          <div className="collection__div">
-                            {!collection.photo ? (
-                              <div
-                                className="random--avatar--color"
-                                style={{
-                                  backgroundColor:
-                                    defaultColors[Math.floor(Math.random() * defaultColors.length)],
-                                }}
-                              >
-                                {collection.name.charAt(0)}
-                              </div>
-                            ) : (
-                              <div className="collection--image">
-                                <img src={collection.photo} alt="Coll" />
-                              </div>
-                            )}
-                            <div className="collection--desc">
-                              <h5 className="collection--name">{collection.name}</h5>
-                              <p className="collection--owner">by {collection.owner.name}</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).length > 0 && <h4>Communities</h4>}
-                        {PLACEHOLDER_MARKETPLACE_COMMUNITIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((communities) => (
-                          <div className="communities__div">
-                            <div className="communities--photo">
-                              <img src={communities.photo} alt="Comm" />
-                            </div>
-                            <div className="communities--desc">
-                              <h5 className="communities--name">{communities.name}</h5>
-                              <p className="communities--members">{communities.members} Members</p>
-                            </div>
-                          </div>
-                        ))}
-                        {PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLocaleLowerCase())
-                        ).length > 0 && <h4>Galleries</h4>}
-                        {PLACEHOLDER_MARKETPLACE_GALLERIES.filter((item) =>
-                          item.name.toLowerCase().includes(searchValue.toLowerCase())
-                        ).map((galleries) => (
-                          <div className="galleries__div">
-                            <div className="galleries--photo">
-                              <img src={galleries.photos[0]} alt="Gall" />
-                            </div>
-                            <div className="galleries--desc">
-                              <h5 className="galleries--name">{galleries.name}</h5>
-                              <p className="galleries--likes">{galleries.likesCount} Likes</p>
-                            </div>
-                          </div>
-                        ))}
-                        <Button
-                          type="button"
-                          className="light-border-button"
-                          onClick={() => handleAllResults()}
-                        >
-                          All results
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="no__result">
-                        <p>No items found</p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
-              <p>
-                Search by auction, NFT, user,
-                <br /> collection, community or gallery
-              </p>
-            </div>
-          </div>
-        </>
-      )} */}
       {isWalletConnected && (
         <div className="wallet__connected__tablet">
-          {/* <img
-            className="account__icon hide__on__tablet"
-            src={accountIcon}
-            onClick={() => {
-              setIsAccountDropdownOpened(!isAccountDropdownOpened);
-              setShowMenu(false);
-            }}
-            alt="Account icon"
-            aria-hidden="true"
-          /> */}
-          {/* <img
-            className="account__icon show__on__tablet"
-            src={accountDarkIcon}
-            onClick={() => {
-              setIsAccountDropdownOpened(!isAccountDropdownOpened);
-              setShowMenu(false);
-            }}
-            alt="Account icon"
-            aria-hidden="true"
-          /> */}
           <div
             style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
             aria-hidden
@@ -489,11 +263,6 @@ const MobileView = (props) => {
                       ${toFixed(usdEthBalance, 2)}
                     </span>
                   </div>
-                  {/* <div className="group2">
-                    <img src={Group2} alt="WETH" />
-                    <span className="first-span">6,24 WETH</span>
-                    <span className="second-span">$10,554</span>
-                  </div> */}
                 </div>
                 <div className="dropdown__body">
                   <button
@@ -530,45 +299,126 @@ const MobileView = (props) => {
           <ul className="nav__menu">
             {!showSelectWallet ? (
               <>
-                <li>
-                  <div className="grid__menu">
-                    <div>
-                      <div
-                        className="head"
-                        aria-hidden="true"
-                        onClick={() => router.push("/burn-to-mint")}
-                      >
-                        <p className="title">Burn to Mint</p>
-                        <img src={arrowRight} alt="arrow" />
+                {!showFacesMenu && (
+                  <li>
+                    <div className="grid__menu">
+                      <div>
+                        <div
+                          className="head"
+                          aria-hidden="true"
+                          onClick={() => router.push("/burn-to-mint")}
+                        >
+                          <p className="title">Burn to Mint</p>
+                          <img src={arrowRight} alt="arrow" />
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          className="head"
+                          aria-hidden="true"
+                          onClick={() => router.push("/polymorph-rarity")}
+                        >
+                          <p className="title">Rarity Chart</p>
+                          <img src={arrowRight} alt="arrow" />
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          className="head"
+                          aria-hidden="true"
+                          onClick={() => router.push("/my-polymorphs")}
+                        >
+                          <p className="title">
+                            My Polymorphs
+                            {userPolymorphsCount ? (
+                              <span>{userPolymorphsCount}</span>
+                            ) : null}
+                          </p>
+                          <img src={arrowRight} alt="arrow" />
+                        </div>
+                      </div>
+                      {isWalletConnected && (
+                        <div>
+                          <div
+                            className="head"
+                            aria-hidden="true"
+                            onClick={() => setShowFacesMenu(true)}
+                          >
+                            <p className="title">
+                              Faces to Claim
+                              {userPolymorphsCount ? (
+                                <span>{userPolymorphsCount}</span>
+                              ) : null}
+                            </p>
+                            <img src={arrowRight} alt="arrow" />
+                          </div>
+                          {/* <button
+                          type="button"
+                          className={"menu-li faces-to-claim"}
+                        >
+                          <span className="nav__link__title">
+                            Faces to Claim
+                            {userPolymorphsCount ? (
+                              <span>{userPolymorphsCount}</span>
+                            ) : null}
+                          </span>
+                        </button> */}
+                        </div>
+                      )}
+                    </div>
+                  </li>
+                )}
+                {showFacesMenu && (
+                  <li className={"faces--menu"}>
+                    <button
+                      className={"go-back-button"}
+                      onClick={() => setShowFacesMenu(false)}
+                    >
+                      <img src={arrowLeft} />
+                      <span>Go Back</span>
+                    </button>
+                    <div className="faces-to-claim">
+                      <div className="menu__header">
+                        <div className={"heading"}>X Faces to Claim</div>
+                        <div>{"Y"} Faces claimed</div>
+                        <div className={"buttons--wrapper"}>
+                          <div className={"claim--amount"}>
+                            <button
+                              onClick={() => facesClaimCountHandler("sub")}
+                            >
+                              -
+                            </button>
+                            <span>{facesAmountToClaim}</span>
+                            <button
+                              onClick={() => facesClaimCountHandler("add")}
+                            >
+                              +
+                            </button>
+                          </div>
+                          <button
+                            className={"light-border-button claim--button"}
+                          >
+                            Claim
+                          </button>
+                        </div>
+                      </div>
+                      <div className="menu__body">
+                        <div>{"X"} Polymorphs to Burn</div>
+                        <div>{"Y"} Polymorphs burnt</div>
+                        <button
+                          type="button"
+                          className="light-border-button"
+                          onClick={() => {
+                            router.push("/burn-to-mint/burn");
+                          }}
+                        >
+                          Burn to Mint
+                        </button>
                       </div>
                     </div>
-                    <div>
-                      <div
-                        className="head"
-                        aria-hidden="true"
-                        onClick={() => router.push("/polymorph-rarity")}
-                      >
-                        <p className="title">Rarity Chart</p>
-                        <img src={arrowRight} alt="arrow" />
-                      </div>
-                    </div>
-                    <div>
-                      <div
-                        className="head"
-                        aria-hidden="true"
-                        onClick={() => router.push("/my-polymorphs")}
-                      >
-                        <p className="title">
-                          My Polymorphs
-                          {userPolymorphsCount ? (
-                            <span>{userPolymorphsCount}</span>
-                          ) : null}
-                        </p>
-                        <img src={arrowRight} alt="arrow" />
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                  </li>
+                )}
+
                 {!isWalletConnected && (
                   <li className="sign__in">
                     <button

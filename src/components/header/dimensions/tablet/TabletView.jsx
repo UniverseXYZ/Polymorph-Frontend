@@ -4,51 +4,18 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import { Animated } from "react-animated-css";
-// import './TabletView.scss';
 import HeaderAvatar from "../../HeaderAvatar";
 import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
 import hamburgerIcon from "../../../../assets/images/hamburger.svg";
 import closeIcon from "../../../../assets/images/close-menu.svg";
-import accountIcon from "../../../../assets/images/icon1.svg";
-import accountDarkIcon from "../../../../assets/images/account-dark-icon.svg";
-import AppContext from "../../../../ContextAPI";
-import Group2 from "../../../../assets/images/Group2.svg";
 import Group1 from "../../../../assets/images/Group1.svg";
 import copyIcon from "../../../../assets/images/copy.svg";
-import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
-import myProfileIcon from "../../../../assets/images/my-profile.svg";
-import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
-import signOutIcon from "../../../../assets/images/sign-out.svg";
-import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
-import socialMediaIcon from "../../../../assets/images/social-media.svg";
-import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
-import coreDropsIcon from "../../../../assets/images/core-drops.svg";
-import rarityChartIcon from "../../../../assets/images/rarity-chart.svg";
-import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
-import aboutIcon from "../../../../assets/images/about.svg";
-import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
-import teamIcon from "../../../../assets/images/team.svg";
-import governanceIcon from "../../../../assets/images/governance.svg";
-import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
-import forumIcon from "../../../../assets/images/forum.svg";
-import signalIcon from "../../../../assets/images/signal.svg";
-import docsIcon from "../../../../assets/images/docs.svg";
-import SubscribePopup from "../../../popups/SubscribePopup.jsx";
-import searchIcon from "../../../../assets/images/search-icon.svg";
-import img from "../../../../assets/images/search-gray.svg";
-import img2 from "../../../../assets/images/crossclose.svg";
-import Button from "../../../button/Button";
-// import '../../Header.scss';
-import mp3Icon from "../../../../assets/images/mp3-icon.png";
-import audioIcon from "../../../../assets/images/marketplace/audio-icon.svg";
 import { defaultColors, handleClickOutside } from "../../../../utils/helpers";
 import {
   shortenEnsDomain,
   shortenEthereumAddress,
   toFixed,
 } from "../../../../utils/helpers/format";
-import supportIcon from "../../../../assets/images/supportIcon.svg";
-import Badge from "../../../badge/Badge";
 import arrowUP from "../../../../assets/images/arrow-down.svg";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
@@ -83,27 +50,18 @@ const TabletView = (props) => {
 
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [searchFocus, setSearchFocus] = useState(false);
-  const searchRef = useRef();
-  const [searchValue, setSearchValue] = useState("");
   const ref = useRef(null);
   const router = useRouter();
+  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
+  const [isFacesDropdownOpened, setIsFacesDropdownOpened] = useState(false);
 
-  const handleSearchKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      if (searchValue) {
-        router.push(`/search`, { query: searchValue });
-        setSearchValue("");
-        searchRef.current.blur();
-        setShowSearch(false);
-      }
+  const facesClaimCountHandler = (method) => {
+    if (method === "add" && facesAmountToClaim < 20) {
+      setFacesAmountToClaim(facesAmountToClaim + 1);
     }
-  };
-  const handleAllResults = () => {
-    router.push(`/search`, { query: searchValue });
-    setSearchValue("");
-    searchRef.current.blur();
-    setShowSearch(false);
+    if (method === "sub" && facesAmountToClaim > 0) {
+      setFacesAmountToClaim(facesAmountToClaim - 1);
+    }
   };
 
   useEffect(() => {
@@ -141,6 +99,13 @@ const TabletView = (props) => {
 
   const toggleDropdown = () => {
     setIsAccountDropdownOpened(!isAccountDropdownOpened);
+    setIsFacesDropdownOpened(false);
+    setShowMenu(false);
+  };
+
+  const toggleFacesDropdown = () => {
+    setIsFacesDropdownOpened(!isFacesDropdownOpened);
+    setIsAccountDropdownOpened(false);
     setShowMenu(false);
   };
 
@@ -172,16 +137,6 @@ const TabletView = (props) => {
               <img className="arrow" src={arrowUP} alt="arrow" />
             </button>
           </div>
-          {/* <img
-            className="account__icon show__on__tablet"
-            src={accountDarkIcon}
-            onClick={() => {
-              setIsAccountDropdownOpened(!isAccountDropdownOpened);
-              setShowMenu(false);
-            }}
-            alt="Account icon"
-            aria-hidden="true"
-          /> */}
 
           {isAccountDropdownOpened && (
             <Animated animationIn="fadeIn">
@@ -229,11 +184,6 @@ const TabletView = (props) => {
                       ${toFixed(usdEthBalance, 2)}
                     </span>
                   </div>
-                  {/* <div className="group2">
-                    <img src={Group2} alt="WETH" />
-                    <span className="first-span">6,24 WETH</span>
-                    <span className="second-span">$10,554</span>
-                  </div> */}
                 </div>
                 <div className="dropdown__body">
                   <button
@@ -251,6 +201,64 @@ const TabletView = (props) => {
               </div>
             </Animated>
           )}
+
+          <div
+            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
+            aria-hidden
+            onClick={toggleFacesDropdown}
+          >
+            <button
+              // style={{ width: 200 }}
+              type="button"
+              className="menu-li faces-to-claim"
+            >
+              <span className="nav__link__title">
+                <div className="ethereum__address__tablet">
+                  Faces to Claim
+                  {userPolymorphsCount ? (
+                    <span>{userPolymorphsCount}</span>
+                  ) : null}
+                </div>
+              </span>
+              <img className="arrow" src={arrowUP} alt="arrow" />
+            </button>
+          </div>
+
+          {isFacesDropdownOpened ? (
+            <div className="dropdown drop-faces-to-claim">
+              <div className="dropdown__header">
+                <div className={"heading"}>X Faces to Claim</div>
+                <div>{"Y"} Faces claimed</div>
+                <div className={"buttons--wrapper"}>
+                  <div className={"claim--amount"}>
+                    <button onClick={() => facesClaimCountHandler("sub")}>
+                      -
+                    </button>
+                    <span>{facesAmountToClaim}</span>
+                    <button onClick={() => facesClaimCountHandler("add")}>
+                      +
+                    </button>
+                  </div>
+                  <button className={"light-border-button claim--button"}>
+                    Claim
+                  </button>
+                </div>
+              </div>
+              <div className="dropdown__body">
+                <div>{"X"} Polymorphs to Burn</div>
+                <div>{"Y"} Polymorphs burnt</div>
+                <button
+                  type="button"
+                  className="light-border-button"
+                  onClick={() => {
+                    router.push("/burn-to-mint/burn");
+                  }}
+                >
+                  Burn to Mint
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
       <button
@@ -270,45 +278,6 @@ const TabletView = (props) => {
           <ul className="nav__menu">
             <li>
               <div className="grid__menu">
-                {/* <div>
-                  <p className="title">NFT Drops</p>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/polymorphs');
-                      }}
-                    >
-                      <img src={polymorphsIcon} alt="Polymorphs" />
-                      <span>Polymorphs</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        router.push('/lobby-lobsters');
-                      }}
-                    >
-                      <img src={lobbyLobstersIcon} alt="Lobby Lobsters" />
-                      <span>Lobby Lobsters</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      // onClick={() => {
-                      //   router.push('/core-drops');
-                      // }}
-                      className="disable"
-                    >
-                      <img src={coreDropsIcon} alt="Core drops" />
-                      <span>OG Planet Drop</span>
-                      <span className="tooltiptext">Coming soon</span>
-                    </button>
-                  </div>
-                </div> */}
                 <div className="menu__row">
                   <p
                     className="title"
@@ -348,107 +317,10 @@ const TabletView = (props) => {
                   </p>
                   <img src={arrowRight} alt="arrow" />
                 </div>
-                {/* <div>
-                  <p className="title">Info</p>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/about');
-                      }}
-                    >
-                      <img src={aboutIcon} alt="About" />
-                      About
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        window.open('https://github.com/UniverseXYZ/UniverseXYZ-Whitepaper')
-                      }
-                    >
-                      <img src={whitepaperIcon} alt="Whitepaper" />
-                      Whitepaper
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      className="team"
-                      onClick={() => {
-                        setShowMenu(false);
-                        router.push('/team');
-                      }}
-                    >
-                      <img src={teamIcon} alt="Team" />
-                      Team
-                    </button>
-                  </div>
-                  <div>
-                    <button type="button" onClick={() => window.open('https://docs.universe.xyz/')}>
-                      <img src={docsIcon} alt="Docs" />
-                      <span>Docs</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://universe.freshdesk.com/support/home')}
-                    >
-                      <img src={supportIcon} alt="Support" width="20px" height="15px" />
-
-                      <span>Support</span>
-                    </button>
-                  </div>
-                </div> */}
-                {/* <div>
-                  <p className="title">DAO</p>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://dao.universe.xyz/governance')}
-                    >
-                      <img src={governanceIcon} alt="Governance" />
-                      <span>Governance</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://dao.universe.xyz/yield-farming')}
-                    >
-                      <img src={yieldFarmingIcon} alt="Yield Farming" />
-                      <span>Yield Farming</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://forum.universe.xyz/')}
-                    >
-                      <img src={forumIcon} alt="Forum" />
-                      <span>Forum</span>
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => window.open('https://signal.universe.xyz/#/')}
-                    >
-                      <img src={signalIcon} alt="Signal" />
-                      <span>Signal</span>
-                    </button>
-                  </div>
-                </div> */}
               </div>
             </li>
             {!isWalletConnected && (
               <li className="sign__in">
-                {/* <Popup trigger={<button type="button">Join newsletter</button>}>
-                  {(close) => <SubscribePopup close={close} />}
-                </Popup> */}
                 <Popup
                   closeOnDocumentClick={false}
                   trigger={
