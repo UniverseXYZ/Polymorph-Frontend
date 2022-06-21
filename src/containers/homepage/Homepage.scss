@@ -839,16 +839,17 @@
   }
 
   .claim__faces__section {
-    display: flex;
+    // display: flex;
     justify-content: center;
     background-color: #000000;
     color: white;
-    padding: 90px 60px;
     position: relative;
+    padding: 0 60px 30px 60px;
 
     .claim__faces__container {
       max-width: 1110px;
       width: 100%;
+      margin: auto;
 
       .header__subsection {
         position: relative;
@@ -943,7 +944,6 @@
                   }
                 }
                 .light-button {
-                  max-height: 42px;
                   margin: unset;
                   margin-left: 8px;
                   @media (max-width: 375px) {
@@ -1027,7 +1027,6 @@
                   }
                 }
                 .light-button {
-                  max-height: 42px;
                   margin: unset;
                   @include sm {
                     margin: 0;
@@ -1048,8 +1047,82 @@
         }
       }
     }
+
     @include sm {
-      padding: 90px 20px;
+      padding: 0px 20px;
+    }
+  }
+  .carousel__subsection {
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    .shadow--left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 300px;
+      z-index: 100;
+      background: linear-gradient(270deg, black 0%, rgba(0, 0, 0, 0) 100%);
+      transform: rotate(-180deg);
+      @include lg {
+        width: 150px;
+      }
+      @include sm {
+        width: 75px;
+      }
+    }
+
+    .shadow--right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      width: 300px;
+      z-index: 100;
+      background: linear-gradient(90deg, black 0%, rgba(0, 0, 0, 0) 100%);
+      transform: rotate(-180deg);
+      @include lg {
+        width: 150px;
+      }
+      @include sm {
+        width: 75px;
+      }
+    }
+
+    .slick-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 320px;
+      @include md {
+        height: 250px;
+      }
+    }
+
+    .slick-slide {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8px;
+      transition: all 0.2s ease-in-out;
+      overflow: visible;
+      z-index: 1;
+
+      &:hover {
+        transform: scale(1.25);
+        z-index: 1000;
+        cursor: pointer;
+      }
+      img {
+        border-radius: 12px;
+      }
+    }
+    .slick-active {
+      z-index: 100;
     }
   }
 
