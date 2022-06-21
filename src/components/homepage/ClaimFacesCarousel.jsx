@@ -7,6 +7,12 @@ import Face3 from "../../assets/images/carousel-images/poly-face-3.png";
 import Face4 from "../../assets/images/carousel-images/poly-face-4.png";
 import Face5 from "../../assets/images/carousel-images/poly-face-5.png";
 import Face6 from "../../assets/images/carousel-images/poly-face-6.png";
+import Face7 from "../../assets/images/carousel-images/poly-face-7.png";
+import Face8 from "../../assets/images/carousel-images/poly-face-8.png";
+import Face9 from "../../assets/images/carousel-images/poly-face-9.png";
+import Face10 from "../../assets/images/carousel-images/poly-face-10.png";
+import Face11 from "../../assets/images/carousel-images/poly-face-11.png";
+import Face12 from "../../assets/images/carousel-images/poly-face-12.png";
 
 export default class AutoPlayMethods extends Component {
   render() {
@@ -68,6 +74,36 @@ export default class AutoPlayMethods extends Component {
           <div className={``}>
             {" "}
             <Image src={Face6} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face7} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face8} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face9} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face10} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face11} width={256} height={256} />
+          </div>
+
+          <div className={``}>
+            {" "}
+            <Image src={Face12} width={256} height={256} />
           </div>
         </Slider>
         <div className="shadow--right" />
