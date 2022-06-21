@@ -6,6 +6,7 @@ import { OpenGraph } from "@app/components";
 import { useThemeStore } from "src/stores/themeStore";
 import Welcome from "../../components/homepage/Welcome.jsx";
 import LatestFeaturesSection from "@legacy/polymorphUniverse/latestFeaturesSection/LatestFeaturesSection.jsx";
+import ClaimFacesSection from "../../components/homepage/ClaimFacesSection";
 import AboutSection from "@legacy/polymorphUniverse/aboutSection/AboutSection.jsx";
 import BattlePolymorphSection from "@legacy/polymorphUniverse/battlePolymorphSection/BattlePolymorphSection.jsx";
 import BurnToMintSection from "../../components/polymorphUniverse/burnToMintSection/BurnToMintSection";
@@ -49,6 +50,7 @@ const Homepage = () => {
       />
       <Welcome />
       <LatestFeaturesSection />
+      <ClaimFacesSection />
       <AboutSection />
       <BurnToMintSection />
       <PolymorphicTherapySection />

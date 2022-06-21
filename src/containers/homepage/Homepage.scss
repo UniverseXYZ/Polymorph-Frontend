@@ -838,6 +838,221 @@
     }
   }
 
+  .claim__faces__section {
+    display: flex;
+    justify-content: center;
+    background-color: #000000;
+    color: white;
+    padding: 90px 60px;
+    position: relative;
+
+    .claim__faces__container {
+      max-width: 1110px;
+      width: 100%;
+
+      .header__subsection {
+        position: relative;
+        .heading {
+          font-family: "Sharp Grotesk";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 140%;
+          margin-bottom: 16px;
+        }
+
+        .subheading {
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 160%;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 64px;
+        }
+
+        .claim__container {
+          display: flex;
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          .claim__faces {
+            display: flex;
+            min-height: 130px;
+            width: 100%;
+
+            .count {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: rgba(255, 255, 255, 0.1);
+              width: 130px;
+              border-radius: 12px 0px 0px 12px;
+              font-family: "Space Grotesk";
+              font-style: normal;
+              font-weight: 300;
+              font-size: 64px;
+              line-height: 80px;
+              border-right: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .change__count {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              background: rgba(255, 255, 255, 0.1);
+              padding-left: 24px;
+              border-radius: 0px 12px 12px 0px;
+
+              div:first-child {
+                span:first-child {
+                  color: rgba(255, 255, 255, 0.4);
+                }
+                padding-bottom: 8px;
+              }
+
+              .buttons__wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                position: relative;
+                div {
+                  display: flex;
+                  padding: unset;
+
+                  button:first-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 12px 0 0 12px;
+                  }
+                  span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 42px;
+                    width: 42px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                  }
+                  button:last-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 0 12px 12px 0;
+                  }
+                }
+                .light-button {
+                  max-height: 42px;
+                  margin: unset;
+                  margin-left: 8px;
+                  @media (max-width: 375px) {
+                    margin: 0;
+                    margin-top: 8px;
+                  }
+                }
+              }
+              @include sm {
+                padding: 8px;
+              }
+            }
+            @include md {
+              margin: 0;
+              margin-bottom: 16px;
+            }
+          }
+
+          .burn__polymorphs {
+            display: flex;
+            min-height: 130px;
+            width: 100%;
+            margin-left: 16px;
+
+            .count {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: rgba(255, 255, 255, 0.1);
+              width: 130px;
+              border-radius: 12px 0px 0px 12px;
+              font-family: "Space Grotesk";
+              font-style: normal;
+              font-weight: 300;
+              font-size: 64px;
+              line-height: 80px;
+              border-right: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .change__count {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              background: rgba(255, 255, 255, 0.1);
+              padding-left: 24px;
+              border-radius: 0px 12px 12px 0px;
+
+              div:first-child {
+                span:first-child {
+                  color: rgba(255, 255, 255, 0.4);
+                }
+                padding-bottom: 8px;
+              }
+
+              .buttons__wrapper {
+                display: flex;
+                position: relative;
+                div {
+                  display: flex;
+                  padding: unset;
+
+                  button:first-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 12px 0 0 12px;
+                  }
+                  span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 42px;
+                    width: 42px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                  }
+                  button:last-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 0 12px 12px 0;
+                  }
+                }
+                .light-button {
+                  max-height: 42px;
+                  margin: unset;
+                  @include sm {
+                    margin: 0;
+                  }
+                }
+              }
+              @include sm {
+                padding: 8px;
+              }
+            }
+            @include md {
+              margin: 0;
+            }
+          }
+          @include md {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+    @include sm {
+      padding: 90px 20px;
+    }
+  }
+
   .non__fungible__universe__section {
     position: relative;
     padding: 150px 60px;
