@@ -311,7 +311,7 @@
       .grid__menu {
         display: grid;
         grid-template-columns: 1fr;
-        padding: 0 20px 20px;
+        padding: 0 20px 0 20px;
         > div:not(:last-child) {
           > div:last-child {
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -407,30 +407,6 @@
           span:not(.tooltiptext) {
             color: $black;
           }
-        }
-      }
-      &.sign__in {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px 0 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        button {
-          width: 100%;
-          font-family: $spaceGroteskFont;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: $black;
-          padding: 15px;
-          background: linear-gradient($white, $white) padding-box,
-            linear-gradient(to right, #bceb00, #00eaea) border-box;
-          border: 1px solid transparent;
-          border-radius: 12px;
         }
       }
     }
@@ -579,6 +555,31 @@
             }
           }
         }
+      }
+    }
+
+    .sign__in {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      button {
+        width: 100%;
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $black;
+        padding: 15px;
+        background: linear-gradient($white, $white) padding-box,
+          linear-gradient(to right, #bceb00, #00eaea) border-box;
+        border: 1px solid transparent;
+        border-radius: 12px;
       }
     }
 
