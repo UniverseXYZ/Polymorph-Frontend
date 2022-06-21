@@ -1,6 +1,7 @@
 {
   "name": "polymorph-frontend",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
