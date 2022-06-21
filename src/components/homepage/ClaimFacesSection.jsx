@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import ClaimFacesCarousel from "./ClaimFacesCarousel";
+import { ArtistsInfo } from "./ArtistsInfo";
 
 const ClaimFacesSection = () => {
   const router = useRouter();
@@ -80,7 +81,25 @@ const ClaimFacesSection = () => {
       <div className="carousel__subsection">
         <ClaimFacesCarousel />
       </div>
-      <div className="artists__subsection"></div>
+      <div className="artists__subsection">
+        <div className="heading">Artists</div>
+
+        <div className="artists__list__container">
+          {ArtistsInfo.map((artist) => {
+            return (
+              <div className="artist__container">
+                <img src={artist.image} />
+                <div className="artist__info">
+                  <p>{artist.name}</p>
+                  <button onClick={() => window.open(artist.portfolioLink)}>
+                    Portfolio
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </>
   );
 };

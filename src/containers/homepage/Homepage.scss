@@ -839,7 +839,6 @@
   }
 
   .claim__faces__section {
-    // display: flex;
     justify-content: center;
     background-color: #000000;
     color: white;
@@ -1123,6 +1122,65 @@
     }
     .slick-active {
       z-index: 100;
+    }
+  }
+
+  .artists__subsection {
+    background-color: $black;
+    padding: 0 60px;
+    color: $white;
+
+    .heading {
+      font-family: "Sharp Grotesk";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 130%;
+      width: 100%;
+      max-width: 1110px;
+      margin: 0 auto;
+      margin-bottom: 32px;
+    }
+    .artists__list__container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      column-gap: 16px;
+      row-gap: 16px;
+      font-family: "Space Grotesk";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 22px;
+      max-width: 1110px;
+      margin: 0 auto;
+      .artist__container {
+        display: flex;
+        max-width: 1110px;
+        .artist__info {
+          button {
+            text-decoration: underline;
+            color: rgba(255, 255, 255, 0.6);
+            &:hover {
+              color: white;
+            }
+          }
+        }
+        img {
+          height: 40px;
+          width: 40px;
+          margin-right: 8px;
+        }
+      }
+      padding-bottom: 128px;
+      @include md {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include sm {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @include sm {
+      padding: 0 20px;
     }
   }
 
