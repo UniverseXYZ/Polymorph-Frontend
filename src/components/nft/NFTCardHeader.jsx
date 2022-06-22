@@ -15,9 +15,7 @@ import unhideNFTIcon from '../../assets/images/unhide-nft.svg';
 import burnNFTIcon from '../../assets/images/burn-nft.svg';
 import universeIcon from '../../assets/images/universe-img.svg';
 import { getCollectionBackgroundColor } from '../../utils/helpers';
-// import { useMyNftsContext } from '../../contexts/MyNFTsContext';
 import { useMyNftsStore } from '../../stores/myNftsStore'
-// import { useAuthContext } from '../../contexts/AuthContext';
 import { useAuthStore } from '../../stores/authStore';
 import { shortenEthereumAddress } from '../../utils/helpers/format';
 
