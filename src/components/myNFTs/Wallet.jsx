@@ -8,9 +8,9 @@ import NFTCard from '../nft/NFTCard';
 import NftCardSkeleton from '../skeletons/nftCardSkeleton/NftCardSkeleton';
 import { CollectionPageLoader } from '../../containers/collection/CollectionPageLoader.jsx';
 import NoNftsFound from './NoNftsFound.jsx';
-import { useErrorContext } from '../../contexts/ErrorContext';
+import { useErrorStore } from '../../stores/errorStore.js';
 import { getNftsPerAddress } from '../../utils/api/marketplace.ts';
-import { useAuthContext } from '../../contexts/AuthContext';
+import { useAuthStore } from '../../stores/authStore.js';
 import LoadMore from '../pagination/LoadMore';
 
 const PER_PAGE = 12;
@@ -23,8 +23,8 @@ const Wallet = React.memo(() => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [showLoadMore, setShowLoadMore] = useState(false);
 
-  const { address } = useAuthContext();
-  const { setShowError, setErrorTitle, setErrorBody } = useErrorContext();
+  const { address } = useAuthStore();
+  const { setShowError, setErrorTitle, setErrorBody } = useErrorStore();
 
   const getMyNfts = async () => {
     if (address) {
