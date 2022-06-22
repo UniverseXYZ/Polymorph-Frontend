@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncerAll";
-import { categoriesArray } from "../../containers/rarityCharts/categories";
-import MyRarityList from "../rarityCharts/myPolymorphsRarityList/MyRarityList";
+import { categoriesArray } from "../../containers/rarityCharts/polymorphicFacesCategories";
+import MyPolymorphicFacesRarityList from "../rarityCharts/myPolymorphicFacesRarityList/MyPolymorphicFacesRarityList";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
 
-const MyPolymorphsChart = ({
-  isDropdownOpened,
-  setIsDropdownOpened,
-  scrollContainer,
-}) => {
+const MyPolymorphicFacesChart = () => {
   const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } =
     useMyNftsStore((s) => ({
       setMyUniverseNFTsActiverPage: s.setMyUniverseNFTsActiverPage,
@@ -99,7 +95,7 @@ const MyPolymorphsChart = ({
         loading={search.loading}
         usedOnPage={"My-polymorphs"}
       />
-      <MyRarityList
+      <MyPolymorphicFacesRarityList
         data={results}
         isLastPage={isLastPage}
         perPage={perPage}
@@ -122,9 +118,5 @@ const MyPolymorphsChart = ({
     </div>
   );
 };
-MyPolymorphsChart.propTypes = {
-  isDropdownOpened: PropTypes.bool.isRequired,
-  setIsDropdownOpened: PropTypes.func.isRequired,
-  scrollContainer: PropTypes.oneOfType([PropTypes.object]).isRequired,
-};
-export default MyPolymorphsChart;
+
+export default MyPolymorphicFacesChart;

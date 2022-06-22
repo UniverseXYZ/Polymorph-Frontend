@@ -374,7 +374,7 @@ const MobileView = (props) => {
                       className={"go-back-button"}
                       onClick={() => setShowFacesMenu(false)}
                     >
-                      <img src={arrowLeft} />
+                      <img src={arrowLeft} alt="" />
                       <span>Go Back</span>
                     </button>
                     <div className="faces-to-claim">

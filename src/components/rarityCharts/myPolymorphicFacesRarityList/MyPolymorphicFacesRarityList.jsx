@@ -1,22 +1,22 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// import './RarityList.scss';
-// import './RarityList.scss';
-import BurnPolymorphCard from "./BurnPolymorphCard";
-// import ItemsPerPageDropdown from '../rarityCharts/list/pagination/ItemsPerPageDropdown';
-// import Pagination from '../../pagination/Pagionation';
-// import '../../../containers/rarityCharts/RarityCharsLoader.scss';
-// import '../../../containers/rarityCharts/RarityCharts.scss';
-import closeIcon from "../../assets/images/close-menu.svg";
-// import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
-// import CategoriesFilter from "../rarityCharts/filters/CategoriesFilter";
-import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader";
-// import RarityPagination from "../rarityCharts/list/RarityPagination";
+import ItemsPerPageDropdown from "../../pagination/ItemsPerPageDropdown";
+import closeIcon from "../../../assets/images/close-menu.svg";
+import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
+import CategoriesFilter from "../filters/CategoriesFilter";
+import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
+import RarityPagination from "../RarityPagination";
+import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
+import Popup from "reactjs-popup";
+import { usePolymorphStore } from "src/stores/polymorphStore";
 import { Button } from "@chakra-ui/react";
-import InfiniteScroll from "react-infinite-scroller";
+import BubbleIcon from "../../../assets/images/text-bubble.png";
+import MyPolymorphicFaceCard from "./MyPolymorphicFaceCard";
 
-const List = ({
+const marketplaceLink = "https://universe.xyz/marketplace";
+
+const MyPolymorphicFacesRarityList = ({
   data,
   perPage,
   offset,
@@ -35,12 +35,12 @@ const List = ({
   results,
   apiPage,
   handleCategoryFilterChange,
-  getSelectedCards,
 }) => {
-  const sliceData = data.slice(offset, offset + perPage) || [];
+  const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
-  const [selectedCards, setSelectedCards] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const { userPolymorphsAll } = usePolymorphStore();
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -70,18 +70,9 @@ const List = ({
     setFilter(newFilter);
   };
 
-  const removeSelectedCardById = (tokenId) => {
-    const newSelectedCards = selectedCards.filter(
-      (card) => card.tokenId !== tokenId
-    );
-    setSelectedCards(newSelectedCards);
+  const redirectHandler = () => {
+    setRedirect(true);
   };
-
-  useEffect(() => {
-    if (selectedCards.length <= 20) {
-      getSelectedCards([selectedCards]);
-    }
-  }, [selectedCards]);
 
   useEffect(() => {
     let check = false;
@@ -99,8 +90,13 @@ const List = ({
   }, [categories]);
 
   return (
-    <div className="rarity--charts--list">
-      {/* <CategoriesFilter
+    <div
+      className={`rarity--charts--list ${
+        loading || userPolymorphsAll.length > 0 ? "" : "unset--grid"
+      }`}
+    >
+      {loading || userPolymorphsAll.length > 0 ? (
+        <CategoriesFilter
           categories={categories}
           setCategories={setCategories}
           categoriesIndexes={categoriesIndexes}
@@ -109,12 +105,12 @@ const List = ({
           filter={filter}
           handleCategoryFilterChange={handleCategoryFilterChange}
           resultsCount={results?.length || 0}
-        />  */}
-
+        />
+      ) : null}
       <div className="list--with--selected--filters">
         <div className="selected--filters">
           {showClearALL && (
-            <div className="result">{results.length} results</div>
+            <div className="result">{results?.length} results</div>
           )}
           {categories.map((item, index) => (
             <React.Fragment key={item.id}>
@@ -124,7 +120,7 @@ const List = ({
                     <button
                       type="button"
                       className="light-border-button"
-                      key={trait.name}
+                      key={trait.id}
                     >
                       {trait.name}
                       <img
@@ -150,46 +146,40 @@ const List = ({
           )}
         </div>
         {loading && !isLastPage ? (
-          <div className="burn--grid">
-            <RarityChartsLoader number={8} />
+          <div className="grid">
+            <RarityChartsLoader number={9} />
           </div>
-        ) : results.length ? (
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={() => setPerPage(perPage + 8)}
-            hasMore={data.length >= perPage ? true : false}
-            loader={<div key={0}>Loading ...</div>}
-          >
-            <div className="burn--grid">
-              {sliceData.map((item, i) => (
-                <BurnPolymorphCard
-                  key={item.tokenid}
-                  item={item}
-                  index={offset + i + 1}
-                  selected={selectedCards.some(
-                    (card) => card.tokenId === item.tokenid
-                  )}
-                  setSelected={() =>
-                    selectedCards.some((card) => card.tokenId === item.tokenid)
-                      ? removeSelectedCardById(item.tokenid)
-                      : selectedCards.length < 20
-                      ? setSelectedCards([
-                          ...selectedCards,
-                          { tokenId: item.tokenid, imageUrl: item.imageurl },
-                        ])
-                      : null
-                  }
-                />
-              ))}
-              {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
-            </div>
-          </InfiniteScroll>
+        ) : results?.length ? (
+          <div className="grid">
+            {sliceData?.map((item, i) => (
+              <MyPolymorphicFaceCard
+                key={i}
+                polymorphItem={item}
+                index={offset + i + 1}
+                redirect={redirectHandler}
+              />
+            ))}
+            {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
+          </div>
+        ) : !userPolymorphsAll.length > 0 ? (
+          <div className="rarity--charts--empty polymorphs">
+            <img src={BubbleIcon} alt="bubble" />
+            <p>No Polymorph found</p>
+            <span>You can always buy them on the Marketplace</span>
+            <Button
+              onClick={() => {
+                window.open(marketplaceLink);
+              }}
+            >
+              Marketplace
+            </Button>
+          </div>
         ) : (
           <div className="rarity--charts--empty polymorphs">
-            <p>No Polymorph could be found :’(</p>
+            <p>No Polymorph found</p>
           </div>
         )}
-        {/* {data.length >= perPage ? (
+        {data?.length >= perPage ? (
           <div className="pagination__container">
             <RarityPagination
               data={data}
@@ -201,14 +191,17 @@ const List = ({
             />
             <ItemsPerPageDropdown perPage={perPage} setPerPage={setPerPage} />
           </div>
-        ) : null} */}
+        ) : null}
+        <Popup open={redirect}>
+          <LoadingSpinner />
+        </Popup>
       </div>
     </div>
   );
 };
 
-List.propTypes = {
-  data: PropTypes.oneOfType([PropTypes.array]).isRequired,
+MyPolymorphicFacesRarityList.propTypes = {
+  data: PropTypes.oneOfType([PropTypes.array]),
   perPage: PropTypes.number.isRequired,
   apiPage: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
@@ -223,10 +216,9 @@ List.propTypes = {
   setCategoriesIndexes: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
   filter: PropTypes.oneOfType([PropTypes.array]).isRequired,
-  results: PropTypes.oneOfType([PropTypes.array]).isRequired,
+  results: PropTypes.oneOfType([PropTypes.array]),
   loading: PropTypes.bool.isRequired,
   handleCategoryFilterChange: PropTypes.func.isRequired,
-  // withFilter: PropTypes.bool.isRequired,
 };
 
-export default List;
+export default MyPolymorphicFacesRarityList;

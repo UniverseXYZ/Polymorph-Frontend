@@ -88,7 +88,7 @@ const ClaimFacesSection = () => {
           {ArtistsInfo.map((artist) => {
             return (
               <div className="artist__container">
-                <img src={artist.image} />
+                <img src={artist.image} alt="artist" />
                 <div className="artist__info">
                   <p>{artist.name}</p>
                   <button onClick={() => window.open(artist.portfolioLink)}>

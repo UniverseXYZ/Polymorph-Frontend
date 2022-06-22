@@ -48,62 +48,62 @@ export default class AutoPlayMethods extends Component {
         <div className="shadow--left" />
         <Slider ref={(slider) => (this.slider = slider)} {...settings}>
           <div className={``}>
-            <Image src={Face1} width={256} height={256} />
+            <Image src={Face1} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face2} width={256} height={256} />
+            <Image src={Face2} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face3} width={256} height={256} />
+            <Image src={Face3} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face4} width={256} height={256} />
+            <Image src={Face4} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face5} width={256} height={256} />
+            <Image src={Face5} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face6} width={256} height={256} />
+            <Image src={Face6} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face7} width={256} height={256} />
+            <Image src={Face7} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face8} width={256} height={256} />
+            <Image src={Face8} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face9} width={256} height={256} />
+            <Image src={Face9} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face10} width={256} height={256} />
+            <Image src={Face10} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face11} width={256} height={256} />
+            <Image src={Face11} width={256} height={256} alt="" />
           </div>
 
           <div className={``}>
             {" "}
-            <Image src={Face12} width={256} height={256} />
+            <Image src={Face12} width={256} height={256} alt="" />
           </div>
         </Slider>
         <div className="shadow--right" />
