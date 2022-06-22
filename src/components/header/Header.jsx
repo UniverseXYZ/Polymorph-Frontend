@@ -8,14 +8,6 @@ import React, {
 import { useHistory, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import {
-  PLACEHOLDER_MARKETPLACE_AUCTIONS,
-  PLACEHOLDER_MARKETPLACE_NFTS,
-  PLACEHOLDER_MARKETPLACE_USERS,
-  PLACEHOLDER_MARKETPLACE_COLLECTIONS,
-  PLACEHOLDER_MARKETPLACE_COMMUNITIES,
-  PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from "../../utils/fixtures/BrowseNFTsDummyData";
 // import './Header.scss';
 import Button from "../button/Button";
 import DesktopView from "./dimensions/desktop/DesktopView.jsx";
@@ -32,7 +24,7 @@ import mp3Icon from "../../assets/images/mp3-icon.png";
 import audioIcon from "../../assets/images/marketplace/audio-icon.svg";
 import { defaultColors, handleScroll } from "../../utils/helpers";
 import { CONNECTORS_NAMES } from "../../utils/dictionary";
-import { useLayout } from "../../app/providers";
+// import { useLayout } from "../../app/providers";
 import SelectWalletPopup from "../popups/SelectWalletPopup";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -68,7 +60,7 @@ const Header = () => {
   const router = useRouter();
 
   const darkMode = useThemeStore((s) => s.darkMode);
-  const { headerRef } = useLayout();
+  // const { headerRef } = useLayout();
 
   const [selectedWallet, setSelectedWallet] = useState("");
   const [installed, setInstalled] = useState(
@@ -193,7 +185,7 @@ const Header = () => {
   }, [setLoginFn]);
 
   return (
-    <header ref={headerRef}>
+    <header>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <div className="app__logo">
         <Link href="/">

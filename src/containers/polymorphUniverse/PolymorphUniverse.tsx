@@ -3,7 +3,7 @@ import WhatsNewSection from "../polymorphs/WhatsNewSection";
 import { GetStaticProps } from "next";
 import { queryPolymorphsGraphV2 } from "@legacy/graphql/polymorphQueries";
 import { burnedPolymorphs } from "@legacy/graphql/polymorphQueries";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../../components/open-graph";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 
 export const PolymorphUniverse = ({ burntPolymorphs }: any) => {

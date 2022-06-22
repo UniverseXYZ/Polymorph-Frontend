@@ -3,11 +3,6 @@ import create, { GetState, Mutate, SetState, StoreApi } from "zustand";
 import { CONNECTORS_NAMES } from "../utils/dictionary";
 import Cookies from "js-cookie";
 import { useUserBalanceStore } from "./balanceStore";
-import {
-  getProfileInfo,
-  setChallenge,
-  userAuthenticate,
-} from "../utils/api/profile";
 import uuid from "react-uuid";
 import { mapUserData } from "../utils/helpers";
 import { useContractsStore } from "./contractsStore";

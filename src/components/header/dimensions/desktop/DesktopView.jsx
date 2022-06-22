@@ -2,37 +2,17 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Popup from "reactjs-popup";
-// import './DesktopView.scss';
 import HeaderAvatar from "../../HeaderAvatar";
 import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
 import copyIcon from "../../../../assets/images/copy.svg";
 import arrowUP from "../../../../assets/images/arrow-down.svg";
 import Group1 from "../../../../assets/images/Group1.svg";
-import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
-import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
-import socialMediaIcon from "../../../../assets/images/social-media.svg";
-import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
-import coreDropsIcon from "../../../../assets/images/core-drops.svg";
-import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
-import aboutIcon from "../../../../assets/images/about.svg";
-import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
-import teamIcon from "../../../../assets/images/team.svg";
-import governanceIcon from "../../../../assets/images/governance.svg";
-import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
-import forumIcon from "../../../../assets/images/forum.svg";
-import signalIcon from "../../../../assets/images/signal.svg";
-import docsIcon from "../../../../assets/images/docs.svg";
-import supportIcon from "../../../../assets/images/supportIcon.svg";
-import myProfileIcon from "../../../../assets/images/my-profile.svg";
-import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
-import signOutIcon from "../../../../assets/images/sign-out.svg";
 import {
   shortenEnsDomain,
   shortenEthereumAddress,
   toFixed,
 } from "../../../../utils/helpers/format";
 import { useRouter } from "next/router";
-import Badge from "../../../badge/Badge";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 

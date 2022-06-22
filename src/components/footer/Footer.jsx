@@ -11,14 +11,14 @@ import coinGesco from "../../assets/images/coingecko-icon.svg";
 import youtubeIcon from "../../assets/images/youtube.svg";
 import mediumIcon from "../../assets/images/medium.svg";
 import SubscribePopup from "../popups/SubscribePopup.jsx";
-import { useLayout } from "../../app/providers";
+// import { useLayout } from "../../app/providers";
 import Badge from "../badge/Badge";
 import appLightLogo from "../../assets/images/light.svg";
 
 const Footer = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const { footerRef } = useLayout();
+  // const { footerRef } = useLayout();
 
   const handleSubscribe = () => {
     const re =
@@ -48,7 +48,7 @@ const Footer = () => {
     }
   };
   return (
-    <footer ref={footerRef}>
+    <footer>
       <Popup
         trigger={
           <button
