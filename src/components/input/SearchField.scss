@@ -1,0 +1,237 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.focus--field {
+  padding: 1px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+  // box-shadow: 0px 10px 36px rgba(136, 120, 172, 0.14);
+  .focus--field--box--shadow {
+    opacity: 0.2 !important;
+  }
+}
+.search--field--component {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  z-index: 100;
+  // margin-left: 30px;
+  // padding-left: 30px;
+  // border-left: 1px solid rgba(0, 0, 0, 0.1);
+  .search {
+    position: absolute;
+    left: 18px;
+    width: 20px;
+    height: 20px;
+    z-index: 100;
+  }
+  .focus--field--box--shadow {
+    position: absolute;
+    width: calc(100% + 7px);
+    min-height: 56px;
+    // background-color: black;
+    background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+    left: -4px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: -5;
+    border-radius: 12px;
+    opacity: 0;
+  }
+  input {
+    // margin-left: 20px;
+    font-family: $spaceGroteskFont;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: $black;
+    padding-left: 48px;
+    height: 50px;
+    border-radius: 12px;
+    background: $white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.2);
+    }
+    &:focus {
+      border: none;
+      border-radius: 10px;
+    }
+    //   &:active {
+    //     border: 1px solid rgba(0, 0, 0, 0.1);
+    //   }
+  }
+  .close {
+    position: absolute;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+  }
+  .search__results {
+    position: absolute;
+    width: 100%;
+    max-height: 522px;
+    height: fit-content;
+    background: white;
+    border-radius: 12px;
+    top: 52px;
+    box-shadow: 0 10px 36px rgba(136, 120, 172, 0.14);
+    padding: 24px 8px;
+    overflow-y: auto;
+
+    .search__nfts {
+      h4 {
+        font-family: $sharpGroteskSemiBoldFont;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 130%;
+        color: $black;
+        margin-left: 12px;
+        margin-bottom: 8px;
+      }
+      .nft__div,
+      .auction__div,
+      .collection__div {
+        display: flex;
+        padding: 10px 12px;
+        border-radius: 6px;
+
+        .nft--image,
+        .auction--image,
+        .collection--image {
+          width: 36px;
+          height: 36px;
+          margin-right: 15px;
+          border-radius: 5px;
+
+          img {
+            border-radius: 5px;
+          }
+          video {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+        }
+        .random--avatar--color {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 36px;
+          height: 36px;
+          margin-right: 15px;
+          border-radius: 5px;
+        }
+        .nft--desc,
+        .auction--desc,
+        .collection--desc {
+          .nft--name,
+          .auction--title,
+          .collection--name {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 160%;
+            color: $black;
+          }
+          .nft--price,
+          .auction--artist,
+          .collection--owner {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.4);
+          }
+        }
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+      .users__div,
+      .communities__div,
+      .galleries__div {
+        display: flex;
+        padding: 10px 12px;
+        border-radius: 6px;
+
+        .user--avatar,
+        .communities--photo,
+        .galleries--photo {
+          width: 36px;
+          height: 36px;
+          margin-right: 15px;
+          border-radius: 50%;
+
+          img {
+            border-radius: 50%;
+          }
+        }
+        .user--desc,
+        .communities--desc,
+        .galleries--desc {
+          .user--name,
+          .communities--name,
+          .galleries--name {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 160%;
+            color: $black;
+          }
+          .user--followers,
+          .communities--members,
+          .galleries--likes {
+            font-family: $spaceGroteskFont;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.4);
+          }
+        }
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+      button {
+        margin-top: 25px;
+        width: 100%;
+      }
+    }
+    .no__result {
+      padding: 12px;
+      p {
+        font-family: $spaceGroteskFont;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 150%;
+        color: $black;
+      }
+    }
+  }
+}
+.search--field--component:hover {
+  // padding: 1px;
+  .focus--field--box--shadow {
+    opacity: 0.2 !important;
+  }
+  input {
+    // border: none;
+    border-radius: 10px !important;
+  }
+}

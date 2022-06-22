@@ -12,7 +12,7 @@ import SelectedNftsCarousel from "./SelectedNftsCarousel";
 import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useThemeStore } from "src/stores/themeStore";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../open-graph";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 

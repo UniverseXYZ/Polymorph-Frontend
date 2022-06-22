@@ -1,29 +1,15 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Animated } from "react-animated-css";
-import Popup from "reactjs-popup";
-// import './MobileView.scss';
 import HeaderAvatar from "../../HeaderAvatar";
-import {
-  PLACEHOLDER_MARKETPLACE_AUCTIONS,
-  PLACEHOLDER_MARKETPLACE_NFTS,
-  PLACEHOLDER_MARKETPLACE_USERS,
-  PLACEHOLDER_MARKETPLACE_COLLECTIONS,
-  PLACEHOLDER_MARKETPLACE_COMMUNITIES,
-  PLACEHOLDER_MARKETPLACE_GALLERIES,
-} from "../../../../utils/fixtures/BrowseNFTsDummyData";
-import AppContext from "../../../../ContextAPI";
 import Button from "../../../button/Button.jsx";
 import hamburgerIcon from "../../../../assets/images/hamburger.svg";
-import SearchIcon from "../../../../assets/images/marketplace-search.svg";
 import closeIcon from "../../../../assets/images/close-menu.svg";
 import Group1 from "../../../../assets/images/Group1.svg";
 import Group2 from "../../../../assets/images/Group2.svg";
 import copyIcon from "../../../../assets/images/copy.svg";
-import accountIcon from "../../../../assets/images/icon1.svg";
-import accountDarkIcon from "../../../../assets/images/account-dark-icon.svg";
 import metamaskLogo from "../../../../assets/images/metamask.png";
 import ledgerLogo from "../../../../assets/images/ledger.png";
 import keystoreLogo from "../../../../assets/images/keystore.png";
@@ -31,39 +17,12 @@ import trezorLogo from "../../../../assets/images/trezor.png";
 import coinbaseLogo from "../../../../assets/images/coinbase.png";
 import walletConnectLogo from "../../../../assets/images/wallet-connect.png";
 import leftArrow from "../../../../assets/images/arrow.svg";
-import auctionHouseIcon from "../../../../assets/images/auction-house.svg";
-import myProfileIcon from "../../../../assets/images/my-profile.svg";
-import myNFTsIcon from "../../../../assets/images/my-nfts.svg";
-import signOutIcon from "../../../../assets/images/sign-out.svg";
-import marketplaceIcon from "../../../../assets/images/nft-marketplace.svg";
-import socialMediaIcon from "../../../../assets/images/social-media.svg";
-import polymorphsIcon from "../../../../assets/images/polymorphs.svg";
-import coreDropsIcon from "../../../../assets/images/core-drops.svg";
-import rarityChartIcon from "../../../../assets/images/rarity-chart.svg";
-import navChartIcon from "../../../../assets/images/chart-nav-icon.svg";
-import aboutIcon from "../../../../assets/images/about.svg";
-import whitepaperIcon from "../../../../assets/images/whitepaper.svg";
-import teamIcon from "../../../../assets/images/team.svg";
-import governanceIcon from "../../../../assets/images/governance.svg";
-import yieldFarmingIcon from "../../../../assets/images/yield-farming.svg";
-import forumIcon from "../../../../assets/images/forum.svg";
-import signalIcon from "../../../../assets/images/signal.svg";
-import docsIcon from "../../../../assets/images/docs.svg";
-import arrowDown from "../../../../assets/images/arrow-down.svg";
-import SubscribePopup from "../../../popups/SubscribePopup.jsx";
-import searchIcon from "../../../../assets/images/search-icon.svg";
-import img from "../../../../assets/images/search-gray.svg";
-import img2 from "../../../../assets/images/crossclose.svg";
-import mp3Icon from "../../../../assets/images/mp3-icon.png";
-import audioIcon from "../../../../assets/images/marketplace/audio-icon.svg";
 import { handleClickOutside } from "../../../../utils/helpers";
 import {
   toFixed,
   shortenEnsDomain,
   shortenEthereumAddress,
 } from "../../../../utils/helpers/format";
-import supportIcon from "../../../../assets/images/supportIcon.svg";
-import Badge from "../../../badge/Badge";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";

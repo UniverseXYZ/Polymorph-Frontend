@@ -7,7 +7,7 @@ import RarityList from "../../components/rarityCharts/allPolymorphsRarityList/Ra
 import { useThemeStore } from "src/stores/themeStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs-rarity-charts.png";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../../components/open-graph";
 import { useWindowSize } from "react-use";
 
 const RarityCharts = () => {

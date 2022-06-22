@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../../components/open-graph";
 
 import { useThemeStore } from "src/stores/themeStore";
 import Welcome from "../../components/homepage/Welcome.jsx";

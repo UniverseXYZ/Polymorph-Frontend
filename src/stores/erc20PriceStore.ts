@@ -1,6 +1,6 @@
 import create from "zustand";
 import { getERC20PriceCoingecko, getEthPriceCoingecko } from "../utils/api/etherscan";
-import { TokenTicker } from "../app/enums";
+import { TokenTicker } from "../utils/enums";
 import { useUserBalanceStore } from "./balanceStore";
 
 interface IErc20PriceStoreState {

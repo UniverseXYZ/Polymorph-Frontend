@@ -1,7 +1,7 @@
 import React from "react";
 import BurnPolymorphs from "../../components/burnPolymorphs/BurnPolymorphs";
 import { usePolymorphStore } from "src/stores/polymorphStore";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../../components/open-graph";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 
 export const BurnBatchPolymorphs = () => {
