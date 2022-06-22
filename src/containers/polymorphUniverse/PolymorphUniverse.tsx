@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-// import './PolymorphUniverse.scss';
 import BurnToMint from "../polymorphs/BurnToMint";
 import WhatsNewSection from "../polymorphs/WhatsNewSection";
 import { GetStaticProps } from "next";
