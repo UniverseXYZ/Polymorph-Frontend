@@ -838,6 +838,352 @@
     }
   }
 
+  .claim__faces__section {
+    justify-content: center;
+    background-color: #000000;
+    color: white;
+    position: relative;
+    padding: 0 60px 30px 60px;
+
+    .claim__faces__container {
+      max-width: 1110px;
+      width: 100%;
+      margin: auto;
+
+      .header__subsection {
+        position: relative;
+        .heading {
+          font-family: "Sharp Grotesk";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 32px;
+          line-height: 140%;
+          margin-bottom: 16px;
+        }
+
+        .subheading {
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 160%;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 64px;
+        }
+
+        .claim__container {
+          display: flex;
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          .claim__faces {
+            display: flex;
+            min-height: 130px;
+            width: 100%;
+
+            .count {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: rgba(255, 255, 255, 0.1);
+              width: 130px;
+              border-radius: 12px 0px 0px 12px;
+              font-family: "Space Grotesk";
+              font-style: normal;
+              font-weight: 300;
+              font-size: 64px;
+              line-height: 80px;
+              border-right: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .change__count {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              background: rgba(255, 255, 255, 0.1);
+              padding-left: 24px;
+              border-radius: 0px 12px 12px 0px;
+
+              div:first-child {
+                span:first-child {
+                  color: rgba(255, 255, 255, 0.4);
+                }
+                padding-bottom: 8px;
+              }
+
+              .buttons__wrapper {
+                display: flex;
+                flex-wrap: wrap;
+                position: relative;
+                div {
+                  display: flex;
+                  padding: unset;
+
+                  button:first-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 12px 0 0 12px;
+                  }
+                  span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 42px;
+                    width: 42px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                  }
+                  button:last-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 0 12px 12px 0;
+                  }
+                }
+                .light-button {
+                  margin: unset;
+                  margin-left: 8px;
+                  @media (max-width: 375px) {
+                    margin: 0;
+                    margin-top: 8px;
+                  }
+                }
+              }
+              @include sm {
+                padding: 8px;
+              }
+            }
+            @include md {
+              margin: 0;
+              margin-bottom: 16px;
+            }
+          }
+
+          .burn__polymorphs {
+            display: flex;
+            min-height: 130px;
+            width: 100%;
+            margin-left: 16px;
+
+            .count {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: rgba(255, 255, 255, 0.1);
+              width: 130px;
+              border-radius: 12px 0px 0px 12px;
+              font-family: "Space Grotesk";
+              font-style: normal;
+              font-weight: 300;
+              font-size: 64px;
+              line-height: 80px;
+              border-right: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .change__count {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              width: 100%;
+              background: rgba(255, 255, 255, 0.1);
+              padding-left: 24px;
+              border-radius: 0px 12px 12px 0px;
+
+              div:first-child {
+                span:first-child {
+                  color: rgba(255, 255, 255, 0.4);
+                }
+                padding-bottom: 8px;
+              }
+
+              .buttons__wrapper {
+                display: flex;
+                position: relative;
+                div {
+                  display: flex;
+                  padding: unset;
+
+                  button:first-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 12px 0 0 12px;
+                  }
+                  span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 42px;
+                    width: 42px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                  }
+                  button:last-child {
+                    background: rgba(255, 255, 255, 0.2);
+                    height: 42px;
+                    width: 42px;
+                    border-radius: 0 12px 12px 0;
+                  }
+                }
+                .light-button {
+                  margin: unset;
+                  @include sm {
+                    margin: 0;
+                  }
+                }
+              }
+              @include sm {
+                padding: 8px;
+              }
+            }
+            @include md {
+              margin: 0;
+            }
+          }
+          @include md {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+
+    @include sm {
+      padding: 0px 20px;
+    }
+  }
+  .carousel__subsection {
+    background-color: black;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+
+    .shadow--left {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 300px;
+      z-index: 100;
+      background: linear-gradient(270deg, black 0%, rgba(0, 0, 0, 0) 100%);
+      transform: rotate(-180deg);
+      @include lg {
+        width: 150px;
+      }
+      @include sm {
+        width: 75px;
+      }
+    }
+
+    .shadow--right {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 100%;
+      width: 300px;
+      z-index: 100;
+      background: linear-gradient(90deg, black 0%, rgba(0, 0, 0, 0) 100%);
+      transform: rotate(-180deg);
+      @include lg {
+        width: 150px;
+      }
+      @include sm {
+        width: 75px;
+      }
+    }
+
+    .slick-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 320px;
+      @include md {
+        height: 250px;
+      }
+    }
+
+    .slick-slide {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 8px;
+      transition: all 0.2s ease-in-out;
+      overflow: visible;
+      z-index: 1;
+
+      &:hover {
+        transform: scale(1.25);
+        z-index: 1000;
+        cursor: pointer;
+      }
+      img {
+        border-radius: 12px;
+      }
+    }
+    .slick-active {
+      z-index: 100;
+    }
+  }
+
+  .artists__subsection {
+    background-color: $black;
+    padding: 0 60px;
+    color: $white;
+
+    .heading {
+      font-family: "Sharp Grotesk";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 130%;
+      width: 100%;
+      max-width: 1110px;
+      margin: 0 auto;
+      margin-bottom: 32px;
+    }
+    .artists__list__container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      column-gap: 16px;
+      row-gap: 16px;
+      font-family: "Space Grotesk";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 22px;
+      max-width: 1110px;
+      margin: 0 auto;
+      .artist__container {
+        display: flex;
+        max-width: 1110px;
+        .artist__info {
+          button {
+            text-decoration: underline;
+            color: rgba(255, 255, 255, 0.6);
+            &:hover {
+              color: white;
+            }
+          }
+        }
+        img {
+          height: 40px;
+          width: 40px;
+          margin-right: 8px;
+        }
+      }
+      padding-bottom: 128px;
+      @include md {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @include sm {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @include sm {
+      padding: 0 20px;
+    }
+  }
+
   .non__fungible__universe__section {
     position: relative;
     padding: 150px 60px;
