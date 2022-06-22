@@ -268,7 +268,45 @@
   }
 }
 
+.tabs__container {
+  display: flex;
+  max-width: 1110px;
+  margin: auto;
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  span {
+    word-wrap: break-word;
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    margin-right: 32px;
+    cursor: pointer;
+    padding: 7px;
+    color: rgb(0, 0, 0, 0.4);
+  }
+
+  .active {
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+    border-bottom: 2px solid black;
+    color: black;
+  }
+}
+
 .tab__wallet {
+  margin: 0 auto;
   padding: 0 20px;
   .search--sort--filters--section {
     padding-top: 0 !important;
