@@ -6,6 +6,11 @@
   grid-template-columns: 255px 1fr;
   grid-gap: 30px;
   .categories--filters {
+    max-height: 900px;
+    overflow: scroll;
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
     h2 {
       font-family: "Space Grotesk SemiBold25", sans-serif;
       font-style: normal;
@@ -140,7 +145,11 @@
     @include lg {
       display: none;
     }
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
+
   .list--with--selected--filters {
     .selected--filters {
       display: flex;
@@ -444,6 +453,16 @@
               }
             }
           }
+        }
+      }
+      .faces--card {
+        &--body {
+          img {
+            border-radius: 12px 12px 0 0;
+          }
+        }
+        .faces--dropdown {
+          bottom: -40px;
         }
       }
       @include xl {

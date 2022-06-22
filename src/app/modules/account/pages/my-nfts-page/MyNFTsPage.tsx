@@ -68,11 +68,7 @@ export const MyNFTsPage = () => {
         <span className={myNFTsSelectedTabIndex === 1 ? "active" : ''} onClick={() => {setMyNFTsSelectedTabIndex(1)}}>Polymorphic Faces</span>
       </div>
 
-      {myNFTsSelectedTabIndex === 0 && (
-        <FiltersContextProvider defaultSorting={0}>
-          <UniverseNFTs scrollContainer={scrollContainer} />
-        </FiltersContextProvider>
-      )}
+      <UniverseNFTs scrollContainer={scrollContainer} />
     </>
   );
 
