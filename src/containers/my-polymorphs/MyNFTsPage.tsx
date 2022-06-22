@@ -1,32 +1,31 @@
-import { Contract, utils } from "ethers";
-import React, { useEffect, useRef, useState } from "react";
-import Popup from "reactjs-popup";
-import { useClickAway, useTitle } from "react-use";
-import { useRouter } from "next/router";
-
+import React, { useEffect, useRef } from "react";
+import { useTitle } from "react-use";
 import useStateIfMounted from "../../utils/hooks/useStateIfMounted";
 import UniverseNFTs from "../../components/myNFTs/UniverseNFTs";
-import { useAuthStore } from "../../stores/authStore";
-import { useErrorStore } from "../../stores/errorStore";
 import { useThemeStore } from "src/stores/themeStore";
-import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
-import { OpenGraph } from "../../components/open-graph"
+import { OpenGraph } from "../../components/open-graph";
+import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useRouter } from "next/router";
 
 export const MyNFTsPage = () => {
   const router = useRouter();
   const createButtonRef = useRef<HTMLButtonElement>(null);
+  const { userPolymorphsAll } = usePolymorphStore();
 
   // Context hooks
-  const { myNFTsSelectedTabIndex, setMyNFTsSelectedTabIndex, activeTxHashes, setActiveTxHashes } = useMyNftsStore(
-    (s) => ({
-      myNFTsSelectedTabIndex: s.myNFTsSelectedTabIndex,
-      setMyNFTsSelectedTabIndex: s.setMyNFTsSelectedTabIndex,
-      activeTxHashes: s.activeTxHashes,
-      setActiveTxHashes: s.setActiveTxHashes,
-    })
-  );
+  const {
+    myNFTsSelectedTabIndex,
+    setMyNFTsSelectedTabIndex,
+    activeTxHashes,
+    setActiveTxHashes,
+  } = useMyNftsStore((s) => ({
+    myNFTsSelectedTabIndex: s.myNFTsSelectedTabIndex,
+    setMyNFTsSelectedTabIndex: s.setMyNFTsSelectedTabIndex,
+    activeTxHashes: s.activeTxHashes,
+    setActiveTxHashes: s.setActiveTxHashes,
+  }));
 
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
 
@@ -34,13 +33,8 @@ export const MyNFTsPage = () => {
 
   // State hooks
   const [showLoading, setShowLoading] = useStateIfMounted(false);
-  const [isDropdownOpened, setIsDropdownOpened] = useStateIfMounted(false);
 
   useTitle("My Polymorphs", { restoreOnUnmount: true });
-
-  useClickAway(createButtonRef, () => {
-    setIsDropdownOpened(false);
-  });
 
   useEffect(() => {
     if (!showLoading) {
@@ -54,7 +48,11 @@ export const MyNFTsPage = () => {
 
   const renderIfNFTsExist = () => (
     <>
-      <OpenGraph title={`My Polymorphs`} description={`Explore and scramble your Polymorphs.`} image={OpenGraphImage} />
+      <OpenGraph
+        title={`My Polymorphs`}
+        description={`Explore and scramble your Polymorphs.`}
+        image={OpenGraphImage}
+      />
 
       <div className="mynfts__page__gradient" />
 
@@ -62,11 +60,26 @@ export const MyNFTsPage = () => {
         <h1 className="title">My Polymorphs</h1>
       </div>
 
-      {myNFTsSelectedTabIndex === 0 && (
-        // <FiltersContextProvider defaultSorting={0}>
-          <UniverseNFTs scrollContainer={scrollContainer} />
-        // </FiltersContextProvider>
-      )}
+      <div className="tabs__container">
+        <span
+          className={myNFTsSelectedTabIndex === 0 ? "active" : ""}
+          onClick={() => {
+            setMyNFTsSelectedTabIndex(0);
+          }}
+        >
+          Polymorphs <div className={`count ${myNFTsSelectedTabIndex === 0 ? "active" : ""}`}>{userPolymorphsAll.length || ""}</div>
+        </span>
+        <span
+          className={myNFTsSelectedTabIndex === 1 ? "active" : ""}
+          onClick={() => {
+            setMyNFTsSelectedTabIndex(1);
+          }}
+        >
+          Polymorphic Faces <div className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}>{userPolymorphsAll.length || ""}</div>
+        </span>
+      </div>
+
+      <UniverseNFTs scrollContainer={scrollContainer} />
     </>
   );
 
