@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
 import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
 import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
 import { useRouter } from "next/router";
@@ -13,7 +12,6 @@ import BurnIconSvg from "../../../assets/images/burn-icon.svg";
 import ScrambleIconSvg from "../../../assets/images/scramble-icon.svg";
 import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
-import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
 
@@ -188,37 +186,20 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           </div>
         ) : null}
       </div>
-      {showScramblePopup ? (
-        <Popup closeOnDocumentClick={false} open={showScramblePopup}>
-          <PolymorphScramblePopup
-            onClose={() => setShowScramblePopup(false)}
-            polymorph={item}
-            id={item.tokenid}
-            // setPolymorph={setPolymorphData}
-            // setPolymorphGene={setPolymorphGene}
-            setShowCongratulations={setShowCongratulations}
-            setShowLoading={setShowLoading}
-            setShowMetadataLoading={setShowMetadataLoading}
-          />
-        </Popup>
-      ) : null}
-      {showLoading ? (
-        <Popup closeOnDocumentClick={false} open={showLoading}>
-          <LoadingPopup onClose={() => setShowLoading(false)} />
-        </Popup>
-      ) : null}
-
-      <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
-        {/* TODO: here need to pass the real data */}
-        <PolymorphMetadataLoading
-          onClose={() => setShowMetadataLoading(false)}
-          onOpenOptionsPopUp={showScrambleOptions}
-          // polymorph={polymorphData}
+      <Popup closeOnDocumentClick={false} open={showScramblePopup}>
+        <PolymorphScramblePopup
+          onClose={() => setShowScramblePopup(false)}
+          polymorph={item}
+          id={item.tokenid}
+          setShowCongratulations={setShowCongratulations}
+          setShowLoading={setShowLoading}
+          setShowMetadataLoading={setShowMetadataLoading}
         />
       </Popup>
-
+      <Popup closeOnDocumentClick={false} open={showLoading}>
+        <LoadingPopup onClose={() => setShowLoading(false)} />
+      </Popup>
       <Popup closeOnDocumentClick={false} open={showCongratulations}>
-        {/* TODO: here need to pass the real data */}
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}

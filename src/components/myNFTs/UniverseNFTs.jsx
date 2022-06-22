@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-// import '../pagination/Pagination.scss';
-// import './UniverseNFTs.scss';
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import MyPolymorphsChart from "./MyPolymorphsChart";
-import MyPolymorphicFacesChart from "./MyPolymorphicFacesChart";
 import { useMyNftsStore } from "src/stores/myNftsStore";
+import MyPolymorphicFacesChart from "./MyPolymorphicFacesChart";
 
 const UniverseNFTs = ({ scrollContainer }) => {
   const {
@@ -19,8 +17,6 @@ const UniverseNFTs = ({ scrollContainer }) => {
     polymorphsFilter: s.polymorphsFilter,
   }));
 
-  const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-
   useEffect(() => {
     setCollectionFilter(polymorphsFilter);
   }, [polymorphsFilter]);
@@ -28,11 +24,7 @@ const UniverseNFTs = ({ scrollContainer }) => {
   return (
     <>
       {myNFTsSelectedTabIndex === 0 && (
-        <MyPolymorphsChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
+        <MyPolymorphsChart scrollContainer={scrollContainer} />
       )}
       {myNFTsSelectedTabIndex === 1 && <MyPolymorphicFacesChart />}
     </>
