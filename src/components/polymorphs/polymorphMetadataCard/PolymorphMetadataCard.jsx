@@ -4,11 +4,11 @@ import ethIcon from "../../../assets/images/ETHicon.png";
 const PolymorphMetadataCard = ({ metadata }) => {
   return (
     <div className="polymorph--metadata--card">
-      <div className="card--label">{metadata.label}</div>
-      {metadata.price ? (
+      <div className="card--label">{metadata?.label}</div>
+      {metadata?.price ? (
         <div className="card--price">
           <img src={ethIcon} alt="eth" />
-          {metadata.price}
+          {metadata?.price}
         </div>
       ) : (
         <div className="card--address">{`${

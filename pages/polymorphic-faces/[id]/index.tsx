@@ -1,0 +1,1 @@
+export { SinglePolymorphicFaceDetails as default, getStaticPaths, getStaticProps } from '../../../src/containers/polymorphicFaces/SinglePolymorphicFaceDetails';
