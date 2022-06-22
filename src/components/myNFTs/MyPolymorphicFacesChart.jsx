@@ -5,7 +5,6 @@ import { categoriesArray } from "../../containers/rarityCharts/polymorphicFacesC
 import MyPolymorphicFacesRarityList from "../rarityCharts/myPolymorphicFacesRarityList/MyPolymorphicFacesRarityList";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
-
 const MyPolymorphicFacesChart = () => {
   const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } =
     useMyNftsStore((s) => ({

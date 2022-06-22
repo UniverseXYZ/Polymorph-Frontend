@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import MyPolymorphsChart from "./MyPolymorphsChart";
 import { useMyNftsStore } from "src/stores/myNftsStore";
+import MyPolymorphicFacesChart from "./MyPolymorphicFacesChart";
 
 const UniverseNFTs = ({ scrollContainer }) => {
   const {
@@ -23,11 +24,7 @@ const UniverseNFTs = ({ scrollContainer }) => {
   return (
     <>
       {myNFTsSelectedTabIndex === 0 && (
-        <MyPolymorphsChart
-          isDropdownOpened={isDropdownOpened}
-          setIsDropdownOpened={setIsDropdownOpened}
-          scrollContainer={scrollContainer}
-        />
+        <MyPolymorphsChart scrollContainer={scrollContainer} />
       )}
       {myNFTsSelectedTabIndex === 1 && <MyPolymorphicFacesChart />}
     </>
