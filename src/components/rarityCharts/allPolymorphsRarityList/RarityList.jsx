@@ -10,9 +10,9 @@ import Pagination from "../../pagination/Pagionation";
 // import '../../../containers/rarityCharts/RarityCharts.scss';
 import closeIcon from "../../../assets/images/close-menu.svg";
 import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
-import CategoriesFilter from "./CategoriesFilter";
+import CategoriesFilter from "../filters/CategoriesFilter";
 import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
-import RarityPagination from "./RarityPagination";
+import RarityPagination from "../RarityPagination";
 
 const List = ({
   data,

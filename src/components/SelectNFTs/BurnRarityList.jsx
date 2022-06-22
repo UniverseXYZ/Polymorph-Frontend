@@ -10,9 +10,9 @@ import BurnPolymorphCard from "./BurnPolymorphCard";
 // import '../../../containers/rarityCharts/RarityCharts.scss';
 import closeIcon from "../../assets/images/close-menu.svg";
 // import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
-import CategoriesFilter from "../rarityCharts/list/CategoriesFilter";
+// import CategoriesFilter from "../rarityCharts/filters/CategoriesFilter";
 import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader";
-import RarityPagination from "../rarityCharts/list/RarityPagination";
+// import RarityPagination from "../rarityCharts/list/RarityPagination";
 import { Button } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroller";
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncerAll";
 import { categoriesArray } from "../../containers/rarityCharts/polymorphicFacesCategories";
-import MyPolymorphicFacesRarityList from "../rarityCharts/list/MyPolymorphicFacesRarityList";
+import MyPolymorphicFacesRarityList from "../rarityCharts/myPolymorphicFacesRarityList/MyPolymorphicFacesRarityList";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
 

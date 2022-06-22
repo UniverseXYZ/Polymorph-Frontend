@@ -1,27 +1,22 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// import './RarityList.scss';
-// import uuid from 'react-uuid';
-import MyPolymorphCard from "./MyPolymorphCard";
 import ItemsPerPageDropdown from "../../pagination/ItemsPerPageDropdown";
-import Pagination from "../../pagination/Pagionation";
-// import '../../../containers/rarityCharts/RarityCharsLoader.scss';
-// import '../../../containers/rarityCharts/RarityCharts.scss';
 import closeIcon from "../../../assets/images/close-menu.svg";
 import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
-import CategoriesFilter from "./CategoriesFilter";
+import CategoriesFilter from "../filters/CategoriesFilter";
 import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
-import RarityPagination from "./RarityPagination";
+import RarityPagination from "../RarityPagination";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 import Popup from "reactjs-popup";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { Button } from "@chakra-ui/react";
 import BubbleIcon from "../../../assets/images/text-bubble.png";
+import MyPolymorphicFaceCard from "./MyPolymorphicFaceCard";
 
 const marketplaceLink = "https://universe.xyz/marketplace";
 
-const MyRarityList = ({
+const MyPolymorphicFacesRarityList = ({
   data,
   perPage,
   offset,
@@ -157,7 +152,7 @@ const MyRarityList = ({
         ) : results?.length ? (
           <div className="grid">
             {sliceData?.map((item, i) => (
-              <MyPolymorphCard
+              <MyPolymorphicFaceCard
                 key={i}
                 polymorphItem={item}
                 index={offset + i + 1}
@@ -205,7 +200,7 @@ const MyRarityList = ({
   );
 };
 
-MyRarityList.propTypes = {
+MyPolymorphicFacesRarityList.propTypes = {
   data: PropTypes.oneOfType([PropTypes.array]),
   perPage: PropTypes.number.isRequired,
   apiPage: PropTypes.number.isRequired,
@@ -226,4 +221,4 @@ MyRarityList.propTypes = {
   handleCategoryFilterChange: PropTypes.func.isRequired,
 };
 
-export default MyRarityList;
+export default MyPolymorphicFacesRarityList;

@@ -50,7 +50,7 @@ import '../src/components/notFound/NotFound.scss';
 import '../src/components/input/RaritySortByOrder.scss';
 import '../src/components/input/RaritySortBySelect.scss';
 import '../src/components/rarityCharts/filters/RarityFilters.scss';
-import '../src/components/rarityCharts/list/RarityList.scss';
+import '../src/components/rarityCharts/RarityList.scss';
 import '../src/components/rarityCharts/welcome/Welcome.scss';
 import '../src/components/myNFTs/MyNFTs.scss';
 import '../src/components/general/LoadingImage.scss';
