@@ -62,18 +62,6 @@ const LatestFeaturesSection = () => {
           </div>
         </div>
       </div>
-      <div className="polymorphic--faces--section--container">
-        <img className={"gif"} src={polymorphicFacesGif} alt="gif" />
-        <div>
-          <h2>Claim Your Polymorphic Faces for Free</h2>
-          <p>
-            Each V1 Polymorph burned grants a free Polymorphic Face claim!
-            Polymorphic Faces are built to scramble and can only be obtained by
-            burning V1 Polymorphs.
-          </p>
-          <button className="button-disabled">Coming soon</button>
-        </div>
-      </div>
     </div>
   );
 };
