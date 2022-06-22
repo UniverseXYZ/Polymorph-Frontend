@@ -1,16 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import WelcomeWrapper from "../../components/ui-elements/WelcomeWrapper";
-import PolymorphGroupFire from "../../assets/images/PolymorphGroupFire.png";
-// import Section2HorizontalScroll from '../../components/polymorphs/mint-polymorph/Section2HorizontalScroll';
-import PolymorphsActivity from "../../components/polymorphs/PolymorphsActivity";
-import BurnPolymorphLeft from "../../assets/images/bgElementLeft.png";
-import BurnPolymorphRight from "../../assets/images/bgElementRight.png";
-import Section4LeftBackground from "../../assets/images/Section4GroupImage.png";
-import BurnPolymorphBg from "../../assets/images/BurnPolymorphBg.png";
-import Section4 from "../../components/polymorphs/Section4";
-import data from "../../utils/fixtures/newPolymorphBaseSkins";
-// import './BurnToMint.scss';
 import { useWindowSize } from "react-use";
 import { AnimatedOnScroll } from "react-animated-css-onscroll";
 import Button from "@legacy/button/Button";
