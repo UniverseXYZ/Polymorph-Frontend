@@ -4,7 +4,7 @@ import Welcome from "../../components/rarityCharts/welcome/Welcome";
 // import './RarityCharts.scss';
 import { useSearchPolymorphs } from "../../utils/hooks/useRarityDebouncer";
 import { categoriesArray } from "./categories";
-import RarityList from "../../components/rarityCharts/list/RarityList";
+import RarityList from "../../components/rarityCharts/allPolymorphsRarityList/RarityList";
 import { useThemeStore } from "src/stores/themeStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs-rarity-charts.png";
@@ -94,9 +94,7 @@ const RarityCharts = () => {
     <div className="rarity--charts--page">
       <OpenGraph
         title={"Polymorphic Rarity"}
-        description={
-          "Find the rarest Polymorphs in the collection."
-        }
+        description={"Find the rarest Polymorphs in the collection."}
         image={OpenGraphImage}
       />
       <Welcome />
