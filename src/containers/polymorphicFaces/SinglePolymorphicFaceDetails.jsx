@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { OpenGraph } from "@app/components";
+import { OpenGraph } from "../../components/open-graph";
 import ImageWithBadges from "../../components/polymorphicFaces/singlePolymorphicFaceDetails/ImageWithBadges";
 import DetailsWithTabs from "../../components/polymorphicFaces/singlePolymorphicFaceDetails/DetailsWithTabs";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
