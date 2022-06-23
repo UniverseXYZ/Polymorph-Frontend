@@ -155,7 +155,12 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
       </div>
       <div className={`polymorph--tabs--content ${!isV1 ? "pb" : ""}`}>
         {selectedTabIndex === 0 && (
-          <PolymorphPropertiesTab data={polymorphData} isV1={isV1} />
+          <PolymorphPropertiesTab
+            data={polymorphData}
+            isPolymorph={true}
+            isV1={isV1}
+            isPolymorphicFace={false}
+          />
         )}
         {selectedTabIndex === 1 && (
           <PolymorphMetadataTab
