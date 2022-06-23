@@ -3,9 +3,9 @@ import Popup from "reactjs-popup";
 import { useRouter } from "next/router";
 import linkIcon from "../../../assets/images/rarity-charts/linkIcon.svg";
 import Button from "@legacy/button/Button";
-import PolymorphPropertiesTab from "./tabs/PolymorphPropertiesTab";
-import PolymorphMetadataTab from "./tabs/PolymorphMetadataTab";
-import PolymorphHistoryTab from "./tabs/PolymorphHistoryTab";
+import PolymorphPropertiesTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphPropertiesTab";
+import PolymorphMetadataTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphMetadataTab";
+import PolymorphHistoryTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphHistoryTab";
 import PolymorphScramblePopup from "../../popups/PolymorphScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
@@ -134,7 +134,12 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
       </div>
       <div className={`polymorph--tabs--content ${!isV1 ? "pb" : ""}`}>
         {selectedTabIndex === 0 && (
-          <PolymorphPropertiesTab data={polymorphicData} isV1={isV1} />
+          <PolymorphPropertiesTab
+            data={polymorphicData}
+            isPolymorph={false}
+            isV1={isV1}
+            isPolymorphicFace={true}
+          />
         )}
         {selectedTabIndex === 1 && (
           <PolymorphMetadataTab
