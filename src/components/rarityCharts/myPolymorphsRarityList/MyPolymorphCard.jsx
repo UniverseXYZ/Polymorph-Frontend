@@ -48,10 +48,10 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
       );
       if (polymorphV1) {
         setIsV2(false);
-        setContract(polymorphContract?.address)
+        setContract(polymorphContract?.address);
       } else {
         setIsV2(true);
-        setContract(polymorphContractV2?.address)
+        setContract(polymorphContractV2?.address);
       }
     }
   }, [item]);
@@ -190,7 +190,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
         <PolymorphScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={item}
-          id={item.tokenid}
+          id={item.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
           setShowMetadataLoading={setShowMetadataLoading}

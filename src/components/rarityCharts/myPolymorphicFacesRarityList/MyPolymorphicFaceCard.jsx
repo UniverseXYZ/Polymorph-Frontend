@@ -172,7 +172,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           <PolymorphScramblePopup
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
-            id={item.tokenid}
+            id={item.tokenid.toString()}
             // setPolymorph={setPolymorphData}
             // setPolymorphGene={setPolymorphGene}
             setShowCongratulations={setShowCongratulations}
