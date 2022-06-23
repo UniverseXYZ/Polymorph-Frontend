@@ -6,9 +6,7 @@ import MyRarityList from "../rarityCharts/myPolymorphsRarityList/MyRarityList";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import RarityFilters from "../rarityCharts/filters/RarityFilters";
 
-const MyPolymorphsChart = ({
-  scrollContainer,
-}) => {
+const MyPolymorphsChart = ({ scrollContainer }) => {
   const { setMyUniverseNFTsActiverPage, myUniverseNFTsActiverPage } =
     useMyNftsStore((s) => ({
       setMyUniverseNFTsActiverPage: s.setMyUniverseNFTsActiverPage,
@@ -121,8 +119,6 @@ const MyPolymorphsChart = ({
   );
 };
 MyPolymorphsChart.propTypes = {
-  isDropdownOpened: PropTypes.bool.isRequired,
-  setIsDropdownOpened: PropTypes.func.isRequired,
   scrollContainer: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 export default MyPolymorphsChart;
