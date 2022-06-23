@@ -7,9 +7,9 @@ import {
 import tabArrow from "../../assets/images/tab-arrow.svg";
 // import './Tabs.scss';
 
-const Tabs = ({ items, scrollContainer }) => (
+const Tabs = ({ items }) => (
   <div className="container tabs__wrapper">
-    <div className="tabs" ref={scrollContainer}>
+    <div className="tabs">
       <ul className="tab_items">
         {items.map((tab, index) =>
           tab.name !== "Hidden" && tab.name !== "Liked" ? (
@@ -66,7 +66,6 @@ Tabs.propTypes = {
       label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
   ).isRequired,
-  scrollContainer: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default Tabs;
