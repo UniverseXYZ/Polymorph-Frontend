@@ -87,7 +87,7 @@ const ClaimFacesSection = () => {
         <div className="artists__list__container">
           {ArtistsInfo.map((artist) => {
             return (
-              <div className="artist__container">
+              <div className="artist__container" key={artist.name}>
                 <div className="left--border" />
                 <div className="bottom--border" />
                 <img src={artist.image} alt="artist" />
