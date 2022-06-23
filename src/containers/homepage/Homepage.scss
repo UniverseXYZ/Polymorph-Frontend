@@ -1156,6 +1156,7 @@
       .artist__container {
         display: flex;
         max-width: 1110px;
+        position: relative;
         .artist__info {
           button {
             text-decoration: underline;
@@ -1169,6 +1170,36 @@
           height: 40px;
           width: 40px;
           margin-right: 8px;
+        }
+        .left--border {
+          position: absolute;
+          left: -10px;
+          top: 0;
+          height: 0;
+          width: 1px;
+          background-color: white;
+          transition: height 0.15s ease-out;
+        }
+        .bottom--border {
+          position: absolute;
+          left: -10px;
+          bottom: -10px;
+          height: 1px;
+          width: 0;
+          background-color: white;
+        }
+      }
+      :hover {
+        // border-bottom: 1px solid white;
+        // border-left: 1px solid white;
+        // border-style: inset;
+        .left--border {
+          height: 120%;
+          transition: height 0.5s ease-out;
+        }
+        .bottom--border {
+          width: 80%;
+          transition: width 0.4s ease-out;
         }
       }
       padding-bottom: 128px;
