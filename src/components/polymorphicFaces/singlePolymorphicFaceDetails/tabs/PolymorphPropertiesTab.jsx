@@ -100,17 +100,6 @@ const PolymorphPropertiesTab = ({ data, isV1 }) => {
   return (
     <div className="polymorph--properties--tab">
       <div className="polymorph--tags">
-        {isV1 && (
-          <span>
-            <b>V1</b>
-          </span>
-        )}
-        {!isV1 && (
-          <span className="gradient">
-            <b>V2</b>
-            <div className="gr-bg" />
-          </span>
-        )}
         <span>
           Rank: <b>{data.rank}</b>
         </span>
