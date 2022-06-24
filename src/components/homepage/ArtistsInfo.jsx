@@ -37,7 +37,7 @@ export const ArtistsInfo = [
   {
     name: "Viktoria Dutka",
     image: require("../../assets/images/artists/Viktoria-Dutka.png"),
-    portfolioLink: "https://www.behance.net/tirop",
+    portfolioLink: "https://www.behance.net/viktorinyskoro",
   },
   {
     name: "Mancel",
