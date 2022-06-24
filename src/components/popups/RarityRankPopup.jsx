@@ -45,7 +45,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Footwear"
@@ -54,7 +56,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Pants"
@@ -63,7 +67,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Torso"
@@ -72,7 +78,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Eyewear"
@@ -81,7 +89,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Headwear"
@@ -90,7 +100,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
 
             <RarityRankPopupProperty
@@ -100,7 +112,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Right Hand"
@@ -109,7 +123,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
             <RarityRankPopupProperty
               propertyName="Background"
@@ -118,7 +134,9 @@ const RarityRankPopup = ({ onClose, item, tab }) => {
               secMatchingAttributes={item.secmatchingtraits}
               genesMap={traitsMap}
               matchingHands={item.matchinghands}
+              isPolymorph={true}
               isV1={tab === "V1" ? true : false}
+              isPolymorphicFace={false}
             />
           </div>
         </div>

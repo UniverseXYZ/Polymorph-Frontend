@@ -108,7 +108,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   }, [update]);
 
   const redirectHandler = () => {
-    router.push(`/polymorphs/${item.tokenid}`);
+    router.push(`/polymorphic-faces/${item.tokenid}`);
     redirect();
   };
 
