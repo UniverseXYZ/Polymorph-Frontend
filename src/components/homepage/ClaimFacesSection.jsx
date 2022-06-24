@@ -88,6 +88,8 @@ const ClaimFacesSection = () => {
           {ArtistsInfo.map((artist) => {
             return (
               <div className="artist__container">
+                <div className="left--border" />
+                <div className="bottom--border" />
                 <img src={artist.image} alt="artist" />
                 <div className="artist__info">
                   <p>{artist.name}</p>
