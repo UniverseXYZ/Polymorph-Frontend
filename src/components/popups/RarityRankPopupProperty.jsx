@@ -18,7 +18,9 @@ function RarityRankPopupProperty({
   value,
   genesMap,
   matchingHands,
+  isPolymorph,
   isV1,
+  isPolymorphicFace,
 }) {
   const [data, setData] = useState(null);
 
@@ -27,24 +29,39 @@ function RarityRankPopupProperty({
     chance = `${Math.round(data.traits[0]?.rarity, 10)}% have this trait`;
   }
   useEffect(() => {
-    const queryTraitRarity = async () => {
-      let traitData;
-      if (isV1) {
-        traitData = await queryPolymorphsGraph(
-          traitRarity(genesMap[propertyName.toUpperCase()])
-        );
+    if (isPolymorph) {
+      const queryTraitRarity = async () => {
+        let traitData;
+        if (isV1) {
+          traitData = await queryPolymorphsGraph(
+            traitRarity(genesMap[propertyName.toUpperCase()])
+          );
+        }
+        if (!isV1) {
+          traitData = await queryPolymorphsGraphV2(
+            traitRarity(genesMap[propertyName.toUpperCase()])
+          );
+        }
+        setData(traitData);
+      };
+      if (genesMap[propertyName.toUpperCase()]) {
+        queryTraitRarity();
       }
-      if (!isV1) {
-        traitData = await queryPolymorphsGraphV2(
-          traitRarity(genesMap[propertyName.toUpperCase()])
-        );
+    }
+    if (isPolymorphicFace) {
+      const queryTraitRarity = async () => {
+        let traitData;
+        // traitData = await queryPolymorphsGraph(
+        //   traitRarity(genesMap[propertyName.toUpperCase()])
+        // );
+        setData(traitData);
+      };
+      if (genesMap[propertyName.toUpperCase()]) {
+        queryTraitRarity();
       }
-      setData(traitData);
-    };
-    if (genesMap[propertyName.toUpperCase()]) {
-      queryTraitRarity();
     }
   }, []);
+
   const renderTrait = () => {
     // Checks if hands are matching different set than the main and secondary sets
     if (
@@ -107,7 +124,34 @@ function RarityRankPopupProperty({
     );
   };
 
-  return renderTrait();
+  const renderTraitFaces = () => {
+    // TO DO:
+    // Implement this function, based on possible
+    // combinations of matching traits
+    // Checks if hands are matching different set than the main and secondary sets
+    if (
+      propertyName === "Eye Left" ||
+      propertyName === "Eye Right"
+      // matchingHands === 2 &&
+      // !mainMatchingAttributes.includes(propertyName) &&
+      // !secMatchingAttributes.includes(propertyName)
+    ) {
+      return (
+        <RarityRankBlueProperty
+          tooltipText="Hands set trait"
+          propertyName={propertyName}
+          trait={value}
+          chance={chance}
+        />
+      );
+    } else return <></>;
+  };
+
+  return isPolymorph
+    ? renderTrait()
+    : isPolymorphicFace
+    ? renderTraitFaces()
+    : null;
 }
 
 RarityRankPopupProperty.propTypes = {
