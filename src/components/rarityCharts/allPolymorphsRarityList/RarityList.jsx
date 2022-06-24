@@ -134,7 +134,7 @@ const List = ({
           <div className="grid">
             {sliceData.map((item, i) => (
               <PolymorphCard
-                key={item.id}
+                key={item.tokenid}
                 item={item}
                 index={offset + i + 1}
                 tab={tab}
