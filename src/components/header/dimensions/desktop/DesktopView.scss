@@ -334,6 +334,10 @@
               width: 32px;
               height: 100%;
             }
+            .disabled {
+              background: rgba(0, 0, 0, 0.05);
+              color: rgba(0, 0, 0, 0.1);
+            }
           }
           .claim--button {
             background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);

@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/router";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
+import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
 
 const DesktopView = ({
   isWalletConnected,
@@ -30,6 +31,7 @@ const DesktopView = ({
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const router = useRouter();
 
   const {
@@ -110,7 +112,11 @@ const DesktopView = ({
               <div>{"Y"} Faces claimed</div>
               <div className={"buttons--wrapper"}>
                 <div className={"claim--amount"}>
-                  <button onClick={() => facesClaimCountHandler("sub")}>
+                  <button
+                    className={`${facesAmountToClaim === 0 ? "disabled" : ""}`}
+                    onClick={() => facesClaimCountHandler("sub")}
+                    disabled={facesAmountToClaim === 0}
+                  >
                     -
                   </button>
                   <span>{facesAmountToClaim}</span>
@@ -118,7 +124,11 @@ const DesktopView = ({
                     +
                   </button>
                 </div>
-                <button className={"light-border-button claim--button"}>
+                <button
+                  className={"light-border-button claim--button"}
+                  onClick={() => setShowSuccessModal(true)}
+                  disabled={facesAmountToClaim === 0}
+                >
                   Claim
                 </button>
               </div>
@@ -263,6 +273,14 @@ const DesktopView = ({
           </li>
         )}
       </ul>
+      {showSuccessModal ? (
+        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
+          <MintPolymorphicFaceSuccessPopup
+            amount={facesAmountToClaim}
+            onClose={() => setShowSuccessModal(false)}
+          ></MintPolymorphicFaceSuccessPopup>
+        </Popup>
+      ) : null}
     </div>
   );
 };
