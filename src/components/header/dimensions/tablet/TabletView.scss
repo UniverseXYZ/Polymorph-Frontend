@@ -712,6 +712,11 @@
             height: 100%;
           }
         }
+        .disabled {
+          background: rgba(0, 0, 0, 0.05) !important;
+          color: rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+        }
         .claim--button {
           background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
           box-shadow: 0px 10px 20px rgba(136, 120, 172, 0.2);
