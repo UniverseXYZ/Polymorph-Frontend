@@ -2587,7 +2587,7 @@
     font-size: 26px;
     line-height: 140%;
     color: $black;
-    margin-bottom: 14px;
+    margin: 32px 0 16px 0;
     padding: 0 10px;
 
     @include sm {
@@ -2613,6 +2613,15 @@
     text-align: center;
     color: #e4b613;
     margin-bottom: 30px;
+  }
+  .txHash {
+    color: rgba(77, 102, 235, 1);
+    text-decoration: underline;
+    font-weight: 500;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
   .polymorph_confirmation_image {
     .loading {
