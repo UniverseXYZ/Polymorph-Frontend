@@ -27,6 +27,8 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 import arrowLeft from "../../../../assets/images/burn-to-mint-images/arrow-left-white.svg";
+import Popup from "reactjs-popup";
+import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -78,6 +80,7 @@ const MobileView = (props) => {
   const [showFacesMenu, setShowFacesMenu] = useState(false);
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [isFacesDropdownOpened, setIsFacesDropdownOpened] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const facesClaimCountHandler = (method) => {
     if (method === "add" && facesAmountToClaim < 20) {
@@ -343,19 +346,29 @@ const MobileView = (props) => {
                         <div className={"buttons--wrapper"}>
                           <div className={"claim--amount"}>
                             <button
+                              className={`${
+                                facesAmountToClaim === 0 ? "disabled" : ""
+                              }`}
                               onClick={() => facesClaimCountHandler("sub")}
+                              disabled={facesAmountToClaim === 0}
                             >
                               -
                             </button>
                             <span>{facesAmountToClaim}</span>
                             <button
+                              className={`${
+                                facesAmountToClaim === 20 ? "disabled" : ""
+                              }`}
                               onClick={() => facesClaimCountHandler("add")}
+                              disabled={facesAmountToClaim === 20}
                             >
                               +
                             </button>
                           </div>
                           <button
                             className={"light-border-button claim--button"}
+                            onClick={() => setShowSuccessModal(true)}
+                            disabled={facesAmountToClaim === 0}
                           >
                             Claim
                           </button>
@@ -482,6 +495,14 @@ const MobileView = (props) => {
           </ul>
         </>
       )}
+      {showSuccessModal ? (
+        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
+          <MintPolymorphicFaceSuccessPopup
+            amount={facesAmountToClaim}
+            onClose={() => setShowSuccessModal(false)}
+          ></MintPolymorphicFaceSuccessPopup>
+        </Popup>
+      ) : null}
     </div>
   );
 };
