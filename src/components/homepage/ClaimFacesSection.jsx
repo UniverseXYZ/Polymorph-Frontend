@@ -3,10 +3,13 @@ import { useRouter } from "next/router";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import ClaimFacesCarousel from "./ClaimFacesCarousel";
 import { ArtistsInfo } from "./ArtistsInfo";
+import Popup from "reactjs-popup";
+import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 
 const ClaimFacesSection = () => {
   const router = useRouter();
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const { userPolymorphs } = usePolymorphStore();
 
@@ -54,7 +57,12 @@ const ClaimFacesSection = () => {
                         +
                       </button>
                     </div>
-                    <button className="light-button">Claim</button>
+                    <button
+                      className="light-button"
+                      onClick={() => setShowSuccessModal(!showSuccessModal)}
+                    >
+                      Claim
+                    </button>
                   </div>
                 </div>
               </div>
@@ -102,6 +110,14 @@ const ClaimFacesSection = () => {
           })}
         </div>
       </div>
+      {showSuccessModal ? (
+        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
+          <MintPolymorphicFaceSuccessPopup
+            amount={4}
+            onClose={() => setShowSuccessModal(false)}
+          ></MintPolymorphicFaceSuccessPopup>
+        </Popup>
+      ) : null}
     </>
   );
 };
