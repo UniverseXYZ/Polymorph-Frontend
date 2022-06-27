@@ -5,7 +5,7 @@ import ItemsPerPageDropdown from "../../pagination/ItemsPerPageDropdown";
 import closeIcon from "../../../assets/images/close-menu.svg";
 import { renderLoaders } from "../../../containers/rarityCharts/renderLoaders";
 import CategoriesFilter from "../filters/CategoriesFilter";
-import RarityChartsLoader from "../../../containers/rarityCharts/RarityChartsLoader";
+import RarityChartsLoader from "../../../containers/rarityCharts/FacesLoader";
 import RarityPagination from "../RarityPagination";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 import Popup from "reactjs-popup";
