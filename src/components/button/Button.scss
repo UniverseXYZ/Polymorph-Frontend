@@ -1,4 +1,4 @@
-@import '../../assets/scss/variables';
+@import "../../assets/scss/variables";
 
 .light-button {
   padding: 11px 26px;
@@ -16,16 +16,20 @@
   color: $black;
   transition: 50ms ease-in;
   &:hover {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.4)
+      ),
       linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%) !important;
   }
   &:disabled {
-    background: rgba(0, 0, 0, 0.05);
+    // background: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.2);
     box-shadow: none;
     cursor: not-allowed;
     &:hover {
-      background: rgba(0, 0, 0, 0.05) !important;
+      // background: rgba(0, 0, 0, 0.05) !important;
     }
   }
 }
@@ -58,10 +62,10 @@
     }
   }
   &:hover {
-    box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset!important;
+    box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset !important;
   }
 }
 
-.light-border-button-shadow{
-  box-shadow: 2px 1000px 1px #F9FEFD inset;
+.light-border-button-shadow {
+  box-shadow: 2px 1000px 1px #f9fefd inset;
 }

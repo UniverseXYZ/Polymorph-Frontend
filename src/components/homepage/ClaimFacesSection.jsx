@@ -49,16 +49,29 @@ const ClaimFacesSection = () => {
                   </div>
                   <div className="buttons__wrapper">
                     <div>
-                      <button onClick={() => facesClaimCountHandler("sub")}>
+                      <button
+                        className={`${
+                          facesAmountToClaim === 0 ? "disabled" : ""
+                        }`}
+                        onClick={() => facesClaimCountHandler("sub")}
+                      >
                         -
                       </button>
                       <span>{facesAmountToClaim}</span>
-                      <button onClick={() => facesClaimCountHandler("add")}>
+                      <button
+                        className={`${
+                          facesAmountToClaim === 20 ? "disabled" : ""
+                        }`}
+                        onClick={() => facesClaimCountHandler("add")}
+                      >
                         +
                       </button>
                     </div>
                     <button
-                      className="light-button"
+                      disabled={facesAmountToClaim === 0}
+                      className={`light-button ${
+                        facesAmountToClaim === 0 ? "disabled" : ""
+                      }`}
                       onClick={() => setShowSuccessModal(!showSuccessModal)}
                     >
                       Claim
@@ -113,7 +126,7 @@ const ClaimFacesSection = () => {
       {showSuccessModal ? (
         <Popup closeOnDocumentClick={false} open={showSuccessModal}>
           <MintPolymorphicFaceSuccessPopup
-            amount={4}
+            amount={facesAmountToClaim}
             onClose={() => setShowSuccessModal(false)}
           ></MintPolymorphicFaceSuccessPopup>
         </Popup>
