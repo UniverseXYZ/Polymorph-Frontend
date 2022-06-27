@@ -120,7 +120,11 @@ const DesktopView = ({
                     -
                   </button>
                   <span>{facesAmountToClaim}</span>
-                  <button onClick={() => facesClaimCountHandler("add")}>
+                  <button
+                    className={`${facesAmountToClaim === 20 ? "disabled" : ""}`}
+                    onClick={() => facesClaimCountHandler("add")}
+                    disabled={facesAmountToClaim === 20}
+                  >
                     +
                   </button>
                 </div>
