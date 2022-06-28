@@ -42,7 +42,6 @@ const PolymorphScramblePopup = ({
   setPolymorphGene,
   setShowCongratulations,
   setShowLoading,
-  setShowMetadataLoading,
 }) => {
   const userPolymorphs = usePolymorphStore((s) => s.userPolymorphs);
   const polymorphContractV2 = useContractsStore((s) => s.polymorphContractV2);
@@ -140,30 +139,9 @@ const PolymorphScramblePopup = ({
       }
       // Update the view //
       setShowLoading(false);
-
-      setShowMetadataLoading(true);
-      // Get the new Meta
-      // const data = await getPolymorphMeta(id);
-      // setPolymorph(data);
-
-      // Update the Gene
-      // const gene = await polymorphContractV2.geneOf(id);
-      // setPolymorphGene(gene.toString());
-
-      // Update userPolymorphs
-      // const newPolymorph = convertPolymorphObjects([data]);
-      // const updatedPolymorphs = userPolymorphs.map((existingPolymorph) => {
-      //   if (existingPolymorph.id === newPolymorph[0].id) {
-      //     return newPolymorph[0];
-      //   }
-      //   return existingPolymorph;
-      // });
-
-      setShowMetadataLoading(false);
       setShowCongratulations(true);
     } catch (err) {
       setShowLoading(false);
-      setShowMetadataLoading(false);
       setShowCongratulations(false);
       alert(err.message || err);
     }
@@ -265,7 +243,6 @@ PolymorphScramblePopup.propTypes = {
   id: PropTypes.string.isRequired,
   setShowCongratulations: PropTypes.func.isRequired,
   setShowLoading: PropTypes.func.isRequired,
-  setShowMetadataLoading: PropTypes.func.isRequired,
 };
 
 export default PolymorphScramblePopup;
