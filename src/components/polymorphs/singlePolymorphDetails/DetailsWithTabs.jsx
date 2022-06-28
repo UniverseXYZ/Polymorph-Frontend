@@ -205,7 +205,6 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
           id={polymorphData.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
-          setShowMetadataLoading={setShowMetadataLoading}
         />
       </Popup>
 

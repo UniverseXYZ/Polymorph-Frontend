@@ -24,7 +24,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
@@ -114,10 +113,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
     <div
       className="card"
       onClick={() =>
-        !showScramblePopup &&
-        !showLoading &&
-        !showMetadataLoading &&
-        !showCongratulations
+        !showScramblePopup && !showLoading && !showCongratulations
           ? redirectHandler()
           : null
       }
@@ -191,7 +187,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           id={item.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
-          setShowMetadataLoading={setShowMetadataLoading}
         />
       </Popup>
       <Popup closeOnDocumentClick={false} open={showLoading}>
