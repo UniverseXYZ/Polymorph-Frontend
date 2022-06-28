@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import Popup from "reactjs-popup";
-import { useRouter } from "next/router";
 import linkIcon from "../../../assets/images/rarity-charts/linkIcon.svg";
 import Button from "@legacy/button/Button";
 import PolymorphPropertiesTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphPropertiesTab";
@@ -8,31 +7,27 @@ import PolymorphMetadataTab from "../../polymorphs/singlePolymorphDetails/tabs/P
 import PolymorphHistoryTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphHistoryTab";
 import PolymorphicFaceScramblePopup from "../../popups/PolymorphicFaceScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
-import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import { ethers } from "ethers";
+import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
-import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
-  const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [burnt, setBurnt] = useState(false);
   const ref = useRef(null);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [userIsOwner, setUserIsOwner] = useState(false);
   const [polymorphOwner, setPolymorphOwner] = useState("");
   const [morphPrice, setMorphPrice] = useState("");
 
-  const { polymorphContract } = useContractsStore();
+  const { polymorphicFacesContract } = useContractsStore();
   const { userPolymorphsAll } = usePolymorphStore();
 
   const showScrambleOptions = () => {
@@ -64,17 +59,13 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
   }, [userPolymorphsAll]);
 
   useEffect(async () => {
-    if (polymorphContract) {
-      const morphPrice = await polymorphContract.priceForGenomeChange(
-        polymorphicData.tokenid
-      );
+    if (polymorphicFacesContract) {
+      const morphPrice = await polymorphicFacesContract.priceForGenomeChange(4);
       setMorphPrice(ethers.utils.formatEther(morphPrice));
-      const ownerAddress = await polymorphContract.ownerOf(
-        polymorphicData.tokenid
-      );
+      const ownerAddress = await polymorphicFacesContract.ownerOf(4);
       setPolymorphOwner(ownerAddress);
     }
-  }, [polymorphContract]);
+  }, [polymorphicFacesContract]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -94,7 +85,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
                 onClick={(event) => {
                   event.stopPropagation();
                   window.open(
-                    `${marketplaceLinkOut}${contract?.address}/${polymorphicData.tokenid}`
+                    `${marketplaceLinkOut}${polymorphicFacesContract?.address}/${polymorphicData.tokenid}`
                   );
                 }}
               >
@@ -168,10 +159,9 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
         <PolymorphicFaceScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphicData}
-          id={polymorphicData.tokenid.toString()}
+          id={4}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
-          setShowMetadataLoading={setShowMetadataLoading}
         />
       </Popup>
 
@@ -184,6 +174,8 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
           polymorph={polymorphicData}
+          isPolymorph={false}
+          isPolymorphicFace={true}
         />
       </Popup>
     </div>
