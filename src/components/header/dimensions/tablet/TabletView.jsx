@@ -215,12 +215,10 @@ const TabletView = (props) => {
               className="menu-li faces-to-claim"
             >
               <span className="nav__link__title">
-                <div className="ethereum__address__tablet">
-                  Faces to Claim
-                  {userPolymorphsCount ? (
-                    <span>{userPolymorphsCount}</span>
-                  ) : null}
-                </div>
+                Faces to Claim
+                {userPolymorphsCount ? (
+                  <span>{userPolymorphsCount}</span>
+                ) : null}
               </span>
               <img className="arrow" src={arrowUP} alt="arrow" />
             </button>
