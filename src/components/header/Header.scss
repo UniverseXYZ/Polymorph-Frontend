@@ -78,6 +78,13 @@
       .wallet__connected__tablet img.account__icon.show__on__tablet {
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
+      .nav__link__title {
+        color: white;
+        span {
+          background-color: white;
+          color: black;
+        }
+      }
     }
 
     .mobile__nav {
@@ -120,11 +127,19 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .tablet__nav .wallet__connected__tablet button .nav__link__title .ethereum__address__tablet {
+    .tablet__nav
+      .wallet__connected__tablet
+      button
+      .nav__link__title
+      .ethereum__address__tablet {
       color: white;
     }
 
-    .tablet__nav .wallet__connected__tablet .dropdown__header .copy-div .ethereum__address {
+    .tablet__nav
+      .wallet__connected__tablet
+      .dropdown__header
+      .copy-div
+      .ethereum__address {
       color: $black;
     }
 

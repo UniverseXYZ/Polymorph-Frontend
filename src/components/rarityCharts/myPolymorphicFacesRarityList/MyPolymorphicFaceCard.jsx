@@ -1,82 +1,41 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
-import RarityRankPopup from "../../popups/RarityRankPopup.jsx";
 import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
 import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
 import { useRouter } from "next/router";
 import ThreeDotsSVG from "../../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../../assets/images/burn-to-mint-images/link-out.svg";
-import { usePolymorphStore } from "../../../stores/polymorphStore";
 import { useContractsStore } from "src/stores/contractsStore";
-import BurnIconSvg from "../../../assets/images/burn-icon.svg";
 import ScrambleIconSvg from "../../../assets/images/scramble-icon.svg";
 import PolymorphicFaceScramblePopup from "@legacy/popups/PolymorphicFaceScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
-import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
-const MyPolymorphCard = ({ polymorphItem, redirect }) => {
+const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [polymorphToScramble, setPolymorphToScramble] = useState(null);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
-  const [contract, setContract] = useState(null);
-  const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { polymorphicFacesContract } = useContractsStore();
 
   const showScrambleOptions = () => {
     setUpdate(true);
     setShowScramblePopup(true);
   };
 
-  const { userPolymorphs, setUserSelectedPolymorphsToBurn } =
-    usePolymorphStore();
-  const [isV2, setIsV2] = useState("");
-
-  useEffect(() => {
-    if (item) {
-      const [polymorphV1] = userPolymorphs.filter(
-        (token) => token.id === item.tokenid
-      );
-      if (polymorphV1) {
-        setIsV2(false);
-        setContract(polymorphContract?.address);
-      } else {
-        setIsV2(true);
-        setContract(polymorphContractV2?.address);
-      }
-    }
-  }, [item]);
-
-  const handleBurnToMintClick = (event) => {
-    event.stopPropagation();
-    if (!isV2) {
-      setUserSelectedPolymorphsToBurn([
-        {
-          tokenId: item.tokenid,
-          imageUrl: item.imageurl,
-        },
-      ]);
-      router.push(`/burn-to-mint/burn/single/${item.tokenid}`);
-    }
-  };
-
   const handleScrambleClick = (event) => {
     event.stopPropagation();
-    if (isV2) {
-      setPolymorphToScramble(item);
-      setShowScramblePopup(true);
-    }
+    setShowScramblePopup(true);
   };
 
   const fetchMetadata = async () => {
@@ -162,7 +121,9 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
             <button
               onClick={(event) => {
                 event.stopPropagation();
-                window.open(`${marketplaceLinkOut}${contract}/${item.tokenid}`);
+                window.open(
+                  `${marketplaceLinkOut}${polymorphicFacesContract.address}/${item.tokenid}`
+                );
               }}
             >
               <img src={LinkOut} alt="link-icon" />
@@ -177,8 +138,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
             id={item.tokenid.toString()}
-            // setPolymorph={setPolymorphData}
-            // setPolymorphGene={setPolymorphGene}
             setShowCongratulations={setShowCongratulations}
             setShowLoading={setShowLoading}
             setShowMetadataLoading={setShowMetadataLoading}
@@ -190,18 +149,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           <LoadingPopup onClose={() => setShowLoading(false)} />
         </Popup>
       ) : null}
-
-      <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
-        {/* TODO: here need to pass the real data */}
-        <PolymorphMetadataLoading
-          onClose={() => setShowMetadataLoading(false)}
-          onOpenOptionsPopUp={showScrambleOptions}
-          // polymorph={polymorphData}
-        />
-      </Popup>
-
       <Popup closeOnDocumentClick={false} open={showCongratulations}>
-        {/* TODO: here need to pass the real data */}
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
@@ -212,8 +160,8 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   );
 };
 
-MyPolymorphCard.propTypes = {
+MyPolymorphicFaceCard.propTypes = {
   polymorphItem: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
-export default MyPolymorphCard;
+export default MyPolymorphicFaceCard;

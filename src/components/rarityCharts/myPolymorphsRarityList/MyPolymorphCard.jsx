@@ -22,7 +22,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [polymorphToScramble, setPolymorphToScramble] = useState(null);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [showMetadataLoading, setShowMetadataLoading] = useState(false);
@@ -72,7 +71,6 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const handleScrambleClick = (event) => {
     event.stopPropagation();
     if (isV2) {
-      setPolymorphToScramble(item);
       setShowScramblePopup(true);
     }
   };
