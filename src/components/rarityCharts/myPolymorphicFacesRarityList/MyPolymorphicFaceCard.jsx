@@ -154,6 +154,8 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
           polymorph={item}
+          isPolymorph={false}
+          isPolymorphicFace={true}
         />
       </Popup>
     </div>
