@@ -229,12 +229,16 @@ const PolymorphPropertiesTab = ({
             <div className="gr-bg" />
           </span>
         )}
-        <span>
-          Rank: <b>{data.rank}</b>
-        </span>
-        <span>
-          Rarity score: <b>{data.rarityscore}</b>
-        </span>
+        {isPolymorph && (
+          <span>
+            Rank: <b>{data.rank}</b>
+          </span>
+        )}
+        {isPolymorph && (
+          <span>
+            Rarity score: <b>{data.rarityscore}</b>
+          </span>
+        )}
       </div>
       <div className="polymorph--properties--grid">
         {properties.map((prop) => {
