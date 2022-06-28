@@ -2,6 +2,7 @@ import { Contract } from "ethers";
 import create from "zustand";
 import PolymorphV1Contract from "../abis/PolymorphWithGeneChanger.json";
 import PolymorphV2Contract from "../abis/PolymorphRoot.json";
+import PolymorphicFacesContract from "../abis/PolymorphicFacesRoot.json";
 
 interface IContracts {
   // Getters
@@ -34,11 +35,9 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       signer
     );
 
-    // TO DO:
-    // Adjust to correct Faces Contract
     const polymorphicFacesContractInstance = new Contract(
-      process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
-      PolymorphV2Contract?.abi,
+      process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_ADDRESS as any,
+      PolymorphicFacesContract?.abi,
       signer
     );
 
