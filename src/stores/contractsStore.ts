@@ -7,6 +7,7 @@ interface IContracts {
   // Getters
   polymorphContract: Contract | null;
   polymorphContractV2: Contract | null;
+  polymorphicFacesContract: Contract | null;
 }
 
 interface IContractsStore extends IContracts {
@@ -18,9 +19,9 @@ interface IContractsStore extends IContracts {
 export const useContractsStore = create<IContractsStore>((set) => ({
   polymorphContract: null,
   polymorphContractV2: null,
+  polymorphicFacesContract: null,
 
   setContracts: (signer, network) => {
-
     const polymorphContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS as any,
       PolymorphV1Contract?.abi,
@@ -33,16 +34,26 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       signer
     );
 
+    // TO DO:
+    // Adjust to correct Faces Contract
+    const polymorphicFacesContractInstance = new Contract(
+      process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS as any,
+      PolymorphV2Contract?.abi,
+      signer
+    );
+
     set((state) => ({
       ...state,
       polymorphContract: polymorphContractInstance,
       polymorphContractV2: polymorphContractV2Instance,
+      polymorphicFacesContract: polymorphicFacesContractInstance,
     }));
   },
   clearContracts: () => {
     set(() => ({
       polymorphContract: null,
       polymorphContractV2: null,
+      polymorphicFacesContract: null,
     }));
   },
 }));
