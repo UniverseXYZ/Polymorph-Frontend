@@ -6,7 +6,7 @@ import Button from "@legacy/button/Button";
 import PolymorphPropertiesTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphPropertiesTab";
 import PolymorphMetadataTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphMetadataTab";
 import PolymorphHistoryTab from "../../polymorphs/singlePolymorphDetails/tabs/PolymorphHistoryTab";
-import PolymorphScramblePopup from "../../popups/PolymorphScramblePopup";
+import PolymorphicFaceScramblePopup from "../../popups/PolymorphicFaceScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
@@ -165,13 +165,10 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
       ) : null}
 
       <Popup closeOnDocumentClick={false} open={showScramblePopup}>
-        {/* TODO: here need to pass the real data */}
-        <PolymorphScramblePopup
+        <PolymorphicFaceScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphicData}
           id={polymorphicData.tokenid.toString()}
-          // setPolymorph={polymorphicData}
-          // setPolymorphGene={setPolymorphGene}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
           setShowMetadataLoading={setShowMetadataLoading}
@@ -182,17 +179,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
         <LoadingPopup onClose={() => setShowLoading(false)} />
       </Popup>
 
-      {/* <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
-        TODO: here need to pass the real data
-        <PolymorphMetadataLoading
-          onClose={() => setShowMetadataLoading(false)}
-          onOpenOptionsPopUp={showScrambleOptions}
-          polymorph={polymorphicData}
-        />
-      </Popup> */}
-
       <Popup closeOnDocumentClick={false} open={showCongratulations}>
-        {/* TODO: here need to pass the real data */}
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}

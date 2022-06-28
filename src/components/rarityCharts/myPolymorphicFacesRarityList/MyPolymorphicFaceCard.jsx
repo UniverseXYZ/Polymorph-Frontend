@@ -11,7 +11,7 @@ import { usePolymorphStore } from "../../../stores/polymorphStore";
 import { useContractsStore } from "src/stores/contractsStore";
 import BurnIconSvg from "../../../assets/images/burn-icon.svg";
 import ScrambleIconSvg from "../../../assets/images/scramble-icon.svg";
-import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
+import PolymorphicFaceScramblePopup from "@legacy/popups/PolymorphicFaceScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphMetadataLoading from "@legacy/popups/PolymorphMetadataLoading.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
@@ -155,6 +155,10 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
         </div>
         {dropdownOpen ? (
           <div className={"dropdown faces--dropdown"}>
+            <button onClick={handleScrambleClick}>
+              <img src={ScrambleIconSvg} alt="link-icon" />
+              Scramble
+            </button>
             <button
               onClick={(event) => {
                 event.stopPropagation();
@@ -169,7 +173,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
       </div>
       {showScramblePopup ? (
         <Popup closeOnDocumentClick={false} open={showScramblePopup}>
-          <PolymorphScramblePopup
+          <PolymorphicFaceScramblePopup
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
             id={item.tokenid.toString()}
