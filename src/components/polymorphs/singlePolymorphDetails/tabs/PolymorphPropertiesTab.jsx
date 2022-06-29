@@ -95,7 +95,7 @@ const PolymorphPropertiesTab = ({
     properties = [
       {
         propertyName: "Background",
-        value: data.character,
+        value: data.background,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -103,7 +103,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Hair Left",
-        value: data.footwear,
+        value: data.hairleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -111,7 +111,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Hair Right",
-        value: data.pants,
+        value: data.hairright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -119,7 +119,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Ear Left",
-        value: data.torso,
+        value: data.earleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -127,7 +127,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Ear Right",
-        value: data.eyewear,
+        value: data.earright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -135,7 +135,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Eye Left",
-        value: data.headwear,
+        value: data.eyeleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -143,7 +143,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Eye Right",
-        value: data.lefthand,
+        value: data.eyeright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -151,7 +151,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Lips Left",
-        value: data.righthand,
+        value: data.lipsleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -159,7 +159,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Lips Right",
-        value: data.background,
+        value: data.lipsright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -167,7 +167,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Beard Top Left",
-        value: data.background,
+        value: data.beardtopleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -175,7 +175,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Beard Top Right",
-        value: data.background,
+        value: data.beardtopright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -183,7 +183,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Beard Bottom Left",
-        value: data.background,
+        value: data.beardbottomleft,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
@@ -191,7 +191,7 @@ const PolymorphPropertiesTab = ({
       },
       {
         propertyName: "Beard Bottom Right",
-        value: data.background,
+        value: data.beardbottomright,
         mainMatchingAttributes: data.mainmatchingtraits,
         secMatchingAttributes: data.secmatchingtraits,
         genesMap: traitsMap,
