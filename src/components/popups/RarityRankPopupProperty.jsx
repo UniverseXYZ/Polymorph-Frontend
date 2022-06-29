@@ -129,22 +129,22 @@ function RarityRankPopupProperty({
     // Implement this function, based on possible
     // combinations of matching traits
     // Checks if hands are matching different set than the main and secondary sets
-    if (
-      propertyName === "Eye Left" ||
-      propertyName === "Eye Right"
-      // matchingHands === 2 &&
-      // !mainMatchingAttributes.includes(propertyName) &&
-      // !secMatchingAttributes.includes(propertyName)
-    ) {
-      return (
-        <RarityRankBlueProperty
-          tooltipText="Hands set trait"
-          propertyName={propertyName}
-          trait={value}
-          chance={chance}
-        />
-      );
-    } else return <></>;
+    // if (
+    // propertyName === "Eye Left" ||
+    // propertyName === "Eye Right"
+    // matchingHands === 2 &&
+    // !mainMatchingAttributes.includes(propertyName) &&
+    // !secMatchingAttributes.includes(propertyName)
+    // ) {
+    return (
+      <RarityRankNoColorProperty
+        tooltipText="Hands set trait"
+        propertyName={propertyName}
+        trait={value}
+        chance={chance}
+      />
+    );
+    // } else return <></>;
   };
 
   return isPolymorph
