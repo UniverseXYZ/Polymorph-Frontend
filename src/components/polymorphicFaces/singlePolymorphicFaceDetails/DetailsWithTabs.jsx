@@ -60,9 +60,13 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
 
   useEffect(async () => {
     if (polymorphicFacesContract) {
-      const morphPrice = await polymorphicFacesContract.priceForGenomeChange(4);
+      const morphPrice = await polymorphicFacesContract.priceForGenomeChange(
+        polymorphicData.tokenid
+      );
       setMorphPrice(ethers.utils.formatEther(morphPrice));
-      const ownerAddress = await polymorphicFacesContract.ownerOf(4);
+      const ownerAddress = await polymorphicFacesContract.ownerOf(
+        polymorphicData.tokenid
+      );
       setPolymorphOwner(ownerAddress);
     }
   }, [polymorphicFacesContract]);
@@ -159,7 +163,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
         <PolymorphicFaceScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphicData}
-          id={4}
+          id={polymorphicData.tokenid}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
         />

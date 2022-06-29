@@ -3,7 +3,6 @@ import { OpenGraph } from "../../components/open-graph";
 import ImageWithBadges from "../../components/polymorphicFaces/singlePolymorphicFaceDetails/ImageWithBadges";
 import DetailsWithTabs from "../../components/polymorphicFaces/singlePolymorphicFaceDetails/DetailsWithTabs";
 import LoadingSpinner from "../../components/svgs/LoadingSpinner.jsx";
-import { getPolymorphMetaV2 } from "@legacy/api/polymorphs";
 import { useRouter } from "next/router";
 
 export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
@@ -16,25 +15,21 @@ export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
   };
 
   // Fetch new data
-  // useEffect(async () => {
-  //   if (update) {
-  //     const v2Request = await fetch(
-  //       `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${router.query.id}`,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const polymorphMeta = await v2Request.json();
-  //     setMetadata(polymorphMeta);
-
-  //     const { data } = await getPolymorphMetaV2(router.query.id);
-  //     setIframeUrl(data?.animation_url);
-
-  //     setUpdate(false);
-  //   }
-  // }, [update]);
+  useEffect(async () => {
+    if (update) {
+      const reqest = await fetch(
+        `${process.env.REACT_APP_FACES_RARITY_METADATA_URL}?ids=${router.query.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const polymorphMeta = await reqest.json();
+      setMetadata(polymorphMeta);
+      setUpdate(false);
+    }
+  }, [update]);
 
   return (
     <>
@@ -78,15 +73,15 @@ export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
 };
 
 export async function getStaticProps({ params }) {
-  const v1Request = await fetch(
-    `${process.env.REACT_APP_RARITY_METADATA_URL}?ids=${params.id}`,
+  const reqest = await fetch(
+    `${process.env.REACT_APP_FACES_RARITY_METADATA_URL}?ids=${params.id}`,
     {
       headers: {
         "Content-Type": "application/json",
       },
     }
   );
-  let polymorphicMeta = await v1Request.json();
+  let polymorphicMeta = await reqest.json();
 
   return {
     props: {

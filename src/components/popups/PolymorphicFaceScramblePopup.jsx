@@ -40,7 +40,7 @@ const WEAR_TO_GENE_POSITION_MAP = {
   bearBottomRight: GENE_POSITIONS_MAP.bearBottomRight,
 };
 
-const PolymorphScramblePopup = ({
+const PolymorphicFaceScramblePopup = ({
   onClose,
   polymorph,
   id,
@@ -225,7 +225,7 @@ const PolymorphScramblePopup = ({
   );
 };
 
-PolymorphScramblePopup.propTypes = {
+PolymorphicFaceScramblePopup.propTypes = {
   onClose: PropTypes.func.isRequired,
   polymorph: PropTypes.oneOfType([PropTypes.object]).isRequired,
   id: PropTypes.string.isRequired,
@@ -233,4 +233,4 @@ PolymorphScramblePopup.propTypes = {
   setShowLoading: PropTypes.func.isRequired,
 };
 
-export default PolymorphScramblePopup;
+export default PolymorphicFaceScramblePopup;
