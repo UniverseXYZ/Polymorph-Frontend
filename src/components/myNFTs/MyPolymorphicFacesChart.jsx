@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useSearchPolymorphs } from "../../utils/hooks/useMyNftsRarityDebouncerAll";
+import { useSearchPolymorphicFaces } from "../../utils/hooks/useMyFacesRarityDebouncer";
 import { categoriesArray } from "../../containers/rarityCharts/polymorphicFacesCategories";
 import MyPolymorphicFacesRarityList from "../rarityCharts/myPolymorphicFacesRarityList/MyPolymorphicFacesRarityList";
 import { useMyNftsStore } from "src/stores/myNftsStore";
@@ -28,7 +28,7 @@ const MyPolymorphicFacesChart = () => {
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphs(true);
+  } = useSearchPolymorphicFaces();
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
 
