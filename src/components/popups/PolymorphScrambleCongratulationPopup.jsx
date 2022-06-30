@@ -30,7 +30,7 @@ const PolymorphScrambleCongratulationPopup = ({
       }
     }
     if (loading && isPolymorphicFace) {
-      const { data } = await getPolymorphicFacesMeta(4);
+      const { data } = await getPolymorphicFacesMeta(polymorph.tokenid);
       if (data !== "") {
         setMetadata(data);
         setLoading(false);

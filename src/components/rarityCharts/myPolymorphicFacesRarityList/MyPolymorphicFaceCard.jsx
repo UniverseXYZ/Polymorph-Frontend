@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "reactjs-popup";
 import { getPolymorphMeta } from "../../../utils/api/polymorphs.js";
-import { renderLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
+import { renderFacesLoaderWithData } from "../../../containers/rarityCharts/renderLoaders.js";
 import { useRouter } from "next/router";
 import ThreeDotsSVG from "../../../assets/images/three-dots-horizontal.svg";
 import LinkOut from "../../../assets/images/burn-to-mint-images/link-out.svg";
@@ -34,6 +34,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
 
   const handleScrambleClick = (event) => {
     event.stopPropagation();
+    setDropdownOpen(false);
     setShowScramblePopup(true);
   };
 
@@ -51,7 +52,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
     if (update) {
       setLoading(true);
       const response = await fetch(
-        `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphItem.tokenid}`,
+        `${process.env.REACT_APP_FACES_RARITY_METADATA_URL}?ids=${polymorphItem.tokenid}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +72,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   };
 
   return loading ? (
-    renderLoaderWithData(item)
+    renderFacesLoaderWithData(item)
   ) : (
     <div
       className="card faces--card"
@@ -93,7 +94,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           height={500}
         ></Image>
       </div>
-      <div className="card--footer">
+      <div className="card--footer faces--card--footer">
         <div className="card--footer--top">
           <h2>{item.character}</h2>
         </div>
@@ -133,7 +134,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           <PolymorphicFaceScramblePopup
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
-            id={4}
+            id={item.tokenid}
             setShowCongratulations={setShowCongratulations}
             setShowLoading={setShowLoading}
           />
