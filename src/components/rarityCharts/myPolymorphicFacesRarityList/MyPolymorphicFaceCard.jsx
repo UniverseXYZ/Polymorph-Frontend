@@ -22,7 +22,6 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
@@ -77,10 +76,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
     <div
       className="card faces--card"
       onClick={() =>
-        !showScramblePopup &&
-        !showLoading &&
-        !showMetadataLoading &&
-        !showCongratulations
+        !showScramblePopup && !showLoading && !showCongratulations
           ? redirectHandler()
           : null
       }
@@ -137,10 +133,9 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           <PolymorphicFaceScramblePopup
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
-            id={item.tokenid.toString()}
+            id={4}
             setShowCongratulations={setShowCongratulations}
             setShowLoading={setShowLoading}
-            setShowMetadataLoading={setShowMetadataLoading}
           />
         </Popup>
       ) : null}
@@ -154,6 +149,8 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
           polymorph={item}
+          isPolymorph={false}
+          isPolymorphicFace={true}
         />
       </Popup>
     </div>

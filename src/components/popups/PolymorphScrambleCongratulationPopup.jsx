@@ -6,19 +6,31 @@ import closeIcon from "../../assets/images/cross.svg";
 import { useRouter } from "next/router";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs.js";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
+import { getPolymorphicFacesMeta } from "../../utils/api/polymorphicFaces.js";
 
 const PolymorphScrambleCongratulationPopup = ({
   onClose,
   onOpenOptionsPopUp,
   polymorph,
+  isPolymorph,
+  isPolymorphicFace,
 }) => {
   const router = useRouter();
   const [metadata, setMetadata] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    if (loading) {
+    if (loading && isPolymorph) {
       const { data } = await getPolymorphMetaV2(polymorph.tokenid);
+      if (data !== "") {
+        setMetadata(data);
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+    }
+    if (loading && isPolymorphicFace) {
+      const { data } = await getPolymorphicFacesMeta(4);
       if (data !== "") {
         setMetadata(data);
         setLoading(false);

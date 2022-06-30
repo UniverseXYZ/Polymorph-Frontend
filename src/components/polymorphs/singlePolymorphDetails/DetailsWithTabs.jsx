@@ -8,10 +8,8 @@ import PolymorphMetadataTab from "./tabs/PolymorphMetadataTab";
 import PolymorphHistoryTab from "./tabs/PolymorphHistoryTab";
 import PolymorphScramblePopup from "../../popups/PolymorphScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
-import PolymorphMetadataLoading from "../../popups/PolymorphMetadataLoading";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
-import { useAuthStore } from "src/stores/authStore";
 import { ethers } from "ethers";
 
 const marketplaceLinkOut =
@@ -21,12 +19,10 @@ import { usePolymorphStore } from "src/stores/polymorphStore";
 const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [burnt, setBurnt] = useState(false);
   const ref = useRef(null);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const [showScramblePopup, setShowScramblePopup] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [showMetadataLoading, setShowMetadataLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [userIsOwner, setUserIsOwner] = useState(false);
   const [polymorphOwner, setPolymorphOwner] = useState("");
@@ -203,16 +199,12 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
       ) : null}
 
       <Popup closeOnDocumentClick={false} open={showScramblePopup}>
-        {/* TODO: here need to pass the real data */}
         <PolymorphScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphData}
           id={polymorphData.tokenid.toString()}
-          // setPolymorph={setPolymorphData}
-          // setPolymorphGene={setPolymorphGene}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
-          setShowMetadataLoading={setShowMetadataLoading}
         />
       </Popup>
 
@@ -220,21 +212,13 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
         <LoadingPopup onClose={() => setShowLoading(false)} />
       </Popup>
 
-      {/* <Popup closeOnDocumentClick={false} open={showMetadataLoading}>
-        TODO: here need to pass the real data
-        <PolymorphMetadataLoading
-          onClose={() => setShowMetadataLoading(false)}
-          onOpenOptionsPopUp={showScrambleOptions}
-          polymorph={polymorphData}
-        />
-      </Popup> */}
-
       <Popup closeOnDocumentClick={false} open={showCongratulations}>
-        {/* TODO: here need to pass the real data */}
         <PolymorphScrambleCongratulationPopup
           onClose={() => setShowCongratulations(false)}
           onOpenOptionsPopUp={showScrambleOptions}
           polymorph={polymorphData}
+          isPolymorph={true}
+          isPolymorphicFace={false}
         />
       </Popup>
     </div>

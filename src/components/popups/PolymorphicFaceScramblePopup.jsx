@@ -3,13 +3,9 @@ import PropTypes from "prop-types";
 import { utils } from "ethers";
 import Tabs from "../tabs/Tabs";
 import Button from "../button/Button";
-// import '../polymorphs/scramble/styles/PolymorphScramblePopup.scss';
 import closeIcon from "../../assets/images/cross.svg";
 import ethIcon from "../../assets/images/eth.svg";
 import SelectComponent from "../select/SelectComponent";
-import { getPolymorphMeta } from "../../utils/api/polymorphs.js";
-import { convertPolymorphObjects } from "../../utils/helpers/polymorphs";
-import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useContractsStore } from "src/stores/contractsStore";
 
 const GENE_POSITIONS_MAP = {
@@ -44,18 +40,14 @@ const WEAR_TO_GENE_POSITION_MAP = {
   bearBottomRight: GENE_POSITIONS_MAP.bearBottomRight,
 };
 
-const PolymorphScramblePopup = ({
+const PolymorphicFaceScramblePopup = ({
   onClose,
   polymorph,
   id,
-  setPolymorph,
-  setPolymorphGene,
   setShowCongratulations,
   setShowLoading,
-  setShowMetadataLoading,
 }) => {
-  const userPolymorphs = usePolymorphStore((s) => s.userPolymorphs);
-  const polymorphContractV2 = useContractsStore((s) => s.polymorphContractV2);
+  const { polymorphicFacesContract } = useContractsStore();
 
   const [singleTraitTabSelected, setSingleTraitSelected] = useState(true);
   const [allTraitsTabSelected, setAllTraitsTabSelected] = useState(false);
@@ -89,17 +81,12 @@ const PolymorphScramblePopup = ({
   useEffect(async () => {
     try {
       // Fetch randomize Price
-      const amount = await polymorphContractV2.randomizeGenomePrice();
+      const amount = await polymorphicFacesContract.randomizeGenomePrice();
       const formatedEther = utils.formatEther(amount);
       setRandomizeGenePrice(formatedEther);
-
-      // Set first trait to be selected
-      // setSelectedTrait(traits[0]);
-
       // Fetch single genom change price
-      const genomChangePrice = await polymorphContractV2.priceForGenomeChange(
-        id
-      );
+      const genomChangePrice =
+        await polymorphicFacesContract.priceForGenomeChange(id);
       const genomChangePriceToEther = utils.formatEther(genomChangePrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
     } catch (e) {
@@ -122,50 +109,29 @@ const PolymorphScramblePopup = ({
 
         // Morph a Gene
         const genomeChangePrice =
-          await polymorphContractV2.priceForGenomeChange(id);
-        const morphGeneT = await polymorphContractV2.morphGene(
+          await polymorphicFacesContract.priceForGenomeChange(id);
+        const morphGeneTx = await polymorphicFacesContract.morphGene(
           id,
           genePosition,
           {
             value: genomeChangePrice,
           }
         );
-        await morphGeneT.wait();
+        await morphGeneTx.wait();
       } else {
         if (!id) return;
         // Randomize Genom
-        const amount = await polymorphContractV2.randomizeGenomePrice();
-        const randomizeT = await polymorphContractV2.randomizeGenome(id, {
+        const amount = await polymorphicFacesContract.randomizeGenomePrice();
+        const randomizeTx = await polymorphicFacesContract.randomizeGenome(id, {
           value: amount,
         });
-        await randomizeT.wait();
+        await randomizeTx.wait();
       }
       // Update the view //
       setShowLoading(false);
-
-      setShowMetadataLoading(true);
-      // Get the new Meta
-      // const data = await getPolymorphMeta(id);
-      // setPolymorph(data);
-
-      // Update the Gene
-      // const gene = await polymorphContractV2.geneOf(id);
-      // setPolymorphGene(gene.toString());
-
-      // Update userPolymorphs
-      // const newPolymorph = convertPolymorphObjects([data]);
-      // const updatedPolymorphs = userPolymorphs.map((existingPolymorph) => {
-      //   if (existingPolymorph.id === newPolymorph[0].id) {
-      //     return newPolymorph[0];
-      //   }
-      //   return existingPolymorph;
-      // });
-
-      setShowMetadataLoading(false);
       setShowCongratulations(true);
     } catch (err) {
       setShowLoading(false);
-      setShowMetadataLoading(false);
       setShowCongratulations(false);
       alert(err.message || err);
     }
@@ -198,8 +164,8 @@ const PolymorphScramblePopup = ({
               {singleTraitTabSelected ? (
                 <>
                   <div className="description">
-                    Mutating a single trait means you can morph a hat or morph a
-                    torso. This option will only morph 1 gene.
+                    Mutating a single trait means you can morph an eye or an
+                    ear. This option will only morph 1 gene.
                   </div>
 
                   <div className="traits--popup">
@@ -213,9 +179,9 @@ const PolymorphScramblePopup = ({
                 </>
               ) : (
                 <div className="description">
-                  Would you like to scramble your Polymorph into a brand new
-                  one? This will randomize the genome, and reset the cost of a
-                  single trait scramble back to 0.01 ETH.
+                  Would you like to scramble your Polymorphic Face into a brand
+                  new one? This will randomize the genome, and reset the cost of
+                  a single trait scramble back to 0.01 ETH.
                 </div>
               )}
 
@@ -247,8 +213,8 @@ const PolymorphScramblePopup = ({
                 </div>
               ) : (
                 <div className="next-price-description">
-                  * This action will randomise all traits of your Polymorph and
-                  can not be reversed later!
+                  * This action will randomise all traits of your Polymorphic
+                  Face and can not be reversed later!
                 </div>
               )}
             </div>
@@ -259,15 +225,12 @@ const PolymorphScramblePopup = ({
   );
 };
 
-PolymorphScramblePopup.propTypes = {
+PolymorphicFaceScramblePopup.propTypes = {
   onClose: PropTypes.func.isRequired,
-  // setPolymorph: PropTypes.func.isRequired,
-  // setPolymorphGene: PropTypes.func.isRequired,
   polymorph: PropTypes.oneOfType([PropTypes.object]).isRequired,
   id: PropTypes.string.isRequired,
   setShowCongratulations: PropTypes.func.isRequired,
   setShowLoading: PropTypes.func.isRequired,
-  setShowMetadataLoading: PropTypes.func.isRequired,
 };
 
-export default PolymorphScramblePopup;
+export default PolymorphicFaceScramblePopup;
