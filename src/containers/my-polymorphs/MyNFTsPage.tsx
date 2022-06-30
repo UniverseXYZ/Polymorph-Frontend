@@ -67,7 +67,7 @@ export const MyNFTsPage = () => {
             setMyNFTsSelectedTabIndex(0);
           }}
         >
-          Polymorphs <div className={`count ${myNFTsSelectedTabIndex === 0 ? "active" : ""}`}>{userPolymorphsAll.length || ""}</div>
+          Polymorphs {userPolymorphicFaces.length ? <div className={`count ${myNFTsSelectedTabIndex === 0 ? "active" : ""}`}>{userPolymorphsAll.length || ""}</div> : null}
         </span>
         <span
           className={myNFTsSelectedTabIndex === 1 ? "active" : ""}
@@ -75,7 +75,7 @@ export const MyNFTsPage = () => {
             setMyNFTsSelectedTabIndex(1);
           }}
         >
-          Polymorphic Faces <div className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}>{userPolymorphicFaces.length || ""}</div>
+          Polymorphic Faces {userPolymorphicFaces.length ? <div className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}>{userPolymorphicFaces.length || null}</div> : null}
         </span>
       </div>
 

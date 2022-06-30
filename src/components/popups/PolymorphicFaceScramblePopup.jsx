@@ -9,19 +9,19 @@ import SelectComponent from "../select/SelectComponent";
 import { useContractsStore } from "src/stores/contractsStore";
 
 const GENE_POSITIONS_MAP = {
-  background: 1,
-  hairLeft: 2,
-  hairRight: 3,
-  earLeft: 4,
-  earRight: 5,
-  eyeLeft: 6,
-  eyeRight: 7,
-  lipsLeft: 8,
-  lipsRight: 9,
-  beardTopLeft: 10,
-  bearTopRight: 11,
-  bearBottomLeft: 12,
-  bearBottomRight: 13,
+  background: 0,
+  hairLeft: 1,
+  hairRight: 2,
+  earLeft: 3,
+  earRight: 4,
+  eyeLeft: 5,
+  eyeRight: 6,
+  beardTopLeft: 7,
+  bearTopRight: 8,
+  lipsLeft: 9,
+  lipsRight: 10,
+  bearBottomLeft: 11,
+  bearBottomRight: 12,
 };
 
 const WEAR_TO_GENE_POSITION_MAP = {
@@ -102,6 +102,7 @@ const PolymorphicFaceScramblePopup = ({
       if (singleTraitTabSelected) {
         // Take the Gene Position
         const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
+
         if (!genePosition) {
           alert("There is no such Gene !");
           return;
