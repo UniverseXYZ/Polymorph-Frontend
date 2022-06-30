@@ -51,7 +51,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
     if (update) {
       setLoading(true);
       const response = await fetch(
-        `${process.env.REACT_APP_RARITY_METADATA_URL_V2}?ids=${polymorphItem.tokenid}`,
+        `${process.env.REACT_APP_FACES_RARITY_METADATA_URL}?ids=${polymorphItem.tokenid}`,
         {
           headers: {
             "Content-Type": "application/json",

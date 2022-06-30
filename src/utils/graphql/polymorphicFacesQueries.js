@@ -73,7 +73,7 @@ export const traitRarity = (searchedId) => `
 
 export const queryPolymorphicFacesGraph = async (graphQuery) => {
   const client = new ApolloClient({
-    uri: process.env.REACT_APP_POLYMORPHS_GRAPH_URL,
+    uri: process.env.REACT_APP_POLYMORPHIC_FACES_GRAPH_URL,
     cache: new InMemoryCache(),
   });
 
