@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 export const MyNFTsPage = () => {
   const router = useRouter();
   const createButtonRef = useRef<HTMLButtonElement>(null);
-  const { userPolymorphsAll } = usePolymorphStore();
+  const { userPolymorphsAll, userPolymorphicFaces } = usePolymorphStore();
 
   // Context hooks
   const {
@@ -75,7 +75,7 @@ export const MyNFTsPage = () => {
             setMyNFTsSelectedTabIndex(1);
           }}
         >
-          Polymorphic Faces <div className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}>{userPolymorphsAll.length || ""}</div>
+          Polymorphic Faces <div className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}>{userPolymorphicFaces.length || ""}</div>
         </span>
       </div>
 
