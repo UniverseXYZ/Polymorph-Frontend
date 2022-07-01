@@ -104,10 +104,10 @@ const PolymorphicFaceScramblePopup = ({
         // Take the Gene Position
         const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
 
-        if (!genePosition) {
-          alert("There is no such Gene !");
-          return;
-        }
+        // if (!genePosition) {
+        //   alert("There is no such Gene !");
+        //   return;
+        // }
 
         // Morph a Gene
         const genomeChangePrice =
