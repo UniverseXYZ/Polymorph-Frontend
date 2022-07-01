@@ -7,6 +7,7 @@ import closeIcon from "../../assets/images/cross.svg";
 import ethIcon from "../../assets/images/eth.svg";
 import SelectComponent from "../select/SelectComponent";
 import { useContractsStore } from "src/stores/contractsStore";
+import Image from "next/image";
 
 const GENE_POSITIONS_MAP = {
   background: 0,
@@ -151,7 +152,9 @@ const PolymorphicFaceScramblePopup = ({
         <div className="scramble--popup">
           <div className="scramble--popup--content">
             <div className="avatar-wrapper-popup">
-              <img
+              <Image
+                width={440}
+                height={440}
                 src={polymorph?.imageurl}
                 className="avatar-popup"
                 alt="avatar"

@@ -6,6 +6,7 @@ import closeIcon from "../../assets/images/cross.svg";
 import Button from "@legacy/button/Button";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
+import Image from "next/image";
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
   // const [loading, setLoading] = useState(true);
@@ -64,7 +65,12 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
             {characters?.map((c, i) => {
               return (
                 <div className="polymorph--img" key={i}>
-                  <img src={characters[i].imageUrl} alt="Polymorph" />
+                  <Image
+                    width={440}
+                    height={440}
+                    src={characters[i].imageUrl}
+                    alt="Polymorph"
+                  />
                 </div>
               );
             })}
@@ -77,7 +83,12 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
         <div className="single--polymorph">
           {/* {loading && fetchedImages ? ( */}
           <div className="polymorph--img">
-            <img src={characters[0].imageUrl} alt="Polymorph" />
+            <Image
+              width={440}
+              height={440}
+              src={characters[0].imageUrl}
+              alt="Polymorph"
+            />
           </div>
           {/* ) : (
             renderLoaders(1)
