@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Button from "../button/Button.jsx";
 import closeIcon from "../../assets/images/close-menu.svg";
 import wrongNetworkIcon from "../../assets/images/wrong-network-2.jpg";
+import Image from "next/image.js";
 
 const WrongNetworkPopup = ({ close }) => {
   const switchChain = async () => {
@@ -22,7 +23,12 @@ const WrongNetworkPopup = ({ close }) => {
         alt="Close"
         aria-hidden="true"
       />
-      <img src={wrongNetworkIcon} alt="Wrong Network" />
+      <Image
+        height={128}
+        width={128}
+        src={wrongNetworkIcon}
+        alt="Wrong Network"
+      />{" "}
       <h1 className="title">Wrong network</h1>
       <p className="desc">
         Please switch your wallet network to{" "}

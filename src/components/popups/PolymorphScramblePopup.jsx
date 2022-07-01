@@ -11,6 +11,7 @@ import { getPolymorphMeta } from "../../utils/api/polymorphs.js";
 import { convertPolymorphObjects } from "../../utils/helpers/polymorphs";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useContractsStore } from "src/stores/contractsStore";
+import Image from "next/image";
 
 const GENE_POSITIONS_MAP = {
   BACKGROUND: 1,
@@ -160,7 +161,9 @@ const PolymorphScramblePopup = ({
         <div className="scramble--popup">
           <div className="scramble--popup--content">
             <div className="avatar-wrapper-popup">
-              <img
+              <Image
+                width={440}
+                height={440}
                 src={polymorph?.imageurl}
                 className="avatar-popup"
                 alt="avatar"
