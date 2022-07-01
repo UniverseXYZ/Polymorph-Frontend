@@ -79,7 +79,6 @@ const buildRarityUrl = (
 export const useSearchPolymorphicFaces = () => {
 
   const { userPolymorphicFaces } = usePolymorphStore();
-  console.log('faces debouncer', userPolymorphicFaces)
 
   const perPage = userPolymorphicFaces.length; 
   const [inputText, setInputText] = useStateIfMounted('');
