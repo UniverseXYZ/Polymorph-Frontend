@@ -38,7 +38,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -215,7 +215,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -392,7 +392,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -569,7 +569,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -746,7 +746,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -923,7 +923,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1100,7 +1100,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1277,7 +1277,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1454,7 +1454,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1631,7 +1631,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1808,7 +1808,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -1985,7 +1985,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {
@@ -2162,7 +2162,7 @@ export const categoriesArray = [
         },
         {
             id: uuid(),
-            name: 'Diamon Paws',
+            name: 'Diamond Paws',
             checked: false,
         },
         {

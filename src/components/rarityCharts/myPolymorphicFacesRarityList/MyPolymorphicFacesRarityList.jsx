@@ -40,7 +40,7 @@ const MyPolymorphicFacesRarityList = ({
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { userPolymorphsAll } = usePolymorphStore();
+  const { userPolymorphicFaces } = usePolymorphStore();
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -92,10 +92,10 @@ const MyPolymorphicFacesRarityList = ({
   return (
     <div
       className={`rarity--charts--list ${
-        loading || userPolymorphsAll.length > 0 ? "" : "unset--grid"
+        loading || userPolymorphicFaces.length > 0 ? "" : "unset--grid"
       }`}
     >
-      {loading || userPolymorphsAll.length > 0 ? (
+      {loading || userPolymorphicFaces.length > 0 ? (
         <CategoriesFilter
           categories={categories}
           setCategories={setCategories}
@@ -161,7 +161,7 @@ const MyPolymorphicFacesRarityList = ({
             ))}
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
-        ) : !userPolymorphsAll.length > 0 ? (
+        ) : !userPolymorphicFaces.length > 0 ? (
           <div className="rarity--charts--empty polymorphs">
             <img src={BubbleIcon} alt="bubble" />
             <p>No Polymorph found</p>
