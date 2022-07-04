@@ -4,7 +4,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Background',
-        value: 'Background',
+        value: 'background',
         traits: [
         {
             id: uuid(),
@@ -78,7 +78,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -181,7 +181,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Hair left',
-        value: 'Hair left',
+        value: 'hairleft',
         traits: [
         {
             id: uuid(),
@@ -255,7 +255,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -358,7 +358,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Hair right',
-        value: 'Hair right',
+        value: 'hairright',
         traits: [
         {
             id: uuid(),
@@ -432,7 +432,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -535,7 +535,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Ear left',
-        value: 'Ear left',
+        value: 'earleft',
         traits: [
         {
             id: uuid(),
@@ -609,7 +609,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -712,7 +712,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Ear right',
-        value: 'Ear right',
+        value: 'earright',
         traits: [
         {
             id: uuid(),
@@ -786,7 +786,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -889,7 +889,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Eye left',
-        value: 'Eye left',
+        value: 'eyeleft',
         traits: [
         {
             id: uuid(),
@@ -963,7 +963,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1066,7 +1066,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Eye right',
-        value: 'Eye right',
+        value: 'eyeright',
         traits: [
         {
             id: uuid(),
@@ -1140,7 +1140,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1243,7 +1243,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Lips left',
-        value: 'Lips left',
+        value: 'lipsleft',
         traits: [
         {
             id: uuid(),
@@ -1317,7 +1317,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1420,7 +1420,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Lips right',
-        value: 'Lips right',
+        value: 'lipsright',
         traits: [
         {
             id: uuid(),
@@ -1494,7 +1494,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1597,7 +1597,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Beard bottom left',
-        value: 'Beard bottom left',
+        value: 'beardbottomleft',
         traits: [
         {
             id: uuid(),
@@ -1671,7 +1671,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1774,7 +1774,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Beard bottom right',
-        value: 'Beard bottom right',
+        value: 'beardbottomright',
         traits: [
         {
             id: uuid(),
@@ -1848,7 +1848,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -1951,7 +1951,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Beard top left',
-        value: 'Beard top left',
+        value: 'beardtopleft',
         traits: [
         {
             id: uuid(),
@@ -2025,7 +2025,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
@@ -2128,7 +2128,7 @@ export const categoriesArray = [
     {
         id: uuid(),
         title: 'Beard top right',
-        value: 'Beard top right',
+        value: 'beardtopright',
         traits: [
         {
             id: uuid(),
@@ -2202,7 +2202,7 @@ export const categoriesArray = [
         },        
         {
             id: uuid(),
-            name: 'Gold Tooth',
+            name: 'Goldtooth',
             checked: false,
         },        
         {
