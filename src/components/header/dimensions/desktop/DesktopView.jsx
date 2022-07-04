@@ -27,6 +27,8 @@ const DesktopView = ({
   selectedWallet,
   setSelectedWallet,
   userPolymorphsCount,
+  userClaimedFacesCount,
+  userPolymorphsToBurn,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
@@ -109,7 +111,7 @@ const DesktopView = ({
           <div className="dropdown drop-faces-to-claim">
             <div className="dropdown__header">
               <div className={"heading"}>X Faces to Claim</div>
-              <div>{"Y"} Faces claimed</div>
+              <div>{userClaimedFacesCount} Faces claimed</div>
               <div className={"buttons--wrapper"}>
                 <div className={"claim--amount"}>
                   <button
@@ -138,7 +140,7 @@ const DesktopView = ({
               </div>
             </div>
             <div className="dropdown__body">
-              <div>{"X"} Polymorphs to Burn</div>
+              <div>{userPolymorphsToBurn} Polymorphs to Burn</div>
               <div>{"Y"} Polymorphs burnt</div>
               <button
                 type="button"

@@ -10,6 +10,7 @@ import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useAuthStore } from "./authStore";
 import { queryPolymorphicFacesGraph } from "../utils/graphql/polymorphicFacesQueries";
+import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 
 type IPolymorphStore = {
   // Getters
@@ -20,6 +21,7 @@ type IPolymorphStore = {
   userPolymorphsLoaded: boolean;
   userSelectedPolymorphsToBurn: [];
   userPolymorphicFaces: [];
+  userPolymorphicFacesClaimed: [];
   // totalBurnedPolymorphs: []
 
   // Setters
@@ -29,6 +31,7 @@ type IPolymorphStore = {
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
   // setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
+  setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
@@ -45,6 +48,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphsAll: [],
     // totalBurnedPolymorphs: [],
     userPolymorphicFaces: [],
+    userPolymorphicFacesClaimed: [],
+
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
         ...state,
@@ -81,6 +86,12 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFaces,
       }));
     },
+    setUserPolymorphicFacesClaimed: async (newAddress) => {
+      set((state) => ({
+        ...state,
+        userPolymorphicFacesClaimed,
+      }));
+    },
     fetchUserPolymorphsTheGraph: async (newAddress) => {
       set((state) => ({
         ...state,
@@ -96,9 +107,11 @@ export const usePolymorphStore = create<IPolymorphStore>(
       const allPolymorphs = polymorphs?.transferEntities.concat(
         polymorphsV2?.transferEntities
       );
-      // const burned = await queryPolymorphsGraphV2(burnedPolymorphs);
       const faces = await queryPolymorphicFacesGraph(
         transferPolymorphs(newAddress)
+      );
+      const claimedFaces = faces.transferEntities.filter(
+        (entity: any) => entity.from === ZERO_ADDRESS
       );
 
       const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
@@ -117,6 +130,10 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
+      const claimedFacesIds = claimedFaces?.map((nft: any) => ({
+        tokenId: nft.tokenId,
+        id: parseInt(nft.id, 16),
+      }));
 
       set((state) => ({
         ...state,
@@ -126,6 +143,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphsLoaded: true,
         // totalBurnedPolymorphs: burned?.burnCount?.count || 0
         userPolymorphicFaces: facesIds || [],
+        userPolymorphicFacesClaimed: claimedFacesIds || [],
       }));
     },
     // This is a new function for loading the metadata of the polymorphs

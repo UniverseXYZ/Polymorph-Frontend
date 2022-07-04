@@ -11,7 +11,7 @@ const ClaimFacesSection = () => {
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const { userPolymorphs } = usePolymorphStore();
+  const { userPolymorphs, userPolymorphicFacesClaimed } = usePolymorphStore();
 
   // TO DO:
   // Add a condition, that the facesToClaimAmount is
@@ -45,7 +45,7 @@ const ClaimFacesSection = () => {
                 <div className="change__count">
                   <div>
                     Faces to Claim
-                    <span> (X claimed)</span>
+                    <span> {userPolymorphicFacesClaimed.length} claimed</span>
                   </div>
                   <div className="buttons__wrapper">
                     <div>
