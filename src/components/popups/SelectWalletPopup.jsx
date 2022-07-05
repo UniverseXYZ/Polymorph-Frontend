@@ -48,34 +48,6 @@ const SelectWalletPopup = (props) => {
             >
               <img src={walletConnectLogo} alt="WalletConnect" />
             </button>
-            <button
-              type="button"
-              disabled
-              onClick={() => handleConnectWallet("Ledger")}
-            >
-              <img src={ledgerLogo} alt="Ledger" />
-            </button>
-            <button
-              type="button"
-              disabled
-              onClick={() => handleConnectWallet("Keystore")}
-            >
-              <img src={keystoreLogo} alt="Keystore" />
-            </button>
-            <button
-              type="button"
-              disabled
-              onClick={() => handleConnectWallet("Trezor")}
-            >
-              <img src={trezorLogo} alt="Trezor" />
-            </button>
-            <button
-              type="button"
-              disabled
-              onClick={() => handleConnectWallet("Coinbase")}
-            >
-              <img src={coinbaseLogo} alt="Coinbase" />
-            </button>
           </div>
           <p className="info">
             We do not own your private keys and cannot access your funds without
