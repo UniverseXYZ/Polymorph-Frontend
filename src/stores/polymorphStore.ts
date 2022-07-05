@@ -50,6 +50,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphsAll: [],
     userPolymorphicFaces: [],
     userPolymorphicFacesClaimed: [],
+    userPolymorphsV1Burnt: [],
 
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
