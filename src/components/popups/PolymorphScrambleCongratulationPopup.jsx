@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { getPolymorphMetaV2 } from "@legacy/api/polymorphs.js";
 import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
 import { getPolymorphicFacesMeta } from "../../utils/api/polymorphicFaces.js";
+import Image from "next/image.js";
 
 const PolymorphScrambleCongratulationPopup = ({
   onClose,
@@ -59,7 +60,13 @@ const PolymorphScrambleCongratulationPopup = ({
 
       {!loading && metadata ? (
         <div className="polymorph_confirmation_image">
-          <img src={metadata?.image} alt="soldier" key={uuid()} />
+          <Image
+            height={440}
+            width={440}
+            src={metadata?.image}
+            alt="soldier"
+            key={uuid()}
+          />
         </div>
       ) : (
         renderLoaders(1)
