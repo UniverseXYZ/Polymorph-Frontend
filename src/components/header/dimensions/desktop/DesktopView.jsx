@@ -27,8 +27,9 @@ const DesktopView = ({
   selectedWallet,
   setSelectedWallet,
   userPolymorphsCount,
+  userPolymorphsToBurnCount,
+  userPolymorphsBurntCount,
   userClaimedFacesCount,
-  userPolymorphsToBurn,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
@@ -104,13 +105,22 @@ const DesktopView = ({
           <button type="button" className={"menu-li faces-to-claim"}>
             <span className="nav__link__title">
               Faces to Claim
-              {userPolymorphsCount ? <span>{userPolymorphsCount}</span> : null}
+              {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                <span>{userPolymorphsBurntCount - userClaimedFacesCount}</span>
+              ) : null}
             </span>
             <img className="arrow" src={arrowUP} alt="arrow" />
           </button>
           <div className="dropdown drop-faces-to-claim">
             <div className="dropdown__header">
-              <div className={"heading"}>X Faces to Claim</div>
+              <div className={"heading"}>
+                {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                  <span>
+                    {userPolymorphsBurntCount - userClaimedFacesCount}{" "}
+                  </span>
+                ) : null}
+                Faces to Claim
+              </div>
               <div>{userClaimedFacesCount} Faces claimed</div>
               <div className={"buttons--wrapper"}>
                 <div className={"claim--amount"}>
@@ -140,8 +150,8 @@ const DesktopView = ({
               </div>
             </div>
             <div className="dropdown__body">
-              <div>{userPolymorphsToBurn} Polymorphs to Burn</div>
-              <div>{"Y"} Polymorphs burnt</div>
+              <div>{userPolymorphsToBurnCount} Polymorphs to Burn</div>
+              <div>{userPolymorphsBurntCount} Polymorphs burnt</div>
               <button
                 type="button"
                 className="light-border-button"
