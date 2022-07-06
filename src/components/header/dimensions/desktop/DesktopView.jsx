@@ -30,11 +30,12 @@ const DesktopView = ({
   userPolymorphsToBurnCount,
   userPolymorphsBurntCount,
   userClaimedFacesCount,
+  claimTx,
+  facesAmountToClaim,
+  setFacesAmountToClaim,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
-  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [copied, setCopied] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const router = useRouter();
 
   const {
@@ -57,15 +58,6 @@ const DesktopView = ({
     yourBalance: state.yourBalance,
     usdEthBalance: state.usdEthBalance,
   }));
-
-  const facesClaimCountHandler = (method) => {
-    if (method === "add" && facesAmountToClaim < 20) {
-      setFacesAmountToClaim(facesAmountToClaim + 1);
-    }
-    if (method === "sub" && facesAmountToClaim > 0) {
-      setFacesAmountToClaim(facesAmountToClaim - 1);
-    }
-  };
 
   return (
     <div className="desktop__nav">
@@ -126,7 +118,7 @@ const DesktopView = ({
                 <div className={"claim--amount"}>
                   <button
                     className={`${facesAmountToClaim === 0 ? "disabled" : ""}`}
-                    onClick={() => facesClaimCountHandler("sub")}
+                    onClick={() => setFacesAmountToClaim("sub")}
                     disabled={facesAmountToClaim === 0}
                   >
                     -
@@ -134,7 +126,7 @@ const DesktopView = ({
                   <span>{facesAmountToClaim}</span>
                   <button
                     className={`${facesAmountToClaim === 20 ? "disabled" : ""}`}
-                    onClick={() => facesClaimCountHandler("add")}
+                    onClick={() => setFacesAmountToClaim("add")}
                     disabled={facesAmountToClaim === 20}
                   >
                     +
@@ -142,7 +134,7 @@ const DesktopView = ({
                 </div>
                 <button
                   className={"light-border-button claim--button"}
-                  onClick={() => setShowSuccessModal(true)}
+                  onClick={claimTx}
                   disabled={facesAmountToClaim === 0}
                 >
                   Claim
@@ -289,14 +281,6 @@ const DesktopView = ({
           </li>
         )}
       </ul>
-      {showSuccessModal ? (
-        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
-          <MintPolymorphicFaceSuccessPopup
-            amount={facesAmountToClaim}
-            onClose={() => setShowSuccessModal(false)}
-          ></MintPolymorphicFaceSuccessPopup>
-        </Popup>
-      ) : null}
     </div>
   );
 };
