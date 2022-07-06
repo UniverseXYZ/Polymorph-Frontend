@@ -37,6 +37,9 @@ const TabletView = (props) => {
     showSearch,
     setShowSearch,
     userPolymorphsCount,
+    userPolymorphsToBurnCount,
+    userPolymorphsBurntCount,
+    userClaimedFacesCount,
   } = props;
   const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
     yourEnsDomain: s.yourEnsDomain,
@@ -216,8 +219,10 @@ const TabletView = (props) => {
             >
               <span className="nav__link__title">
                 Faces to Claim
-                {userPolymorphsCount ? (
-                  <span>{userPolymorphsCount}</span>
+                {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                  <span>
+                    {userPolymorphsBurntCount - userClaimedFacesCount}
+                  </span>
                 ) : null}
               </span>
               <img className="arrow" src={arrowUP} alt="arrow" />
@@ -227,8 +232,15 @@ const TabletView = (props) => {
           {isFacesDropdownOpened ? (
             <div className="dropdown drop-faces-to-claim">
               <div className="dropdown__header">
-                <div className={"heading"}>X Faces to Claim</div>
-                <div>{"Y"} Faces claimed</div>
+                <div className={"heading"}>
+                  {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                    <span>
+                      {userPolymorphsBurntCount - userClaimedFacesCount}{" "}
+                    </span>
+                  ) : null}
+                  Faces to Claim
+                </div>
+                <div>{userClaimedFacesCount} Faces claimed</div>
                 <div className={"buttons--wrapper"}>
                   <div className={"claim--amount"}>
                     <button
@@ -261,8 +273,8 @@ const TabletView = (props) => {
                 </div>
               </div>
               <div className="dropdown__body">
-                <div>{"X"} Polymorphs to Burn</div>
-                <div>{"Y"} Polymorphs burnt</div>
+                <div>{userPolymorphsToBurnCount} Polymorphs to Burn</div>
+                <div>{userPolymorphsBurntCount} Polymorphs burnt</div>
                 <button
                   type="button"
                   className="light-border-button"

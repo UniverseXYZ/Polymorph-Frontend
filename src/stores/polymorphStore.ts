@@ -10,6 +10,7 @@ import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useAuthStore } from "./authStore";
 import { queryPolymorphicFacesGraph } from "../utils/graphql/polymorphicFacesQueries";
+import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 
 type IPolymorphStore = {
   // Getters
@@ -20,6 +21,8 @@ type IPolymorphStore = {
   userPolymorphsLoaded: boolean;
   userSelectedPolymorphsToBurn: [];
   userPolymorphicFaces: [];
+  userPolymorphicFacesClaimed: [];
+  userPolymorphsV1Burnt: [];
   // totalBurnedPolymorphs: []
 
   // Setters
@@ -29,6 +32,8 @@ type IPolymorphStore = {
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
   // setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
+  setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
+  setUserPolymorphsV1Burnt: (userPolymorphsBurnt: []) => void;
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
@@ -43,8 +48,10 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userSelectedPolymorphsToBurn: [],
     userPolymorphsV2: [],
     userPolymorphsAll: [],
-    // totalBurnedPolymorphs: [],
     userPolymorphicFaces: [],
+    userPolymorphicFacesClaimed: [],
+    userPolymorphsV1Burnt: [],
+
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
         ...state,
@@ -69,18 +76,25 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphWithMetadata,
       }));
     },
-    // setTotalBurnedPolymorphs: (totalBurnedPolymorphs) => {
-    //   set(state => ({
-    //     ...state,
-    //     totalBurnedPolymorphs
-    //   }))
-    // },
     setUserPolymorphicFaces: (userPolymorphicFaces) => {
       set((state) => ({
         ...state,
         userPolymorphicFaces,
       }));
     },
+    setUserPolymorphicFacesClaimed: (userPolymorphicFacesClaimed) => {
+      set((state) => ({
+        ...state,
+        userPolymorphicFacesClaimed,
+      }));
+    },
+    setUserPolymorphsV1Burnt: (userPolymorphsV1Burnt) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsV1Burnt,
+      }));
+    },
+
     fetchUserPolymorphsTheGraph: async (newAddress) => {
       set((state) => ({
         ...state,
@@ -96,9 +110,14 @@ export const usePolymorphStore = create<IPolymorphStore>(
       const allPolymorphs = polymorphs?.transferEntities.concat(
         polymorphsV2?.transferEntities
       );
-      // const burned = await queryPolymorphsGraphV2(burnedPolymorphs);
       const faces = await queryPolymorphicFacesGraph(
         transferPolymorphs(newAddress)
+      );
+      const claimedFaces = faces.transferEntities.filter(
+        (entity: any) => entity.from === ZERO_ADDRESS
+      );
+      const polymorphsV1Burnt = polymorphsV2.transferEntities.filter(
+        (entity: any) => entity.from === ZERO_ADDRESS
       );
 
       const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
@@ -117,6 +136,14 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
+      const claimedFacesIds = claimedFaces?.map((nft: any) => ({
+        tokenId: nft.tokenId,
+        id: parseInt(nft.id, 16),
+      }));
+      const userPolymorphsV1Burnt = polymorphsV1Burnt?.map((nft: any) => ({
+        tokenId: nft.tokenId,
+        id: parseInt(nft.id, 16),
+      }));
 
       set((state) => ({
         ...state,
@@ -124,8 +151,9 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphsV2: polymorphV2Ids || [],
         userPolymorphsAll: allPolymorphIds || [],
         userPolymorphsLoaded: true,
-        // totalBurnedPolymorphs: burned?.burnCount?.count || 0
+        userPolymorphsV1Burnt: userPolymorphsV1Burnt || [],
         userPolymorphicFaces: facesIds || [],
+        userPolymorphicFacesClaimed: claimedFacesIds || [],
       }));
     },
     // This is a new function for loading the metadata of the polymorphs

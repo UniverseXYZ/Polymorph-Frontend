@@ -50,6 +50,9 @@ const MobileView = (props) => {
     showMobileSearch,
     setShowMobileSearch,
     userPolymorphsCount,
+    userPolymorphsToBurnCount,
+    userPolymorphsBurntCount,
+    userClaimedFacesCount,
   } = props;
   const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
     yourEnsDomain: s.yourEnsDomain,
@@ -308,8 +311,12 @@ const MobileView = (props) => {
                           >
                             <p className="title">
                               Faces to Claim
-                              {userPolymorphsCount ? (
-                                <span>{userPolymorphsCount}</span>
+                              {userPolymorphsBurntCount &&
+                              userClaimedFacesCount ? (
+                                <span>
+                                  {userPolymorphsBurntCount -
+                                    userClaimedFacesCount}
+                                </span>
                               ) : null}
                             </p>
                             <img src={arrowRight} alt="arrow" />
@@ -341,8 +348,15 @@ const MobileView = (props) => {
                     </button>
                     <div className="faces-to-claim">
                       <div className="menu__header">
-                        <div className={"heading"}>X Faces to Claim</div>
-                        <div>{"Y"} Faces claimed</div>
+                        <div className={"heading"}>
+                          {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                            <span>
+                              {userPolymorphsBurntCount - userClaimedFacesCount}
+                            </span>
+                          ) : null}{" "}
+                          Faces to Claim
+                        </div>
+                        <div>{userClaimedFacesCount} Faces claimed</div>
                         <div className={"buttons--wrapper"}>
                           <div className={"claim--amount"}>
                             <button
@@ -375,8 +389,10 @@ const MobileView = (props) => {
                         </div>
                       </div>
                       <div className="menu__body">
-                        <div>{"X"} Polymorphs to Burn</div>
-                        <div>{"Y"} Polymorphs burnt</div>
+                        <div>
+                          {userPolymorphsToBurnCount} Polymorphs to Burn
+                        </div>
+                        <div>{userPolymorphsBurntCount} Polymorphs burnt</div>
                         <button
                           type="button"
                           className="light-border-button"
