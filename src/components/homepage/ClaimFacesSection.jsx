@@ -11,7 +11,8 @@ const ClaimFacesSection = () => {
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const { userPolymorphs } = usePolymorphStore();
+  const { userPolymorphs, userPolymorphicFacesClaimed, userPolymorphsV1Burnt } =
+    usePolymorphStore();
 
   // TO DO:
   // Add a condition, that the facesToClaimAmount is
@@ -40,12 +41,17 @@ const ClaimFacesSection = () => {
             <div className="claim__container">
               <div className="claim__faces">
                 <div className="count">
-                  <span>{6}</span>
+                  {userPolymorphsV1Burnt && userPolymorphicFacesClaimed ? (
+                    <span>
+                      {userPolymorphsV1Burnt.length -
+                        userPolymorphicFacesClaimed.length}{" "}
+                    </span>
+                  ) : null}
                 </div>
                 <div className="change__count">
                   <div>
                     Faces to Claim
-                    <span> (X claimed)</span>
+                    <span> ({userPolymorphicFacesClaimed.length} claimed)</span>
                   </div>
                   <div className="buttons__wrapper">
                     <div>
@@ -83,7 +89,8 @@ const ClaimFacesSection = () => {
                 <div className="count">{userPolymorphs.length}</div>
                 <div className="change__count">
                   <div>
-                    Polymorphs to Burn <span>(Y burnt)</span>
+                    Polymorphs to Burn{" "}
+                    <span>({userPolymorphsV1Burnt.length} burnt)</span>
                   </div>
                   <div className="buttons__wrapper">
                     <button

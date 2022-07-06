@@ -53,7 +53,12 @@ const Header = () => {
     onAccountsChanged: s.onAccountsChanged,
   }));
 
-  const { userPolymorphsAll } = usePolymorphStore();
+  const {
+    userPolymorphsAll,
+    userPolymorphicFacesClaimed,
+    userPolymorphs,
+    userPolymorphsV1Burnt,
+  } = usePolymorphStore();
 
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
 
@@ -405,6 +410,9 @@ const Header = () => {
         selectedWallet={selectedWallet}
         setSelectedWallet={setSelectedWallet}
         userPolymorphsCount={userPolymorphsCount}
+        userPolymorphsToBurnCount={userPolymorphs?.length}
+        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
       />
       <TabletView
         isWalletConnected={isWalletConnected}
@@ -420,6 +428,9 @@ const Header = () => {
         setShowSearch={setShowSearch}
         showSearch={showSearch}
         userPolymorphsCount={userPolymorphsCount}
+        userPolymorphsToBurnCount={userPolymorphs?.length}
+        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
       />
       <MobileView
         isWalletConnected={isWalletConnected}
@@ -437,6 +448,9 @@ const Header = () => {
         setShowMobileSearch={setShowMobileSearch}
         showMobileSearch={showMobileSearch}
         userPolymorphsCount={userPolymorphsCount}
+        userPolymorphsToBurnCount={userPolymorphs?.length}
+        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
       />
 
       <Popup

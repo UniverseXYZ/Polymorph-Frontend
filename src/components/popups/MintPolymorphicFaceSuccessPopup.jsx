@@ -21,6 +21,7 @@ const MintPolymorphConfirmationPopup = ({ amount, onClose }) => {
         height={128}
         width={128}
         style={{ marginTop: "32px", marginBottom: "32px" }}
+        alt=""
       />
       <h1>Congratulations!</h1>
       <p className="desc">
