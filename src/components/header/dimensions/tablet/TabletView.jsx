@@ -40,6 +40,9 @@ const TabletView = (props) => {
     userPolymorphsToBurnCount,
     userPolymorphsBurntCount,
     userClaimedFacesCount,
+    claimTx,
+    facesAmountToClaim,
+    setFacesAmountToClaim,
   } = props;
   const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
     yourEnsDomain: s.yourEnsDomain,
@@ -56,18 +59,7 @@ const TabletView = (props) => {
   const [copied, setCopied] = useState(false);
   const ref = useRef(null);
   const router = useRouter();
-  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [isFacesDropdownOpened, setIsFacesDropdownOpened] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
-  const facesClaimCountHandler = (method) => {
-    if (method === "add" && facesAmountToClaim < 20) {
-      setFacesAmountToClaim(facesAmountToClaim + 1);
-    }
-    if (method === "sub" && facesAmountToClaim > 0) {
-      setFacesAmountToClaim(facesAmountToClaim - 1);
-    }
-  };
 
   useEffect(() => {
     if (showSearch) {
@@ -247,7 +239,7 @@ const TabletView = (props) => {
                       className={`${
                         facesAmountToClaim === 0 ? "disabled" : ""
                       }`}
-                      onClick={() => facesClaimCountHandler("sub")}
+                      onClick={() => setFacesAmountToClaim("sub")}
                       disabled={facesAmountToClaim === 0}
                     >
                       -
@@ -257,7 +249,7 @@ const TabletView = (props) => {
                       className={`${
                         facesAmountToClaim === 20 ? "disabled" : ""
                       }`}
-                      onClick={() => facesClaimCountHandler("add")}
+                      onClick={() => setFacesAmountToClaim("add")}
                       disabled={facesAmountToClaim === 20}
                     >
                       +
@@ -265,7 +257,7 @@ const TabletView = (props) => {
                   </div>
                   <button
                     className={"light-border-button claim--button"}
-                    onClick={() => setShowSuccessModal(true)}
+                    onClick={claimTx}
                     disabled={facesAmountToClaim === 0}
                   >
                     Claim
@@ -373,14 +365,6 @@ const TabletView = (props) => {
           </ul>
         </>
       )}
-      {showSuccessModal ? (
-        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
-          <MintPolymorphicFaceSuccessPopup
-            amount={facesAmountToClaim}
-            onClose={() => setShowSuccessModal(false)}
-          ></MintPolymorphicFaceSuccessPopup>
-        </Popup>
-      ) : null}
     </div>
   );
 };

@@ -33,6 +33,9 @@ import { useThemeStore } from "src/stores/themeStore";
 import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
+
+const etherscanTxLink = "https://etherscan.io/tx/";
 
 const Header = () => {
   const {
@@ -60,7 +63,10 @@ const Header = () => {
     userPolymorphsV1Burnt,
   } = usePolymorphStore();
 
-  const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { polymorphicFacesContract } = useContractsStore();
+
+  const availableFacesToClaim =
+    userPolymorphsV1Burnt.length - userPolymorphicFacesClaimed.length;
 
   const router = useRouter();
 
@@ -84,6 +90,9 @@ const Header = () => {
   const searchRef = useRef();
   const ref = useRef();
   const [userPolymorphsCount, setUserPolymorphsCount] = useState(null);
+  const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [txHash, setTxHash] = useState("");
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -188,6 +197,34 @@ const Header = () => {
       setShowLoginPopup(true);
     });
   }, [setLoginFn]);
+
+  const facesClaimCountHandler = (method) => {
+    if (
+      method === "add" &&
+      facesAmountToClaim < 20 &&
+      facesAmountToClaim < availableFacesToClaim
+    ) {
+      setFacesAmountToClaim(facesAmountToClaim + 1);
+    }
+    if (method === "sub" && facesAmountToClaim > 0) {
+      setFacesAmountToClaim(facesAmountToClaim - 1);
+    }
+  };
+
+  const claimTxHandler = async () => {
+    const claimTx = await polymorphicFacesContract["mint(uint256)"](
+      facesAmountToClaim
+    );
+    const claimTxReceipt = await claimTx.wait();
+
+    if (claimTxReceipt.status !== 1) {
+      console.log("Error while claiming faces");
+      setShowSuccessModal(false);
+      return;
+    }
+    setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
+    setShowSuccessModal(true);
+  };
 
   return (
     <header>
@@ -413,6 +450,9 @@ const Header = () => {
         userPolymorphsToBurnCount={userPolymorphs?.length}
         userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
+        claimTx={claimTxHandler}
+        setFacesAmountToClaim={facesClaimCountHandler}
+        facesAmountToClaim={facesAmountToClaim}
       />
       <TabletView
         isWalletConnected={isWalletConnected}
@@ -431,6 +471,9 @@ const Header = () => {
         userPolymorphsToBurnCount={userPolymorphs?.length}
         userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
+        claimTx={claimTxHandler}
+        setFacesAmountToClaim={facesClaimCountHandler}
+        facesAmountToClaim={facesAmountToClaim}
       />
       <MobileView
         isWalletConnected={isWalletConnected}
@@ -451,6 +494,9 @@ const Header = () => {
         userPolymorphsToBurnCount={userPolymorphs?.length}
         userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
+        claimTx={claimTxHandler}
+        setFacesAmountToClaim={facesClaimCountHandler}
+        facesAmountToClaim={facesAmountToClaim}
       />
 
       <Popup
@@ -474,6 +520,15 @@ const Header = () => {
           />
         )}
       </Popup>
+      {showSuccessModal ? (
+        <Popup closeOnDocumentClick={false} open={showSuccessModal}>
+          <MintPolymorphicFaceSuccessPopup
+            amount={facesAmountToClaim}
+            txHash={txHash}
+            onClose={() => setShowSuccessModal(false)}
+          ></MintPolymorphicFaceSuccessPopup>
+        </Popup>
+      ) : null}
     </header>
   );
 };
