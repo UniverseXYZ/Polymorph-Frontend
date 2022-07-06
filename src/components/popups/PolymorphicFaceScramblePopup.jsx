@@ -120,6 +120,10 @@ const PolymorphicFaceScramblePopup = ({
           }
         );
         await morphGeneTx.wait();
+        if (morphGeneTx.status !== 1) {
+          console.log("Morph Polymorphic Face transaction failed");
+          return;
+        }
       } else {
         if (!id) return;
         // Randomize Genom
@@ -128,6 +132,10 @@ const PolymorphicFaceScramblePopup = ({
           value: amount,
         });
         await randomizeTx.wait();
+        if (morphGeneTx.status !== 1) {
+          console.log("Scramble Polymorphic Face transaction failed");
+          return;
+        }
       }
       // Update the view //
       setShowLoading(false);
