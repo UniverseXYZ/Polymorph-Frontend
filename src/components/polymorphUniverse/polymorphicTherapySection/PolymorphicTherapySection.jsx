@@ -8,8 +8,7 @@ import Background from "../../../assets/images/polymorphic-therapy-background.pn
 import Image from "next/image";
 import { useWindowSize } from "react-use";
 
-const linkToYoutube =
-  "https://www.youtube.com/watch?v=tf-6ele4-Co&list=PLEzjGlBjDUouyywVq5dpuEHmJfyu8Ny_E&ab_channel=Universe";
+const linkToYoutube = "https://www.youtube.com/watch?v=xz3E6NpQJvI";
 
 const PolymorphicTherapySection = () => {
   const [isClicked, setIsClicked] = useState(false);
