@@ -28,7 +28,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
   const [morphPrice, setMorphPrice] = useState("");
 
   const { polymorphicFacesContract } = useContractsStore();
-  const { userPolymorphsAll } = usePolymorphStore();
+  const { userPolymorphicFaces } = usePolymorphStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -50,13 +50,13 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
 
   useEffect(() => {
     if (
-      userPolymorphsAll?.some(
+      userPolymorphicFaces?.some(
         (polymorph) => polymorph.id === polymorphicData.tokenid
       )
     ) {
       setUserIsOwner(true);
     }
-  }, [userPolymorphsAll]);
+  }, [userPolymorphicFaces]);
 
   useEffect(async () => {
     if (polymorphicFacesContract) {
