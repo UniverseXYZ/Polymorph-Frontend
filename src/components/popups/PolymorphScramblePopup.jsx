@@ -121,14 +121,18 @@ const PolymorphScramblePopup = ({
         // Morph a Gene
         const genomeChangePrice =
           await polymorphContractV2.priceForGenomeChange(id);
-        const morphGeneT = await polymorphContractV2.morphGene(
+        const morphGeneTx = await polymorphContractV2.morphGene(
           id,
           genePosition,
           {
             value: genomeChangePrice,
           }
         );
-        await morphGeneT.wait();
+        await morphGeneTx.wait();
+        if (morphGeneTx.status !== 1) {
+          console.log("Morph Polymorph transaction failed");
+          return;
+        }
       } else {
         if (!id) return;
         // Randomize Genom
@@ -137,6 +141,10 @@ const PolymorphScramblePopup = ({
           value: amount,
         });
         await randomizeT.wait();
+        if (morphGeneTx.status !== 1) {
+          console.log("Scramble Polymorph transaction failed");
+          return;
+        }
       }
       // Update the view //
       setShowLoading(false);
