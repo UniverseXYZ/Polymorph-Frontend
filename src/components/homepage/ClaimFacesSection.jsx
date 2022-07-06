@@ -5,25 +5,49 @@ import ClaimFacesCarousel from "./ClaimFacesCarousel";
 import { ArtistsInfo } from "./ArtistsInfo";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
+import { useContractsStore } from "src/stores/contractsStore";
+
+const etherscanTxLink = "https://etherscan.io/tx/";
 
 const ClaimFacesSection = () => {
   const router = useRouter();
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [txHash, setTxHash] = useState("");
 
   const { userPolymorphs, userPolymorphicFacesClaimed, userPolymorphsV1Burnt } =
     usePolymorphStore();
+  const { polymorphicFacesContract } = useContractsStore();
 
-  // TO DO:
-  // Add a condition, that the facesToClaimAmount is
-  // <= the amount of available claimable faces
+  const availableFacesToClaim =
+    userPolymorphsV1Burnt.length - userPolymorphicFacesClaimed.length;
+
   const facesClaimCountHandler = (method) => {
-    if (method === "add" && facesAmountToClaim < 20) {
+    if (
+      method === "add" &&
+      facesAmountToClaim < 20 &&
+      facesAmountToClaim < availableFacesToClaim
+    ) {
       setFacesAmountToClaim(facesAmountToClaim + 1);
     }
     if (method === "sub" && facesAmountToClaim > 0) {
       setFacesAmountToClaim(facesAmountToClaim - 1);
     }
+  };
+
+  const claimTxHandler = async () => {
+    const claimTx = await polymorphicFacesContract["mint(uint256)"](
+      facesAmountToClaim
+    );
+    const claimTxReceipt = await claimTx.wait();
+
+    if (claimTxReceipt.status !== 1) {
+      console.log("Error while claiming faces");
+      setShowSuccessModal(false);
+      return;
+    }
+    setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
+    setShowSuccessModal(true);
   };
 
   return (
@@ -78,7 +102,7 @@ const ClaimFacesSection = () => {
                       className={`light-button ${
                         facesAmountToClaim === 0 ? "disabled" : ""
                       }`}
-                      onClick={() => setShowSuccessModal(!showSuccessModal)}
+                      onClick={claimTxHandler}
                     >
                       Claim
                     </button>
@@ -134,6 +158,7 @@ const ClaimFacesSection = () => {
         <Popup closeOnDocumentClick={false} open={showSuccessModal}>
           <MintPolymorphicFaceSuccessPopup
             amount={facesAmountToClaim}
+            txHash={txHash}
             onClose={() => setShowSuccessModal(false)}
           ></MintPolymorphicFaceSuccessPopup>
         </Popup>

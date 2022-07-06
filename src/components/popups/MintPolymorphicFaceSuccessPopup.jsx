@@ -6,7 +6,7 @@ import { useMyNftsStore } from "src/stores/myNftsStore";
 import Image from "next/image.js";
 import SuccessBubble from "../../assets/images/successful-claim-bubble.png";
 
-const MintPolymorphConfirmationPopup = ({ amount, onClose }) => {
+const MintPolymorphConfirmationPopup = ({ amount, txHash, onClose }) => {
   return (
     <div className="polymorph_popup">
       <img
@@ -32,10 +32,7 @@ const MintPolymorphConfirmationPopup = ({ amount, onClose }) => {
       </p>
       <p className="desc">
         Transaction hash:{" "}
-        <span
-          className="txHash"
-          onClick={() => window.open(`https://etherscan.io/`)}
-        >
+        <span className="txHash" onClick={() => window.open(txHash)}>
           {"TxHash"}
         </span>
       </p>
