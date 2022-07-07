@@ -22,18 +22,14 @@ type IPolymorphStore = {
   userSelectedPolymorphsToBurn: [];
   userPolymorphicFaces: [];
   userPolymorphicFacesClaimed: [];
-  userPolymorphsV1Burnt: [];
-  // totalBurnedPolymorphs: []
 
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void;
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void;
   setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void;
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
-  // setTotalBurnedPolymorphs: (totalBurnedPolymorphs: []) => void,
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
   setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
-  setUserPolymorphsV1Burnt: (userPolymorphsBurnt: []) => void;
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
@@ -50,7 +46,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphsAll: [],
     userPolymorphicFaces: [],
     userPolymorphicFacesClaimed: [],
-    userPolymorphsV1Burnt: [],
 
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
@@ -88,12 +83,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFacesClaimed,
       }));
     },
-    setUserPolymorphsV1Burnt: (userPolymorphsV1Burnt) => {
-      set((state) => ({
-        ...state,
-        userPolymorphsV1Burnt,
-      }));
-    },
 
     fetchUserPolymorphsTheGraph: async (newAddress) => {
       set((state) => ({
@@ -114,9 +103,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
         transferPolymorphs(newAddress)
       );
       const claimedFaces = faces.transferEntities.filter(
-        (entity: any) => entity.from === ZERO_ADDRESS
-      );
-      const polymorphsV1Burnt = polymorphsV2.transferEntities.filter(
         (entity: any) => entity.from === ZERO_ADDRESS
       );
 
@@ -140,10 +126,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
-      const userPolymorphsV1Burnt = polymorphsV1Burnt?.map((nft: any) => ({
-        tokenId: nft.tokenId,
-        id: parseInt(nft.id, 16),
-      }));
 
       set((state) => ({
         ...state,
@@ -151,7 +133,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphsV2: polymorphV2Ids || [],
         userPolymorphsAll: allPolymorphIds || [],
         userPolymorphsLoaded: true,
-        userPolymorphsV1Burnt: userPolymorphsV1Burnt || [],
         userPolymorphicFaces: facesIds || [],
         userPolymorphicFacesClaimed: claimedFacesIds || [],
       }));

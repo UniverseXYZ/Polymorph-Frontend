@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import ClaimFacesCarousel from "./ClaimFacesCarousel";
@@ -6,6 +6,7 @@ import { ArtistsInfo } from "./ArtistsInfo";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 import { useContractsStore } from "src/stores/contractsStore";
+import { useAuthStore } from "src/stores/authStore";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -14,13 +15,14 @@ const ClaimFacesSection = () => {
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [txHash, setTxHash] = useState("");
+  const [burntCount, setBurntCount] = useState();
 
+  const { address } = useAuthStore();
   const { userPolymorphs, userPolymorphicFacesClaimed, userPolymorphsV1Burnt } =
     usePolymorphStore();
-  const { polymorphicFacesContract } = useContractsStore();
+  const { polymorphicFacesContract, polymorphContractV2 } = useContractsStore();
 
-  const availableFacesToClaim =
-    userPolymorphsV1Burnt.length - userPolymorphicFacesClaimed.length;
+  const availableFacesToClaim = burntCount - userPolymorphicFacesClaimed.length;
 
   const facesClaimCountHandler = (method) => {
     if (
@@ -34,6 +36,13 @@ const ClaimFacesSection = () => {
       setFacesAmountToClaim(facesAmountToClaim - 1);
     }
   };
+
+  useEffect(async () => {
+    if (address && polymorphContractV2) {
+      const burntAmount = await polymorphContractV2.burnCount(address);
+      setBurntCount(burntAmount.toNumber());
+    }
+  }, [address, polymorphContractV2]);
 
   const claimTxHandler = async () => {
     const claimTx = await polymorphicFacesContract["mint(uint256)"](
@@ -65,11 +74,8 @@ const ClaimFacesSection = () => {
             <div className="claim__container">
               <div className="claim__faces">
                 <div className="count">
-                  {userPolymorphsV1Burnt && userPolymorphicFacesClaimed ? (
-                    <span>
-                      {userPolymorphsV1Burnt.length -
-                        userPolymorphicFacesClaimed.length}{" "}
-                    </span>
+                  {userPolymorphicFacesClaimed ? (
+                    <span>{availableFacesToClaim} </span>
                   ) : null}
                 </div>
                 <div className="change__count">
@@ -113,8 +119,7 @@ const ClaimFacesSection = () => {
                 <div className="count">{userPolymorphs.length}</div>
                 <div className="change__count">
                   <div>
-                    Polymorphs to Burn{" "}
-                    <span>({userPolymorphsV1Burnt.length} burnt)</span>
+                    Polymorphs to Burn <span>({burntCount} burnt)</span>
                   </div>
                   <div className="buttons__wrapper">
                     <button
