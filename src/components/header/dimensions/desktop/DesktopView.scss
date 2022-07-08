@@ -59,7 +59,7 @@
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
-        line-height: 20px;
+        height: 42px;
         color: $black;
         &:hover {
           box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset;
@@ -91,6 +91,8 @@
         position: relative;
         padding: 11px 16px;
         border-radius: 12px;
+        line-height: unset;
+        height: 42px;
         &::before {
           content: "";
           position: absolute;
@@ -125,6 +127,8 @@
         padding: 4px;
         padding-right: 12px;
         border-radius: 10px;
+        line-height: unset;
+        height: 42px;
       }
 
       .nav__link__title {
@@ -346,8 +350,9 @@
             padding: 6px 14px;
             margin-left: 8px;
             &:hover {
-              background: transparent !important;
+              // background: transparent !important;
               box-shadow: unset !important;
+              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
           }
         }

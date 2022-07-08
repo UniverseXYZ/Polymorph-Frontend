@@ -653,7 +653,7 @@
       }
     }
     .drop-faces-to-claim {
-      width: 206px;
+      width: 218px;
       position: absolute;
       left: 0;
 
@@ -724,8 +724,8 @@
           padding: 6px 14px;
           margin-left: 8px;
           &:hover {
-            background: transparent !important;
             box-shadow: unset !important;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%) !important;
           }
         }
       }

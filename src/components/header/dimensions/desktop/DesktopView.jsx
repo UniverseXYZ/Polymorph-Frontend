@@ -167,7 +167,7 @@ const DesktopView = ({
                 setIsAccountDropdownOpened(!isAccountDropdownOpened)
               }
             >
-              <HeaderAvatar scale={3} />
+              <HeaderAvatar scale={3.5} />
               <span className="nav__link__title">
                 <div className="ethereum__address">
                   {yourEnsDomain
