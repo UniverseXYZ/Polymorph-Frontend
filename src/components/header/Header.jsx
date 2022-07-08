@@ -56,17 +56,10 @@ const Header = () => {
     onAccountsChanged: s.onAccountsChanged,
   }));
 
-  const {
-    userPolymorphsAll,
-    userPolymorphicFacesClaimed,
-    userPolymorphs,
-    userPolymorphsV1Burnt,
-  } = usePolymorphStore();
+  const { userPolymorphsAll, userPolymorphicFacesClaimed, userPolymorphs } =
+    usePolymorphStore();
 
-  const { polymorphicFacesContract } = useContractsStore();
-
-  const availableFacesToClaim =
-    userPolymorphsV1Burnt.length - userPolymorphicFacesClaimed.length;
+  const { polymorphicFacesContract, polymorphContractV2 } = useContractsStore();
 
   const router = useRouter();
 
@@ -93,6 +86,9 @@ const Header = () => {
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [txHash, setTxHash] = useState("");
+  const [burntCount, setBurntCount] = useState();
+
+  const availableFacesToClaim = burntCount - userPolymorphicFacesClaimed.length;
 
   const handleSearchKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -188,7 +184,6 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -197,6 +192,13 @@ const Header = () => {
       setShowLoginPopup(true);
     });
   }, [setLoginFn]);
+
+  useEffect(async () => {
+    if (polymorphContractV2 && address) {
+      const burntAmount = await polymorphContractV2.burnCount(address);
+      setBurntCount(burntAmount.toNumber());
+    }
+  }, [polymorphContractV2 && address]);
 
   const facesClaimCountHandler = (method) => {
     if (
@@ -448,7 +450,7 @@ const Header = () => {
         setSelectedWallet={setSelectedWallet}
         userPolymorphsCount={userPolymorphsCount}
         userPolymorphsToBurnCount={userPolymorphs?.length}
-        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userPolymorphsBurntCount={burntCount}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
@@ -469,7 +471,7 @@ const Header = () => {
         showSearch={showSearch}
         userPolymorphsCount={userPolymorphsCount}
         userPolymorphsToBurnCount={userPolymorphs?.length}
-        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userPolymorphsBurntCount={burntCount}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
@@ -492,7 +494,7 @@ const Header = () => {
         showMobileSearch={showMobileSearch}
         userPolymorphsCount={userPolymorphsCount}
         userPolymorphsToBurnCount={userPolymorphs?.length}
-        userPolymorphsBurntCount={userPolymorphsV1Burnt?.length}
+        userPolymorphsBurntCount={burntCount}
         userClaimedFacesCount={userPolymorphicFacesClaimed?.length}
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
