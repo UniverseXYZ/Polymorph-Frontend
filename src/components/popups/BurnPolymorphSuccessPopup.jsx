@@ -4,13 +4,9 @@ import PropTypes from "prop-types";
 import Slider from "react-slick";
 import closeIcon from "../../assets/images/cross.svg";
 import Button from "@legacy/button/Button";
-import { renderLoaders } from "../../containers/rarityCharts/renderLoaders.jsx";
-import { getPolymorphMetaV2 } from "../../utils/api/polymorphs";
 import Image from "next/image";
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
-  // const [loading, setLoading] = useState(true);
-  // const [fetchedImages, setFetchedImages] = useState("");
   const router = useRouter();
 
   const settings = {
@@ -21,29 +17,6 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
     slidesToScroll: 1,
   };
 
-  // useEffect(async () => {
-  //   if (loading) {
-  //     const promises = [];
-  //     characters.forEach((character) =>
-  //       promises.push(getPolymorphMetaV2(character.tokenId))
-  //     );
-  //     try {
-  //       const res = await Promise.all(promises);
-  //       if (!res.length) {
-  //         setLoading(true);
-  //       }
-  //       if (res.length > 0) {
-  //         const images = [];
-  //         res.forEach((res) => images.push(res.data.image3d));
-  //         setFetchedImages(images);
-  //         setLoading(false);
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }, [loading]);
-
   return (
     <div className="burn--polymorph--success--popup">
       <button type="button" className="popup-close" onClick={onClose}>
@@ -53,14 +26,9 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
       <p className="desc">{`You have successfully burnt your old polymorph${
         characters.length > 1 ? "s" : ""
       } and minted ${characters.length > 1 ? "new ones" : "a new one"}.`}</p>
-      {/* {loading ? ( */}
       <p className="info">Your NFTs may take up to 2 minutes to load</p>
-      {/* ) : (
-        <></>
-      )} */}
       {characters.length > 1 ? (
         <div className="batch--polymorphs">
-          {/* {!loading && fetchedImages ? ( */}
           <Slider {...settings}>
             {characters?.map((c, i) => {
               return (
@@ -75,13 +43,9 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
               );
             })}
           </Slider>
-          {/* ) : (
-            renderLoaders(characters.length)
-          )} */}
         </div>
       ) : (
         <div className="single--polymorph">
-          {/* {loading && fetchedImages ? ( */}
           <div className="polymorph--img">
             <Image
               width={440}
@@ -90,9 +54,6 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
               alt="Polymorph"
             />
           </div>
-          {/* ) : (
-            renderLoaders(1)
-          )} */}
         </div>
       )}
       <div className="actions">
