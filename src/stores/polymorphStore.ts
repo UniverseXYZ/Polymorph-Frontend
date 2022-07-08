@@ -9,7 +9,7 @@ import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useAuthStore } from "./authStore";
-import { queryPolymorphicFacesGraph } from "../utils/graphql/polymorphicFacesQueries";
+import { queryPolymorphicFacesGraph, mintedPolymorphicFaces, transferPolymorphicFaces } from "../utils/graphql/polymorphicFacesQueries";
 import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 
 type IPolymorphStore = {
@@ -100,12 +100,11 @@ export const usePolymorphStore = create<IPolymorphStore>(
         polymorphsV2?.transferEntities
       );
       const faces = await queryPolymorphicFacesGraph(
-        transferPolymorphs(newAddress)
+        transferPolymorphicFaces(newAddress)
       );
-      const claimedFaces = faces.transferEntities.filter(
-        (entity: any) => entity.from === ZERO_ADDRESS
-      );
-
+      const claimedFaces = await queryPolymorphicFacesGraph(
+        mintedPolymorphicFaces(newAddress)
+      );  
       const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
@@ -122,7 +121,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
-      const claimedFacesIds = claimedFaces?.map((nft: any) => ({
+      const claimedFacesIds = claimedFaces?.mintedEntities.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
