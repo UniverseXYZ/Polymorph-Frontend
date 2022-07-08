@@ -5,6 +5,20 @@ import Slider from "react-slick";
 import closeIcon from "../../assets/images/cross.svg";
 import Button from "@legacy/button/Button";
 import Image from "next/image";
+import ArrowRightIcon from '../../assets/images/arrow-right.svg'
+import ArrowLeftIcon from '../../assets/images/arrow-left.svg'
+
+const NextArrow = ({ onClick }) => {
+  return (
+    <div className={'nav--arrow next'} onClick={onClick}><img src={ArrowRightIcon} alt=''/></div>
+  )
+}
+
+const PrevArrow = ({ onClick }) => {
+  return (
+    <div  className={'nav--arrow prev'} onClick={onClick}><img src={ArrowLeftIcon} alt=''/></div>
+  )
+}
 
 const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
   const router = useRouter();
@@ -15,7 +29,8 @@ const BurnPolymorphSuccessPopup = ({ onClose, characters }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />  };
 
   return (
     <div className="burn--polymorph--success--popup">
