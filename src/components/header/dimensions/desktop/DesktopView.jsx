@@ -15,7 +15,8 @@ import {
 import { useRouter } from "next/router";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
-import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
+import PlusIcon from '../../../../assets/images/plus-icon.svg'
+import MinusIcon from '../../../../assets/images/minus-icon.svg'
 
 const DesktopView = ({
   isWalletConnected,
@@ -121,7 +122,8 @@ const DesktopView = ({
                     onClick={() => setFacesAmountToClaim("sub")}
                     disabled={facesAmountToClaim === 0}
                   >
-                    -
+                    <img src={MinusIcon} alt=''/>
+
                   </button>
                   <span>{facesAmountToClaim}</span>
                   <button
@@ -129,7 +131,7 @@ const DesktopView = ({
                     onClick={() => setFacesAmountToClaim("add")}
                     disabled={facesAmountToClaim === 20}
                   >
-                    +
+                    <img src={PlusIcon} alt=''/>
                   </button>
                 </div>
                 <button
