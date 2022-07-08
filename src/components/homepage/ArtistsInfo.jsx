@@ -62,7 +62,7 @@ export const ArtistsInfo = [
   {
     name: "Mike Protsenko",
     image: require("../../assets/images/artists/Mike-Protsenko.png"),
-    portfolioLink: "",
+    portfolioLink: "https://dribbble.com/micproo",
   },
   {
     name: "Savvy",

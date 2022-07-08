@@ -96,7 +96,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
       </div>
       <div className="card--footer faces--card--footer">
         <div className="card--footer--top">
-          <h2>{item.character}</h2>
+          <h2>{item.name}</h2>
         </div>
         <div className="card--footer--bottom">
           <span>{`ID: ${item.tokenid}`}</span>
