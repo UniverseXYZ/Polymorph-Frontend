@@ -29,6 +29,8 @@ import arrowRight from "../../../../assets/images/marketplace/bundles-right-arro
 import arrowLeft from "../../../../assets/images/burn-to-mint-images/arrow-left-white.svg";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
+import PlusIcon from '../../../../assets/images/plus-icon-white.svg'
+import MinusIcon from '../../../../assets/images/minus-icon-white.svg'
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -358,7 +360,7 @@ const MobileView = (props) => {
                               onClick={() => setFacesAmountToClaim("sub")}
                               disabled={facesAmountToClaim === 0}
                             >
-                              -
+                              <img src={MinusIcon} alt='' />
                             </button>
                             <span>{facesAmountToClaim}</span>
                             <button
@@ -368,7 +370,7 @@ const MobileView = (props) => {
                               onClick={() => setFacesAmountToClaim("add")}
                               disabled={facesAmountToClaim === 20}
                             >
-                              +
+                              <img src={PlusIcon} alt='' />
                             </button>
                           </div>
                           <button

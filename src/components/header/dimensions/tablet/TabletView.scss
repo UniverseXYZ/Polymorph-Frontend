@@ -711,6 +711,9 @@
             width: 32px;
             height: 100%;
           }
+          img {
+            margin: auto;
+          }
         }
         .disabled {
           background: rgba(0, 0, 0, 0.05) !important;
