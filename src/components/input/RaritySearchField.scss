@@ -3,7 +3,7 @@
 
 .focus--field {
   padding: 1px;
-  border-radius: 11px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
   // box-shadow: 0px 10px 36px rgba(136, 120, 172, 0.14);
   .focus--field--box--shadow {
@@ -233,6 +233,6 @@
   }
   input {
     border: none;
-    border-radius: 10px !important;
+    border-radius: unset !important;
   }
 }
