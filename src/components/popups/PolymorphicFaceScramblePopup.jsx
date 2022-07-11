@@ -193,7 +193,7 @@ const PolymorphicFaceScramblePopup = ({
                 <div className="description">
                   Would you like to scramble your Polymorphic Face into a brand
                   new one? This will randomize the genome, and reset the cost of
-                  a single trait scramble back to 0.01 ETH.
+                  a single trait scramble back to 0.001 ETH.
                 </div>
               )}
 
