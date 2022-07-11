@@ -97,7 +97,7 @@
   min-height: 500px;
   width: 90%;
   padding-top: 90px;
-  padding-bottom: 45px;
+  padding-bottom: 0px;
   @include lg {
     min-height: 355px;
   }
@@ -191,7 +191,6 @@
   }
 }
 .about--wrapper--row2 {
-  padding-top: 45px;
   padding-bottom: 90px;
   min-height: 500px;
   width: 90%;
