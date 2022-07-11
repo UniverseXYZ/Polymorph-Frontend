@@ -25,21 +25,54 @@ const GENE_POSITIONS_MAP = {
   bearBottomRight: 12,
 };
 
-const WEAR_TO_GENE_POSITION_MAP = {
-  background: GENE_POSITIONS_MAP.background,
-  hairLeft: GENE_POSITIONS_MAP.hairLeft,
-  hairRight: GENE_POSITIONS_MAP.hairRight,
-  earLeft: GENE_POSITIONS_MAP.earLeft,
-  earRight: GENE_POSITIONS_MAP.earRight,
-  eyeLeft: GENE_POSITIONS_MAP.eyeLeft,
-  eyeRight: GENE_POSITIONS_MAP.eyeRight,
-  lipsLeft: GENE_POSITIONS_MAP.lipsLeft,
-  lipsRight: GENE_POSITIONS_MAP.lipsRight,
-  beardTopLeft: GENE_POSITIONS_MAP.beardTopLeft,
-  bearTopRight: GENE_POSITIONS_MAP.bearTopRight,
-  bearBottomLeft: GENE_POSITIONS_MAP.bearBottomLeft,
-  bearBottomRight: GENE_POSITIONS_MAP.bearBottomRight,
-};
+const WEAR_TO_GENE_POSITION_MAP = [
+  { title: "Background", value: GENE_POSITIONS_MAP.background },
+  { title: "Hair Left", value: GENE_POSITIONS_MAP.hairLeft },
+  {
+    title: "Hair Right",
+    value: GENE_POSITIONS_MAP.hairRight,
+  },
+  {
+    title: "Ear Left",
+    value: GENE_POSITIONS_MAP.earLeft,
+  },
+  {
+    title: "Ear Right",
+    value: GENE_POSITIONS_MAP.earRight,
+  },
+  {
+    title: "Eye Left",
+    value: GENE_POSITIONS_MAP.eyeLeft,
+  },
+  {
+    title: "Eye Right",
+    value: GENE_POSITIONS_MAP.eyeRight,
+  },
+  {
+    title: "Beard Top Left",
+    value: GENE_POSITIONS_MAP.beardTopLeft,
+  },
+  {
+    title: "Beard Top Right",
+    value: GENE_POSITIONS_MAP.bearTopRight,
+  },
+  {
+    title: "Lips Left",
+    value: GENE_POSITIONS_MAP.lipsLeft,
+  },
+  {
+    title: "Lips Right",
+    value: GENE_POSITIONS_MAP.lipsRight,
+  },
+  {
+    title: "Beard Bottom Left",
+    value: GENE_POSITIONS_MAP.bearBottomLeft,
+  },
+  {
+    title: "Beard Top Right",
+    value: GENE_POSITIONS_MAP.bearBottomRight,
+  },
+];
 
 const PolymorphicFaceScramblePopup = ({
   onClose,
@@ -56,9 +89,9 @@ const PolymorphicFaceScramblePopup = ({
   const [randomizeGenePrise, setRandomizeGenePrice] = useState("");
   const [morphSingleGenePrise, setMorphSingleGenePrice] = useState("");
 
-  const traits = Object.keys(WEAR_TO_GENE_POSITION_MAP).map((key) => ({
-    label: `${key.charAt(0).toUpperCase() + key.slice(1)}`,
-    value: key,
+  const traits = WEAR_TO_GENE_POSITION_MAP.map((key) => ({
+    label: key.title,
+    value: key.value,
   }));
   const tabs = [
     {
@@ -102,8 +135,8 @@ const PolymorphicFaceScramblePopup = ({
     try {
       if (singleTraitTabSelected) {
         // Take the Gene Position
-        const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
-
+        const genePosition =
+          WEAR_TO_GENE_POSITION_MAP[selectedTrait.value].value;
         // if (!genePosition) {
         //   alert("There is no such Gene !");
         //   return;
