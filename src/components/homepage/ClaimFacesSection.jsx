@@ -76,9 +76,7 @@ const ClaimFacesSection = () => {
             <div className="claim__container">
               <div className="claim__faces">
                 <div className="count">
-                  {userPolymorphicFacesClaimed ? (
-                    <span>{availableFacesToClaim} </span>
-                  ) : null}
+                    <span>{userPolymorphicFacesClaimed?.length ? availableFacesToClaim : '0'} </span>
                 </div>
                 <div className="change__count">
                   <div>
@@ -121,7 +119,7 @@ const ClaimFacesSection = () => {
                 <div className="count">{userPolymorphs.length}</div>
                 <div className="change__count">
                   <div>
-                    Polymorphs to Burn <span>({burntCount} burnt)</span>
+                    Polymorphs to Burn <span>({burntCount ? burntCount : '0'} burnt)</span>
                   </div>
                   <div className="buttons__wrapper">
                     <button
