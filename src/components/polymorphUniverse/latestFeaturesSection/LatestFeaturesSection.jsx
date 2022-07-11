@@ -1,7 +1,6 @@
 import React from "react";
 // import './LatestFeaturesSection.scss';
 import { useRouter } from "next/router";
-import arrowRight from "../../../assets/images/arrow-right.svg";
 import rarityChartIcon from "../../../assets/images/rarity-chart-icon.svg";
 import battleUniverseIcon from "../../../assets/images/battle-universe-icon.svg";
 import burnToMintIcon from "../../../assets/images/burn-to-mint-icon.svg";

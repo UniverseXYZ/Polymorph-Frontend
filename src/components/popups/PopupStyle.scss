@@ -4845,6 +4845,29 @@
     border-radius: 6px;
     .slick-slider {
       height: 100%;
+      .nav--arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.4);
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
+        position: absolute;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      .next {
+        top: 45%;
+        right: 8px;
+        z-index: 100;
+      }
+      .prev {
+        top: 45%;
+        left: 8px;
+        z-index: 100;
+      }
     }
     .loading {
       position: relative;
