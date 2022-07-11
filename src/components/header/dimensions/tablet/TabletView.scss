@@ -537,7 +537,7 @@
 
       &__header {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 24px;
+        padding: 16px;
         .copy-div {
           position: relative;
           display: flex;
@@ -646,14 +646,14 @@
       }
 
       &__body {
-        padding: 24px;
+        padding: 16px;
         button {
           width: 100%;
         }
       }
     }
     .drop-faces-to-claim {
-      width: 206px;
+      width: 218px;
       position: absolute;
       left: 0;
 
@@ -711,6 +711,9 @@
             width: 32px;
             height: 100%;
           }
+          img {
+            margin: auto;
+          }
         }
         .disabled {
           background: rgba(0, 0, 0, 0.05) !important;
@@ -724,8 +727,8 @@
           padding: 6px 14px;
           margin-left: 8px;
           &:hover {
-            background: transparent !important;
             box-shadow: unset !important;
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%) !important;
           }
         }
       }

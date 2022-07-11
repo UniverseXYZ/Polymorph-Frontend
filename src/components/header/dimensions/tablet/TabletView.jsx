@@ -21,6 +21,8 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
+import PlusIcon from '../../../../assets/images/plus-icon.svg'
+import MinusIcon from '../../../../assets/images/minus-icon.svg'
 
 const TabletView = (props) => {
   const {
@@ -242,7 +244,7 @@ const TabletView = (props) => {
                       onClick={() => setFacesAmountToClaim("sub")}
                       disabled={facesAmountToClaim === 0}
                     >
-                      -
+                      <img src={MinusIcon} alt='' />
                     </button>
                     <span>{facesAmountToClaim}</span>
                     <button
@@ -252,7 +254,7 @@ const TabletView = (props) => {
                       onClick={() => setFacesAmountToClaim("add")}
                       disabled={facesAmountToClaim === 20}
                     >
-                      +
+                      <img src={PlusIcon} alt='' />
                     </button>
                   </div>
                   <button

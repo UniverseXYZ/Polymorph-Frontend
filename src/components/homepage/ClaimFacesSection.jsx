@@ -7,6 +7,8 @@ import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
+import PlusIcon from '../../assets/images/plus-icon-white.svg'
+import MinusIcon from '../../assets/images/minus-icon-white.svg'
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -91,7 +93,7 @@ const ClaimFacesSection = () => {
                         }`}
                         onClick={() => facesClaimCountHandler("sub")}
                       >
-                        -
+                        <img src={MinusIcon} alt='' />
                       </button>
                       <span>{facesAmountToClaim}</span>
                       <button
@@ -100,7 +102,7 @@ const ClaimFacesSection = () => {
                         }`}
                         onClick={() => facesClaimCountHandler("add")}
                       >
-                        +
+                        <img src={PlusIcon} alt='' />
                       </button>
                     </div>
                     <button

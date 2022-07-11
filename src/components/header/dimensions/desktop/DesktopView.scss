@@ -59,7 +59,7 @@
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
-        line-height: 20px;
+        height: 42px;
         color: $black;
         &:hover {
           box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset;
@@ -91,6 +91,8 @@
         position: relative;
         padding: 11px 16px;
         border-radius: 12px;
+        line-height: unset;
+        height: 42px;
         &::before {
           content: "";
           position: absolute;
@@ -125,6 +127,8 @@
         padding: 4px;
         padding-right: 12px;
         border-radius: 10px;
+        line-height: unset;
+        height: 42px;
       }
 
       .nav__link__title {
@@ -165,7 +169,7 @@
         }
         &__header {
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-          padding: 24px;
+          padding: 16px;
           .copy-div {
             position: relative;
             display: flex;
@@ -269,7 +273,7 @@
           }
         }
         &__body {
-          padding: 24px;
+          padding: 16px;
           button {
             width: 100%;
           }
@@ -338,6 +342,9 @@
               background: rgba(0, 0, 0, 0.05);
               color: rgba(0, 0, 0, 0.1);
             }
+            img {
+              margin: auto;
+            }
           }
           .claim--button {
             background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
@@ -346,8 +353,9 @@
             padding: 6px 14px;
             margin-left: 8px;
             &:hover {
-              background: transparent !important;
+              // background: transparent !important;
               box-shadow: unset !important;
+              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
           }
         }
