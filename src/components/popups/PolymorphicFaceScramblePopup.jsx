@@ -152,8 +152,8 @@ const PolymorphicFaceScramblePopup = ({
             value: genomeChangePrice,
           }
         );
-        await morphGeneTx.wait();
-        if (morphGeneTx.status !== 1) {
+        const txReceipt = await morphGeneTx.wait();
+        if (txReceipt.status !== 1) {
           console.log("Morph Polymorphic Face transaction failed");
           return;
         }
@@ -164,8 +164,8 @@ const PolymorphicFaceScramblePopup = ({
         const randomizeTx = await polymorphicFacesContract.randomizeGenome(id, {
           value: amount,
         });
-        await randomizeTx.wait();
-        if (morphGeneTx.status !== 1) {
+        const txReceipt = await randomizeTx.wait();
+        if (txReceipt.status !== 1) {
           console.log("Scramble Polymorphic Face transaction failed");
           return;
         }
