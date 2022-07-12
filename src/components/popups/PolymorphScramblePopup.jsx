@@ -128,8 +128,8 @@ const PolymorphScramblePopup = ({
             value: genomeChangePrice,
           }
         );
-        await morphGeneTx.wait();
-        if (morphGeneTx.status !== 1) {
+        const txReceipt = await morphGeneTx.wait();
+        if (txReceipt.status !== 1) {
           console.log("Morph Polymorph transaction failed");
           return;
         }
@@ -137,11 +137,11 @@ const PolymorphScramblePopup = ({
         if (!id) return;
         // Randomize Genom
         const amount = await polymorphContractV2.randomizeGenomePrice();
-        const randomizeT = await polymorphContractV2.randomizeGenome(id, {
+        const randomizeTx = await polymorphContractV2.randomizeGenome(id, {
           value: amount,
         });
-        await randomizeT.wait();
-        if (morphGeneTx.status !== 1) {
+        const txReceipt = await randomizeTx.wait();
+        if (txReceipt.status !== 1) {
           console.log("Scramble Polymorph transaction failed");
           return;
         }
