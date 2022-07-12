@@ -34,7 +34,7 @@ import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
-import LoadingPopup from "@legacy/popups/LoadingPopup";
+import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -534,7 +534,7 @@ const Header = () => {
       </Popup>
       {showLoadingModal && (
         <Popup closeOnDocumentClick={false} open={showLoadingModal}>
-          <LoadingPopup onClose={() => setShowLoadingModal(false)} />
+          <ClaimLoadingPopup onClose={() => setShowLoadingModal(false)} />
         </Popup>
       )}
       {showSuccessModal ? (
