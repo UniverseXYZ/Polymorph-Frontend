@@ -34,6 +34,7 @@ import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
+import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -85,6 +86,7 @@ const Header = () => {
   const [userPolymorphsCount, setUserPolymorphsCount] = useState(null);
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [burntCount, setBurntCount] = useState();
 
@@ -214,18 +216,26 @@ const Header = () => {
   };
 
   const claimTxHandler = async () => {
-    const claimTx = await polymorphicFacesContract["mint(uint256)"](
-      facesAmountToClaim
-    );
-    const claimTxReceipt = await claimTx.wait();
+    try {
+      setShowLoadingModal(true);
+      const claimTx = await polymorphicFacesContract["mint(uint256)"](
+        facesAmountToClaim
+      );
+      const claimTxReceipt = await claimTx.wait();
 
-    if (claimTxReceipt.status !== 1) {
-      console.log("Error while claiming faces");
+      if (claimTxReceipt.status !== 1) {
+        console.log("Error while claiming faces");
+        setShowLoadingModal(false);
+        setShowSuccessModal(false);
+        return;
+      }
+      setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
+      setShowLoadingModal(false);
+      setShowSuccessModal(true);
+    } catch (err) {
+      setShowLoadingModal(false);
       setShowSuccessModal(false);
-      return;
     }
-    setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
-    setShowSuccessModal(true);
   };
 
   return (
@@ -522,6 +532,11 @@ const Header = () => {
           />
         )}
       </Popup>
+      {showLoadingModal && (
+        <Popup closeOnDocumentClick={false} open={showLoadingModal}>
+          <ClaimLoadingPopup onClose={() => setShowLoadingModal(false)} />
+        </Popup>
+      )}
       {showSuccessModal ? (
         <Popup closeOnDocumentClick={false} open={showSuccessModal}>
           <MintPolymorphicFaceSuccessPopup

@@ -5,10 +5,11 @@ import ClaimFacesCarousel from "./ClaimFacesCarousel";
 import { ArtistsInfo } from "./ArtistsInfo";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
+import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
-import PlusIcon from '../../assets/images/plus-icon-white.svg'
-import MinusIcon from '../../assets/images/minus-icon-white.svg'
+import PlusIcon from "../../assets/images/plus-icon-white.svg";
+import MinusIcon from "../../assets/images/minus-icon-white.svg";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -16,6 +17,7 @@ const ClaimFacesSection = () => {
   const router = useRouter();
   const [facesAmountToClaim, setFacesAmountToClaim] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [burntCount, setBurntCount] = useState();
 
@@ -47,18 +49,26 @@ const ClaimFacesSection = () => {
   }, [address, polymorphContractV2]);
 
   const claimTxHandler = async () => {
-    const claimTx = await polymorphicFacesContract["mint(uint256)"](
-      facesAmountToClaim
-    );
-    const claimTxReceipt = await claimTx.wait();
+    try {
+      setShowLoadingModal(true);
+      const claimTx = await polymorphicFacesContract["mint(uint256)"](
+        facesAmountToClaim
+      );
+      const claimTxReceipt = await claimTx.wait();
 
-    if (claimTxReceipt.status !== 1) {
-      console.log("Error while claiming faces");
+      if (claimTxReceipt.status !== 1) {
+        console.log("Error while claiming faces");
+        setShowLoadingModal(false);
+        setShowSuccessModal(false);
+        return;
+      }
+      setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
+      setShowLoadingModal(false);
+      setShowSuccessModal(true);
+    } catch (err) {
+      setShowLoadingModal(false);
       setShowSuccessModal(false);
-      return;
     }
-    setTxHash(etherscanTxLink + claimTxReceipt.transactionHash);
-    setShowSuccessModal(true);
   };
 
   return (
@@ -159,6 +169,14 @@ const ClaimFacesSection = () => {
           })}
         </div>
       </div>
+      {showLoadingModal && (
+        <Popup closeOnDocumentClick={false} open={showLoadingModal}>
+          <ClaimLoadingPopup
+            onClose={() => setShowLoadingModal(false)}
+            text={"Claiming Your Polymorphic Face..."}
+          />
+        </Popup>
+      )}
       {showSuccessModal ? (
         <Popup closeOnDocumentClick={false} open={showSuccessModal}>
           <MintPolymorphicFaceSuccessPopup
