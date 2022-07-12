@@ -5,7 +5,7 @@ import ClaimFacesCarousel from "./ClaimFacesCarousel";
 import { ArtistsInfo } from "./ArtistsInfo";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
-import LoadingPopup from "@legacy/popups/LoadingPopup";
+import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import PlusIcon from "../../assets/images/plus-icon-white.svg";
@@ -171,7 +171,10 @@ const ClaimFacesSection = () => {
       </div>
       {showLoadingModal && (
         <Popup closeOnDocumentClick={false} open={showLoadingModal}>
-          <LoadingPopup onClose={() => setShowLoadingModal(false)} />
+          <ClaimLoadingPopup
+            onClose={() => setShowLoadingModal(false)}
+            text={"Claiming Your Polymorphic Face..."}
+          />
         </Popup>
       )}
       {showSuccessModal ? (
