@@ -51,6 +51,8 @@ const MyPolymorphicFacesChart = () => {
     } else {
       newFilter = filter.filter((f) => f[1] !== trait.name);
     }
+    resetPagination();
+    setApiPage(1);
     setFilter(newFilter);
   };
 
