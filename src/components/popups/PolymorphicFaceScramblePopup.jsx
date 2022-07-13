@@ -91,8 +91,9 @@ const PolymorphicFaceScramblePopup = ({
 
   const traits = WEAR_TO_GENE_POSITION_MAP.map((key) => ({
     label: key.title,
-    value: key.value,
+    value: key.value.toString(),
   }));
+
   const tabs = [
     {
       name: "Single Trait",
