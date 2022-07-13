@@ -30,13 +30,13 @@ export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
       setUpdate(false);
     }
   }, [update]);
-
+  console.log(polymorphicMeta);
   return (
     <>
       {polymorphicMeta?.length ? (
         <>
           <OpenGraph
-            title={`Polymorph ${polymorphicMeta[0]?.character} #${polymorphicMeta[0]?.tokenid}`}
+            title={`${polymorphicMeta[0]?.name}`}
             description={polymorphicMeta[0]?.description || undefined}
             image={polymorphicMeta[0]?.imageurl || undefined}
           />
