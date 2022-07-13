@@ -163,7 +163,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
         <PolymorphicFaceScramblePopup
           onClose={() => setShowScramblePopup(false)}
           polymorph={polymorphicData}
-          id={polymorphicData.tokenid}
+          id={polymorphicData.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
         />

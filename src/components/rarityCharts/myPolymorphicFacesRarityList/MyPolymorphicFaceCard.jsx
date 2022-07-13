@@ -134,7 +134,7 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           <PolymorphicFaceScramblePopup
             onClose={() => setShowScramblePopup(false)}
             polymorph={item}
-            id={item.tokenid}
+            id={item.tokenid.toString()}
             setShowCongratulations={setShowCongratulations}
             setShowLoading={setShowLoading}
           />

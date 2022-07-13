@@ -10,7 +10,7 @@ import { useMyNftsStore } from "src/stores/myNftsStore";
 
 const ClaimLoadingPopup = ({ onClose, text, contractInteraction }) => {
   const activeTxHashes = useMyNftsStore((s) => s.activeTxHashes);
-  console.log(text);
+
   return (
     <div className="loading-div popup-div" id="loading-popup-div">
       <div className="loading-ring">
