@@ -277,7 +277,16 @@
       }
     }
     @include md {
-      grid-template-columns: 1fr auto;      
+      grid-template-columns: 1fr auto;
+    }
+  }
+  .faces {
+    grid-template-columns: 1fr 54px;
+    .rarity--charts--search--and--floor--price {
+      grid-row: 1;
+      .search--field--component {
+        margin: 0 auto;
+      }
     }
   }
 }
