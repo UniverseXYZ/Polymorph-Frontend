@@ -51,9 +51,7 @@ const ClaimFacesSection = () => {
   const claimTxHandler = async () => {
     try {
       setShowLoadingModal(true);
-      const claimTx = await polymorphicFacesContract["mint(uint256)"](
-        facesAmountToClaim
-      );
+      const claimTx = await polymorphicFacesContract.claim(facesAmountToClaim);
       const claimTxReceipt = await claimTx.wait();
 
       if (claimTxReceipt.status !== 1) {
