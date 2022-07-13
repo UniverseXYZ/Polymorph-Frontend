@@ -305,8 +305,7 @@ const MobileView = (props) => {
                           >
                             <p className="title">
                               Faces to Claim
-                              {userPolymorphsBurntCount &&
-                              userClaimedFacesCount ? (
+                              {userPolymorphsBurntCount ? (
                                 <span>
                                   {userPolymorphsBurntCount -
                                     userClaimedFacesCount}
@@ -343,11 +342,13 @@ const MobileView = (props) => {
                     <div className="faces-to-claim">
                       <div className="menu__header">
                         <div className={"heading"}>
-                          {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                          {userPolymorphsBurntCount ? (
                             <span>
                               {userPolymorphsBurntCount - userClaimedFacesCount}
                             </span>
-                          ) : null}{" "}
+                          ) : (
+                            <span>{"0 "}</span>
+                          )}{" "}
                           Faces to Claim
                         </div>
                         <div>{userClaimedFacesCount} Faces claimed</div>

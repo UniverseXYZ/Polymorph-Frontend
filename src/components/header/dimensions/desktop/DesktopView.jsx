@@ -101,7 +101,7 @@ const DesktopView = ({
               <button type="button" className={"menu-li faces-to-claim"}>
                 <span className="nav__link__title">
                   Faces to Claim
-                  {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                  {userPolymorphsBurntCount ? (
                     <span>
                       {userPolymorphsBurntCount - userClaimedFacesCount}
                     </span>
@@ -112,11 +112,13 @@ const DesktopView = ({
               <div className="dropdown drop-faces-to-claim">
                 <div className="dropdown__header">
                   <div className={"heading"}>
-                    {userPolymorphsBurntCount && userClaimedFacesCount ? (
+                    {userPolymorphsBurntCount ? (
                       <span>
                         {userPolymorphsBurntCount - userClaimedFacesCount}{" "}
                       </span>
-                    ) : null}
+                    ) : (
+                      <span>{"0 "}</span>
+                    )}
                     Faces to Claim
                   </div>
                   <div>{userClaimedFacesCount} Faces claimed</div>
