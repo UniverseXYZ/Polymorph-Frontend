@@ -94,7 +94,7 @@ const MyPolymorphicFacesChart = () => {
         setFilter={setFilter}
         filter={filter}
         loading={search.loading}
-        usedOnPage={"My-polymorphs"}
+        usedOnPage={"My-polymorphic-faces"}
       />
       <MyPolymorphicFacesRarityList
         data={results}
