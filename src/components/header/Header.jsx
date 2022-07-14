@@ -43,6 +43,7 @@ const Header = () => {
     isWalletConnected,
     setIsWalletConnected,
     connectWithWalletConnect,
+    connectWithCoinbase,
     connectWithMetaMask,
     address,
     setLoginFn,
@@ -51,6 +52,7 @@ const Header = () => {
     isWalletConnected: s.isWalletConnected,
     setIsWalletConnected: s.setIsWalletConnected,
     connectWithWalletConnect: s.connectWithWalletConnect,
+    connectWithCoinbase: s.connectWithCoinbase,
     connectWithMetaMask: s.connectWithMetaMask,
     address: s.address,
     setLoginFn: s.setLoginFn,
@@ -123,6 +125,11 @@ const Header = () => {
         setIsWalletConnected(true);
         setShowMenu(false);
         setShowSelectWallet(false);
+      } else if(wallet === CONNECTORS_NAMES.Coinbase) {
+        await connectWithCoinbase();
+        setIsWalletConnected(true)
+        setShowMenu(false);
+        setShowSelectWallet(false)
       }
     } else {
       setShowInstallWalletPopup(true);
