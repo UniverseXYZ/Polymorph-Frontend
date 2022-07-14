@@ -191,7 +191,6 @@ export const useAuthStore = create<
           darkMode: false
         })
 
-
         const chainID = Number(process.env.REACT_APP_NETWORK_CHAIN_ID);
         const rpcUrl = chainID == 1
            ? "https://mainnet.infura.io/v3/1745e014e2ed4047acdaa135e869a11b" 
