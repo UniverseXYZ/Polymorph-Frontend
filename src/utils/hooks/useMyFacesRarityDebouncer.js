@@ -83,7 +83,7 @@ export const useSearchPolymorphicFaces = () => {
   const perPage = userPolymorphicFaces.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
-  const [sortField, setSortField] = useStateIfMounted('rarityscore');
+  const [sortField, setSortField] = useStateIfMounted('tokenid');
   const [sortDir, setSortDir] = useStateIfMounted('desc');
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted();

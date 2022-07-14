@@ -34,7 +34,7 @@ const RarityFilters = (props) => {
   } = props;
 
   const [selectedFiltersLength, setSelectedFiltersLength] = useState(0);
-  const { userPolymorphsAll, userPolymorphsLoaded } = usePolymorphStore();
+  const { userPolymorphsAll, userPolymorphicFaces } = usePolymorphStore();
 
   return (
     <div className="rarity--charts--search--and--filters--container">
@@ -143,6 +143,63 @@ const RarityFilters = (props) => {
             setApiPage={setApiPage}
             resetPagination={resetPagination}
           />
+          <RaritySortByOrder
+            setSortDir={setSortDir}
+            sortDir={sortDir}
+            setApiPage={setApiPage}
+            resetPagination={resetPagination}
+          />
+        </div>
+      ) : null}
+      {usedOnPage === "My-polymorphic-faces" &&
+      (loading || userPolymorphicFaces.length > 0) ? (
+        <div className="rarity--charts--search--and--filters--row faces">
+          {/* <CollectionFilter /> */}
+          <div className="rarity--charts--search--and--floor--price">
+            <RaritySearchField
+              placeholder="Search items"
+              searchText={searchText}
+              setSearchText={setSearchText}
+              setApiPage={setApiPage}
+              resetPagination={resetPagination}
+            />
+            <div className="mobile--filters">
+              <Popup
+                trigger={
+                  <button type="button" className="light-button">
+                    <img src={filterIcon} alt="Filter" />
+                  </button>
+                }
+              >
+                {(close) => (
+                  <RarityChartFiltersPopup
+                    close={close}
+                    categories={categories}
+                    setCategories={setCategories}
+                    categoriesIndexes={categoriesIndexes}
+                    setCategoriesIndexes={setCategoriesIndexes}
+                    selectedFiltersLength={selectedFiltersLength}
+                    setSelectedFiltersLength={setSelectedFiltersLength}
+                    resultsCount={resultsCount}
+                    handleCategoryFilterChange={handleCategoryFilterChange}
+                    setFilter={setFilter}
+                    filter={filter}
+                  />
+                )}
+              </Popup>
+              {selectedFiltersLength !== 0 && (
+                <div className="count">{selectedFiltersLength}</div>
+              )}
+            </div>
+          </div>
+          {/* <RaritySortBySelect
+            id="sort--select"
+            defaultValue="Polymorph Id"
+            sortData={["Rarity Score", "Rank", "Polymorph Id"]}
+            setSortField={setSortField}
+            setApiPage={setApiPage}
+            resetPagination={resetPagination}
+          /> */}
           <RaritySortByOrder
             setSortDir={setSortDir}
             sortDir={sortDir}
