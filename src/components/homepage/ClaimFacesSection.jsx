@@ -51,9 +51,7 @@ const ClaimFacesSection = () => {
   const claimTxHandler = async () => {
     try {
       setShowLoadingModal(true);
-      const claimTx = await polymorphicFacesContract["mint(uint256)"](
-        facesAmountToClaim
-      );
+      const claimTx = await polymorphicFacesContract.claim(facesAmountToClaim);
       const claimTxReceipt = await claimTx.wait();
 
       if (claimTxReceipt.status !== 1) {
@@ -86,7 +84,9 @@ const ClaimFacesSection = () => {
             <div className="claim__container">
               <div className="claim__faces">
                 <div className="count">
-                    <span>{userPolymorphicFacesClaimed?.length ? availableFacesToClaim : '0'} </span>
+                  <span>
+                    {availableFacesToClaim ? availableFacesToClaim : "0"}{" "}
+                  </span>
                 </div>
                 <div className="change__count">
                   <div>
