@@ -48,6 +48,12 @@ const SelectWalletPopup = (props) => {
             >
               <img src={walletConnectLogo} alt="WalletConnect" />
             </button>
+            <button
+              type="button"
+              onClick={() => handleConnectWallet("Coinbase")}
+            >
+              <img src={coinbaseLogo} alt="Coinbase" />
+            </button>
           </div>
           <p className="info">
             We do not own your private keys and cannot access your funds without
