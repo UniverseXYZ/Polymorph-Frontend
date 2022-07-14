@@ -594,6 +594,7 @@
 
     .select_wallet__section {
       width: 100%;
+      padding: 24px;
       .backToMenu {
         display: flex;
         align-items: center;
@@ -604,7 +605,7 @@
         line-height: 20px;
         // text-transform: uppercase;
         color: $black;
-        margin: 24px 0;
+        margin-bottom: 24px;
         img {
           margin-right: 10px;
         }
