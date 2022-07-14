@@ -13,6 +13,7 @@ import { usePolymorphStore } from "src/stores/polymorphStore";
 import { Button } from "@chakra-ui/react";
 import BubbleIcon from "../../../assets/images/text-bubble.png";
 import MyPolymorphicFaceCard from "./MyPolymorphicFaceCard";
+import { useRouter } from "next/router";
 
 const marketplaceLink = "https://universe.xyz/marketplace";
 
@@ -36,6 +37,7 @@ const MyPolymorphicFacesRarityList = ({
   apiPage,
   handleCategoryFilterChange,
 }) => {
+  const router = useRouter();
   const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
@@ -162,17 +164,26 @@ const MyPolymorphicFacesRarityList = ({
             {isLastPage ? <RarityChartsLoader number={emptySlots} /> : <></>}
           </div>
         ) : !userPolymorphicFaces.length > 0 ? (
-          <div className="rarity--charts--empty polymorphs">
+          <div className="rarity--charts--empty polymorphic-faces">
             <img src={BubbleIcon} alt="bubble" />
-            <p>No Polymorph found</p>
-            <span>You can always buy them on the Marketplace</span>
-            <Button
-              onClick={() => {
-                window.open(marketplaceLink);
-              }}
-            >
-              Marketplace
-            </Button>
+            <p>No Polymorphic Faces found</p>
+            <span>
+              You can buy them anytime on the Marketplace <br />
+              or get them for free by burning your V1 Polymorphs.
+            </span>
+            <div className="buttons--wrapper">
+              <Button onClick={() => router.push("/burn-to-mint")}>
+                Burn To Mint
+              </Button>
+              <Button
+                className="light-border-button"
+                onClick={() => {
+                  window.open(marketplaceLink);
+                }}
+              >
+                Marketplace
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="rarity--charts--empty polymorphs">
