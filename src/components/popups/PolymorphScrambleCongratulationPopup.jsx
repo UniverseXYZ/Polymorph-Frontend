@@ -68,8 +68,10 @@ const PolymorphScrambleCongratulationPopup = ({
             key={uuid()}
           />
         </div>
-      ) : (
+      ) : isPolymorph ? (
         renderLoaders(1)
+      ) : (
+        renderLoaders(1, "faces")
       )}
       <div className="button__div_polymorph">
         <Button

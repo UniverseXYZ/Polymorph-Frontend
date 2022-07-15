@@ -30,7 +30,7 @@ export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
       setUpdate(false);
     }
   }, [update]);
-  console.log(polymorphicMeta);
+
   return (
     <>
       {polymorphicMeta?.length ? (
