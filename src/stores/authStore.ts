@@ -188,18 +188,22 @@ export const useAuthStore = create<
         const coinbaseWallet = new CoinbaseWalletSDK({
           appName: "Polymorphs",
           appLogoUrl: "https://polymorphs.universe.xyz/favicon.ico",
-          darkMode: false
-        })
+          darkMode: false,
+        });
 
         const chainID = Number(process.env.REACT_APP_NETWORK_CHAIN_ID);
-        const rpcUrl = chainID == 1
-           ? "https://mainnet.infura.io/v3/1745e014e2ed4047acdaa135e869a11b" 
-           : "https://rinkeby.infura.io/v3/1745e014e2ed4047acdaa135e869a11b" 
-        const provider = coinbaseWallet.makeWeb3Provider(rpcUrl, chainID)
+        const rpcUrl =
+          chainID == 1
+            ? "https://mainnet.infura.io/v3/1745e014e2ed4047acdaa135e869a11b"
+            : "https://rinkeby.infura.io/v3/1745e014e2ed4047acdaa135e869a11b";
+        const provider = coinbaseWallet.makeWeb3Provider(rpcUrl, chainID);
 
-        const web3ProviderWrapper = new providers.Web3Provider(<any>provider);
+        const web3ProviderWrapper = new providers.Web3Provider(
+          <any>provider,
+          "any"
+        );
         await web3ProviderWrapper.send("eth_requestAccounts", []);
-        
+
         const network = await web3ProviderWrapper.getNetwork();
         const accounts = await web3ProviderWrapper.listAccounts();
 
