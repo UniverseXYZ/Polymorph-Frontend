@@ -29,8 +29,8 @@ import arrowRight from "../../../../assets/images/marketplace/bundles-right-arro
 import arrowLeft from "../../../../assets/images/burn-to-mint-images/arrow-left-white.svg";
 import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
-import PlusIcon from '../../../../assets/images/plus-icon-white.svg'
-import MinusIcon from '../../../../assets/images/minus-icon-white.svg'
+import PlusIcon from "../../../../assets/images/plus-icon-white.svg";
+import MinusIcon from "../../../../assets/images/minus-icon-white.svg";
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -361,7 +361,7 @@ const MobileView = (props) => {
                               onClick={() => setFacesAmountToClaim("sub")}
                               disabled={facesAmountToClaim === 0}
                             >
-                              <img src={MinusIcon} alt='' />
+                              <img src={MinusIcon} alt="" />
                             </button>
                             <span>{facesAmountToClaim}</span>
                             <button
@@ -371,7 +371,7 @@ const MobileView = (props) => {
                               onClick={() => setFacesAmountToClaim("add")}
                               disabled={facesAmountToClaim === 20}
                             >
-                              <img src={PlusIcon} alt='' />
+                              <img src={PlusIcon} alt="" />
                             </button>
                           </div>
                           <button
@@ -441,6 +441,27 @@ const MobileView = (props) => {
                       >
                         <img src={walletConnectLogo} alt="WalletConnect" />
                       </button>
+                      {/* <button
+                        type="button"
+                        disabled
+                        onClick={() => handleConnectWallet("Ledger")}
+                      >
+                        <img src={ledgerLogo} alt="Ledger" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled
+                        onClick={() => handleConnectWallet("Keystore")}
+                      >
+                        <img src={keystoreLogo} alt="Keystore" />
+                      </button>
+                      <button
+                        type="button"
+                        disabled
+                        onClick={() => handleConnectWallet("Trezor")}
+                      >
+                        <img src={trezorLogo} alt="Trezor" />
+                      </button> */}
                       <button
                         type="button"
                         onClick={() => handleConnectWallet("Coinbase")}
