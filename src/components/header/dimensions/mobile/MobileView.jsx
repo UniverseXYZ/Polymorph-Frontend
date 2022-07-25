@@ -440,7 +440,7 @@ const MobileView = (props) => {
                       >
                         <img src={walletConnectLogo} alt="WalletConnect" />
                       </button>
-                      <button
+                      {/* <button
                         type="button"
                         disabled
                         onClick={() => handleConnectWallet("Ledger")}
@@ -460,10 +460,9 @@ const MobileView = (props) => {
                         onClick={() => handleConnectWallet("Trezor")}
                       >
                         <img src={trezorLogo} alt="Trezor" />
-                      </button>
+                      </button> */}
                       <button
                         type="button"
-                        disabled
                         onClick={() => handleConnectWallet("Coinbase")}
                       >
                         <img src={coinbaseLogo} alt="Coinbase" />
