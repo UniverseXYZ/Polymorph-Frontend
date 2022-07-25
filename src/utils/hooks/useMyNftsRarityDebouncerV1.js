@@ -86,7 +86,7 @@ export const useSearchPolymorphs = ( allPolymorphs=false ) => {
 
   const { userPolymorphs } = usePolymorphStore();
 
-  const perPage = 100;
+  const perPage = userPolymorphs.length;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
