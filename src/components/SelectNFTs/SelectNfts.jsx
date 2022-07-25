@@ -15,11 +15,27 @@ import { useThemeStore } from "src/stores/themeStore";
 import { OpenGraph } from "../open-graph";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
+import { useAuthStore } from "src/stores/authStore";
+import Popup from "reactjs-popup";
+import SelectWalletPopup from "@legacy/popups/SelectWalletPopup";
+import { CONNECTORS_NAMES } from "@legacy/dictionary";
 
 const SelectNfts = () => {
   const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
   const router = useRouter();
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
+
+  const {
+    isWalletConnected,
+    setIsWalletConnected,
+    connectWithWalletConnect,
+    connectWithMetaMask,
+  } = useAuthStore((s) => ({
+    isWalletConnected: s.isWalletConnected,
+    setIsWalletConnected: s.setIsWalletConnected,
+    connectWithWalletConnect: s.connectWithWalletConnect,
+    connectWithMetaMask: s.connectWithMetaMask,
+  }));
 
   const {
     inputText,
@@ -44,6 +60,14 @@ const SelectNfts = () => {
   const [perPage, setPerPage] = useState(8);
   const [selectedCards, setSelectedCards] = useState([]);
   const [showArrows, setShowArrows] = useState(false);
+  const [showInstallWalletPopup, setShowInstallWalletPopup] = useState(false);
+  const [showSelectWallet, setShowSelectWallet] = useState(false);
+  const [selectedWallet, setSelectedWallet] = useState("");
+  const [installed, setInstalled] = useState(
+    typeof window !== "undefined" && typeof window.ethereum !== "undefined"
+      ? true
+      : false
+  );
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -68,6 +92,26 @@ const SelectNfts = () => {
       newFilter = filter.filter((f) => f[1] !== trait.name);
     }
     setFilter(newFilter);
+  };
+
+  const handleConnectWallet = async (wallet) => {
+    // Here need to check if selected wallet is installed in browser
+    setSelectedWallet(wallet);
+    if (installed) {
+      if (
+        wallet === CONNECTORS_NAMES.MetaMask &&
+        typeof window.ethereum !== "undefined"
+      ) {
+        await connectWithMetaMask();
+        setShowSelectWallet(false);
+      } else if (wallet === CONNECTORS_NAMES.WalletConnect) {
+        await connectWithWalletConnect();
+        setIsWalletConnected(true);
+        setShowSelectWallet(false);
+      }
+    } else {
+      setShowInstallWalletPopup(true);
+    }
   };
 
   const resetPagination = () => {
@@ -115,120 +159,138 @@ const SelectNfts = () => {
         description={`Upgrade your Polymorph from a V1 to a V2 to unlock new features and content.`}
         image={OpenGraphImage}
       />
-      <div className="select--nfts--container">
-        {/* {stepData.selectedItem !== 'single' ? ( */}
-        <>
-          <div className="section--header">
-            <div className="section--title--block">
-              <Button
-                className={"button--back"}
-                onClick={() => router.push("/burn-to-mint")}
-              >
-                <img src={Arrow} alt="arrow" /> Burn To Mint
-              </Button>
-              <h3 className="section--title">Choose Polymorphs</h3>
-              <p className="section--hint--text">
-                Select polymorphs you’d like to burn from your wallet. You can
-                burn up to 20 Polymorphs at a time.
-              </p>
-            </div>
-          </div>
-          {results === null ? (
-            <div className={"no--polymorphs--found"}>
-              <LoadingSpinner />
-            </div>
-          ) : results.length > 0 ? (
-            <>
-              <div className="rarity--charts--page--container">
-                <RarityFilters
-                  setSortField={setSortField}
-                  searchText={inputText}
-                  setSearchText={setInputText}
-                  setSortDir={setSortDir}
-                  sortDir={sortDir}
-                  setApiPage={setApiPage}
-                  resetPagination={resetPagination}
-                  categories={categories}
-                  setCategories={setCategories}
-                  categoriesIndexes={categoriesIndexes}
-                  setCategoriesIndexes={setCategoriesIndexes}
-                  resultsCount={results.length}
-                  handleCategoryFilterChange={handleCategoryFilterChange}
-                  setFilter={setFilter}
-                  filter={filter}
-                />
-                <BurnRarityList
-                  data={results}
-                  isLastPage={isLastPage}
-                  perPage={perPage}
-                  offset={offset}
-                  setOffset={setOffset}
-                  setPerPage={setPerPage}
-                  setApiPage={setApiPage}
-                  setIsLastPage={setIsLastPage}
-                  categories={categories}
-                  setCategories={setCategories}
-                  categoriesIndexes={categoriesIndexes}
-                  setCategoriesIndexes={setCategoriesIndexes}
-                  setFilter={setFilter}
-                  filter={filter}
-                  loading={search.loading}
-                  results={results}
-                  apiPage={apiPage}
-                  handleCategoryFilterChange={handleCategoryFilterChange}
-                  getSelectedCards={getSelectedCards}
-                />
+      {isWalletConnected && (
+        <div className="select--nfts--container">
+          {/* {stepData.selectedItem !== 'single' ? ( */}
+          <>
+            <div className="section--header">
+              <div className="section--title--block">
+                <Button
+                  className={"button--back"}
+                  onClick={() => router.push("/burn-to-mint")}
+                >
+                  <img src={Arrow} alt="arrow" /> Burn To Mint
+                </Button>
+                <h3 className="section--title">Choose Polymorphs</h3>
+                <p className="section--hint--text">
+                  Select polymorphs you’d like to burn from your wallet. You can
+                  burn up to 20 Polymorphs at a time.
+                </p>
               </div>
-              <div className={"selected--cards--bar"}>
-                {mobile && (
-                  <p>
-                    NFTs: <b>{selectedCards.length}</b>
-                  </p>
-                )}
-                <SelectedNftsCarousel
-                  nfts={results}
-                  selectedCards={selectedCards}
-                  showArrows={showArrows}
-                />
-                <div className={"button--container"}>
-                  {!mobile && (
-                    <span>
-                      NFTs: <b>{selectedCards.length}</b>
-                    </span>
-                  )}
-                  <Button
-                    className={"light-button"}
-                    onClick={
-                      selectedCards.length > 0
-                        ? () => {
-                            router.push(
-                              selectedCards.length === 1
-                                ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
-                                : "/burn-to-mint/burn/batch"
-                            );
-                          }
-                        : null
-                    }
-                  >
-                    Burn
-                  </Button>
+            </div>
+            {results === null ? (
+              <div className={"no--polymorphs--found"}>
+                <LoadingSpinner />
+              </div>
+            ) : results.length > 0 ? (
+              <>
+                <div className="rarity--charts--page--container">
+                  <RarityFilters
+                    setSortField={setSortField}
+                    searchText={inputText}
+                    setSearchText={setInputText}
+                    setSortDir={setSortDir}
+                    sortDir={sortDir}
+                    setApiPage={setApiPage}
+                    resetPagination={resetPagination}
+                    categories={categories}
+                    setCategories={setCategories}
+                    categoriesIndexes={categoriesIndexes}
+                    setCategoriesIndexes={setCategoriesIndexes}
+                    resultsCount={results.length}
+                    handleCategoryFilterChange={handleCategoryFilterChange}
+                    setFilter={setFilter}
+                    filter={filter}
+                  />
+                  <BurnRarityList
+                    data={results}
+                    isLastPage={isLastPage}
+                    perPage={perPage}
+                    offset={offset}
+                    setOffset={setOffset}
+                    setPerPage={setPerPage}
+                    setApiPage={setApiPage}
+                    setIsLastPage={setIsLastPage}
+                    categories={categories}
+                    setCategories={setCategories}
+                    categoriesIndexes={categoriesIndexes}
+                    setCategoriesIndexes={setCategoriesIndexes}
+                    setFilter={setFilter}
+                    filter={filter}
+                    loading={search.loading}
+                    results={results}
+                    apiPage={apiPage}
+                    handleCategoryFilterChange={handleCategoryFilterChange}
+                    getSelectedCards={getSelectedCards}
+                  />
                 </div>
+                <div className={"selected--cards--bar"}>
+                  {mobile && (
+                    <p>
+                      NFTs: <b>{selectedCards.length}</b>
+                    </p>
+                  )}
+                  <SelectedNftsCarousel
+                    nfts={results}
+                    selectedCards={selectedCards}
+                    showArrows={showArrows}
+                  />
+                  <div className={"button--container"}>
+                    {!mobile && (
+                      <span>
+                        NFTs: <b>{selectedCards.length}</b>
+                      </span>
+                    )}
+                    <Button
+                      className={"light-button"}
+                      onClick={
+                        selectedCards.length > 0
+                          ? () => {
+                              router.push(
+                                selectedCards.length === 1
+                                  ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
+                                  : "/burn-to-mint/burn/batch"
+                              );
+                            }
+                          : null
+                      }
+                    >
+                      Burn
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className={"no--polymorphs--found"}>
+                <img src={BubbleIcon} alt="bubble" />
+                <p>You have no V1 Polymorphs to burn</p>
+                <Button
+                  className={"light-button"}
+                  onClick={() => router.push("/burn-to-mint")}
+                >
+                  Go Back
+                </Button>
               </div>
-            </>
-          ) : (
-            <div className={"no--polymorphs--found"}>
-              <img src={BubbleIcon} alt="bubble" />
-              <p>You have no V1 Polymorphs to burn</p>
-              <Button
-                className={"light-button"}
-                onClick={() => router.push("/burn-to-mint")}
-              >
-                Go Back
-              </Button>
-            </div>
-          )}
-        </>
-      </div>
+            )}
+          </>
+        </div>
+      )}
+      {!isWalletConnected && typeof window !== "undefined" && (
+        <div className="connect--wallet">
+          <Popup closeOnDocumentClick={false} open={!isWalletConnected}>
+            {(close) => (
+              <SelectWalletPopup
+                close={() => router.push("/burn-to-mint")}
+                handleConnectWallet={handleConnectWallet}
+                showInstallWalletPopup={showInstallWalletPopup}
+                setShowInstallWalletPopup={setShowInstallWalletPopup}
+                selectedWallet={selectedWallet}
+                setSelectedWallet={setSelectedWallet}
+              />
+            )}
+          </Popup>
+        </div>
+      )}
     </>
   );
 };
