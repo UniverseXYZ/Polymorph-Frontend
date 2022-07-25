@@ -120,7 +120,7 @@ const Header = () => {
         setShowSelectWallet(false);
       } else if (wallet === CONNECTORS_NAMES.WalletConnect) {
         await connectWithWalletConnect();
-        setIsWalletConnected(true);
+        // setIsWalletConnected(true);
         setShowMenu(false);
         setShowSelectWallet(false);
       }
