@@ -1,8 +1,6 @@
-import React, { useContext, useState } from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import useConstant from 'use-constant';
 import { useAsyncAbortable } from 'react-async-hook';
-import AppContext from '../../ContextAPI';
 import useStateIfMounted from './useStateIfMounted';
 import { usePolymorphStore } from 'src/stores/polymorphStore';
 
@@ -79,10 +77,7 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphs = ( allPolymorphs=false ) => {
-  // const userPolymorphs = allPolymorphs
-  //   ? usePolymorphStore(s => s.userPolymorphsAll)
-  //   : usePolymorphStore(s => s.userPolymorphs)
+export const useSearchPolymorphs = () => {
 
   const { userPolymorphs } = usePolymorphStore();
 
