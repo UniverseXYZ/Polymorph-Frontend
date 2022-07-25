@@ -127,9 +127,8 @@ const Header = () => {
         setShowSelectWallet(false);
       } else if (wallet === CONNECTORS_NAMES.Coinbase) {
         await connectWithCoinbase();
-        setIsWalletConnected(true)
         setShowMenu(false);
-        setShowSelectWallet(false)
+        setShowSelectWallet(false);
       }
     } else {
       setShowInstallWalletPopup(true);
