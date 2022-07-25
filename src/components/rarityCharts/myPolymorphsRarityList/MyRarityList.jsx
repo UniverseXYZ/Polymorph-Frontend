@@ -40,7 +40,8 @@ const MyRarityList = ({
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const { userPolymorphsAll } = usePolymorphStore();
+  const [activeVersion, setActiveVersion] = useState("all");
+  const { userPolymorphsAll, userPolymorphsV2 } = usePolymorphStore();
 
   const handleClearAll = () => {
     const newCategories = [...categories];
@@ -105,6 +106,8 @@ const MyRarityList = ({
           filter={filter}
           handleCategoryFilterChange={handleCategoryFilterChange}
           resultsCount={results?.length || 0}
+          activeVersion={activeVersion}
+          setActiveVersion={setActiveVersion}
         />
       ) : null}
       <div className="list--with--selected--filters">

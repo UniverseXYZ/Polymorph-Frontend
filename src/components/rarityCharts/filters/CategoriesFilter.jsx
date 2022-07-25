@@ -12,6 +12,8 @@ const CategoriesFilter = ({
   filter,
   handleCategoryFilterChange,
   resultsCount,
+  activeVersion,
+  setActiveVersion,
 }) => {
   const handleClick = useCallback(
     (idx) => {
@@ -27,6 +29,26 @@ const CategoriesFilter = ({
   return (
     <div className="categories--filters">
       <h2>Filters</h2>
+      <div className="version--filter">
+        <button
+          className={activeVersion === "all" && "active"}
+          onClick={() => setActiveVersion("all")}
+        >
+          All
+        </button>
+        <button
+          className={activeVersion === "V1" && "active"}
+          onClick={() => setActiveVersion("V1")}
+        >
+          V1
+        </button>
+        <button
+          className={activeVersion === "V2" && "active"}
+          onClick={() => setActiveVersion("V2")}
+        >
+          V2
+        </button>
+      </div>
       {categories.map((item, index) => (
         <div className="each--category" key={uuid()}>
           <div
