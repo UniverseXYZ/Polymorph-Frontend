@@ -275,6 +275,16 @@ const MobileView = (props) => {
                         <div
                           className="head"
                           aria-hidden="true"
+                          onClick={() => router.push("/polymorphic-bridge")}
+                        >
+                          <p className="title">Bridge</p>
+                          <img src={arrowRight} alt="arrow" />
+                        </div>
+                      </div>
+                      <div>
+                        <div
+                          className="head"
+                          aria-hidden="true"
                           onClick={() => router.push("/polymorph-rarity")}
                         >
                           <p className="title">Rarity Chart</p>
