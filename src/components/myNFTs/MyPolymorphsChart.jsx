@@ -14,6 +14,7 @@ const MyPolymorphsChart = ({ scrollContainer }) => {
     }));
   const [offset, setOffset] = useState(0);
   const [perPage, setPerPage] = useState(9);
+  const [activeVersion, setActiveVersion] = useState("all");
   const {
     inputText,
     setInputText,
@@ -29,9 +30,17 @@ const MyPolymorphsChart = ({ scrollContainer }) => {
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphs(true);
+    queryVersion,
+    setQueryVersion,
+  } = useSearchPolymorphs(activeVersion);
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
+
+  useEffect(() => {
+    setQueryVersion(activeVersion);
+    resetPagination();
+    setApiPage(1);
+  }, [activeVersion]);
 
   const handleCategoryFilterChange = (idx, traitIdx) => {
     const newCategories = [...categories];
@@ -116,6 +125,8 @@ const MyPolymorphsChart = ({ scrollContainer }) => {
         results={results}
         apiPage={apiPage}
         handleCategoryFilterChange={handleCategoryFilterChange}
+        activeVersion={activeVersion}
+        setActiveVersion={setActiveVersion}
       />
     </div>
   );

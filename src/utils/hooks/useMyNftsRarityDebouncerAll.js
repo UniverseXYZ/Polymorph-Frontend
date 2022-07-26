@@ -76,75 +76,132 @@ const buildRarityUrl = (
     endpoint = `${endpoint}&filter=${filterQuery}`;
   }
   if (ids.length) {
-    endpoint = `${endpoint}&ids=${ids.join(',')}`;
-  } 
-  else {
+    endpoint = `${endpoint}&ids=${ids.join(",")}`;
+  } else {
     endpoint = `${endpoint}&ids=1000000`;
   }
 
   return endpoint;
 };
 
-export const useSearchPolymorphs = () => {
+export const useSearchPolymorphs = (activeVersion) => {
+  const { userPolymorphs, userPolymorphsV2, userPolymorphsAll } =
+    usePolymorphStore();
 
-  const { userPolymorphs, userPolymorphsV2, userPolymorphsAll } = usePolymorphStore();
-
-  const perPage = userPolymorphsAll.length; 
-  const [inputText, setInputText] = useStateIfMounted('');
+  const perPage = 100;
+  const [inputText, setInputText] = useStateIfMounted("");
   const [apiPage, setApiPage] = useStateIfMounted(1);
-  const [sortField, setSortField] = useStateIfMounted('rarityscore');
-  const [sortDir, setSortDir] = useStateIfMounted('desc');
+  const [sortField, setSortField] = useStateIfMounted("rarityscore");
+  const [sortDir, setSortDir] = useStateIfMounted("desc");
   const [filter, setFilter] = useStateIfMounted([]);
   const [results, setResults] = useStateIfMounted();
   const [isLastPage, setIsLastPage] = useStateIfMounted(false);
+  const [queryVersion, setQueryVersion] = useStateIfMounted("all");
 
-  const searchPolymorphsRarity = async (endpoint, endpointV2, abortSignal) => {
-    // Query V1 Rarity
-    const result = await fetch(endpoint, {
-      signal: abortSignal,
-    });
-    if (result.status !== 200) {
-      throw new Error(`bad status = ${result.status}`);
+  const searchPolymorphsRarity = async (
+    endpoint,
+    endpointV2,
+    abortSignal,
+    query
+  ) => {
+    console.log("debounce version", query);
+
+    switch (query) {
+      case "V1":
+      // Query V1 Rarity
+      const resultV1 = await fetch(endpoint, {
+        signal: abortSignal,
+      });
+      if (resultV1.status !== 200) {
+        throw new Error(`bad status = ${resultV1.status}`);
+      }
+      const jsonV1 = await resultV1.json();
+      setResults(jsonV1);
+      return jsonV1;
+
+      case "V2":
+      // Query V2 Rarity
+      const resultV2 = await fetch(endpointV2, {
+        signal: abortSignal,
+      });
+      if (resultV2.status !== 200) {
+        throw new Error(`bad status = ${resultV2.status}`);
+      }
+      const jsonV2 = await resultV2.json();
+      setResults(jsonV2);
+      return jsonV2;
+        
+      case "all":
+      // Query V1 & V2
+      const resultQueryV1 = await fetch(endpoint, {
+        signal: abortSignal,
+      });
+      if (resultQueryV1.status !== 200) {
+        throw new Error(`bad status = ${resultQueryV1.status}`);
+      }
+      const jsonQueryV1 = await resultQueryV1.json();
+      const resultQueryV2 = await fetch(endpointV2, {
+        signal: abortSignal,
+      });
+      if (resultQueryV2.status !== 200) {
+        throw new Error(`bad status = ${resultQueryV2.status}`);
+      }
+      const jsonQueryV2 = await resultQueryV2.json();        
+      const jsonCommon = [...jsonQueryV1].concat([...jsonQueryV2]);
+      setResults(jsonCommon);
+      return jsonCommon;
     }
-    const json = await result.json();
-
-    // Query V2 Rarity
-    const resultV2 = await fetch(endpointV2, {
-      signal: abortSignal,
-    });
-    if (resultV2.status !== 200) {
-      throw new Error(`bad status = ${resultV2.status}`);
-    }
-    const jsonV2 = await resultV2.json();
-
-    const jsonCommon = [...json].concat([...jsonV2]);
-    setResults(jsonCommon);
-    return jsonCommon;
   };
 
-  const loadMorePolymorphs = async (endpoint, endpointV2, abortSignal) => {
-    // Query V1 Rarity
-    const result = await fetch(endpoint, {
-      signal: abortSignal,
-    });
-    if (result.status !== 200) {
-      throw new Error(`bad status = ${result.status}`);
-    }
-    const json = await result.json();
+  const loadMorePolymorphs = async (endpoint, endpointV2, abortSignal, query) => {
+    switch (query) {
+      case "V1":
+      // Query V1 Rarity
+      const resultV1 = await fetch(endpoint, {
+        signal: abortSignal,
+      });
+      if (resultV1.status !== 200) {
+        throw new Error(`bad status = ${resultV1.status}`);
+      }
+      const jsonV1 = await resultV1.json();
+      setResults((old) => [...old, ...jsonV1]);
+      setIsLastPage(false);
+      return jsonV1;
 
-    // Query V2 Rarity
-    const resultV2 = await fetch(endpointV2, {
-      signal: abortSignal,
-    });
-    if (resultV2.status !== 200) {
-      throw new Error(`bad status = ${resultV2.status}`);
-    }
-    const jsonV2 = await resultV2.json();
+      case "V2":
+      // Query V2 Rarity
+      const resultV2 = await fetch(endpointV2, {
+        signal: abortSignal,
+      });
+      if (resultV2.status !== 200) {
+        throw new Error(`bad status = ${resultV2.status}`);
+      }
+      const jsonV2 = await resultV2.json();
+      setResults((old) => [...old, ...jsonV2]);
+      setIsLastPage(false)
+      return jsonV2;
 
-    const jsonCommon = [...json].concat([...jsonV2]);
-    setResults((old) => [...old, ...jsonCommon]);
-    setIsLastPage(false);
-    return jsonCommon;
+      case "all":
+      // Query V1 & V2
+      const resultQueryV1 = await fetch(endpoint, {
+        signal: abortSignal,
+      });
+      if (resultQueryV1.status !== 200) {
+        throw new Error(`bad status = ${resultQueryV1.status}`);
+      }
+      const jsonQueryV1 = await resultQueryV1.json();
+      const resultQueryV2 = await fetch(endpointV2, {
+        signal: abortSignal,
+      });
+      if (resultQueryV2.status !== 200) {
+        throw new Error(`bad status = ${resultQueryV2.status}`);
+      }
+      const jsonQueryV2 = await resultQueryV2.json();        
+      const jsonCommon = [...jsonQueryV1].concat([...jsonQueryV2]);
+      setResults((old) => [...old, ...jsonCommon]);
+      setIsLastPage(false)
+      return jsonCommon;
+    }
   };
 
   // Debounce the original search async function
@@ -184,13 +241,25 @@ export const useSearchPolymorphs = () => {
       );
 
       if (apiPage === 1) {
-        return debouncedSearchPolymorphsRarity(endpoint, endpointV2, abortSignal);
-        // return debouncedSearchPolymorphsRarity(endpoint, abortSignal);
+        return debouncedSearchPolymorphsRarity(
+          endpoint,
+          endpointV2,
+          abortSignal,
+          queryVersion
+        );
       }
-      return debouncedLoadMorePolymorphs(endpoint, endpointV2, abortSignal);
+      return debouncedLoadMorePolymorphs(endpoint, endpointV2, abortSignal, queryVersion);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter, userPolymorphs]
+    [
+      inputText,
+      apiPage,
+      sortField,
+      sortDir,
+      filter,
+      userPolymorphs,
+      queryVersion,
+    ]
   );
 
   // Return everything needed for the hook consumer
@@ -209,5 +278,7 @@ export const useSearchPolymorphs = () => {
     results,
     isLastPage,
     setIsLastPage,
+    queryVersion,
+    setQueryVersion,
   };
 };

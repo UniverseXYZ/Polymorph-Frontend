@@ -35,12 +35,13 @@ const MyRarityList = ({
   results,
   apiPage,
   handleCategoryFilterChange,
+  activeVersion,
+  setActiveVersion,
 }) => {
   const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [activeVersion, setActiveVersion] = useState("all");
   const { userPolymorphsAll, userPolymorphsV2 } = usePolymorphStore();
 
   const handleClearAll = () => {
