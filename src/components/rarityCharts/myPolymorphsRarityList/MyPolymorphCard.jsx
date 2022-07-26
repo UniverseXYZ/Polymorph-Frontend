@@ -14,6 +14,7 @@ import PolymorphScramblePopup from "@legacy/popups/PolymorphScramblePopup.jsx";
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
+import bridgeIcon from "../../../assets/images/bridge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -160,6 +161,12 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
               <button onClick={handleBurnToMintClick}>
                 <img src={BurnIconSvg} alt="burn-icon" />
                 Burn to Mint
+              </button>
+            )}
+            {isV2 && (
+              <button onClick={() => router.push("/polymorphic-bridge")}>
+                <img src={bridgeIcon} alt="bridge" />
+                Bridge NFT
               </button>
             )}
             {isV2 && (
