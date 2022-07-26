@@ -1,8 +1,6 @@
-import React, { useContext, useState } from 'react';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import useConstant from 'use-constant';
 import { useAsyncAbortable } from 'react-async-hook';
-import AppContext from '../../ContextAPI';
 import useStateIfMounted from './useStateIfMounted';
 import { usePolymorphStore } from 'src/stores/polymorphStore';
 
@@ -80,12 +78,11 @@ const buildRarityUrl = (
   } else {
     endpoint = `${endpoint}&ids=1000000`;
   }
-
   return endpoint;
 };
 
-export const useSearchPolymorphs = (activeVersion) => {
-  const { userPolymorphs, userPolymorphsV2, userPolymorphsAll } =
+export const useSearchPolymorphs = () => {
+  const { userPolymorphs, userPolymorphsV2 } =
     usePolymorphStore();
 
   const perPage = 100;
@@ -104,7 +101,6 @@ export const useSearchPolymorphs = (activeVersion) => {
     abortSignal,
     query
   ) => {
-    console.log("debounce version", query);
 
     switch (query) {
       case "V1":

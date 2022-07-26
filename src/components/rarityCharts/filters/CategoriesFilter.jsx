@@ -32,19 +32,19 @@ const CategoriesFilter = ({
       {activeVersion && (
         <div className="version--filter">
           <button
-            className={activeVersion === "all" && "active"}
+            className={activeVersion === "all" ? "active" : ""}
             onClick={() => setActiveVersion("all")}
           >
             All
           </button>
           <button
-            className={activeVersion === "V1" && "active"}
+            className={activeVersion === "V1" ? "active" : ""}
             onClick={() => setActiveVersion("V1")}
           >
             V1
           </button>
           <button
-            className={activeVersion === "V2" && "active"}
+            className={activeVersion === "V2" ? "active" : ""}
             onClick={() => setActiveVersion("V2")}
           >
             V2
