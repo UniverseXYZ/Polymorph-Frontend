@@ -7,6 +7,7 @@ import uuid from "react-uuid";
 import { mapUserData } from "../utils/helpers";
 import { useContractsStore } from "./contractsStore";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 import { useErrorStore } from "./errorStore";
 import { subscribeWithSelector } from "zustand/middleware";
 import { usePolymorphStore } from "src/stores/polymorphStore";
@@ -30,6 +31,7 @@ type IDefaultAuthStoreGeters = {
 type IAuthStore = IDefaultAuthStoreGeters & {
   // Authentication functions
   connectWithMetaMask: () => Promise<void>;
+  connectWithCoinbase: () => Promise<void>;
   connectWithWalletConnect: () => Promise<void>;
   web3AuthenticationProccess: (
     provider: providers.Web3Provider,
@@ -181,6 +183,61 @@ export const useAuthStore = create<
         console.error(err);
       }
     },
+    connectWithCoinbase: async () => {
+      try {
+        const coinbaseWallet = new CoinbaseWalletSDK({
+          appName: "Polymorphs",
+          appLogoUrl: "https://polymorphs.universe.xyz/favicon.ico",
+          darkMode: false,
+        });
+
+        const chainID = Number(process.env.REACT_APP_NETWORK_CHAIN_ID);
+        const rpcUrl =
+          chainID == 1
+            ? "https://mainnet.infura.io/v3/1745e014e2ed4047acdaa135e869a11b"
+            : "https://rinkeby.infura.io/v3/1745e014e2ed4047acdaa135e869a11b";
+        const provider = coinbaseWallet.makeWeb3Provider(rpcUrl, chainID);
+
+        const web3ProviderWrapper = new providers.Web3Provider(
+          <any>provider,
+          "any"
+        );
+        await web3ProviderWrapper.send("eth_requestAccounts", []);
+
+        const network = await web3ProviderWrapper.getNetwork();
+        const accounts = await web3ProviderWrapper.listAccounts();
+
+        if (
+          network.chainId !== Number(process.env.REACT_APP_NETWORK_CHAIN_ID)
+        ) {
+          await provider.disconnect();
+          set((state) => ({
+            ...state,
+            showWrongNetworkPopup: true,
+            isSigning: false,
+            isAuthenticating: false,
+          }));
+        } else {
+          get().web3AuthenticationProccess(
+            web3ProviderWrapper,
+            network,
+            accounts
+          );
+        }
+
+        set((state) => ({
+          ...state,
+          providerName: CONNECTORS_NAMES.Coinbase,
+        }));
+
+        Cookies.set("providerName", CONNECTORS_NAMES.Coinbase);
+
+        get().removeListeners();
+        get().setListeners();
+      } catch (err) {
+        console.error(err);
+      }
+    },
     web3AuthenticationProccess: async (provider, network, accounts) => {
       const balance = await provider.getBalance(accounts[0]);
       const ensDomain = await provider.lookupAddress(accounts[0]);
@@ -239,6 +296,10 @@ export const useAuthStore = create<
 
       if (get().providerName === CONNECTORS_NAMES.WalletConnect) {
         await get().connectWithWalletConnect();
+      }
+
+      if (get().providerName === CONNECTORS_NAMES.Coinbase) {
+        await get().connectWithCoinbase();
       }
     },
     signOut: () => {
