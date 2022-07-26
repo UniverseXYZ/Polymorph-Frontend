@@ -11,6 +11,7 @@ import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
+import bridgeIcon from "../../../assets/images/bridge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -107,6 +108,12 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
           <span></span>
           {showDropdown && (
             <ul>
+              {!isV1 && (
+                <li onClick={() => router.push("/polymorphic-bridge")}>
+                  <img src={bridgeIcon} alt="View on Marketplace" />
+                  Bridge
+                </li>
+              )}
               <li
                 onClick={(event) => {
                   event.stopPropagation();
