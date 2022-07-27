@@ -1,0 +1,51 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/_mixins";
+
+.bridge--container {
+  background-image: url("../../assets/images/minting_page_bg.jpg");
+  min-height: 100vh;
+  position: relative;
+
+  .header--background--container {
+    position: absolute;
+    width: 100%;
+    height: 200px;
+    top: 0px;
+    left: 0;
+  }
+
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 60px 0;
+    max-width: 1110px;
+    width: 100%;
+    flex-wrap: wrap;
+    position: relative;
+    color: $black;
+
+    h1.title {
+      font-family: $sharpGroteskSemiBoldFont;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      background: black;
+      -webkit-background-clip: text;
+      text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+    }
+
+    @include xl {
+      padding: 60px 0;
+    }
+    @include sm {
+      flex-wrap: wrap;
+      margin-bottom: 0px;
+      padding: 40px 20px 0;
+    }
+  }
+  @include xl {
+    padding: 60px 20px;
+  }
+}

@@ -1,9 +1,2 @@
-
-
-const PolymorphicBridge = () => {
-    return (
-        <div>Bridge Incoming</div>
-    )
-}
-
+import  PolymorphicBridge  from '../../src/containers/bridge/PolymorphicBridge';
 export default PolymorphicBridge;

@@ -1,0 +1,25 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/_mixins";
+
+.bridge--nfts--container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .bridge--components {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    grid-gap: 30px;
+    max-width: 1110px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    @include xl {
+      grid-template-columns: 1fr;
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+    @include md {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+}

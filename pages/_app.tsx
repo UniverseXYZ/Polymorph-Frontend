@@ -80,6 +80,11 @@ import '../src/components/SelectNFTs/SelectNfts.scss'
 import '../src/components/SelectNFTs/BurnRarityList.scss'
 import '../src/components/SelectNFTs/SelectedNftsCarousel.scss'
 
+import '../src/containers/bridge/PolymorphicBridge.scss'
+import '../src/components/bridge/PolymorphsBridgeList.scss'
+import '../src/components/bridge/SelectPolymorphsToBridge.scss'
+import '../src/components/bridge/BridgeInteraction.scss'
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
