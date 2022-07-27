@@ -12,6 +12,7 @@ import PolymorphicFaceScramblePopup from "@legacy/popups/PolymorphicFaceScramble
 import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
+import bridgeIcon from "../../../assets/images/bridge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -114,6 +115,10 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
             <button onClick={handleScrambleClick}>
               <img src={ScrambleIconSvg} alt="link-icon" />
               Scramble
+            </button>
+            <button onClick={() => router.push("/polymorphic-bridge")}>
+              <img src={bridgeIcon} alt="bridge" />
+              Bridge NFT
             </button>
             <button
               onClick={(event) => {

@@ -319,6 +319,18 @@ const TabletView = (props) => {
                     className="title"
                     onClick={() => {
                       setShowMenu(false);
+                      router.push("/polymorphic-bridge");
+                    }}
+                  >
+                    Bridge
+                  </p>
+                  <img src={arrowRight} alt="arrow" />
+                </div>
+                <div className="menu__row">
+                  <p
+                    className="title"
+                    onClick={() => {
+                      setShowMenu(false);
                       router.push("/polymorph-rarity");
                     }}
                   >

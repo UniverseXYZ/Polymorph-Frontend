@@ -76,6 +76,15 @@ const DesktopView = ({
           <button
             type="button"
             className="menu-li"
+            onClick={() => router.push("/polymorphic-bridge")}
+          >
+            <span className="nav__link__title">Bridge</span>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="menu-li"
             onClick={() => router.push("/polymorph-rarity")}
           >
             <span className="nav__link__title">Rarity Chart</span>
