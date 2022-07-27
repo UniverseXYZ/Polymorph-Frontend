@@ -16,6 +16,8 @@ const RarityChartFiltersPopup = ({
   handleCategoryFilterChange,
   setFilter,
   filter,
+  activeVersion,
+  setActiveVersion,
 }) => {
   const [showClearALL, setShowClearALL] = useState(false);
 
@@ -108,17 +110,45 @@ const RarityChartFiltersPopup = ({
             </>
           ))}
           {showClearALL && (
-            <button type="button" className="clear--all" onClick={() => handleClearAll()}>
+            <button
+              type="button"
+              className="clear--all"
+              onClick={() => handleClearAll()}
+            >
               Clear all
             </button>
           )}
         </div>
         <div className="categories--filters">
           <h2>Categories</h2>
+          {activeVersion && (
+            <div className="version--filter">
+              <button
+                className={activeVersion === "all" ? "active" : ""}
+                onClick={() => setActiveVersion("all")}
+              >
+                All
+              </button>
+              <button
+                className={activeVersion === "V1" ? "active" : ""}
+                onClick={() => setActiveVersion("V1")}
+              >
+                V1
+              </button>
+              <button
+                className={activeVersion === "V2" ? "active" : ""}
+                onClick={() => setActiveVersion("V2")}
+              >
+                V2
+              </button>
+            </div>
+          )}
           {categories.map((item, index) => (
             <div className="each--category" key={item.id}>
               <div
-                className={`dropdown ${categoriesIndexes.includes(index) ? 'open' : ''}`}
+                className={`dropdown ${
+                  categoriesIndexes.includes(index) ? "open" : ""
+                }`}
                 aria-hidden="true"
                 onClick={() => handleClick(index)}
               >
