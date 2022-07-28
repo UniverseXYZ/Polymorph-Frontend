@@ -31,6 +31,8 @@ const RarityFilters = (props) => {
     CollectionFilter,
     loading,
     usedOnPage,
+    activeVersion,
+    setActiveVersion,
   } = props;
 
   const [selectedFiltersLength, setSelectedFiltersLength] = useState(0);
@@ -127,6 +129,8 @@ const RarityFilters = (props) => {
                     handleCategoryFilterChange={handleCategoryFilterChange}
                     setFilter={setFilter}
                     filter={filter}
+                    activeVersion={activeVersion}
+                    setActiveVersion={setActiveVersion}
                   />
                 )}
               </Popup>

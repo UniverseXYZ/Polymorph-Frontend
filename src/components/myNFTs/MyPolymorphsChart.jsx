@@ -105,6 +105,8 @@ const MyPolymorphsChart = ({ scrollContainer }) => {
         filter={filter}
         loading={search.loading}
         usedOnPage={"My-polymorphs"}
+        activeVersion={activeVersion}
+        setActiveVersion={setActiveVersion}
       />
       <MyRarityList
         data={results}
