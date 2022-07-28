@@ -3,19 +3,22 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import BridgePolymorphCard from "./BridgePolymorphCard";
 import closeIcon from "../../assets/images/close-menu.svg";
-// import { renderLoaders } from '../../../containers/rarityCharts/renderLoaders';
-// import CategoriesFilter from "../rarityCharts/filters/CategoriesFilter";
 import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader";
-// import RarityPagination from "../rarityCharts/list/RarityPagination";
 import { Button } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroller";
 import Image from "next/image";
 import ethIcon from "../../assets/images/eth--icon--blue.png";
 import arrowUp from "../../assets/images/arrow-down.svg";
 import searchIcon from "../../assets/images/search--icon.png";
+import polygonIcon from "../../assets/images/polygon--icon.png";
+import RaritySearchField from "../input/RaritySearchField";
+import crossIcon from "../../assets/images/cross-icon.png";
 
 const List = ({
   data,
+  searchText,
+  setSearchText,
+  resetPagination,
   perPage,
   offset,
   isLastPage,
@@ -34,39 +37,15 @@ const List = ({
   apiPage,
   handleCategoryFilterChange,
   getSelectedCards,
+  selectedNetwork,
+  setSelectedNetwork,
 }) => {
-  const sliceData = data.slice(offset, offset + perPage) || [];
+  const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
   const [showClearALL, setShowClearALL] = useState(false);
   const [selectedCards, setSelectedCards] = useState([]);
-
-  //   const handleClearAll = () => {
-  //     const newCategories = [...categories];
-  //     newCategories.forEach((item) => {
-  //       item.traits.forEach((trait) => {
-  //         trait.checked = false;
-  //       });
-  //     });
-  //     setCategories(newCategories);
-  //     setFilter([]);
-  //   };
-
-  //   const removeSelectedFilter = (idx, traitIdx) => {
-  //     const newCategories = [...categories];
-  //     const attribute = newCategories[idx];
-  //     const trait = attribute.traits[traitIdx];
-  //     attribute.traits[traitIdx].checked = false;
-  //     let newFilter = [];
-  //     if (attribute.value === "righthand" || attribute.value === "lefthand") {
-  //       newFilter = filter.filter(
-  //         (f) => !(f[0] === attribute.value && f[1] === trait.name)
-  //       );
-  //     } else {
-  //       newFilter = filter.filter((f) => f[1] !== trait.name);
-  //     }
-  //     setCategories(newCategories);
-  //     setFilter(newFilter);
-  //   };
+  const [dropdownOpened, setDropdownOpened] = useState(false);
+  const [showSearchInput, setShowSearchInput] = useState(false);
 
   const removeSelectedCardById = (tokenId) => {
     const newSelectedCards = selectedCards.filter(
@@ -96,76 +75,82 @@ const List = ({
     }
   }, [categories]);
 
+  useEffect(() => {
+    setSelectedCards([]);
+  }, [selectedNetwork]);
+
   return (
     <>
       <div className="bridge--list">
-        {/* <CategoriesFilter
-          categories={categories}
-          setCategories={setCategories}
-          categoriesIndexes={categoriesIndexes}
-          setCategoriesIndexes={setCategoriesIndexes}
-          setFilter={setFilter}
-          filter={filter}
-          handleCategoryFilterChange={handleCategoryFilterChange}
-          resultsCount={results?.length || 0}
-        />  */}
-
         <div className="list">
           <div className="network--and--search--wrapper">
             <div className="network--select">
               <div>From Network</div>
-              <button>
-                <Image src={ethIcon} width={24} height={24} />
-                Ethereum
-                <Image src={arrowUp} width={10} height={10} />
+              <button onClick={() => setDropdownOpened(!dropdownOpened)}>
+                {selectedNetwork === "ethereum" && (
+                  <>
+                    <Image src={ethIcon} width={24} height={24} />
+                    Ethereum
+                    <Image src={arrowUp} width={10} height={10} />
+                  </>
+                )}
+                {selectedNetwork === "polygon" && (
+                  <>
+                    <Image src={polygonIcon} width={24} height={24} />
+                    Polygon
+                    <Image src={arrowUp} width={10} height={10} />
+                  </>
+                )}
               </button>
+              {dropdownOpened && (
+                <div className="network--dropdown">
+                  <button
+                    onClick={() => {
+                      setSelectedNetwork("ethereum");
+                      setDropdownOpened(false);
+                    }}
+                  >
+                    <Image src={ethIcon} width={24} height={24} />
+                    Ethereum
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedNetwork("polygon");
+                      setDropdownOpened(false);
+                    }}
+                  >
+                    <Image src={polygonIcon} width={24} height={24} />
+                    Polygon
+                  </button>
+                </div>
+              )}
             </div>
             <div className="search">
-              <button>
-                <Image src={searchIcon} width={40} height={40} />
+              <div
+                className={`search--field--wrapper ${
+                  showSearchInput ? "search--field--wrapper--expand" : ""
+                }`}
+              >
+                <RaritySearchField
+                  placeholder="Search items"
+                  searchText={searchText}
+                  setSearchText={setSearchText}
+                  setApiPage={setApiPage}
+                  resetPagination={resetPagination}
+                />
+              </div>
+              <button onClick={() => setShowSearchInput(!showSearchInput)}>
+                <Image
+                  src={showSearchInput ? crossIcon : searchIcon}
+                  width={40}
+                  height={40}
+                />
               </button>
             </div>
           </div>
-          {/* <div className="selected--filters">
-          {showClearALL && (
-            <div className="result">{results.length} results</div>
-          )}
-          {categories.map((item, index) => (
-            <React.Fragment key={item.id}>
-              {item.traits.map(
-                (trait, idx) =>
-                  trait.checked && (
-                    <button
-                      type="button"
-                      className="light-border-button"
-                      key={trait.name}
-                    >
-                      {trait.name}
-                      <img
-                        className="close"
-                        src={closeIcon}
-                        alt="Close"
-                        aria-hidden="true"
-                        onClick={() => removeSelectedFilter(index, idx)}
-                      />
-                    </button>
-                  )
-              )}
-            </React.Fragment>
-          ))}
-          {showClearALL && (
-            <button
-              type="button"
-              className="clear--all"
-              onClick={() => handleClearAll()}
-            >
-              Clear all
-            </button>
-          )}
-        </div> */}
           {loading && !isLastPage ? (
             <div className="bridge--grid">
-              <RarityChartsLoader number={8} />
+              <RarityChartsLoader number={9} />
             </div>
           ) : results.length ? (
             <InfiniteScroll
@@ -173,6 +158,7 @@ const List = ({
               loadMore={() => setPerPage(perPage + 8)}
               hasMore={data.length >= perPage ? true : false}
               loader={<div key={0}>Loading ...</div>}
+              useWindow={false}
             >
               <div className="bridge--grid">
                 {sliceData.map((item, i) => (

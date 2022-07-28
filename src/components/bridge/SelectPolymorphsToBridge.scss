@@ -8,6 +8,7 @@
   .bridge--components {
     display: grid;
     grid-template-columns: 1fr 350px;
+    align-items: flex-start;
     grid-gap: 30px;
     max-width: 1110px;
     margin: 0 auto;

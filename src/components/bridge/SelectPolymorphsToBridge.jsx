@@ -69,6 +69,7 @@ const SelectPolymorphsToBridge = () => {
       ? true
       : false
   );
+  const [selectedNetwork, setSelectedNetwork] = useState("ethereum");
 
   const [mobile, setMobile] = useState(false);
   const windowSize = useWindowSize();
@@ -162,51 +163,35 @@ const SelectPolymorphsToBridge = () => {
       />
       {isWalletConnected && (
         <div className="bridge--nfts--container">
-          <>
-            {results === null ? (
-              <div className={"no--polymorphs--found"}>
-                <LoadingSpinner />
-              </div>
-            ) : results.length > 0 ? (
-              <>
-                <div className="bridge--components">
-                  <PolymorphsBridgeList
-                    data={results}
-                    isLastPage={isLastPage}
-                    perPage={perPage}
-                    offset={offset}
-                    setOffset={setOffset}
-                    setPerPage={setPerPage}
-                    setApiPage={setApiPage}
-                    setIsLastPage={setIsLastPage}
-                    categories={categories}
-                    setCategories={setCategories}
-                    categoriesIndexes={categoriesIndexes}
-                    setCategoriesIndexes={setCategoriesIndexes}
-                    setFilter={setFilter}
-                    filter={filter}
-                    loading={search.loading}
-                    results={results}
-                    apiPage={apiPage}
-                    handleCategoryFilterChange={handleCategoryFilterChange}
-                    getSelectedCards={getSelectedCards}
-                  />
-                  <BridgeInteraction />
-                </div>
-              </>
-            ) : (
-              <div className={"no--polymorphs--found"}>
-                <img src={BubbleIcon} alt="bubble" />
-                <p>You have no V1 Polymorphs to burn</p>
-                <Button
-                  className={"light-button"}
-                  onClick={() => router.push("/burn-to-mint")}
-                >
-                  Go Back
-                </Button>
-              </div>
-            )}
-          </>
+          <div className="bridge--components">
+            <PolymorphsBridgeList
+              data={results}
+              searchText={inputText}
+              setSearchText={setInputText}
+              resetPagination={resetPagination}
+              isLastPage={isLastPage}
+              perPage={perPage}
+              offset={offset}
+              setOffset={setOffset}
+              setPerPage={setPerPage}
+              setApiPage={setApiPage}
+              setIsLastPage={setIsLastPage}
+              categories={categories}
+              setCategories={setCategories}
+              categoriesIndexes={categoriesIndexes}
+              setCategoriesIndexes={setCategoriesIndexes}
+              setFilter={setFilter}
+              filter={filter}
+              loading={search.loading}
+              results={results}
+              apiPage={apiPage}
+              handleCategoryFilterChange={handleCategoryFilterChange}
+              getSelectedCards={getSelectedCards}
+              selectedNetwork={selectedNetwork}
+              setSelectedNetwork={setSelectedNetwork}
+            />
+            <BridgeInteraction selectedNetwork={selectedNetwork} />
+          </div>
         </div>
       )}
       {!isWalletConnected && typeof window !== "undefined" && (

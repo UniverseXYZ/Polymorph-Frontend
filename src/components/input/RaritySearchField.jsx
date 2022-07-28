@@ -1,13 +1,19 @@
-import React, { useState, useRef, useContext } from 'react';
-import PropTypes from 'prop-types';
-import searchIcon from '../../assets/images/search-gray.svg';
-import closeIcon from '../../assets/images/close-menu.svg';
-import AppContext from '../../ContextAPI';
+import React, { useState, useRef, useContext } from "react";
+import PropTypes from "prop-types";
+import searchIcon from "../../assets/images/search-gray.svg";
+import closeIcon from "../../assets/images/close-menu.svg";
+import AppContext from "../../ContextAPI";
 // import './SearchField.scss';
 
 const SearchField = (props) => {
-  const { searchText, setSearchText, setApiPage, resetPagination, ...resProps } = props;
-  const [focusField, setFocusField] = useState('');
+  const {
+    searchText,
+    setSearchText,
+    setApiPage,
+    resetPagination,
+    ...resProps
+  } = props;
+  const [focusField, setFocusField] = useState("");
   const searchRef = useRef();
 
   const handleInputChange = (e) => {
@@ -27,8 +33,8 @@ const SearchField = (props) => {
         ref={searchRef}
         onChange={handleInputChange}
         value={searchText}
-        onFocus={() => setFocusField('focus--field')}
-        onBlur={() => setFocusField('')}
+        onFocus={() => setFocusField("focus--field")}
+        onBlur={() => setFocusField("")}
         {...resProps}
       />
       <div className="focus--field--box--shadow" />
@@ -38,7 +44,7 @@ const SearchField = (props) => {
             className="close"
             src={closeIcon}
             alt="Close"
-            onClick={() => setSearchText('')}
+            onClick={() => setSearchText("")}
             aria-hidden="true"
           />
         </>
@@ -55,7 +61,7 @@ SearchField.propTypes = {
 };
 
 SearchField.defaultProps = {
-  searchText: '',
+  searchText: "",
   setSearchText: () => {},
   setApiPage: () => {},
 };
