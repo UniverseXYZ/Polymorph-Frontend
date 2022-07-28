@@ -22,6 +22,7 @@ type IPolymorphStore = {
   userSelectedPolymorphsToBurn: [];
   userPolymorphicFaces: [];
   userPolymorphicFacesClaimed: [];
+  userSelectedNFTsToBridge: [];
 
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void;
@@ -30,6 +31,7 @@ type IPolymorphStore = {
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
   setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
+  setUserSelectedNFTsToBridge: (setUserSelectedNFTsToBridge: []) => void;
 
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
@@ -46,6 +48,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphsAll: [],
     userPolymorphicFaces: [],
     userPolymorphicFacesClaimed: [],
+    userSelectedNFTsToBridge: [],
 
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
@@ -81,6 +84,13 @@ export const usePolymorphStore = create<IPolymorphStore>(
       set((state) => ({
         ...state,
         userPolymorphicFacesClaimed,
+      }));
+    },
+
+    setUserSelectedNFTsToBridge: (userSelectedNFTsToBridge) => {
+      set((state) => ({
+        ...state,
+        userSelectedNFTsToBridge,
       }));
     },
 

@@ -22,7 +22,7 @@ import { CONNECTORS_NAMES } from "@legacy/dictionary";
 import BridgeInteraction from "./BridgeInteraction";
 
 const SelectPolymorphsToBridge = () => {
-  const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
+  const { setUserSelectedNFTsToBridge } = usePolymorphStore();
   const router = useRouter();
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
 
@@ -127,7 +127,7 @@ const SelectPolymorphsToBridge = () => {
 
   const getSelectedCards = ([cards]) => {
     setSelectedCards(cards);
-    setUserSelectedPolymorphsToBurn(cards);
+    setUserSelectedNFTsToBridge(cards);
   };
 
   useEffect(() => {
