@@ -60,7 +60,7 @@ const SelectPolymorphsToBridge = () => {
       ? true
       : false
   );
-  const [selectedNetwork, setSelectedNetwork] = useState("ethereum");
+  const [selectedNetwork, setSelectedNetwork] = useState("Ethereum");
 
   const handleConnectWallet = async (wallet) => {
     // Here need to check if selected wallet is installed in browser

@@ -407,7 +407,27 @@
       }
     }
     .bridge--no--nfts--found {
-      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Space Grotesk";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.4);
+      min-height: 50vh;
+      .info {
+        margin-top: 4px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      button {
+        margin: 16px 0;
+      }
     }
   }
   @include lg {

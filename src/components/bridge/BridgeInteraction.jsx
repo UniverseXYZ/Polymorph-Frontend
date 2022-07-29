@@ -17,13 +17,13 @@ const BridgeInteraction = ({ selectedNetwork }) => {
       <div className="header">
         <div>To Network</div>
         <div className="network">
-          {selectedNetwork === "ethereum" && (
+          {selectedNetwork === "Ethereum" && (
             <>
               <Image src={polygonIcon} width={24} height={24} />
               <div>Polygon</div>
             </>
           )}
-          {selectedNetwork === "polygon" && (
+          {selectedNetwork === "Polygon" && (
             <>
               <Image src={ethereumIcon} width={24} height={24} />
               <div>Ethereum</div>

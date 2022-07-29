@@ -13,6 +13,9 @@ import searchIcon from "../../assets/images/search--icon.png";
 import polygonIcon from "../../assets/images/polygon--icon.png";
 import RaritySearchField from "../input/RaritySearchField";
 import crossIcon from "../../assets/images/cross-icon.png";
+import noNftsFound from "../../assets/images/bridge/no-nfts-found.png";
+
+const marketplaceLink = "https://universe.xyz/marketplace";
 
 const List = ({
   data,
@@ -86,14 +89,14 @@ const List = ({
             <div className="network--select">
               <div>From Network</div>
               <button onClick={() => setDropdownOpened(!dropdownOpened)}>
-                {selectedNetwork === "ethereum" && (
+                {selectedNetwork === "Ethereum" && (
                   <>
                     <Image src={ethIcon} width={24} height={24} />
                     Ethereum
                     <Image src={arrowUp} width={10} height={10} />
                   </>
                 )}
-                {selectedNetwork === "polygon" && (
+                {selectedNetwork === "Polygon" && (
                   <>
                     <Image src={polygonIcon} width={24} height={24} />
                     Polygon
@@ -105,7 +108,7 @@ const List = ({
                 <div className="network--dropdown">
                   <button
                     onClick={() => {
-                      setSelectedNetwork("ethereum");
+                      setSelectedNetwork("Ethereum");
                       setDropdownOpened(false);
                     }}
                   >
@@ -114,7 +117,7 @@ const List = ({
                   </button>
                   <button
                     onClick={() => {
-                      setSelectedNetwork("polygon");
+                      setSelectedNetwork("Polygon");
                       setDropdownOpened(false);
                     }}
                   >
@@ -191,7 +194,14 @@ const List = ({
             </InfiniteScroll>
           ) : (
             <div className="bridge--no--nfts--found">
-              <p>No Polymorph could be found :’(</p>
+              <Image src={noNftsFound} width={80} height={80} />
+              <p>{"No Polymorphs found"}</p>
+              <p className="info">
+                You don’t have Polymorphs on [{selectedNetwork}] blockchain
+              </p>
+              <Button onClick={() => window.open(marketplaceLink)}>
+                Buy Items
+              </Button>
             </div>
           )}
         </div>
