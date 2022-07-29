@@ -41,6 +41,7 @@ const List = ({
   getSelectedCards,
   selectedNetwork,
   setSelectedNetwork,
+  queryNft,
 }) => {
   const sliceData = data?.slice(offset, offset + perPage) || [];
   const emptySlots = perPage - sliceData.length || 4;
@@ -141,7 +142,12 @@ const List = ({
                   resetPagination={resetPagination}
                 />
               </div>
-              <button onClick={() => setShowSearchInput(!showSearchInput)}>
+              <button
+                onClick={() => {
+                  setShowSearchInput(!showSearchInput);
+                  setSearchText("");
+                }}
+              >
                 <Image
                   src={showSearchInput ? crossIcon : searchIcon}
                   width={40}
@@ -183,6 +189,7 @@ const List = ({
                           ])
                         : null
                     }
+                    nft={queryNft}
                   />
                 ))}
                 {isLastPage ? (

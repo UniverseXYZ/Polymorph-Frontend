@@ -13,7 +13,7 @@ const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 const PolymorphV1Contract = process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS;
 
-const PolymorphCard = ({ item, selected, setSelected }) => {
+const PolymorphCard = ({ item, selected, setSelected, nft }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,15 +28,23 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
     renderLoaderWithData(item)
   ) : (
     <div
-      className={`card ${selected ? "selected" : ""}`}
+      className={`card ${selected ? "selected" : ""} ${
+        nft === "polymorphic-faces" ? "card--faces" : ""
+      }`}
       onClick={() => setSelected(item.tokenid)}
       aria-hidden="true"
     >
-      <div className="card--header">
-        <div className="card--number">{`#${item.rank}`}</div>
-        <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
-      </div>
-      <div className="card--body">
+      {nft === "polymorphs" && (
+        <div className="card--header">
+          <div className="card--number">{`#${item.rank}`}</div>
+          <div className="card--price">{`Rarity Score: ${item.rarityscore}`}</div>
+        </div>
+      )}
+      <div
+        className={`card--body ${
+          nft === "polymorphic-faces" ? "card--faces--body" : ""
+        }`}
+      >
         <Image
           onError={fetchMetadata}
           className="rarity--chart"
@@ -47,13 +55,19 @@ const PolymorphCard = ({ item, selected, setSelected }) => {
           height={500}
         ></Image>
       </div>
-      <div className="card--footer">
+      <div
+        className={`card--footer ${
+          nft === "polymorphic-faces" ? "card--faces--footer" : ""
+        }`}
+      >
         <div className="card--footer--top">
-          <h2>{item.character}</h2>
+          <h2>{nft === "polymorphs" ? item.character : item.name}</h2>
         </div>
         <div className="card--footer--bottom">
           <div className={"badge--container"}>
-            <span className={`badge--version--v2`}>V2</span>
+            {nft === "polymorphs" && (
+              <span className={`badge--version--v2`}>V2</span>
+            )}
             <span>{`ID: ${item.tokenid}`}</span>
           </div>
           <button

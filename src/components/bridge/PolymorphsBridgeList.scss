@@ -399,6 +399,21 @@
           right: -10px;
         }
       }
+      .card--faces {
+        &--body {
+          position: relative;
+          img {
+            border-radius: 12px 12px 0 0 !important;
+          }
+        }
+        .faces--dropdown {
+          bottom: -75px;
+        }
+        &--footer {
+          min-height: unset;
+        }
+      }
+
       @include xl {
         grid-template-columns: repeat(2, 1fr);
       }

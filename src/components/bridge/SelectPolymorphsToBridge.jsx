@@ -11,8 +11,9 @@ import Popup from "reactjs-popup";
 import SelectWalletPopup from "@legacy/popups/SelectWalletPopup";
 import { CONNECTORS_NAMES } from "@legacy/dictionary";
 import BridgeInteraction from "./BridgeInteraction";
+import { useSearchPolymorphicFaces } from "@legacy/hooks/useMyFacesRarityDebouncer";
 
-const SelectPolymorphsToBridge = () => {
+const SelectPolymorphsToBridge = ({ queryNft }) => {
   const { setUserSelectedNFTsToBridge } = usePolymorphStore();
   const router = useRouter();
   const setDarkMode = useThemeStore((s) => s.setDarkMode);
@@ -44,7 +45,10 @@ const SelectPolymorphsToBridge = () => {
     results,
     isLastPage,
     setIsLastPage,
-  } = useSearchPolymorphsV2();
+  } =
+    queryNft === "polymorphs"
+      ? useSearchPolymorphsV2()
+      : useSearchPolymorphicFaces();
 
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
@@ -144,6 +148,7 @@ const SelectPolymorphsToBridge = () => {
               getSelectedCards={getSelectedCards}
               selectedNetwork={selectedNetwork}
               setSelectedNetwork={setSelectedNetwork}
+              queryNft={queryNft}
             />
             <BridgeInteraction selectedNetwork={selectedNetwork} />
           </div>

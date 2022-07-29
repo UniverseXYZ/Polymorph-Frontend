@@ -20,11 +20,9 @@ const PolymorphicBridge = () => {
         description={`Scramble your V2 polymorphs with low transaction fees on Polygon.`}
         image={OpenGraphImage}
       />
-
       <div className="bridge--container--header">
         <h1 className="title">Polymorphic Bridge</h1>
       </div>
-
       <div className="header--background--container">
         <Image
           className="bridge__page__gradient"
@@ -32,11 +30,13 @@ const PolymorphicBridge = () => {
           layout="fill"
         />
       </div>
-
       <TabsContainer />
 
-      {myNFTsSelectedTabIndex === 0 && <SelectPolymorphsToBridge />}
-      {myNFTsSelectedTabIndex === 1 && <MyPolymorphicFacesChart />}
+      <SelectPolymorphsToBridge
+        queryNft={
+          myNFTsSelectedTabIndex === 0 ? "polymorphs" : "polymorphic-faces"
+        }
+      />
     </div>
   );
 };
