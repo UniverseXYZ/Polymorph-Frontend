@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import headerBg from "../../assets/images/bridge-background.png";
 import MyPolymorphicFacesChart from "@legacy/myNFTs/MyPolymorphicFacesChart";
-import TabsContainer from "../../components/bridge/tabsContainer";
+import TabsContainer from "../../components/bridge/TabsContainer";
 import SelectPolymorphsToBridge from "../../components/bridge/SelectPolymorphsToBridge";
 import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 

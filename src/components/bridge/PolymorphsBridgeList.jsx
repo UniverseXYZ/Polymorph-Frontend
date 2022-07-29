@@ -92,16 +92,16 @@ const List = ({
               <button onClick={() => setDropdownOpened(!dropdownOpened)}>
                 {selectedNetwork === "Ethereum" && (
                   <>
-                    <Image src={ethIcon} width={24} height={24} />
+                    <Image src={ethIcon} width={24} height={24} alt="" />
                     Ethereum
-                    <Image src={arrowUp} width={10} height={10} />
+                    <Image src={arrowUp} width={10} height={10} alt="" />
                   </>
                 )}
                 {selectedNetwork === "Polygon" && (
                   <>
-                    <Image src={polygonIcon} width={24} height={24} />
+                    <Image src={polygonIcon} width={24} height={24} alt="" />
                     Polygon
-                    <Image src={arrowUp} width={10} height={10} />
+                    <Image src={arrowUp} width={10} height={10} alt="" />
                   </>
                 )}
               </button>
@@ -113,7 +113,7 @@ const List = ({
                       setDropdownOpened(false);
                     }}
                   >
-                    <Image src={ethIcon} width={24} height={24} />
+                    <Image src={ethIcon} width={24} height={24} alt="" />
                     Ethereum
                   </button>
                   <button
@@ -122,7 +122,7 @@ const List = ({
                       setDropdownOpened(false);
                     }}
                   >
-                    <Image src={polygonIcon} width={24} height={24} />
+                    <Image src={polygonIcon} width={24} height={24} alt="" />
                     Polygon
                   </button>
                 </div>
@@ -152,6 +152,7 @@ const List = ({
                   src={showSearchInput ? crossIcon : searchIcon}
                   width={40}
                   height={40}
+                  alt=""
                 />
               </button>
             </div>
@@ -201,7 +202,7 @@ const List = ({
             </InfiniteScroll>
           ) : (
             <div className="bridge--no--nfts--found">
-              <Image src={noNftsFound} width={80} height={80} />
+              <Image src={noNftsFound} width={80} height={80} alt="" />
               <p>{"No Polymorphs found"}</p>
               <p className="info">
                 You don’t have Polymorphs on [{selectedNetwork}] blockchain

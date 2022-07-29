@@ -19,13 +19,13 @@ const BridgeInteraction = ({ selectedNetwork }) => {
         <div className="network">
           {selectedNetwork === "Ethereum" && (
             <>
-              <Image src={polygonIcon} width={24} height={24} />
+              <Image src={polygonIcon} width={24} height={24} alt="" />
               <div>Polygon</div>
             </>
           )}
           {selectedNetwork === "Polygon" && (
             <>
-              <Image src={ethereumIcon} width={24} height={24} />
+              <Image src={ethereumIcon} width={24} height={24} alt="" />
               <div>Ethereum</div>
             </>
           )}
