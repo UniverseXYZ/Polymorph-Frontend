@@ -2,14 +2,13 @@
 @import "../../assets/scss/_mixins";
 
 .bridge--interaction--container {
-  //   display: flex;
   flex-direction: column;
   width: 100%;
   box-shadow: 0px 10px 36px rgba(136, 120, 172, 0.14);
   border-radius: 12px;
   background-color: $white;
   margin: 0;
-  // height: 500px;
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -46,17 +45,11 @@
     }
     .estimate--indicators {
       margin: 16px 0;
-      /* Paragraph/14/Regular */
-
       font-family: "Space Grotesk";
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      /* identical to box height, or 143% */
-
-      /* Neutrals/Black/Transparent/Black 60 */
-
       color: rgba(0, 0, 0, 0.6);
       div {
         display: flex;

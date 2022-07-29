@@ -1,19 +1,12 @@
-import React, { useEffect, useRef } from "react";
-import { useTitle } from "react-use";
-import useStateIfMounted from "../../utils/hooks/useStateIfMounted";
-import UniverseNFTs from "../../components/myNFTs/UniverseNFTs";
-import { useThemeStore } from "src/stores/themeStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
-import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 import { OpenGraph } from "../../components/open-graph";
-import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import headerBg from "../../assets/images/bridge-background.png";
-import MyPolymorphsChart from "@legacy/myNFTs/MyPolymorphsChart";
 import MyPolymorphicFacesChart from "@legacy/myNFTs/MyPolymorphicFacesChart";
 import TabsContainer from "../../components/bridge/tabsContainer";
 import SelectPolymorphsToBridge from "../../components/bridge/SelectPolymorphsToBridge";
+import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
 
 const PolymorphicBridge = () => {
   const { myNFTsSelectedTabIndex } = useMyNftsStore((s) => ({
@@ -22,6 +15,12 @@ const PolymorphicBridge = () => {
 
   return (
     <div className="bridge--container">
+      <OpenGraph
+        title={`Bridge a Polymorph`}
+        description={`Scramble your V2 polymorphs with low transaction fees on Polygon.`}
+        image={OpenGraphImage}
+      />
+
       <div className="bridge--container--header">
         <h1 className="title">Polymorphic Bridge</h1>
       </div>

@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
-import Button from "../button/Button";
-import RarityFilters from "../rarityCharts/filters/RarityFilters";
 import PolymorphsBridgeList from "./PolymorphsBridgeList";
 import { useSearchPolymorphsV2 } from "../../utils/hooks/useMyNftsRarityDebouncerV2";
 import { categoriesArray } from "../../containers/rarityCharts/categories";
-import { useWindowSize } from "react-use";
-import Arrow from "../../assets/images/burn-to-mint-images/arrow-left.svg";
-// import SelectedNftsCarousel from "./SelectedNftsCarousel";
-import BubbleIcon from "../../assets/images/text-bubble.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useThemeStore } from "src/stores/themeStore";
-import { OpenGraph } from "../open-graph";
-import OpenGraphImage from "@assets/images/open-graph/polymorphs.png";
-import LoadingSpinner from "@legacy/svgs/LoadingSpinner";
 import { useAuthStore } from "src/stores/authStore";
 import Popup from "reactjs-popup";
 import SelectWalletPopup from "@legacy/popups/SelectWalletPopup";
@@ -71,31 +62,6 @@ const SelectPolymorphsToBridge = () => {
   );
   const [selectedNetwork, setSelectedNetwork] = useState("ethereum");
 
-  const [mobile, setMobile] = useState(false);
-  const windowSize = useWindowSize();
-
-  const handleCategoryFilterChange = (idx, traitIdx) => {
-    const newCategories = [...categories];
-    const attribute = newCategories[idx];
-    const trait = attribute.traits[traitIdx];
-    trait.checked = !trait.checked;
-    setCategories(newCategories);
-    let newFilter = [];
-    if (trait.checked) {
-      newFilter = [...filter, [attribute.value, trait.name]];
-    } else if (
-      attribute.value === "righthand" ||
-      attribute.value === "lefthand"
-    ) {
-      newFilter = filter.filter(
-        (f) => !(f[0] === attribute.value && f[1] === trait.name)
-      );
-    } else {
-      newFilter = filter.filter((f) => f[1] !== trait.name);
-    }
-    setFilter(newFilter);
-  };
-
   const handleConnectWallet = async (wallet) => {
     // Here need to check if selected wallet is installed in browser
     setSelectedWallet(wallet);
@@ -120,11 +86,6 @@ const SelectPolymorphsToBridge = () => {
     // setMyUniverseNFTsActiverPage(0);
     setOffset(0);
   };
-
-  useEffect(() => {
-    if (+windowSize.width <= 575) setMobile(true);
-    else setMobile(false);
-  }, [windowSize.width]);
 
   const getSelectedCards = ([cards]) => {
     setSelectedCards(cards);
@@ -156,11 +117,6 @@ const SelectPolymorphsToBridge = () => {
 
   return (
     <>
-      <OpenGraph
-        title={`Bridge a Polymorph`}
-        description={`Scramble your V2 polymorphs with low transaction fees on Polygon.`}
-        image={OpenGraphImage}
-      />
       {isWalletConnected && (
         <div className="bridge--nfts--container">
           <div className="bridge--components">
@@ -185,7 +141,6 @@ const SelectPolymorphsToBridge = () => {
               loading={search.loading}
               results={results}
               apiPage={apiPage}
-              handleCategoryFilterChange={handleCategoryFilterChange}
               getSelectedCards={getSelectedCards}
               selectedNetwork={selectedNetwork}
               setSelectedNetwork={setSelectedNetwork}

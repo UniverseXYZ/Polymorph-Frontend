@@ -35,7 +35,6 @@ const List = ({
   loading,
   results,
   apiPage,
-  handleCategoryFilterChange,
   getSelectedCards,
   selectedNetwork,
   setSelectedNetwork,
@@ -191,23 +190,10 @@ const List = ({
               </div>
             </InfiniteScroll>
           ) : (
-            <div className="rarity--charts--empty polymorphs">
+            <div className="bridge--no--nfts--found">
               <p>No Polymorph could be found :’(</p>
             </div>
           )}
-          {/* {data.length >= perPage ? (
-          <div className="pagination__container">
-            <RarityPagination
-              data={data}
-              perPage={perPage}
-              setOffset={setOffset}
-              setApiPage={setApiPage}
-              apiPage={apiPage}
-              setIsLastPage={setIsLastPage}
-            />
-            <ItemsPerPageDropdown perPage={perPage} setPerPage={setPerPage} />
-          </div>
-        ) : null} */}
         </div>
       </div>
     </>
@@ -232,7 +218,6 @@ List.propTypes = {
   filter: PropTypes.oneOfType([PropTypes.array]).isRequired,
   results: PropTypes.oneOfType([PropTypes.array]).isRequired,
   loading: PropTypes.bool.isRequired,
-  handleCategoryFilterChange: PropTypes.func.isRequired,
 };
 
 export default List;

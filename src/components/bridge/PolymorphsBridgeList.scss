@@ -2,146 +2,8 @@
 @import "../../assets/scss/_mixins";
 
 .bridge--list {
-  // display: grid;
-  // grid-template-columns: 1fr 350px;
-  // grid-gap: 30px;
   border-radius: 12px;
 
-  .categories--filters {
-    h2 {
-      font-family: "Space Grotesk SemiBold25", sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 160%;
-      color: $black;
-      margin-bottom: 20px;
-    }
-    .each--category {
-      position: relative;
-      z-index: 100;
-      margin-top: 12px;
-      .dropdown {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: $white;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        box-sizing: border-box;
-        border-radius: 12px;
-        padding: 11px 16px;
-        cursor: pointer;
-        margin-bottom: 20px;
-        &.open {
-          background-image: linear-gradient(101deg, #bceb00, #00eaea);
-          background-origin: border-box;
-          box-shadow: 2px 1000px 1px $white inset;
-          border: 1px solid transparent;
-          img {
-            transform: rotate(180deg);
-          }
-          .box--shadow--effect--block {
-            opacity: 0.2;
-          }
-        }
-        &:hover {
-          border-color: transparent;
-          border-radius: 10px;
-          .box--shadow--effect--block {
-            opacity: 0.2;
-          }
-        }
-        span {
-          font-family: $spaceGroteskFont;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 140%;
-          color: $black;
-        }
-        img {
-          transition: 0.3s ease-in-out;
-        }
-        .box--shadow--effect--block {
-          position: absolute;
-          left: -4px;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          margin: auto;
-          width: calc(100% + 8px);
-          min-height: 50px;
-          border-radius: 12px;
-          background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
-          opacity: 0;
-          transition: 0.2s;
-          z-index: -1;
-        }
-      }
-      .traits {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-gap: 12px;
-        max-height: 285px;
-        overflow: scroll;
-        .trait {
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          label {
-            cursor: pointer;
-            font-family: $spaceGroteskFont;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 14px;
-            line-height: 140%;
-            color: $black;
-          }
-          input {
-            cursor: pointer;
-            -webkit-appearance: none;
-            position: relative;
-            background: $white;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            border-radius: 6px;
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            &:hover {
-              background-image: linear-gradient(101deg, #bceb00, #00eaea);
-              background-origin: border-box;
-              box-shadow: 2px 1000px 1px $white inset;
-              border: 1px solid transparent;
-            }
-            &:checked {
-              background: linear-gradient(
-                135deg,
-                #bceb00 15.57%,
-                #00eaea 84.88%
-              );
-              border-color: transparent;
-              &::after {
-                content: "\2518";
-                color: #000000;
-                font-size: 16px;
-                position: absolute;
-                top: 4px;
-                left: 4px;
-                transform: rotate(45deg);
-              }
-            }
-          }
-        }
-      }
-    }
-    @include lg {
-      display: none;
-    }
-  }
   .list {
     background-color: $white;
     border-radius: 12px;
@@ -258,6 +120,9 @@
           .focus--field {
             background: none;
           }
+          @include sm {
+            width: 100%;
+          }
         }
         button {
           display: flex;
@@ -277,53 +142,6 @@
       }
     }
 
-    .selected--filters {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      min-height: 46px;
-      .result {
-        font-family: $spaceGroteskFont;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 160%;
-        color: $black;
-        margin-right: 12px;
-        margin-bottom: 8px;
-      }
-      button.light-border-button {
-        display: flex;
-        align-items: center;
-        padding: 6px 14px;
-        box-shadow: 2px 1000px 1px rgba(255, 255, 255, 0.9) inset !important;
-        font-size: 14px;
-        line-height: 140%;
-        margin-right: 12px;
-        margin-bottom: 8px;
-        cursor: default;
-        img.close {
-          cursor: pointer;
-          width: 10px;
-          height: 10px;
-          margin-left: 8px;
-        }
-      }
-      .clear--all {
-        font-family: $spaceGroteskFont;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 150%;
-        text-decoration-line: underline;
-        color: $black;
-        background: none;
-        margin-bottom: 8px;
-      }
-      @include lg {
-        display: none;
-      }
-    }
     .bridge--grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -588,32 +406,11 @@
         grid-template-columns: 1fr;
       }
     }
+    .bridge--no--nfts--found {
+      min-height: 100vh;
+    }
   }
   @include lg {
     grid-template-columns: 1fr;
-  }
-}
-
-.rarity--charts--empty {
-  width: 100%;
-  p {
-    font-family: $spaceGroteskFont;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
-    color: rgba(0, 0, 0, 0.4);
-    margin-top: 176px;
-    margin-bottom: 66px;
-  }
-  &.polymorphs {
-    @media (min-width: #{$screen-lg-max}) {
-      p {
-        position: absolute;
-        left: 0%;
-        width: 100%;
-      }
-    }
   }
 }
