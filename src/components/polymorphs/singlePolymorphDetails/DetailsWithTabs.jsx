@@ -11,7 +11,7 @@ import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
 import { ethers } from "ethers";
-import bridgeIcon from "../../../assets/images/bridge-icon.png";
+import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
