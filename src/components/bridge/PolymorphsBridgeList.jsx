@@ -14,6 +14,7 @@ import polygonIcon from "../../assets/images/polygon--icon.png";
 import RaritySearchField from "../input/RaritySearchField";
 import crossIcon from "../../assets/images/cross-icon.png";
 import noNftsFound from "../../assets/images/bridge/no-nfts-found.png";
+import { useMyNftsStore } from "src/stores/myNftsStore";
 
 const marketplaceLink = "https://universe.xyz/marketplace";
 
@@ -49,6 +50,7 @@ const List = ({
   const [selectedCards, setSelectedCards] = useState([]);
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const { myNFTsSelectedTabIndex } = useMyNftsStore();
 
   const removeSelectedCardById = (tokenId) => {
     const newSelectedCards = selectedCards.filter(
@@ -203,9 +205,17 @@ const List = ({
           ) : (
             <div className="bridge--no--nfts--found">
               <Image src={noNftsFound} width={80} height={80} alt="" />
-              <p>{"No Polymorphs found"}</p>
+              <p>{`No ${
+                myNFTsSelectedTabIndex === 0
+                  ? "Polymorphs"
+                  : "Polymorphic Faces"
+              } found`}</p>
               <p className="info">
-                You don’t have Polymorphs on [{selectedNetwork}] blockchain
+                {`You don’t have ${
+                  myNFTsSelectedTabIndex === 0
+                    ? "Polymorphs"
+                    : "Polymorphic Faces"
+                } on [${selectedNetwork}] blockchain`}
               </p>
               <Button onClick={() => window.open(marketplaceLink)}>
                 Buy Items
