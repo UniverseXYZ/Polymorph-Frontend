@@ -297,7 +297,7 @@ const DesktopView = ({
                 className="eth-icon"
                 onClick={() => setShowNetworkModal(true)}
               >
-                <Image src={ethIcon} width={24} height={24} />
+                <Image src={ethIcon} width={24} height={24} alt="eth-ico" />
               </button>
             </li>
           </>
