@@ -92,7 +92,7 @@ const DesktopView = ({
             <span className="nav__link__title">Rarity Chart</span>
           </button>
         </li>
-        <li>
+        {/* <li>
           <button
             type="button"
             className="menu-li"
@@ -100,11 +100,10 @@ const DesktopView = ({
           >
             <span className="nav__link__title">
               My Polymorphs
-              {/* Change the hardcoded value to the user's amount of polymorphs */}
               {userPolymorphsCount ? <span>{userPolymorphsCount}</span> : null}
             </span>
           </button>
-        </li>
+        </li> */}
 
         {isWalletConnected ? (
           <>
