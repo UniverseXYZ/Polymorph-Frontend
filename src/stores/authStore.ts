@@ -170,6 +170,7 @@ export const useAuthStore = create<
             showWrongNetworkPopup: true,
             isSigning: false,
             isAuthenticating: false,
+            activeNetwork: "",
           }));
         } else {
           get().web3AuthenticationProccess(
@@ -228,6 +229,7 @@ export const useAuthStore = create<
             showWrongNetworkPopup: true,
             isSigning: false,
             isAuthenticating: false,
+            activeNetwork: "",
           }));
         } else {
           get().web3AuthenticationProccess(
@@ -255,7 +257,7 @@ export const useAuthStore = create<
       // const ensDomain = await provider.lookupAddress(accounts[0]);
       const signerResult = provider.getSigner(accounts[0]).connectUnchecked();
 
-      let selectedNetwork;
+      let selectedNetwork: any;
       if (network.chainId === Number(process.env.REACT_APP_NETWORK_CHAIN_ID)) {
         selectedNetwork = "ethereum";
       }
@@ -372,6 +374,12 @@ export const useAuthStore = create<
       set((state) => ({
         ...state,
         loggedInArtist: artist,
+      }));
+    },
+    setActiveNetwork: (activeNetwork) => {
+      set((state) => ({
+        ...state,
+        activeNetwork: activeNetwork,
       }));
     },
   }))
