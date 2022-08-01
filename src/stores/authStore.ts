@@ -26,6 +26,7 @@ type IDefaultAuthStoreGeters = {
   isSigning: boolean;
   showWrongNetworkPopup: boolean;
   loggedInArtist: any;
+  activeNetwork: any;
 };
 
 type IAuthStore = IDefaultAuthStoreGeters & {
@@ -58,6 +59,7 @@ type IAuthStore = IDefaultAuthStoreGeters & {
   setShowWrongNetworkPopup: (show: boolean) => void;
   setLoggedInArtist: (artist: any) => void;
   setProviderName: (providerName: string) => void;
+  setActiveNetwork: (activeNetwork: any) => void;
 };
 
 const defaultState: IDefaultAuthStoreGeters = {
@@ -87,6 +89,7 @@ const defaultState: IDefaultAuthStoreGeters = {
   showWrongNetworkPopup: false,
   isSigning: false,
   isAuthenticating: false,
+  activeNetwork: "",
 };
 
 export const useAuthStore = create<
@@ -124,6 +127,7 @@ export const useAuthStore = create<
           isSigning: false,
           isAuthenticating: false,
           IsWalletConnected: false,
+          activeNetwork: "",
         }));
       } else {
         await get().web3AuthenticationProccess(provider, network, accounts);
@@ -245,6 +249,14 @@ export const useAuthStore = create<
       // const ensDomain = await provider.lookupAddress(accounts[0]);
       const signerResult = provider.getSigner(accounts[0]).connectUnchecked();
 
+      let selectedNetwork;
+      if (network.chainId === Number(process.env.REACT_APP_NETWORK_CHAIN_ID)) {
+        selectedNetwork = "ethereum";
+      }
+      if (network.chainId === Number(process.env.REACT_APP_POLYGON_CHAIN_ID)) {
+        selectedNetwork = "polygon";
+      }
+
       useContractsStore.getState().setContracts(signerResult, network);
 
       set((state) => ({
@@ -255,6 +267,7 @@ export const useAuthStore = create<
         // yourEnsDomain: ensDomain,
         ethereumNetwork: network,
         isWalletConnected: true,
+        activeNetwork: selectedNetwork,
       }));
 
       useUserBalanceStore

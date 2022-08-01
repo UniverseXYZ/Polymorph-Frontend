@@ -52,6 +52,7 @@ const DesktopView = ({
     loggedInArtist,
     signOut,
     isAuthenticating,
+    activeNetwork,
   } = useAuthStore((s) => ({
     address: s.address,
     isAuthenticated: s.isAuthenticated,
@@ -59,6 +60,7 @@ const DesktopView = ({
     loggedInArtist: s.loggedInArtist,
     signOut: s.signOut,
     isAuthenticating: s.isAuthenticating,
+    activeNetwork: s.activeNetwork,
   }));
 
   const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
@@ -297,7 +299,12 @@ const DesktopView = ({
                 className="eth-icon"
                 onClick={() => setShowNetworkModal(true)}
               >
-                <Image src={ethIcon} width={24} height={24} alt="eth-ico" />
+                <Image
+                  src={activeNetwork === "ethereum" ? ethIcon : polygonIcon}
+                  width={24}
+                  height={24}
+                  alt="eth-ico"
+                />
               </button>
             </li>
           </>
