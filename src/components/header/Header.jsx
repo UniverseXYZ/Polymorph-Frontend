@@ -35,6 +35,7 @@ import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
+import ChangeNetworkPopup from "../popups/ChangeNetworkPopup";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -91,6 +92,8 @@ const Header = () => {
   const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [burntCount, setBurntCount] = useState();
+  const [showNetworkModal, setShowNetworkModal] = useState(false);
+  const [selectedNetowrk, setSelectedNetwork] = useState("Ethereum");
 
   const availableFacesToClaim = burntCount - userPolymorphicFacesClaimed.length;
 
@@ -469,6 +472,7 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
       <TabletView
         isWalletConnected={isWalletConnected}
@@ -514,7 +518,6 @@ const Header = () => {
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
       />
-
       <Popup
         closeOnDocumentClick={false}
         trigger={<></>}
@@ -536,6 +539,11 @@ const Header = () => {
           />
         )}
       </Popup>
+      {showNetworkModal && (
+        <Popup closeOnDocumentClick={false} open={showNetworkModal}>
+          <ChangeNetworkPopup onClose={() => setShowNetworkModal(false)} />
+        </Popup>
+      )}
       {showLoadingModal && (
         <Popup closeOnDocumentClick={false} open={showLoadingModal}>
           <ClaimLoadingPopup onClose={() => setShowLoadingModal(false)} />

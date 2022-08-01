@@ -16,15 +16,14 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 12px;
-      padding: 10px 0;
       -webkit-perspective: 200;
 
-      &:last-of-type {
-        padding: 0px;
+      &:last-child {
+        margin-left: 8px;
       }
 
-      &:nth-last-of-type(2) {
-        padding: 0;
+      &:nth-last-child(2) {
+        margin-left: 8px;
       }
 
       &:hover {
@@ -403,6 +402,14 @@
             padding: 6px 14px;
           }
         }
+      }
+      .eth-icon {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        border-radius: 12px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
       }
     }
   }

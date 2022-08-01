@@ -19,6 +19,9 @@ import PlusIcon from "../../../../assets/images/plus-icon.svg";
 import MinusIcon from "../../../../assets/images/minus-icon.svg";
 import signOutIcon from "../../../../assets/images/sign-out.png";
 import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
+import ethIcon from "../../../../assets/images/eth-icon-blue.png";
+import polygonIcon from "../../../../assets/images/polygon-icon.png";
+import Image from "next/image";
 
 const DesktopView = ({
   isWalletConnected,
@@ -36,6 +39,7 @@ const DesktopView = ({
   claimTx,
   facesAmountToClaim,
   setFacesAmountToClaim,
+  setShowNetworkModal,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -287,6 +291,14 @@ const DesktopView = ({
                   </button>
                 </div>
               </div>
+            </li>
+            <li>
+              <button
+                className="eth-icon"
+                onClick={() => setShowNetworkModal(true)}
+              >
+                <Image src={ethIcon} width={24} height={24} />
+              </button>
             </li>
           </>
         ) : (
