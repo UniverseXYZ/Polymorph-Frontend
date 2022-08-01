@@ -1,0 +1,75 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/_mixins";
+
+.bridge--interaction--container {
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0px 10px 36px rgba(136, 120, 172, 0.14);
+  border-radius: 12px;
+  background-color: $white;
+  margin: 0;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Space Grotesk";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 15px 24px;
+
+    .network {
+      display: flex;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 8px;
+      div {
+        font-weight: 500;
+        font-size: 16px;
+        margin-left: 12px;
+      }
+    }
+  }
+  .body {
+    padding: 24px;
+    .selected--amount {
+      display: flex;
+      justify-content: space-between;
+      font-family: "Space Grotesk";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .estimate--indicators {
+      margin: 16px 0;
+      font-family: "Space Grotesk";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: rgba(0, 0, 0, 0.6);
+      div {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .step {
+      div {
+        margin-bottom: 8px;
+        font-family: "Space Grotesk";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      button {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
