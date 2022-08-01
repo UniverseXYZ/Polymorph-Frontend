@@ -7,7 +7,7 @@ import uuid from "react-uuid";
 import { mapUserData } from "../utils/helpers";
 import { useContractsStore } from "./contractsStore";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import { useErrorStore } from "./errorStore";
 import { subscribeWithSelector } from "zustand/middleware";
 import { usePolymorphStore } from "src/stores/polymorphStore";
@@ -159,7 +159,10 @@ export const useAuthStore = create<
         const accounts = await web3ProviderWrapper.listAccounts();
 
         if (
-          network.chainId !== Number(process.env.REACT_APP_NETWORK_CHAIN_ID)
+          network.chainId !==
+            Number(process.env.REACT_APP_NETWORK_CHAIN_ID || "") &&
+          network.chainId !==
+            Number(process.env.REACT_APP_POLYGON_CHAIN_ID || "")
         ) {
           await provider.disconnect();
           set((state) => ({
@@ -214,7 +217,10 @@ export const useAuthStore = create<
         const accounts = await web3ProviderWrapper.listAccounts();
 
         if (
-          network.chainId !== Number(process.env.REACT_APP_NETWORK_CHAIN_ID)
+          network.chainId !==
+            Number(process.env.REACT_APP_NETWORK_CHAIN_ID || "") &&
+          network.chainId !==
+            Number(process.env.REACT_APP_POLYGON_CHAIN_ID || "")
         ) {
           await provider.disconnect();
           set((state) => ({
