@@ -1,4 +1,4 @@
-import { providers, Signer, utils } from "ethers";
+import { BigNumber, providers, Signer, utils } from "ethers";
 import create, { GetState, Mutate, SetState, StoreApi } from "zustand";
 import { CONNECTORS_NAMES } from "../utils/dictionary";
 import Cookies from "js-cookie";
@@ -114,7 +114,9 @@ export const useAuthStore = create<
       const network = await provider.getNetwork();
 
       if (
-        network.chainId !== Number(process.env.REACT_APP_NETWORK_CHAIN_ID || "")
+        network.chainId !==
+          Number(process.env.REACT_APP_NETWORK_CHAIN_ID || "") &&
+        network.chainId !== Number(process.env.REACT_APP_POLYGON_CHAIN_ID || "")
       ) {
         set((state) => ({
           ...state,
@@ -240,7 +242,7 @@ export const useAuthStore = create<
     },
     web3AuthenticationProccess: async (provider, network, accounts) => {
       const balance = await provider.getBalance(accounts[0]);
-      const ensDomain = await provider.lookupAddress(accounts[0]);
+      // const ensDomain = await provider.lookupAddress(accounts[0]);
       const signerResult = provider.getSigner(accounts[0]).connectUnchecked();
 
       useContractsStore.getState().setContracts(signerResult, network);
@@ -250,7 +252,7 @@ export const useAuthStore = create<
         web3Provider: provider,
         address: accounts.length ? accounts[0].toLowerCase() : "",
         signer: signerResult,
-        yourEnsDomain: ensDomain,
+        // yourEnsDomain: ensDomain,
         ethereumNetwork: network,
         isWalletConnected: true,
       }));

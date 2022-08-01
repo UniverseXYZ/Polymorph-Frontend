@@ -16,11 +16,12 @@ const ChangeNetworkPopup = ({ onClose }) => {
         method: "wallet_switchEthereumChain",
         params: [
           {
-            chainId: `0x${
+            chainId:
               chain === "ethereum"
-                ? process.env.REACT_APP_NETWORK_CHAIN_ID
-                : process.env.REACT_APP_POLYGON_CHAIN_ID
-            }`,
+                ? `0x${process.env.REACT_APP_NETWORK_CHAIN_ID}`
+                : utils.hexValue(
+                    Number(process.env.REACT_APP_POLYGON_CHAIN_ID)
+                  ),
           },
         ],
       });
@@ -54,7 +55,9 @@ const ChangeNetworkPopup = ({ onClose }) => {
         <Image src={ethIcon} height={40} width={40} alt="eth-icon" />
         <div className="chain">
           <div>Ethereum</div>
-          {chainId === 4 && <p>Connected</p>}
+          {chainId === Number(process.env.REACT_APP_NETWORK_CHAIN_ID) && (
+            <p>Connected</p>
+          )}
         </div>
       </button>
       <button
@@ -64,7 +67,9 @@ const ChangeNetworkPopup = ({ onClose }) => {
         <Image src={polygonIcon} height={40} width={40} alt="polygon-icon" />
         <div className="chain">
           <div>Polygon</div>
-          {chainId === 137 && <p>Connected</p>}
+          {chainId === Number(process.env.REACT_APP_POLYGON_CHAIN_ID) && (
+            <p>Connected</p>
+          )}
         </div>
       </button>
       <button type="button" className="popup-close" onClick={onClose}>
