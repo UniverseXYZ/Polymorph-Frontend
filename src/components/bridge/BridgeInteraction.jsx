@@ -1,6 +1,6 @@
 import Image from "next/image";
-import polygonIcon from "../../assets/images/polygon--icon.png";
-import ethereumIcon from "../../assets/images/eth--icon--blue.png";
+import polygonIcon from "../../assets/images/polygon-icon.png";
+import ethereumIcon from "../../assets/images/eth-icon-blue.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useEffect } from "react";
 

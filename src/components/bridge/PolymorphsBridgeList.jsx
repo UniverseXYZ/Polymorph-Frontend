@@ -7,10 +7,10 @@ import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader
 import { Button } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroller";
 import Image from "next/image";
-import ethIcon from "../../assets/images/eth--icon--blue.png";
+import ethIcon from "../../assets/images/eth-icon-blue.png";
 import arrowUp from "../../assets/images/arrow-down.svg";
 import searchIcon from "../../assets/images/search--icon.png";
-import polygonIcon from "../../assets/images/polygon--icon.png";
+import polygonIcon from "../../assets/images/polygon-icon.png";
 import RaritySearchField from "../input/RaritySearchField";
 import crossIcon from "../../assets/images/cross-icon.png";
 import noNftsFound from "../../assets/images/bridge/no-nfts-found.png";
