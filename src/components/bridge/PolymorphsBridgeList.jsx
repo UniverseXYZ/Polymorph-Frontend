@@ -114,7 +114,7 @@ const List = ({
                     }}
                   >
                     <Image src={ethIcon} width={24} height={24} alt="" />
-                    Ethereum
+                    <span>Ethereum</span>
                   </button>
                   <button
                     onClick={() => {
@@ -123,7 +123,7 @@ const List = ({
                     }}
                   >
                     <Image src={polygonIcon} width={24} height={24} alt="" />
-                    Polygon
+                    <span>Polygon</span>
                   </button>
                 </div>
               )}
