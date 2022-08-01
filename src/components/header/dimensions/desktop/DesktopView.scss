@@ -23,6 +23,10 @@
         padding: 0px;
       }
 
+      &:nth-last-of-type(2) {
+        padding: 0;
+      }
+
       &:hover {
         .dropdown {
           transform: rotateX(0deg);
@@ -134,6 +138,8 @@
       .nav__link__title {
         margin: 0 12px;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
         span {
           color: $white;
           background-color: $black;
@@ -273,9 +279,20 @@
           }
         }
         &__body {
-          padding: 16px;
+          padding: 8px;
           button {
+            display: flex;
             width: 100%;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 16px;
+            border-radius: 12px;
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.1);
+            }
+          }
+          img {
+            margin-right: 12px;
           }
         }
       }
@@ -355,7 +372,12 @@
             &:hover {
               // background: transparent !important;
               box-shadow: unset !important;
-              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+              background: linear-gradient(
+                  0deg,
+                  rgba(255, 255, 255, 0.4),
+                  rgba(255, 255, 255, 0.4)
+                ),
+                linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
           }
         }

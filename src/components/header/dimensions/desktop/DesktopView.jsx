@@ -17,6 +17,8 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import PlusIcon from "../../../../assets/images/plus-icon.svg";
 import MinusIcon from "../../../../assets/images/minus-icon.svg";
+import signOutIcon from "../../../../assets/images/sign-out.png";
+import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
 
 const DesktopView = ({
   isWalletConnected,
@@ -264,14 +266,24 @@ const DesktopView = ({
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    className="light-border-button"
+                    // className="light-border-button"
+                    onClick={() => {
+                      router.push("/my-polymorphs");
+                    }}
+                  >
+                    <img src={myPolymorphsIcon} alt="My polymorphs" />
+                    My polymorphs
+                  </button>
+                  <button
+                    type="button"
+                    // className="light-border-button"
                     onClick={() => {
                       setIsAccountDropdownOpened(false);
                       signOut();
                       router.push("/");
                     }}
                   >
-                    {/* <img src={signOutIcon} alt="Sign out" /> */}
+                    <img src={signOutIcon} alt="Sign out" />
                     Disconnect
                   </button>
                 </div>
