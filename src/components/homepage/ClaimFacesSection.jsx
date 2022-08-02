@@ -12,6 +12,7 @@ import PlusIcon from "../../assets/images/plus-icon-white.svg";
 import MinusIcon from "../../assets/images/minus-icon-white.svg";
 import { queryPolymorphsGraphV2 } from "@legacy/graphql/polymorphQueries";
 import { mintedV2Polymorphs } from "@legacy/graphql/polymorphQueries";
+import { Tooltip } from "@chakra-ui/react";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -23,7 +24,7 @@ const ClaimFacesSection = () => {
   const [txHash, setTxHash] = useState("");
   const [burntCount, setBurntCount] = useState();
 
-  const { address } = useAuthStore();
+  const { address, activeNetwork } = useAuthStore();
   const { userPolymorphs, userPolymorphicFacesClaimed, userPolymorphsV1Burnt } =
     usePolymorphStore();
   const { polymorphicFacesContract, polymorphContractV2 } = useContractsStore();
@@ -116,18 +117,32 @@ const ClaimFacesSection = () => {
                         }`}
                         onClick={() => facesClaimCountHandler("add")}
                       >
-                        <img src={PlusIcon} alt='' />
+                        <img src={PlusIcon} alt="" />
                       </button>
                     </div>
-                    <button
-                      disabled={facesAmountToClaim === 0}
-                      className={`light-button ${
-                        facesAmountToClaim === 0 ? "disabled" : ""
+                    <Tooltip
+                      hasArrow
+                      label={`${
+                        activeNetwork !== "Ethereum"
+                          ? "Only available on Ethereum"
+                          : ""
                       }`}
-                      onClick={claimTxHandler}
                     >
-                      Claim
-                    </button>
+                      <span>
+                        <button
+                          disabled={
+                            facesAmountToClaim === 0 ||
+                            activeNetwork !== "Ethereum"
+                          }
+                          className={`light-button ${
+                            facesAmountToClaim === 0 ? "disabled" : ""
+                          }`}
+                          onClick={claimTxHandler}
+                        >
+                          Claim
+                        </button>
+                      </span>
+                    </Tooltip>
                   </div>
                 </div>
               </div>

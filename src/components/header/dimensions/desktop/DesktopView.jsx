@@ -22,6 +22,7 @@ import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
 import ethIcon from "../../../../assets/images/eth-icon-blue.png";
 import polygonIcon from "../../../../assets/images/polygon-icon.png";
 import Image from "next/image";
+import { Tooltip } from "@chakra-ui/react";
 
 const DesktopView = ({
   isWalletConnected,
@@ -160,13 +161,27 @@ const DesktopView = ({
                         +
                       </button>
                     </div>
-                    <button
-                      className={"light-border-button claim--button"}
-                      onClick={claimTx}
-                      disabled={facesAmountToClaim === 0}
+                    <Tooltip
+                      hasArrow
+                      label={`${
+                        activeNetwork !== "Ethereum"
+                          ? "Only available on Ethereum"
+                          : ""
+                      }`}
                     >
-                      Claim
-                    </button>
+                      <span>
+                        <button
+                          className={"light-border-button claim--button"}
+                          onClick={claimTx}
+                          disabled={
+                            facesAmountToClaim === 0 ||
+                            activeNetwork !== "Ethereum"
+                          }
+                        >
+                          Claim
+                        </button>
+                      </span>
+                    </Tooltip>
                   </div>
                 </div>
                 <div className="dropdown__body">

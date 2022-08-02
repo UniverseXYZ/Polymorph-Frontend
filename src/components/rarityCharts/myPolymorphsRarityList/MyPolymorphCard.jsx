@@ -15,6 +15,8 @@ import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
+import { useAuthStore } from "src/stores/authStore.ts";
+import { Tooltip } from "@chakra-ui/react";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -30,6 +32,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const [update, setUpdate] = useState(false);
   const [contract, setContract] = useState(null);
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { activeNetwork } = useAuthStore();
 
   const showScrambleOptions = () => {
     setUpdate(true);
@@ -158,10 +161,27 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
         {dropdownOpen ? (
           <div className={"dropdown"}>
             {!isV2 && (
-              <button onClick={handleBurnToMintClick}>
-                <img src={BurnIconSvg} alt="burn-icon" />
-                Burn to Mint
-              </button>
+              <Tooltip
+                hasArrow
+                label={`${
+                  activeNetwork !== "Ethereum"
+                    ? "Only available on Ethereum"
+                    : ""
+                }`}
+              >
+                <div>
+                  <button
+                    className={`${
+                      activeNetwork !== "Ethereum" ? "disabled" : ""
+                    }`}
+                    onClick={handleBurnToMintClick}
+                    disabled={activeNetwork !== "Ethereum"}
+                  >
+                    <img src={BurnIconSvg} alt="burn-icon" />
+                    Burn to Mint
+                  </button>
+                </div>
+              </Tooltip>
             )}
             {isV2 && (
               <button onClick={() => router.push("/polymorphic-bridge")}>
