@@ -36,6 +36,8 @@ import { usePolymorphStore } from "src/stores/polymorphStore";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
 import ChangeNetworkPopup from "../popups/ChangeNetworkPopup";
+import { queryPolymorphsGraphV2 } from "@legacy/graphql/polymorphQueries";
+import { mintedV2Polymorphs } from "@legacy/graphql/polymorphQueries";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -205,11 +207,13 @@ const Header = () => {
   }, [setLoginFn]);
 
   useEffect(async () => {
-    if (polymorphContractV2 && address) {
-      const burntAmount = await polymorphContractV2.burnCount(address);
-      setBurntCount(burntAmount.toNumber());
+    if (address) {
+      const { mintedEntities } = await queryPolymorphsGraphV2(
+        mintedV2Polymorphs(address)
+      );
+      setBurntCount(mintedEntities.length);
     }
-  }, [polymorphContractV2 && address]);
+  }, [address]);
 
   const facesClaimCountHandler = (method) => {
     if (

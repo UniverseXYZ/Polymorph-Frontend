@@ -71,6 +71,16 @@ export const traitRarity = (searchedId) => `
   }
 `;
 
+export const mintedV2Polymorphs = (ownerAddress) => `
+  query Polymorphs {
+    mintedEntities(first: 1000, where: { to: "${ownerAddress}" }) {
+      id
+      tokenId
+      to
+    }
+  }
+`;
+
 export const queryPolymorphsGraph = async (graphQuery) => {
   const client = new ApolloClient({
     uri: process.env.REACT_APP_POLYMORPHS_GRAPH_URL,

@@ -10,6 +10,8 @@ import { useContractsStore } from "src/stores/contractsStore";
 import { useAuthStore } from "src/stores/authStore";
 import PlusIcon from "../../assets/images/plus-icon-white.svg";
 import MinusIcon from "../../assets/images/minus-icon-white.svg";
+import { queryPolymorphsGraphV2 } from "@legacy/graphql/polymorphQueries";
+import { mintedV2Polymorphs } from "@legacy/graphql/polymorphQueries";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -42,11 +44,13 @@ const ClaimFacesSection = () => {
   };
 
   useEffect(async () => {
-    if (address && polymorphContractV2) {
-      const burntAmount = await polymorphContractV2.burnCount(address);
-      setBurntCount(burntAmount.toNumber());
+    if (address) {
+      const { mintedEntities } = await queryPolymorphsGraphV2(
+        mintedV2Polymorphs(address)
+      );
+      setBurntCount(mintedEntities.length);
     }
-  }, [address, polymorphContractV2]);
+  }, [address]);
 
   const claimTxHandler = async () => {
     try {
