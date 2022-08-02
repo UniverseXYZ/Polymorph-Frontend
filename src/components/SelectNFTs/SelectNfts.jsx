@@ -19,6 +19,7 @@ import { useAuthStore } from "src/stores/authStore";
 import Popup from "reactjs-popup";
 import SelectWalletPopup from "@legacy/popups/SelectWalletPopup";
 import { CONNECTORS_NAMES } from "@legacy/dictionary";
+import { Tooltip } from "@chakra-ui/react";
 
 const SelectNfts = () => {
   const { setUserSelectedPolymorphsToBurn } = usePolymorphStore();
@@ -30,11 +31,13 @@ const SelectNfts = () => {
     setIsWalletConnected,
     connectWithWalletConnect,
     connectWithMetaMask,
+    activeNetwork,
   } = useAuthStore((s) => ({
     isWalletConnected: s.isWalletConnected,
     setIsWalletConnected: s.setIsWalletConnected,
     connectWithWalletConnect: s.connectWithWalletConnect,
     connectWithMetaMask: s.connectWithMetaMask,
+    activeNetwork: s.activeNetwork,
   }));
 
   const {
@@ -241,22 +244,27 @@ const SelectNfts = () => {
                         NFTs: <b>{selectedCards.length}</b>
                       </span>
                     )}
-                    <Button
-                      className={"light-button"}
-                      onClick={
-                        selectedCards.length > 0
-                          ? () => {
-                              router.push(
-                                selectedCards.length === 1
-                                  ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
-                                  : "/burn-to-mint/burn/batch"
-                              );
-                            }
-                          : null
-                      }
-                    >
-                      Burn
-                    </Button>
+                    <Tooltip hasArrow label="Only available on Ethereum">
+                      <span>
+                        <Button
+                          className={"light-button"}
+                          disabled={activeNetwork === "polygon"}
+                          onClick={
+                            selectedCards.length > 0
+                              ? () => {
+                                  router.push(
+                                    selectedCards.length === 1
+                                      ? `/burn-to-mint/burn/single/${selectedCards[0].tokenId}`
+                                      : "/burn-to-mint/burn/batch"
+                                  );
+                                }
+                              : null
+                          }
+                        >
+                          Burn
+                        </Button>
+                      </span>
+                    </Tooltip>
                   </div>
                 </div>
               </>

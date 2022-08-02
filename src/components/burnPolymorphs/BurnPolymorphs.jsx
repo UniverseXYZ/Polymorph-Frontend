@@ -28,6 +28,12 @@ const BurnPolymorphs = ({ characters, type }) => {
   const { polymorphContract, polymorphContractV2 } = useContractsStore();
   const { address } = useAuthStore();
 
+  useEffect(() => {
+    if (characters.length === 0) {
+      router.push("/burn-to-mint/burn");
+    }
+  }, []);
+
   useEffect(async () => {
     if (polymorphContract) {
       const hasAlreadyApprovedTokens = await polymorphContract.isApprovedForAll(
