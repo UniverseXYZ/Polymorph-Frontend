@@ -259,10 +259,10 @@ export const useAuthStore = create<
 
       let selectedNetwork: any;
       if (network.chainId === Number(process.env.REACT_APP_NETWORK_CHAIN_ID)) {
-        selectedNetwork = "ethereum";
+        selectedNetwork = "Ethereum";
       }
       if (network.chainId === Number(process.env.REACT_APP_POLYGON_CHAIN_ID)) {
-        selectedNetwork = "polygon";
+        selectedNetwork = "Polygon";
       }
 
       useContractsStore.getState().setContracts(signerResult, network);

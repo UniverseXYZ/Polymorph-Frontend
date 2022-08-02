@@ -40,8 +40,8 @@ const List = ({
   results,
   apiPage,
   getSelectedCards,
-  selectedNetwork,
-  setSelectedNetwork,
+  activeNetwork,
+  setActiveNetwork,
   queryNft,
 }) => {
   const sliceData = data?.slice(offset, offset + perPage) || [];
@@ -82,7 +82,7 @@ const List = ({
 
   useEffect(() => {
     setSelectedCards([]);
-  }, [selectedNetwork]);
+  }, [activeNetwork]);
 
   return (
     <>
@@ -92,14 +92,14 @@ const List = ({
             <div className="network--select">
               <div>From Network</div>
               <button onClick={() => setDropdownOpened(!dropdownOpened)}>
-                {selectedNetwork === "Ethereum" && (
+                {activeNetwork === "Ethereum" && (
                   <>
                     <Image src={ethIcon} width={24} height={24} alt="" />
                     Ethereum
                     <Image src={arrowUp} width={10} height={10} alt="" />
                   </>
                 )}
-                {selectedNetwork === "Polygon" && (
+                {activeNetwork === "Polygon" && (
                   <>
                     <Image src={polygonIcon} width={24} height={24} alt="" />
                     Polygon
@@ -111,7 +111,7 @@ const List = ({
                 <div className="network--dropdown">
                   <button
                     onClick={() => {
-                      setSelectedNetwork("Ethereum");
+                      setActiveNetwork("Ethereum");
                       setDropdownOpened(false);
                     }}
                   >
@@ -120,7 +120,7 @@ const List = ({
                   </button>
                   <button
                     onClick={() => {
-                      setSelectedNetwork("Polygon");
+                      setActiveNetwork("Polygon");
                       setDropdownOpened(false);
                     }}
                   >
@@ -215,7 +215,7 @@ const List = ({
                   myNFTsSelectedTabIndex === 0
                     ? "Polymorphs"
                     : "Polymorphic Faces"
-                } on [${selectedNetwork}] blockchain`}
+                } on [${activeNetwork}] blockchain`}
               </p>
               <Button onClick={() => window.open(marketplaceLink)}>
                 Buy Items

@@ -300,7 +300,7 @@ const DesktopView = ({
                 onClick={() => setShowNetworkModal(true)}
               >
                 <Image
-                  src={activeNetwork === "ethereum" ? ethIcon : polygonIcon}
+                  src={activeNetwork === "Ethereum" ? ethIcon : polygonIcon}
                   width={24}
                   height={24}
                   alt="eth-ico"

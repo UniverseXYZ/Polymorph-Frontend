@@ -248,7 +248,7 @@ const SelectNfts = () => {
                       <span>
                         <Button
                           className={"light-button"}
-                          disabled={activeNetwork === "polygon"}
+                          disabled={activeNetwork === "Polygon"}
                           onClick={
                             selectedCards.length > 0
                               ? () => {

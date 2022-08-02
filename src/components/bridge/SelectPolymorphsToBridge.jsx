@@ -64,7 +64,7 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
       ? true
       : false
   );
-  const [selectedNetwork, setSelectedNetwork] = useState("Ethereum");
+  const { activeNetwork, setActiveNetwork } = useAuthStore();
 
   const handleConnectWallet = async (wallet) => {
     // Here need to check if selected wallet is installed in browser
@@ -146,11 +146,11 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
               results={results}
               apiPage={apiPage}
               getSelectedCards={getSelectedCards}
-              selectedNetwork={selectedNetwork}
-              setSelectedNetwork={setSelectedNetwork}
+              activeNetwork={activeNetwork}
+              setActiveNetwork={setActiveNetwork}
               queryNft={queryNft}
             />
-            <BridgeInteraction selectedNetwork={selectedNetwork} />
+            <BridgeInteraction activeNetwork={activeNetwork} />
           </div>
         </div>
       )}
