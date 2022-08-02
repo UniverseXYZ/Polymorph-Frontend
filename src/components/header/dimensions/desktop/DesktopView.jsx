@@ -117,7 +117,7 @@ const DesktopView = ({
               <button type="button" className={"menu-li faces-to-claim"}>
                 <span className="nav__link__title">
                   Faces to Claim
-                  {userPolymorphsBurntCount ? (
+                  {userPolymorphsBurntCount && userClaimedFacesCount ? (
                     <span>
                       {userPolymorphsBurntCount - userClaimedFacesCount}
                     </span>

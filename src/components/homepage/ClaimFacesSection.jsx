@@ -89,7 +89,9 @@ const ClaimFacesSection = () => {
               <div className="claim__faces">
                 <div className="count">
                   <span>
-                    {availableFacesToClaim ? availableFacesToClaim : "0"}{" "}
+                    {availableFacesToClaim && userPolymorphicFacesClaimed.length
+                      ? availableFacesToClaim
+                      : "0"}{" "}
                   </span>
                 </div>
                 <div className="change__count">
