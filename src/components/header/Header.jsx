@@ -498,6 +498,7 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
       <MobileView
         isWalletConnected={isWalletConnected}
@@ -521,6 +522,7 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
       <Popup
         closeOnDocumentClick={false}

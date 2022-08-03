@@ -268,6 +268,11 @@
     box-sizing: border-box;
     border-radius: 12px;
     padding: 9px;
+    height: 46px;
+    width: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: $white;
   }
   .overlay {
@@ -284,7 +289,7 @@
     right: 0;
     top: 80px;
     width: 100%;
-    height: auto;
+    height: 100vh;
     padding: 0px 20px;
     background-color: $white;
     border-radius: 0px 0px 12px 12px;
@@ -397,7 +402,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px 0;
+        padding: 20px;
+        position: absolute;
+        top: 75%;
+        left: 0;
+        width: 100%;
 
         button {
           font-family: $spaceGroteskFont;
@@ -415,6 +424,34 @@
           border: 1px solid transparent;
           border-radius: 12px;
           width: 100%;
+        }
+      }
+      &.network {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: absolute;
+        top: 75%;
+        left: 0;
+        width: 100%;
+
+        button {
+          font-family: "Space Grotesk";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 16px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 9px;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 12px;
+          width: 100%;
+          div {
+            margin-left: 8px;
+          }
         }
       }
     }
@@ -494,6 +531,12 @@
         border-radius: 4px;
         padding: 2px 4px;
         margin: 0 8px;
+        @include md {
+          font-size: 12px;
+        }
+      }
+      @include md {
+        margin: 0 4px;
       }
     }
 
@@ -542,12 +585,12 @@
           position: relative;
           display: flex;
           align-items: center;
-          justify-content: space-between;
           margin-bottom: 24px;
           .copy__div {
             padding-top: 2px;
             padding-right: 8px;
-
+            position: absolute;
+            right: 0;
             .copy > span {
               font-family: $spaceGroteskFont;
               font-style: normal;
@@ -616,6 +659,7 @@
 
         .group1 {
           display: flex;
+          align-items: center;
         }
 
         .group1 > img,
@@ -646,9 +690,16 @@
       }
 
       &__body {
-        padding: 16px;
+        padding: 8px;
         button {
+          border-radius: 12px;
           width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 16px;
+          div {
+            margin-left: 8px;
+          }
         }
       }
     }
@@ -690,7 +741,7 @@
           justify-content: center;
           align-items: center;
           height: 32px;
-          background-color: rgba(0, 0, 0, 0.05);
+          background-color: rgba(0, 0, 0, 0.1);
           border-radius: 8px;
 
           button:first-child {
@@ -715,11 +766,6 @@
             margin: auto;
           }
         }
-        .disabled {
-          background: rgba(0, 0, 0, 0.05) !important;
-          color: rgba(0, 0, 0, 0.1);
-          border: 1px solid rgba(0, 0, 0, 0.05);
-        }
         .claim--button {
           background: linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
           box-shadow: 0px 10px 20px rgba(136, 120, 172, 0.2);
@@ -728,7 +774,12 @@
           margin-left: 8px;
           &:hover {
             box-shadow: unset !important;
-            background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%) !important;
+            background: linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.4)
+              ),
+              linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%) !important;
           }
         }
       }

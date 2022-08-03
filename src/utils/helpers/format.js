@@ -17,7 +17,7 @@ export const shortenEnsDomain = (ens) => {
 };
 
 export const shortenEthereumAddress = (address) =>
-  `${address?.substring(0, 5)}...${address?.substring(address?.length - 6, address?.length)}`;
+  `${address?.substring(0, 4)}...${address?.substring(address?.length - 3, address?.length)}`;
 
 export const toFixed = (num, fixed) => {
   const re = new RegExp(`^-?\\d+(?:.\\d{0,${fixed || -1}})?`);
