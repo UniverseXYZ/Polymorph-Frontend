@@ -31,6 +31,11 @@ import Popup from "reactjs-popup";
 import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
 import PlusIcon from "../../../../assets/images/plus-icon-white.svg";
 import MinusIcon from "../../../../assets/images/minus-icon-white.svg";
+import ethIcon from "../../../../assets/images/eth-icon-blue.png";
+import polygonIcon from "../../../../assets/images/polygon-icon.png";
+import Image from "next/image";
+import signOutIcon from "../../../../assets/images/sign-out.png";
+import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -58,12 +63,15 @@ const MobileView = (props) => {
     claimTx,
     facesAmountToClaim,
     setFacesAmountToClaim,
+    setShowNetworkModal,
   } = props;
-  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
-    yourEnsDomain: s.yourEnsDomain,
-    signOut: s.signOut,
-    isAuthenticating: s.isAuthenticating,
-  }));
+  const { yourEnsDomain, signOut, isAuthenticating, activeNetwork } =
+    useAuthStore((s) => ({
+      yourEnsDomain: s.yourEnsDomain,
+      signOut: s.signOut,
+      isAuthenticating: s.isAuthenticating,
+      activeNetwork: s.activeNetwork,
+    }));
 
   const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
     yourBalance: state.yourBalance,
@@ -107,12 +115,12 @@ const MobileView = (props) => {
   };
 
   useEffect(() => {
-    if (showMobileSearch) {
+    if (showMobileSearch || isAccountDropdownOpened) {
       document.body.classList.add("no__scroll");
     } else {
       document.body.classList.remove("no__scroll");
     }
-  }, [showMobileSearch]);
+  }, [showMobileSearch, isAccountDropdownOpened]);
 
   useEffect(() => {
     if (showMenu) {
@@ -121,23 +129,6 @@ const MobileView = (props) => {
       document.body.classList.remove("no__scroll");
     }
   }, [showMenu]);
-
-  useEffect(() => {
-    document.addEventListener(
-      "click",
-      (e) => handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened),
-      true
-    );
-    return () => {
-      document.removeEventListener(
-        "click",
-        (e) => {
-          handleClickOutside(e, "blockie", ref, setIsAccountDropdownOpened);
-        },
-        true
-      );
-    };
-  }, []);
 
   const toggleDropdown = () => {
     setIsAccountDropdownOpened(!isAccountDropdownOpened);
@@ -167,7 +158,7 @@ const MobileView = (props) => {
       {isWalletConnected && (
         <div className="wallet__connected__tablet">
           <div
-            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
+            style={{ marginRight: 0, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleDropdown}
           >
@@ -175,76 +166,104 @@ const MobileView = (props) => {
           </div>
 
           {isAccountDropdownOpened && (
-            <Animated animationIn="fadeIn">
-              <div ref={ref} className="dropdown drop-account">
-                <div className="dropdown__header">
-                  <div className="copy-div">
-                    <HeaderAvatar scale={4} />
+            <div className={`account-menu`}>
+              {/* <div className="overlay" /> */}
+              <Animated animationIn="fadeIn">
+                <div ref={ref} className="dropdown drop-account">
+                  <div className="dropdown__header">
+                    <div className="copy-div">
+                      <HeaderAvatar scale={4} />
 
-                    {/* <img className="icon-img" src={accountIcon} alt="icon" /> */}
-                    <div className="ethereum__address">
-                      {yourEnsDomain
-                        ? shortenEnsDomain(yourEnsDomain)
-                        : shortenEthereumAddress(ethereumAddress)}
-                    </div>
-                    <div className="copy__div">
-                      <div className="copy" title="Copy to clipboard">
-                        <div className="copied-div" hidden={!copied}>
-                          Address copied!
-                          <span />
+                      {/* <img className="icon-img" src={accountIcon} alt="icon" /> */}
+                      <div className="ethereum__address">
+                        {yourEnsDomain
+                          ? shortenEnsDomain(yourEnsDomain)
+                          : shortenEthereumAddress(ethereumAddress)}
+                      </div>
+                      <div className="copy__div">
+                        <div className="copy" title="Copy to clipboard">
+                          <div className="copied-div" hidden={!copied}>
+                            Address copied!
+                            <span />
+                          </div>
+                          <CopyToClipboard
+                            text={ethereumAddress}
+                            onCopy={() => {
+                              setCopied(true);
+                              setTimeout(() => {
+                                setCopied(false);
+                              }, 1000);
+                            }}
+                          >
+                            <span>
+                              <img
+                                src={copyIcon}
+                                alt="Copy to clipboard icon"
+                                className="copyImg"
+                              />
+                            </span>
+                          </CopyToClipboard>
                         </div>
-                        <CopyToClipboard
-                          text={ethereumAddress}
-                          onCopy={() => {
-                            setCopied(true);
-                            setTimeout(() => {
-                              setCopied(false);
-                            }, 1000);
-                          }}
-                        >
-                          <span>
-                            <img
-                              src={copyIcon}
-                              alt="Copy to clipboard icon"
-                              className="copyImg"
-                            />
-                          </span>
-                        </CopyToClipboard>
                       </div>
                     </div>
+                    <div className="group1">
+                      <img src={Group1} alt="ETH" />
+                      <span className="first-span">
+                        {toFixed(yourBalance, 2)} ETH
+                      </span>
+                      <span className="second-span">
+                        ${toFixed(usdEthBalance, 2)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="group1">
-                    <img src={Group1} alt="ETH" />
-                    <span className="first-span">
-                      {toFixed(yourBalance, 2)} ETH
-                    </span>
-                    <span className="second-span">
-                      ${toFixed(usdEthBalance, 2)}
-                    </span>
+                  <div className="dropdown__body">
+                    <button
+                      type="button"
+                      // className="light-border-button"
+                      onClick={() => {
+                        router.push("/my-polymorphs");
+                        setIsAccountDropdownOpened(false);
+                      }}
+                    >
+                      <Image
+                        src={myPolymorphsIcon}
+                        width={20}
+                        height={20}
+                        alt="My polymorphs"
+                      />
+                      <div>My polymorphs</div>
+                    </button>
+                    <button
+                      type="button"
+                      // className="light-border-button"
+                      onClick={() => {
+                        setIsAccountDropdownOpened(false);
+                        signOut();
+                        router.push("/");
+                      }}
+                    >
+                      <Image
+                        src={signOutIcon}
+                        width={20}
+                        height={20}
+                        alt="Sign out"
+                      />
+                      <div>Disconnect</div>
+                    </button>
                   </div>
                 </div>
-                <div className="dropdown__body">
-                  <button
-                    type="button"
-                    className="light-border-button"
-                    onClick={() => {
-                      signOut();
-                      router.push("/");
-                      setIsAccountDropdownOpened(false);
-                    }}
-                  >
-                    Disconnect
-                  </button>
-                </div>
-              </div>
-            </Animated>
+              </Animated>
+            </div>
           )}
         </div>
       )}
       <button
         type="button"
         className="hamburger"
-        onClick={() => setShowMenu(!showMenu)}
+        onClick={() => {
+          setIsAccountDropdownOpened(false);
+          setShowMenu(!showMenu);
+        }}
       >
         {!showMenu ? (
           <img src={hamburgerIcon} alt="Hamburger" />
@@ -291,7 +310,7 @@ const MobileView = (props) => {
                           <img src={arrowRight} alt="arrow" />
                         </div>
                       </div>
-                      <div>
+                      {/* <div>
                         <div
                           className="head"
                           aria-hidden="true"
@@ -305,17 +324,20 @@ const MobileView = (props) => {
                           </p>
                           <img src={arrowRight} alt="arrow" />
                         </div>
-                      </div>
+                      </div> */}
                       {isWalletConnected && (
                         <div>
                           <div
                             className="head"
                             aria-hidden="true"
-                            onClick={() => setShowFacesMenu(true)}
+                            onClick={() => {
+                              setShowFacesMenu(true);
+                            }}
                           >
                             <p className="title">
                               Faces to Claim
-                              {userPolymorphsBurntCount ? (
+                              {userPolymorphsBurntCount &&
+                              userClaimedFacesCount ? (
                                 <span>
                                   {userPolymorphsBurntCount -
                                     userClaimedFacesCount}
@@ -352,7 +374,7 @@ const MobileView = (props) => {
                     <div className="faces-to-claim">
                       <div className="menu__header">
                         <div className={"heading"}>
-                          {userPolymorphsBurntCount ? (
+                          {userPolymorphsBurntCount && userClaimedFacesCount ? (
                             <span>
                               {userPolymorphsBurntCount - userClaimedFacesCount}
                             </span>
@@ -511,6 +533,22 @@ const MobileView = (props) => {
                   </>
                 )}
               </div>
+            )}
+            {isWalletConnected && (
+              <li className="network">
+                {activeNetwork === "Ethereum" && (
+                  <button onClick={() => setShowNetworkModal(true)}>
+                    <Image src={ethIcon} height={24} width={24} />
+                    <div>Ethereum</div>
+                  </button>
+                )}
+                {activeNetwork === "Polygon" && (
+                  <button onClick={() => setShowNetworkModal(true)}>
+                    <Image src={polygonIcon} height={24} width={24} />
+                    <div>Polygon</div>
+                  </button>
+                )}
+              </li>
             )}
           </ul>
         </>
