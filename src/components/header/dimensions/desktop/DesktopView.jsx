@@ -291,8 +291,13 @@ const DesktopView = ({
                       router.push("/my-polymorphs");
                     }}
                   >
-                    <img src={myPolymorphsIcon} alt="My polymorphs" />
-                    My polymorphs
+                    <Image
+                      src={myPolymorphsIcon}
+                      width={24}
+                      height={24}
+                      alt="My polymorphs"
+                    />
+                    <div>My polymorphs</div>
                   </button>
                   <button
                     type="button"
@@ -303,8 +308,13 @@ const DesktopView = ({
                       router.push("/");
                     }}
                   >
-                    <img src={signOutIcon} alt="Sign out" />
-                    Disconnect
+                    <Image
+                      src={signOutIcon}
+                      width={24}
+                      height={24}
+                      alt="Sign out"
+                    />
+                    <div>Disconnect</div>
                   </button>
                 </div>
               </div>

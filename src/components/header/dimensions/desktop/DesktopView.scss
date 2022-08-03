@@ -179,7 +179,6 @@
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             margin-bottom: 24px;
             .blockie {
               border-radius: 5px;
@@ -187,6 +186,8 @@
             .copy__div {
               padding-top: 2px;
               padding-right: 8px;
+              position: absolute;
+              right: 0;
 
               .copy > span {
                 font-family: $spaceGroteskFont;
@@ -198,8 +199,8 @@
                 opacity: 0.4;
               }
               .copyImg {
-                margin-right: 5px;
-                margin-left: 11px;
+                height: 16px;
+                width: 16px;
               }
               .copy > span {
                 opacity: 0.6;
@@ -271,7 +272,7 @@
             font-weight: bold;
             font-size: 16px;
             color: $black;
-            margin: 0 12px;
+            line-height: 20px;
           }
           .copy {
             cursor: pointer;
@@ -288,6 +289,9 @@
             border-radius: 12px;
             &:hover {
               background-color: rgba(0, 0, 0, 0.1);
+            }
+            div {
+              margin-left: 12px;
             }
           }
           img {

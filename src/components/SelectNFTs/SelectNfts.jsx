@@ -244,7 +244,14 @@ const SelectNfts = () => {
                         NFTs: <b>{selectedCards.length}</b>
                       </span>
                     )}
-                    <Tooltip hasArrow label="Only available on Ethereum">
+                    <Tooltip
+                      hasArrow
+                      label={
+                        activeNetwork !== "Ethereum"
+                          ? "Only available on Ethereum"
+                          : ""
+                      }
+                    >
                       <span>
                         <Button
                           className={"light-button"}

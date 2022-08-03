@@ -538,13 +538,13 @@ const MobileView = (props) => {
               <li className="network">
                 {activeNetwork === "Ethereum" && (
                   <button onClick={() => setShowNetworkModal(true)}>
-                    <Image src={ethIcon} height={24} width={24} />
+                    <Image src={ethIcon} height={24} width={24} alt="" />
                     <div>Ethereum</div>
                   </button>
                 )}
                 {activeNetwork === "Polygon" && (
                   <button onClick={() => setShowNetworkModal(true)}>
-                    <Image src={polygonIcon} height={24} width={24} />
+                    <Image src={polygonIcon} height={24} width={24} alt="" />
                     <div>Polygon</div>
                   </button>
                 )}
