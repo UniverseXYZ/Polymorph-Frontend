@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Popup from "reactjs-popup";
-import HeaderAvatar from "../../HeaderAvatar";
 import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
 import copyIcon from "../../../../assets/images/copy.svg";
 import arrowUP from "../../../../assets/images/arrow-down.svg";

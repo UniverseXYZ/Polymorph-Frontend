@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Animated } from "react-animated-css";
-import HeaderAvatar from "../../HeaderAvatar";
 import Button from "../../../button/Button.jsx";
 import hamburgerIcon from "../../../../assets/images/hamburger.svg";
 import closeIcon from "../../../../assets/images/close-menu.svg";
@@ -11,9 +10,6 @@ import Group1 from "../../../../assets/images/Group1.svg";
 import Group2 from "../../../../assets/images/Group2.svg";
 import copyIcon from "../../../../assets/images/copy.svg";
 import metamaskLogo from "../../../../assets/images/metamask.png";
-import ledgerLogo from "../../../../assets/images/ledger.png";
-import keystoreLogo from "../../../../assets/images/keystore.png";
-import trezorLogo from "../../../../assets/images/trezor.png";
 import coinbaseLogo from "../../../../assets/images/coinbase.png";
 import walletConnectLogo from "../../../../assets/images/wallet-connect.png";
 import leftArrow from "../../../../assets/images/arrow.svg";
@@ -27,8 +23,6 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
 import arrowLeft from "../../../../assets/images/burn-to-mint-images/arrow-left-white.svg";
-import Popup from "reactjs-popup";
-import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
 import PlusIcon from "../../../../assets/images/plus-icon-white.svg";
 import MinusIcon from "../../../../assets/images/minus-icon-white.svg";
 import ethIcon from "../../../../assets/images/eth-icon-blue.png";
@@ -482,27 +476,6 @@ const MobileView = (props) => {
                       >
                         <img src={walletConnectLogo} alt="WalletConnect" />
                       </button>
-                      {/* <button
-                        type="button"
-                        disabled
-                        onClick={() => handleConnectWallet("Ledger")}
-                      >
-                        <img src={ledgerLogo} alt="Ledger" />
-                      </button>
-                      <button
-                        type="button"
-                        disabled
-                        onClick={() => handleConnectWallet("Keystore")}
-                      >
-                        <img src={keystoreLogo} alt="Keystore" />
-                      </button>
-                      <button
-                        type="button"
-                        disabled
-                        onClick={() => handleConnectWallet("Trezor")}
-                      >
-                        <img src={trezorLogo} alt="Trezor" />
-                      </button> */}
                       <button
                         type="button"
                         onClick={() => handleConnectWallet("Coinbase")}
