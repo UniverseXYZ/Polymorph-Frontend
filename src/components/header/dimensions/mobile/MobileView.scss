@@ -710,7 +710,11 @@
   }
   .wallet__connected__tablet {
     position: relative;
-    img.account__icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+
+    img.wallet-icon {
       width: 40px;
       height: 40px;
       margin-right: 12px;
@@ -865,6 +869,7 @@
             font-weight: bold;
             font-size: 16px;
             color: $black;
+            margin-left: 10px;
           }
         }
 

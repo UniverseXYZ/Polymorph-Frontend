@@ -23,6 +23,7 @@ import ethIcon from "../../../../assets/images/eth-icon-blue.png";
 import polygonIcon from "../../../../assets/images/polygon-icon.png";
 import Image from "next/image";
 import { Tooltip } from "@chakra-ui/react";
+import walletIcon from "../../../../assets/images/wallet-icon.png";
 
 const DesktopView = ({
   isWalletConnected,
@@ -209,7 +210,7 @@ const DesktopView = ({
                   setIsAccountDropdownOpened(!isAccountDropdownOpened)
                 }
               >
-                <HeaderAvatar scale={3} />
+                <Image src={walletIcon} height={34} width={34} />
                 <span className="nav__link__title">
                   <div className="ethereum__address">
                     {yourEnsDomain
@@ -239,7 +240,7 @@ const DesktopView = ({
                         setIsAccountDropdownOpened(false);
                       }}
                     >
-                      <HeaderAvatar scale={4} />
+                      <Image src={walletIcon} height={34} width={34} />
                     </button>
                     <div className="ethereum__address">
                       {yourEnsDomain

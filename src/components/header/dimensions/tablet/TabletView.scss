@@ -531,9 +531,7 @@
         border-radius: 4px;
         padding: 2px 4px;
         margin: 0 8px;
-        @include md {
-          font-size: 12px;
-        }
+        font-size: 12px;
       }
       @include md {
         margin: 0 4px;
@@ -641,6 +639,7 @@
             font-weight: bold;
             font-size: 16px;
             color: $black;
+            margin-left: 10px;
           }
         }
 

@@ -36,6 +36,7 @@ import polygonIcon from "../../../../assets/images/polygon-icon.png";
 import Image from "next/image";
 import signOutIcon from "../../../../assets/images/sign-out.png";
 import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
+import walletIcon from "../../../../assets/images/wallet-icon.png";
 
 const externalLink =
   "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en";
@@ -162,7 +163,12 @@ const MobileView = (props) => {
             aria-hidden
             onClick={toggleDropdown}
           >
-            <HeaderAvatar scale={4} />
+            <Image
+              className="wallet-icon"
+              src={walletIcon}
+              height={40}
+              width={40}
+            />
           </div>
 
           {isAccountDropdownOpened && (
@@ -172,9 +178,12 @@ const MobileView = (props) => {
                 <div ref={ref} className="dropdown drop-account">
                   <div className="dropdown__header">
                     <div className="copy-div">
-                      <HeaderAvatar scale={4} />
-
-                      {/* <img className="icon-img" src={accountIcon} alt="icon" /> */}
+                      <Image
+                        className="wallet-icon"
+                        src={walletIcon}
+                        height={40}
+                        width={40}
+                      />
                       <div className="ethereum__address">
                         {yourEnsDomain
                           ? shortenEnsDomain(yourEnsDomain)

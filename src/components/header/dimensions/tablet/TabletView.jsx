@@ -30,6 +30,7 @@ import polygonIcon from "../../../../assets/images/polygon-icon.png";
 import Image from "next/image";
 import signOutIcon from "../../../../assets/images/sign-out.png";
 import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
+import walletIcon from "../../../../assets/images/wallet-icon.png";
 
 const TabletView = (props) => {
   const {
@@ -136,7 +137,7 @@ const TabletView = (props) => {
                 setIsAccountDropdownOpened(!isAccountDropdownOpened)
               }
             >
-              <HeaderAvatar scale={4} />
+              <Image src={walletIcon} height={34} width={34} />
               <span className="nav__link__title">
                 <div className="ethereum__address__tablet">
                   {yourEnsDomain
@@ -153,7 +154,7 @@ const TabletView = (props) => {
               <div ref={ref} className="dropdown drop-account">
                 <div className="dropdown__header">
                   <div className="copy-div">
-                    <HeaderAvatar scale={3.35} />
+                    <Image src={walletIcon} height={34} width={34} />
                     <div className="ethereum__address">
                       {yourEnsDomain
                         ? shortenEnsDomain(yourEnsDomain)
