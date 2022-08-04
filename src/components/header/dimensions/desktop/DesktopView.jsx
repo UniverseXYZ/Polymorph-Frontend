@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Popup from "reactjs-popup";
-import HeaderAvatar from "../../HeaderAvatar";
 import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
 import copyIcon from "../../../../assets/images/copy.svg";
 import arrowUP from "../../../../assets/images/arrow-down.svg";
@@ -17,6 +16,13 @@ import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import PlusIcon from "../../../../assets/images/plus-icon.svg";
 import MinusIcon from "../../../../assets/images/minus-icon.svg";
+import signOutIcon from "../../../../assets/images/sign-out.png";
+import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
+import ethIcon from "../../../../assets/images/eth-icon-blue.png";
+import polygonIcon from "../../../../assets/images/polygon-icon.png";
+import Image from "next/image";
+import { Tooltip } from "@chakra-ui/react";
+import walletIcon from "../../../../assets/images/wallet-icon.png";
 
 const DesktopView = ({
   isWalletConnected,
@@ -34,6 +40,7 @@ const DesktopView = ({
   claimTx,
   facesAmountToClaim,
   setFacesAmountToClaim,
+  setShowNetworkModal,
 }) => {
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -46,6 +53,7 @@ const DesktopView = ({
     loggedInArtist,
     signOut,
     isAuthenticating,
+    activeNetwork,
   } = useAuthStore((s) => ({
     address: s.address,
     isAuthenticated: s.isAuthenticated,
@@ -53,6 +61,7 @@ const DesktopView = ({
     loggedInArtist: s.loggedInArtist,
     signOut: s.signOut,
     isAuthenticating: s.isAuthenticating,
+    activeNetwork: s.activeNetwork,
   }));
 
   const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
@@ -90,7 +99,7 @@ const DesktopView = ({
             <span className="nav__link__title">Rarity Chart</span>
           </button>
         </li>
-        <li>
+        {/* <li>
           <button
             type="button"
             className="menu-li"
@@ -98,11 +107,10 @@ const DesktopView = ({
           >
             <span className="nav__link__title">
               My Polymorphs
-              {/* Change the hardcoded value to the user's amount of polymorphs */}
               {userPolymorphsCount ? <span>{userPolymorphsCount}</span> : null}
             </span>
           </button>
-        </li>
+        </li> */}
 
         {isWalletConnected ? (
           <>
@@ -110,7 +118,7 @@ const DesktopView = ({
               <button type="button" className={"menu-li faces-to-claim"}>
                 <span className="nav__link__title">
                   Faces to Claim
-                  {userPolymorphsBurntCount ? (
+                  {userPolymorphsBurntCount && userClaimedFacesCount ? (
                     <span>
                       {userPolymorphsBurntCount - userClaimedFacesCount}
                     </span>
@@ -153,13 +161,27 @@ const DesktopView = ({
                         +
                       </button>
                     </div>
-                    <button
-                      className={"light-border-button claim--button"}
-                      onClick={claimTx}
-                      disabled={facesAmountToClaim === 0}
+                    <Tooltip
+                      hasArrow
+                      label={`${
+                        activeNetwork !== "Ethereum"
+                          ? "Only available on Ethereum"
+                          : ""
+                      }`}
                     >
-                      Claim
-                    </button>
+                      <span>
+                        <button
+                          className={"light-border-button claim--button"}
+                          onClick={claimTx}
+                          disabled={
+                            facesAmountToClaim === 0 ||
+                            activeNetwork !== "Ethereum"
+                          }
+                        >
+                          Claim
+                        </button>
+                      </span>
+                    </Tooltip>
                   </div>
                 </div>
                 <div className="dropdown__body">
@@ -187,7 +209,7 @@ const DesktopView = ({
                   setIsAccountDropdownOpened(!isAccountDropdownOpened)
                 }
               >
-                <HeaderAvatar scale={3} />
+                <Image src={walletIcon} height={34} width={34} />
                 <span className="nav__link__title">
                   <div className="ethereum__address">
                     {yourEnsDomain
@@ -217,7 +239,7 @@ const DesktopView = ({
                         setIsAccountDropdownOpened(false);
                       }}
                     >
-                      <HeaderAvatar scale={4} />
+                      <Image src={walletIcon} height={34} width={34} />
                     </button>
                     <div className="ethereum__address">
                       {yourEnsDomain
@@ -264,18 +286,51 @@ const DesktopView = ({
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    className="light-border-button"
+                    // className="light-border-button"
+                    onClick={() => {
+                      router.push("/my-polymorphs");
+                    }}
+                  >
+                    <Image
+                      src={myPolymorphsIcon}
+                      width={24}
+                      height={24}
+                      alt="My polymorphs"
+                    />
+                    <div>My polymorphs</div>
+                  </button>
+                  <button
+                    type="button"
+                    // className="light-border-button"
                     onClick={() => {
                       setIsAccountDropdownOpened(false);
                       signOut();
                       router.push("/");
                     }}
                   >
-                    {/* <img src={signOutIcon} alt="Sign out" /> */}
-                    Disconnect
+                    <Image
+                      src={signOutIcon}
+                      width={24}
+                      height={24}
+                      alt="Sign out"
+                    />
+                    <div>Disconnect</div>
                   </button>
                 </div>
               </div>
+            </li>
+            <li>
+              <button
+                className="eth-icon"
+                onClick={() => setShowNetworkModal(true)}
+              >
+                <Image
+                  src={activeNetwork === "Ethereum" ? ethIcon : polygonIcon}
+                  width={24}
+                  height={24}
+                  alt="eth-ico"
+                />
+              </button>
             </li>
           </>
         ) : (

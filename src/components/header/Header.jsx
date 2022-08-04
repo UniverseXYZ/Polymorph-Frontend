@@ -35,6 +35,9 @@ import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import MintPolymorphicFaceSuccessPopup from "../popups/MintPolymorphicFaceSuccessPopup";
 import ClaimLoadingPopup from "@legacy/popups/ClaimLoadingPopup";
+import ChangeNetworkPopup from "../popups/ChangeNetworkPopup";
+import { queryPolymorphsGraphV2 } from "@legacy/graphql/polymorphQueries";
+import { mintedV2Polymorphs } from "@legacy/graphql/polymorphQueries";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
@@ -91,6 +94,8 @@ const Header = () => {
   const [showLoadingModal, setShowLoadingModal] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [burntCount, setBurntCount] = useState();
+  const [showNetworkModal, setShowNetworkModal] = useState(false);
+  const [selectedNetowrk, setSelectedNetwork] = useState("Ethereum");
 
   const availableFacesToClaim = burntCount - userPolymorphicFacesClaimed.length;
 
@@ -202,11 +207,13 @@ const Header = () => {
   }, [setLoginFn]);
 
   useEffect(async () => {
-    if (polymorphContractV2 && address) {
-      const burntAmount = await polymorphContractV2.burnCount(address);
-      setBurntCount(burntAmount.toNumber());
+    if (address) {
+      const { mintedEntities } = await queryPolymorphsGraphV2(
+        mintedV2Polymorphs(address)
+      );
+      setBurntCount(mintedEntities.length);
     }
-  }, [polymorphContractV2 && address]);
+  }, [address]);
 
   const facesClaimCountHandler = (method) => {
     if (
@@ -469,6 +476,7 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
       <TabletView
         isWalletConnected={isWalletConnected}
@@ -490,6 +498,7 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
       <MobileView
         isWalletConnected={isWalletConnected}
@@ -513,8 +522,8 @@ const Header = () => {
         claimTx={claimTxHandler}
         setFacesAmountToClaim={facesClaimCountHandler}
         facesAmountToClaim={facesAmountToClaim}
+        setShowNetworkModal={setShowNetworkModal}
       />
-
       <Popup
         closeOnDocumentClick={false}
         trigger={<></>}
@@ -536,6 +545,11 @@ const Header = () => {
           />
         )}
       </Popup>
+      {showNetworkModal && (
+        <Popup closeOnDocumentClick={false} open={showNetworkModal}>
+          <ChangeNetworkPopup onClose={() => setShowNetworkModal(false)} />
+        </Popup>
+      )}
       {showLoadingModal && (
         <Popup closeOnDocumentClick={false} open={showLoadingModal}>
           <ClaimLoadingPopup onClose={() => setShowLoadingModal(false)} />

@@ -16,11 +16,14 @@
       font-weight: 500;
       font-size: 12px;
       line-height: 12px;
-      padding: 10px 0;
       -webkit-perspective: 200;
 
-      &:last-of-type {
-        padding: 0px;
+      &:last-child {
+        margin-left: 8px;
+      }
+
+      &:nth-last-child(2) {
+        margin-left: 8px;
       }
 
       &:hover {
@@ -134,6 +137,8 @@
       .nav__link__title {
         margin: 0 12px;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
         span {
           color: $white;
           background-color: $black;
@@ -164,7 +169,7 @@
         opacity: 0;
         pointer-events: none;
         &.drop-account {
-          top: 40px;
+          top: 46px;
           width: 280px;
         }
         &__header {
@@ -174,7 +179,6 @@
             position: relative;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             margin-bottom: 24px;
             .blockie {
               border-radius: 5px;
@@ -182,6 +186,8 @@
             .copy__div {
               padding-top: 2px;
               padding-right: 8px;
+              position: absolute;
+              right: 0;
 
               .copy > span {
                 font-family: $spaceGroteskFont;
@@ -193,8 +199,8 @@
                 opacity: 0.4;
               }
               .copyImg {
-                margin-right: 5px;
-                margin-left: 11px;
+                height: 16px;
+                width: 16px;
               }
               .copy > span {
                 opacity: 0.6;
@@ -266,23 +272,38 @@
             font-weight: bold;
             font-size: 16px;
             color: $black;
-            margin: 0 12px;
+            line-height: 20px;
+            margin-left: 10px;
           }
           .copy {
             cursor: pointer;
           }
         }
         &__body {
-          padding: 16px;
+          padding: 8px;
           button {
+            display: flex;
             width: 100%;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 16px;
+            border-radius: 12px;
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.1);
+            }
+            div {
+              margin-left: 12px;
+            }
+          }
+          img {
+            margin-right: 12px;
           }
         }
       }
       .drop-faces-to-claim {
-        width: 206px;
+        width: 205px;
         position: absolute;
-        top: 58px;
+        top: 46px;
 
         .dropdown__header {
           background: linear-gradient(
@@ -355,7 +376,12 @@
             &:hover {
               // background: transparent !important;
               box-shadow: unset !important;
-              background: linear-gradient(0deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
+              background: linear-gradient(
+                  0deg,
+                  rgba(255, 255, 255, 0.4),
+                  rgba(255, 255, 255, 0.4)
+                ),
+                linear-gradient(135deg, #bceb00 15.57%, #00eaea 84.88%);
             }
           }
         }
@@ -377,9 +403,18 @@
             margin-bottom: 16px;
           }
           button {
+            display: block;
             padding: 6px 14px;
           }
         }
+      }
+      .eth-icon {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        border-radius: 12px;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
       }
     }
   }

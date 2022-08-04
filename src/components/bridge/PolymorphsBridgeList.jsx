@@ -7,10 +7,10 @@ import RarityChartsLoader from "../../containers/rarityCharts/RarityChartsLoader
 import { Button } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroller";
 import Image from "next/image";
-import ethIcon from "../../assets/images/eth--icon--blue.png";
+import ethIcon from "../../assets/images/eth-icon-blue.png";
 import arrowUp from "../../assets/images/arrow-down.svg";
 import searchIcon from "../../assets/images/search--icon.png";
-import polygonIcon from "../../assets/images/polygon--icon.png";
+import polygonIcon from "../../assets/images/polygon-icon.png";
 import RaritySearchField from "../input/RaritySearchField";
 import crossIcon from "../../assets/images/cross-icon.png";
 import noNftsFound from "../../assets/images/bridge/no-nfts-found.png";
@@ -40,8 +40,8 @@ const List = ({
   results,
   apiPage,
   getSelectedCards,
-  selectedNetwork,
-  setSelectedNetwork,
+  activeNetwork,
+  setActiveNetwork,
   queryNft,
 }) => {
   const sliceData = data?.slice(offset, offset + perPage) || [];
@@ -82,7 +82,7 @@ const List = ({
 
   useEffect(() => {
     setSelectedCards([]);
-  }, [selectedNetwork]);
+  }, [activeNetwork]);
 
   return (
     <>
@@ -92,14 +92,14 @@ const List = ({
             <div className="network--select">
               <div>From Network</div>
               <button onClick={() => setDropdownOpened(!dropdownOpened)}>
-                {selectedNetwork === "Ethereum" && (
+                {activeNetwork === "Ethereum" && (
                   <>
                     <Image src={ethIcon} width={24} height={24} alt="" />
                     Ethereum
                     <Image src={arrowUp} width={10} height={10} alt="" />
                   </>
                 )}
-                {selectedNetwork === "Polygon" && (
+                {activeNetwork === "Polygon" && (
                   <>
                     <Image src={polygonIcon} width={24} height={24} alt="" />
                     Polygon
@@ -111,7 +111,7 @@ const List = ({
                 <div className="network--dropdown">
                   <button
                     onClick={() => {
-                      setSelectedNetwork("Ethereum");
+                      setActiveNetwork("Ethereum");
                       setDropdownOpened(false);
                     }}
                   >
@@ -120,7 +120,7 @@ const List = ({
                   </button>
                   <button
                     onClick={() => {
-                      setSelectedNetwork("Polygon");
+                      setActiveNetwork("Polygon");
                       setDropdownOpened(false);
                     }}
                   >
@@ -215,7 +215,7 @@ const List = ({
                   myNFTsSelectedTabIndex === 0
                     ? "Polymorphs"
                     : "Polymorphic Faces"
-                } on [${selectedNetwork}] blockchain`}
+                } on [${activeNetwork}] blockchain`}
               </p>
               <Button onClick={() => window.open(marketplaceLink)}>
                 Buy Items

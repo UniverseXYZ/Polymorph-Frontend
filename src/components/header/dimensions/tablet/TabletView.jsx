@@ -4,7 +4,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useRouter } from "next/router";
 import Popup from "reactjs-popup";
 import { Animated } from "react-animated-css";
-import HeaderAvatar from "../../HeaderAvatar";
 import SelectWalletPopup from "../../../popups/SelectWalletPopup.jsx";
 import hamburgerIcon from "../../../../assets/images/hamburger.svg";
 import closeIcon from "../../../../assets/images/close-menu.svg";
@@ -20,9 +19,16 @@ import arrowUP from "../../../../assets/images/arrow-down.svg";
 import { useUserBalanceStore } from "../../../../stores/balanceStore";
 import { useAuthStore } from "../../../../stores/authStore";
 import arrowRight from "../../../../assets/images/marketplace/bundles-right-arrow.svg";
-import MintPolymorphicFaceSuccessPopup from "../../../popups/MintPolymorphicFaceSuccessPopup";
-import PlusIcon from '../../../../assets/images/plus-icon.svg'
-import MinusIcon from '../../../../assets/images/minus-icon.svg'
+import PlusIcon from "../../../../assets/images/plus-icon.svg";
+import MinusIcon from "../../../../assets/images/minus-icon.svg";
+import { Tooltip } from "@chakra-ui/react";
+import { useWindowSize } from "react-use";
+import ethIcon from "../../../../assets/images/eth-icon-blue.png";
+import polygonIcon from "../../../../assets/images/polygon-icon.png";
+import Image from "next/image";
+import signOutIcon from "../../../../assets/images/sign-out.png";
+import myPolymorphsIcon from "../../../../assets/images/my-polymorphs-icon.png";
+import walletIcon from "../../../../assets/images/wallet-icon.png";
 
 const TabletView = (props) => {
   const {
@@ -45,12 +51,15 @@ const TabletView = (props) => {
     claimTx,
     facesAmountToClaim,
     setFacesAmountToClaim,
+    setShowNetworkModal,
   } = props;
-  const { yourEnsDomain, signOut, isAuthenticating } = useAuthStore((s) => ({
-    yourEnsDomain: s.yourEnsDomain,
-    signOut: s.signOut,
-    isAuthenticating: s.isAuthenticating,
-  }));
+  const { yourEnsDomain, signOut, isAuthenticating, activeNetwork } =
+    useAuthStore((s) => ({
+      yourEnsDomain: s.yourEnsDomain,
+      signOut: s.signOut,
+      isAuthenticating: s.isAuthenticating,
+      activeNetwork: s.activeNetwork,
+    }));
 
   const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
     yourBalance: state.yourBalance,
@@ -62,6 +71,7 @@ const TabletView = (props) => {
   const ref = useRef(null);
   const router = useRouter();
   const [isFacesDropdownOpened, setIsFacesDropdownOpened] = useState(false);
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     if (showSearch) {
@@ -113,7 +123,7 @@ const TabletView = (props) => {
       {isWalletConnected && (
         <div className="wallet__connected__tablet">
           <div
-            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
+            style={{ marginRight: 10, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleDropdown}
           >
@@ -125,7 +135,7 @@ const TabletView = (props) => {
                 setIsAccountDropdownOpened(!isAccountDropdownOpened)
               }
             >
-              <HeaderAvatar scale={4} />
+              <Image src={walletIcon} height={34} width={34} />
               <span className="nav__link__title">
                 <div className="ethereum__address__tablet">
                   {yourEnsDomain
@@ -142,7 +152,7 @@ const TabletView = (props) => {
               <div ref={ref} className="dropdown drop-account">
                 <div className="dropdown__header">
                   <div className="copy-div">
-                    <HeaderAvatar scale={3} />
+                    <Image src={walletIcon} height={34} width={34} />
                     <div className="ethereum__address">
                       {yourEnsDomain
                         ? shortenEnsDomain(yourEnsDomain)
@@ -187,14 +197,36 @@ const TabletView = (props) => {
                 <div className="dropdown__body">
                   <button
                     type="button"
-                    className="light-border-button"
+                    // className="light-border-button"
                     onClick={() => {
-                      signOut();
-                      router.push("/");
+                      router.push("/my-polymorphs");
                       setIsAccountDropdownOpened(false);
                     }}
                   >
-                    Disconnect
+                    <Image
+                      src={myPolymorphsIcon}
+                      width={20}
+                      height={20}
+                      alt="My polymorphs"
+                    />
+                    <div>My polymorphs</div>
+                  </button>
+                  <button
+                    type="button"
+                    // className="light-border-button"
+                    onClick={() => {
+                      setIsAccountDropdownOpened(false);
+                      signOut();
+                      router.push("/");
+                    }}
+                  >
+                    <Image
+                      src={signOutIcon}
+                      width={20}
+                      height={20}
+                      alt="Sign out"
+                    />
+                    <div>Disconnect</div>
                   </button>
                 </div>
               </div>
@@ -202,7 +234,7 @@ const TabletView = (props) => {
           )}
 
           <div
-            style={{ marginRight: 20, display: "flex", cursor: "pointer" }}
+            style={{ marginRight: 10, display: "flex", cursor: "pointer" }}
             aria-hidden
             onClick={toggleFacesDropdown}
           >
@@ -212,8 +244,8 @@ const TabletView = (props) => {
               className="menu-li faces-to-claim"
             >
               <span className="nav__link__title">
-                Faces to Claim
-                {userPolymorphsBurntCount ? (
+                {windowSize.width < 735 ? "Faces" : "Faces to Claim"}
+                {userPolymorphsBurntCount && userClaimedFacesCount ? (
                   <span>
                     {userPolymorphsBurntCount - userClaimedFacesCount}
                   </span>
@@ -246,26 +278,38 @@ const TabletView = (props) => {
                       onClick={() => setFacesAmountToClaim("sub")}
                       disabled={facesAmountToClaim === 0}
                     >
-                      <img src={MinusIcon} alt='' />
+                      <img src={MinusIcon} alt="" />
                     </button>
                     <span>{facesAmountToClaim}</span>
                     <button
-                      className={`${
-                        facesAmountToClaim === 20 ? "disabled" : ""
-                      }`}
+                      className={`${facesAmountToClaim === 20 ? "" : ""}`}
                       onClick={() => setFacesAmountToClaim("add")}
                       disabled={facesAmountToClaim === 20}
                     >
-                      <img src={PlusIcon} alt='' />
+                      <img src={PlusIcon} alt="" />
                     </button>
                   </div>
-                  <button
-                    className={"light-border-button claim--button"}
-                    onClick={claimTx}
-                    disabled={facesAmountToClaim === 0}
+                  <Tooltip
+                    hasArrow
+                    label={`${
+                      activeNetwork !== "Ethereum"
+                        ? "Only available on Ethereum"
+                        : ""
+                    }`}
                   >
-                    Claim
-                  </button>
+                    <span>
+                      <button
+                        className={"light-border-button claim--button"}
+                        onClick={claimTx}
+                        disabled={
+                          facesAmountToClaim === 0 ||
+                          activeNetwork !== "Ethereum"
+                        }
+                      >
+                        Claim
+                      </button>
+                    </span>
+                  </Tooltip>
                 </div>
               </div>
               <div className="dropdown__body">
@@ -338,7 +382,7 @@ const TabletView = (props) => {
                   </p>
                   <img src={arrowRight} alt="arrow" />
                 </div>
-                <div className="menu__row">
+                {/* <div className="menu__row">
                   <p
                     className="title"
                     onClick={() => {
@@ -352,7 +396,7 @@ const TabletView = (props) => {
                     ) : null}
                   </p>
                   <img src={arrowRight} alt="arrow" />
-                </div>
+                </div> */}
               </div>
             </li>
             {!isWalletConnected && (
@@ -376,6 +420,22 @@ const TabletView = (props) => {
                     />
                   )}
                 </Popup>
+              </li>
+            )}
+            {isWalletConnected && (
+              <li className="network">
+                {activeNetwork === "Ethereum" && (
+                  <button onClick={() => setShowNetworkModal(true)}>
+                    <Image src={ethIcon} height={24} width={24} alt="" />
+                    <div>Ethereum</div>
+                  </button>
+                )}
+                {activeNetwork === "Polygon" && (
+                  <button onClick={() => setShowNetworkModal(true)}>
+                    <Image src={polygonIcon} height={24} width={24} alt="" />
+                    <div>Polygon</div>
+                  </button>
+                )}
               </li>
             )}
           </ul>
