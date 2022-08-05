@@ -95,3 +95,18 @@ export const queryPolymorphicFacesGraph = async (graphQuery) => {
 
   return graphData?.data;
 };
+
+export const queryPolymorphicFacesGraphPolygon = async (graphQuery) => {
+  const client = new ApolloClient({
+    uri: process.env.REACT_APP_POLYMORPHIC_FACES_GRAPH_POLYGON_URL,
+    cache: new InMemoryCache(),
+  });
+
+  const graphData = await client.query({
+    query: gql`
+      ${graphQuery}
+    `,
+  });
+
+  return graphData?.data;
+};
