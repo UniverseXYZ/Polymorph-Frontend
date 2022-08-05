@@ -36,7 +36,7 @@ const RarityFilters = (props) => {
   } = props;
 
   const [selectedFiltersLength, setSelectedFiltersLength] = useState(0);
-  const { userPolymorphsAll, userPolymorphicFaces } = usePolymorphStore();
+  const { userPolymorphsAll, userPolymorphicFacesAll } = usePolymorphStore();
 
   return (
     <div className="rarity--charts--search--and--filters--container">
@@ -156,7 +156,7 @@ const RarityFilters = (props) => {
         </div>
       ) : null}
       {usedOnPage === "My-polymorphic-faces" &&
-      (loading || userPolymorphicFaces.length > 0) ? (
+      (loading || userPolymorphicFacesAll.length > 0) ? (
         <div className="rarity--charts--search--and--filters--row faces">
           {/* <CollectionFilter /> */}
           <div className="rarity--charts--search--and--floor--price">
