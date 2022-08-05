@@ -209,10 +209,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
-      console.log("polygons faces", facesPolygonIds);
-      console.log("all faces", allFacesIds);
-      console.log("polygons polymorphs", polymorphV2PolygonIds);
-      console.log("all polymorphs", allPolymorphIds);
       set((state) => ({
         ...state,
         userPolymorphs: polymorphV1Ids || [],
