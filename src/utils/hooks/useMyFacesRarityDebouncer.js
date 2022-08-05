@@ -78,9 +78,9 @@ const buildRarityUrl = (
 
 export const useSearchPolymorphicFaces = () => {
 
-  const { userPolymorphicFaces } = usePolymorphStore();
+  const { userPolymorphicFacesAll } = usePolymorphStore();
 
-  const perPage = userPolymorphicFaces.length; 
+  const perPage = userPolymorphicFacesAll.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('tokenid');
@@ -137,7 +137,7 @@ export const useSearchPolymorphicFaces = () => {
         sortField,
         sortDir,
         filter,
-        userPolymorphicFaces.map((p) => p.id),
+        userPolymorphicFacesAll.map((p) => p.id),
       );
 
       if (apiPage === 1) {
@@ -147,7 +147,7 @@ export const useSearchPolymorphicFaces = () => {
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter, userPolymorphicFaces]
+    [inputText, apiPage, sortField, sortDir, filter, userPolymorphicFacesAll]
   );
 
   // Return everything needed for the hook consumer
