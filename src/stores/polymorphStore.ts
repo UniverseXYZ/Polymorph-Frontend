@@ -3,33 +3,47 @@ import {
   burnedPolymorphs,
   queryPolymorphsGraph,
   queryPolymorphsGraphV2,
+  queryPolymorphsGraphV2Polygon,
   transferPolymorphs,
 } from "@legacy/graphql/polymorphQueries";
 import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useAuthStore } from "./authStore";
-import { queryPolymorphicFacesGraph, mintedPolymorphicFaces, transferPolymorphicFaces } from "../utils/graphql/polymorphicFacesQueries";
+import {
+  queryPolymorphicFacesGraph,
+  queryPolymorphicFacesGraphPolygon,
+  mintedPolymorphicFaces,
+  transferPolymorphicFaces,
+} from "../utils/graphql/polymorphicFacesQueries";
 import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 
 type IPolymorphStore = {
   // Getters
   userPolymorphs: [];
   userPolymorphsV2: [];
+  userPolymorphsV2Polygon: [];
   userPolymorphsAll: [];
-  userPolymorphWithMetadata: [];
-  userPolymorphsLoaded: boolean;
   userSelectedPolymorphsToBurn: [];
+  userPolymorphsLoaded: boolean;
+  userPolymorphWithMetadata: [];
   userPolymorphicFaces: [];
+  userPolymorphicFacesPolygon: [];
+  userPolymorphicFacesAll: [];
   userPolymorphicFacesClaimed: [];
   userSelectedNFTsToBridge: [];
 
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void;
-  setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void;
-  setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void;
+  setUserPolymorphsV2: (userPolymorphsV2: []) => void;
+  setUserPolymorphsV2Polygon: (userPolymorphsV2Polygon: []) => void;
+  setUserPolymorphsAll: (userPolymorphsAll: []) => void;
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
+  setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void;
+  setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void;
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
+  setUserPolymorphicFacesPolygon: (userPolymorphicFacesPolygon: []) => void;
+  setUserPolymorphicFacesAll: (userPolymorphicFacesAll: []) => void;
   setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
   setUserSelectedNFTsToBridge: (setUserSelectedNFTsToBridge: []) => void;
 
@@ -41,12 +55,15 @@ type IPolymorphStore = {
 export const usePolymorphStore = create<IPolymorphStore>(
   subscribeWithSelector((set, get) => ({
     userPolymorphs: [],
-    userPolymorphWithMetadata: [],
-    userPolymorphsLoaded: false,
-    userSelectedPolymorphsToBurn: [],
     userPolymorphsV2: [],
+    userPolymorphsV2Polygon: [],
     userPolymorphsAll: [],
+    userSelectedPolymorphsToBurn: [],
+    userPolymorphsLoaded: false,
+    userPolymorphWithMetadata: [],
     userPolymorphicFaces: [],
+    userPolymorphicFacesPolygon: [],
+    userPolymorphicFacesAll: [],
     userPolymorphicFacesClaimed: [],
     userSelectedNFTsToBridge: [],
 
@@ -54,6 +71,24 @@ export const usePolymorphStore = create<IPolymorphStore>(
       set((state) => ({
         ...state,
         userPolymorphs,
+      }));
+    },
+    setUserPolymorphsV2: (userPolymorphsV2) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsV2,
+      }));
+    },
+    setUserPolymorphsV2Polygon: (userPolymorphsV2Polygon) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsV2Polygon,
+      }));
+    },
+    setUserPolymorphsAll: (userPolymorphsAll) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsAll,
       }));
     },
     setUserPolymorphsLoaded: (userPolymorphsLoaded) => {
@@ -74,10 +109,23 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphWithMetadata,
       }));
     },
+
     setUserPolymorphicFaces: (userPolymorphicFaces) => {
       set((state) => ({
         ...state,
         userPolymorphicFaces,
+      }));
+    },
+    setUserPolymorphicFacesPolygon: (userPolymorphicFacesPolygon) => {
+      set((state) => ({
+        ...state,
+        userPolymorphicFacesPolygon,
+      }));
+    },
+    setUserPolymorphicFacesAll: (userPolymorphicFacesAll) => {
+      set((state) => ({
+        ...state,
+        userPolymorphicFacesAll,
       }));
     },
     setUserPolymorphicFacesClaimed: (userPolymorphicFacesClaimed) => {
@@ -86,14 +134,12 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFacesClaimed,
       }));
     },
-
     setUserSelectedNFTsToBridge: (userSelectedNFTsToBridge) => {
       set((state) => ({
         ...state,
         userSelectedNFTsToBridge,
       }));
     },
-
     fetchUserPolymorphsTheGraph: async (newAddress) => {
       set((state) => ({
         ...state,
@@ -106,15 +152,25 @@ export const usePolymorphStore = create<IPolymorphStore>(
       const polymorphsV2 = await queryPolymorphsGraphV2(
         transferPolymorphs(newAddress)
       );
-      const allPolymorphs = polymorphs?.transferEntities.concat(
-        polymorphsV2?.transferEntities
+      const polymorphsV2Polygon = await queryPolymorphsGraphV2Polygon(
+        transferPolymorphs(newAddress)
       );
+      const allPolymorphs = polymorphs?.transferEntities
+        .concat(polymorphsV2?.transferEntities)
+        .concat(polymorphsV2Polygon?.transferEntities);
+
       const faces = await queryPolymorphicFacesGraph(
+        transferPolymorphicFaces(newAddress)
+      );
+      const facesPolygon = await queryPolymorphicFacesGraphPolygon(
         transferPolymorphicFaces(newAddress)
       );
       const claimedFaces = await queryPolymorphicFacesGraph(
         mintedPolymorphicFaces(newAddress)
-      );  
+      );
+      const allFaces = faces?.transferEntities.concat(
+        facesPolygon?.transferEntities
+      );
       const polymorphV1Ids = polymorphs?.transferEntities.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
@@ -123,26 +179,50 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
+      const polymorphV2PolygonIds = polymorphsV2Polygon?.transferEntities.map(
+        (nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+        })
+      );
       const allPolymorphIds = allPolymorphs.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
+
       const facesIds = faces?.transferEntities.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
-      const claimedFacesIds = claimedFaces?.mintedEntities.map((nft: any) => ({
+      const facesPolygonIds = facesPolygon?.transferEntities.map(
+        (nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+        })
+      );
+      const allFacesIds = allFaces.map((nft: any) => ({
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
 
+      const claimedFacesIds = claimedFaces?.mintedEntities.map((nft: any) => ({
+        tokenId: nft.tokenId,
+        id: parseInt(nft.id, 16),
+      }));
+      console.log("polygons faces", facesPolygonIds);
+      console.log("all faces", allFacesIds);
+      console.log("polygons polymorphs", polymorphV2PolygonIds);
+      console.log("all polymorphs", allPolymorphIds);
       set((state) => ({
         ...state,
         userPolymorphs: polymorphV1Ids || [],
         userPolymorphsV2: polymorphV2Ids || [],
+        userPolymorphsV2Polygon: polymorphV2PolygonIds || [],
         userPolymorphsAll: allPolymorphIds || [],
         userPolymorphsLoaded: true,
         userPolymorphicFaces: facesIds || [],
+        userPolymorphicFacesPolygon: facesPolygonIds || [],
+        userPolymorphicFacesAll: allFacesIds || [],
         userPolymorphicFacesClaimed: claimedFacesIds || [],
       }));
     },
