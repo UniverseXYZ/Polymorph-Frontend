@@ -12,6 +12,7 @@ import SelectWalletPopup from "@legacy/popups/SelectWalletPopup";
 import { CONNECTORS_NAMES } from "@legacy/dictionary";
 import BridgeInteraction from "./BridgeInteraction";
 import { useSearchPolymorphicFaces } from "@legacy/hooks/useMyFacesRarityDebouncer";
+import { useMyNftsStore } from "src/stores/myNftsStore";
 
 const SelectPolymorphsToBridge = ({ queryNft }) => {
   const { setUserSelectedNFTsToBridge } = usePolymorphStore();
@@ -30,6 +31,8 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
     connectWithMetaMask: s.connectWithMetaMask,
   }));
 
+  const { bridgeFromNetwork, setBridgeFromNetwork } = useMyNftsStore();
+
   const {
     inputText,
     setInputText,
@@ -47,8 +50,8 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
     setIsLastPage,
   } =
     queryNft === "polymorphs"
-      ? useSearchPolymorphsV2()
-      : useSearchPolymorphicFaces();
+      ? useSearchPolymorphsV2(bridgeFromNetwork)
+      : useSearchPolymorphicFaces(bridgeFromNetwork);
 
   const [categories, setCategories] = useState(categoriesArray);
   const [categoriesIndexes, setCategoriesIndexes] = useState([]);
@@ -64,7 +67,6 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
       ? true
       : false
   );
-  const { activeNetwork, setActiveNetwork } = useAuthStore();
 
   const handleConnectWallet = async (wallet) => {
     // Here need to check if selected wallet is installed in browser
@@ -146,11 +148,11 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
               results={results}
               apiPage={apiPage}
               getSelectedCards={getSelectedCards}
-              activeNetwork={activeNetwork}
-              setActiveNetwork={setActiveNetwork}
+              activeNetwork={bridgeFromNetwork}
+              setActiveNetwork={setBridgeFromNetwork}
               queryNft={queryNft}
             />
-            <BridgeInteraction activeNetwork={activeNetwork} />
+            <BridgeInteraction activeNetwork={bridgeFromNetwork} />
           </div>
         </div>
       )}
