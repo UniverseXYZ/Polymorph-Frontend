@@ -106,9 +106,7 @@
             border-radius: 6px;
             width: 24px;
             height: 24px;
-            margin-right: 12px;
-            margin-top: 0px;
-            margin-bottom: 0px;
+            margin: 0;
             &:hover {
               background-image: linear-gradient(101deg, #bceb00, #00eaea);
               background-origin: border-box;
@@ -133,6 +131,9 @@
               }
             }
           }
+        }
+        &::-webkit-scrollbar {
+          display: none;
         }
       }
     }
