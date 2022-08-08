@@ -79,14 +79,10 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphsV2 = ( allPolymorphs=false ) => {
-  // const userPolymorphs = allPolymorphs
-  //   ? usePolymorphStore(s => s.userPolymorphsAll)
-  //   : usePolymorphStore(s => s.userPolymorphs)
+export const useSearchPolymorphsV2 = (fromNetwork) => {
+  const { userPolymorphsV2, userPolymorphsV2Polygon } = usePolymorphStore();
 
-  const { userPolymorphsV2 } = usePolymorphStore();
-
-  const perPage = userPolymorphsV2.length;
+  const perPage = userPolymorphsV2.length + userPolymorphsV2Polygon.length;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
@@ -133,6 +129,12 @@ export const useSearchPolymorphsV2 = ( allPolymorphs=false ) => {
 
   const search = useAsyncAbortable(
     async (abortSignal, text) => {
+      let ids;
+      if(fromNetwork === "Ethereum") {
+        ids = userPolymorphsV2.map((p) => p.id)
+      } else if (fromNetwork === "Polygon") {
+        ids = userPolymorphsV2Polygon.map((p) => p.id)
+      }
       // If the input is empty, return nothing immediately (without the debouncing delay!)
       // Else we use the debounced api
       const endpoint = buildRarityUrl(
@@ -142,7 +144,8 @@ export const useSearchPolymorphsV2 = ( allPolymorphs=false ) => {
         sortField,
         sortDir,
         filter,
-        userPolymorphsV2.map((p) => p.id),
+        ids,
+        fromNetwork
       );
 
       if (apiPage === 1) {
@@ -152,7 +155,7 @@ export const useSearchPolymorphsV2 = ( allPolymorphs=false ) => {
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter, userPolymorphsV2]
+    [inputText, apiPage, sortField, sortDir, filter, userPolymorphsV2, fromNetwork]
   );
 
   // Return everything needed for the hook consumer

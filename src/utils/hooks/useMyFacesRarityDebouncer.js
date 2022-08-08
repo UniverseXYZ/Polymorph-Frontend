@@ -76,11 +76,11 @@ const buildRarityUrl = (
   return endpoint;
 };
 
-export const useSearchPolymorphicFaces = () => {
+export const useSearchPolymorphicFaces = (fromNetwork) => {
 
-  const { userPolymorphicFacesAll } = usePolymorphStore();
+  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll } = usePolymorphStore();
 
-  const perPage = userPolymorphicFacesAll.length; 
+  const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('tokenid');
@@ -128,6 +128,14 @@ export const useSearchPolymorphicFaces = () => {
 
   const search = useAsyncAbortable(
     async (abortSignal, text) => {
+      let ids;
+      if(fromNetwork === "Ethereum") {
+        ids = userPolymorphicFaces.map((p) => p.id)
+      } else if (fromNetwork === "Polygon") {
+        ids = userPolymorphicFacesPolygon.map((p) => p.id)
+      } else {
+        ids = userPolymorphicFacesAll.map((p) => p.id)
+      }
       // If the input is empty, return nothing immediately (without the debouncing delay!)
       // Else we use the debounced api
       const endpoint = buildRarityUrl(
@@ -137,7 +145,8 @@ export const useSearchPolymorphicFaces = () => {
         sortField,
         sortDir,
         filter,
-        userPolymorphicFacesAll.map((p) => p.id),
+        ids,
+        fromNetwork
       );
 
       if (apiPage === 1) {
@@ -147,7 +156,7 @@ export const useSearchPolymorphicFaces = () => {
       return debouncedLoadMorePolymorphs(endpoint, abortSignal);
     },
     // Ensure a new request is made everytime the text changes (even if it's debounced)
-    [inputText, apiPage, sortField, sortDir, filter, userPolymorphicFacesAll]
+    [inputText, apiPage, sortField, sortDir, filter, userPolymorphicFaces, fromNetwork]
   );
 
   // Return everything needed for the hook consumer
