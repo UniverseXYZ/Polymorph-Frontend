@@ -14,7 +14,7 @@ const TabsContainer = () => {
     setActiveTxHashes: s.setActiveTxHashes,
   }));
 
-  const { userPolymorphsAll, userPolymorphicFaces } = usePolymorphStore();
+  const { userPolymorphsAll, userPolymorphicFacesAll } = usePolymorphStore();
 
   return (
     <div className="tabs__container">
@@ -40,11 +40,11 @@ const TabsContainer = () => {
         }}
       >
         Polymorphic Faces{" "}
-        {userPolymorphicFaces.length ? (
+        {userPolymorphicFacesAll.length ? (
           <div
             className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}
           >
-            {userPolymorphicFaces.length || null}
+            {userPolymorphicFacesAll.length || null}
           </div>
         ) : null}
       </span>

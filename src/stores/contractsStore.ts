@@ -8,7 +8,9 @@ interface IContracts {
   // Getters
   polymorphContract: Contract | null;
   polymorphContractV2: Contract | null;
+  polymorphContractV2Polygon: Contract | null;
   polymorphicFacesContract: Contract | null;
+  polymorphicFacesContractPolygon: Contract | null;
 }
 
 interface IContractsStore extends IContracts {
@@ -20,7 +22,9 @@ interface IContractsStore extends IContracts {
 export const useContractsStore = create<IContractsStore>((set) => ({
   polymorphContract: null,
   polymorphContractV2: null,
+  polymorphContractV2Polygon: null,
   polymorphicFacesContract: null,
+  polymorphicFacesContractPolygon: null,
 
   setContracts: (signer, network) => {
     const polymorphContractInstance = new Contract(
@@ -35,8 +39,20 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       signer
     );
 
+    const polymorphContractV2PolygonInstance = new Contract(
+      process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_POLYGON_ADDRESS as any,
+      PolymorphV2Contract?.abi,
+      signer
+    );
+
     const polymorphicFacesContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_ADDRESS as any,
+      PolymorphicFacesContract?.abi,
+      signer
+    );
+
+    const polymorphicFacesContractPolygonInstance = new Contract(
+      process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_POLYGON_ADDRESS as any,
       PolymorphicFacesContract?.abi,
       signer
     );
@@ -45,14 +61,18 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       ...state,
       polymorphContract: polymorphContractInstance,
       polymorphContractV2: polymorphContractV2Instance,
+      polymorphContractV2Polygon: polymorphContractV2PolygonInstance,
       polymorphicFacesContract: polymorphicFacesContractInstance,
+      polymorphicFacesContractPolygon: polymorphicFacesContractPolygonInstance,
     }));
   },
   clearContracts: () => {
     set(() => ({
       polymorphContract: null,
       polymorphContractV2: null,
+      polymorphContractV2Polygon: null,
       polymorphicFacesContract: null,
+      polymorphicFacesContractPolygon: null,
     }));
   },
 }));

@@ -163,7 +163,7 @@ const List = ({
             <div className="bridge--grid">
               <RarityChartsLoader number={9} />
             </div>
-          ) : results.length ? (
+          ) : results?.length ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={() => setPerPage(perPage + 8)}

@@ -17,6 +17,8 @@ import Image from "next/image";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
 import { useAuthStore } from "src/stores/authStore.ts";
 import { Tooltip } from "@chakra-ui/react";
+import polygonIcon from "../../../assets/images/polygon-badge-icon.png";
+import ethIcon from "../../../assets/images/eth-badge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -31,16 +33,21 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
   const [contract, setContract] = useState(null);
-  const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { polymorphContract, polymorphContractV2, polymorphContractV2Polygon } =
+    useContractsStore();
   const { activeNetwork } = useAuthStore();
+  const [isOnPolygon, setIsOnPolygon] = useState();
 
   const showScrambleOptions = () => {
     setUpdate(true);
     setShowScramblePopup(true);
   };
 
-  const { userPolymorphs, setUserSelectedPolymorphsToBurn } =
-    usePolymorphStore();
+  const {
+    userPolymorphs,
+    userPolymorphsV2Polygon,
+    setUserSelectedPolymorphsToBurn,
+  } = usePolymorphStore();
   const [isV2, setIsV2] = useState("");
 
   useEffect(() => {
@@ -51,13 +58,22 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
       if (polymorphV1) {
         setIsV2(false);
         setContract(polymorphContract?.address);
+        setIsOnPolygon(false);
       } else {
+        const [polymorphPolygon] = userPolymorphsV2Polygon.filter(
+          (token) => token.id === item.tokenid
+        );
+        if (polymorphPolygon) {
+          setContract(polymorphContractV2Polygon?.address);
+          setIsOnPolygon(true);
+        } else {
+          setContract(polymorphContractV2?.address);
+          setIsOnPolygon(false);
+        }
         setIsV2(true);
-        setContract(polymorphContractV2?.address);
       }
     }
   }, [item]);
-
   const handleBurnToMintClick = (event) => {
     event.stopPropagation();
     if (!isV2) {
@@ -146,6 +162,13 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
           <div className={"badge--container"}>
             <span className={`badge--version${isV2 ? "--v2" : ""}`}>
               {isV2 ? "V2" : "V1"}
+            </span>
+            <span>
+              {isOnPolygon ? (
+                <Image src={polygonIcon} width={20} height={20} alt=''/>
+              ) : (
+                <Image src={ethIcon} width={18} height={18} alt=''/>
+              )}
             </span>
             <span>{`ID: ${item.tokenid}`}</span>
           </div>

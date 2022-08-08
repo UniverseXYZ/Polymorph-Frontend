@@ -82,7 +82,7 @@ const buildRarityUrl = (
 };
 
 export const useSearchPolymorphs = () => {
-  const { userPolymorphs, userPolymorphsV2 } =
+  const { userPolymorphs, userPolymorphsV2, userPolymorphsV2Polygon } =
     usePolymorphStore();
 
   const perPage = 100;
@@ -232,7 +232,7 @@ export const useSearchPolymorphs = () => {
         sortField,
         sortDir,
         filter,
-        userPolymorphsV2.map((p) => p.id),
+        userPolymorphsV2.concat(userPolymorphsV2Polygon).map((p) => p.id),
         "V2"
       );
 

@@ -13,6 +13,9 @@ import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
+import { usePolymorphStore } from "../../../stores/polymorphStore";
+import polygonIcon from "../../../assets/images/polygon-badge-icon.png";
+import ethIcon from "../../../assets/images/eth-badge-icon.png";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -26,7 +29,12 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
-  const { polymorphicFacesContract } = useContractsStore();
+  const [contract, setContract] = useState("");
+  const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
+    useContractsStore();
+
+  const { userPolymorphicFacesPolygon } = usePolymorphStore();
+  const [isOnPolygon, setIsOnPolygon] = useState();
 
   const showScrambleOptions = () => {
     setUpdate(true);
@@ -48,6 +56,21 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   useEffect(() => {
     setItem(polymorphItem);
   }, [polymorphItem]);
+
+  useEffect(() => {
+    if (item) {
+      const [polymorphicFacePolygon] = userPolymorphicFacesPolygon.filter(
+        (token) => token.id === item.tokenid
+      );
+      if (polymorphicFacePolygon) {
+        setContract(polymorphicFacesContractPolygon?.address);
+        setIsOnPolygon(true);
+      } else {
+        setContract(polymorphicFacesContractPolygon?.address);
+        setIsOnPolygon(false);
+      }
+    }
+  }, [item]);
 
   useEffect(async () => {
     if (update) {
@@ -100,7 +123,16 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
           <h2>{item.name}</h2>
         </div>
         <div className="card--footer--bottom">
-          <span>{`ID: ${item.tokenid}`}</span>
+          <div className={"badge--container"}>
+            <span>{`ID: ${item.tokenid}`}</span>
+            <span>
+              {isOnPolygon ? (
+                <Image src={polygonIcon} width={20} height={20} alt=''/>
+              ) : (
+                <Image src={ethIcon} width={18} height={18} alt=''/>
+              )}
+            </span>
+          </div>
           <button
             onClick={(event) => {
               event.stopPropagation();
