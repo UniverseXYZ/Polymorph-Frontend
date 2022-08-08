@@ -24,37 +24,37 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: $white;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: transparent;
+        border: unset;
         box-sizing: border-box;
         border-radius: 12px;
         padding: 11px 16px;
         cursor: pointer;
         margin-bottom: 20px;
-        &.open {
-          background-image: linear-gradient(101deg, #bceb00, #00eaea);
-          background-origin: border-box;
-          box-shadow: 2px 1000px 1px $white inset;
-          border: 1px solid transparent;
-          img {
-            transform: rotate(180deg);
-          }
-          .box--shadow--effect--block {
-            opacity: 0.2;
-          }
-        }
-        &:hover {
-          border-color: transparent;
-          border-radius: 10px;
-          .box--shadow--effect--block {
-            opacity: 0.2;
-          }
-        }
+        // &.open {
+        //   background-image: linear-gradient(101deg, #bceb00, #00eaea);
+        //   background-origin: border-box;
+        //   box-shadow: 2px 1000px 1px $white inset;
+        //   border: 1px solid transparent;
+        //   img {
+        //     transform: rotate(180deg);
+        //   }
+        //   .box--shadow--effect--block {
+        //     opacity: 0.2;
+        //   }
+        // }
+        // &:hover {
+        //   border-color: transparent;
+        //   border-radius: 10px;
+        //   .box--shadow--effect--block {
+        //     opacity: 0.2;
+        //   }
+        // }
         span {
           font-family: $spaceGroteskFont;
           font-style: normal;
           font-weight: 500;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 140%;
           color: $black;
         }
@@ -106,9 +106,7 @@
             border-radius: 6px;
             width: 24px;
             height: 24px;
-            margin-right: 12px;
-            margin-top: 0px;
-            margin-bottom: 0px;
+            margin: 0;
             &:hover {
               background-image: linear-gradient(101deg, #bceb00, #00eaea);
               background-origin: border-box;
@@ -133,6 +131,9 @@
               }
             }
           }
+        }
+        &::-webkit-scrollbar {
+          display: none;
         }
       }
     }

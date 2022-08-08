@@ -68,6 +68,11 @@ const CategoriesFilter = ({
             <div className="traits">
               {item.traits.map((trait, traitIndex) => (
                 <div className="trait" key={uuid()}>
+                  <label
+                    htmlFor={trait.name.toLowerCase().replaceAll(" ", "--")}
+                  >
+                    {trait.name}
+                  </label>
                   <input
                     id={trait.name.toLowerCase().replaceAll(" ", "--")}
                     type="checkbox"
@@ -76,11 +81,6 @@ const CategoriesFilter = ({
                       handleCategoryFilterChange(index, traitIndex)
                     }
                   />
-                  <label
-                    htmlFor={trait.name.toLowerCase().replaceAll(" ", "--")}
-                  >
-                    {trait.name}
-                  </label>
                 </div>
               ))}
             </div>
