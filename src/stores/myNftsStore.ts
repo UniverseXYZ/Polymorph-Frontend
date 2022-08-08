@@ -14,6 +14,7 @@ type IMyNftsStore = {
   myUniverseNFTsActiverPage: number,
   myUniverseNFTsOffset: number,
   collectionFilter: string,
+  bridgeFromNetwork: string,
 
   // Setters
   setMyNFTs: (myNFTs: []) => void,
@@ -24,6 +25,7 @@ type IMyNftsStore = {
   setMyUniverseNFTsActiverPage: (myUniverseNFTsActiverPage: number) => void,
   setMyUniverseNFTsOffset: (myUniverseNFTsOffset: number) => void,
   setCollectionFilter: (collectionFilter: string) => void,
+  setBridgeFromNetwork: (bridgeFromNetwork: string) => void,
 
   // Helpers
   navigateToMyUniverseNFTsTab: (characterFilter: string) => void,
@@ -40,6 +42,7 @@ export const useMyNftsStore = create<IMyNftsStore>((set) => ({
   myUniverseNFTsActiverPage: 0,
   myUniverseNFTsOffset: 0,
   collectionFilter: "",
+  bridgeFromNetwork: "Ethereum",
   setMyNFTsSelectedTabIndex: (myNFTsSelectedTabIndex) => {
     set(state => ({
       ...state,
@@ -86,6 +89,12 @@ export const useMyNftsStore = create<IMyNftsStore>((set) => ({
     set(state => ({
       ...state,
       myUniverseNFTsOffset
+    }))
+  },
+  setBridgeFromNetwork: (bridgeFromNetwork) => {
+    set(state => ({
+      ...state,
+      bridgeFromNetwork
     }))
   },
   navigateToMyUniverseNFTsTab: (characterFilter) => {
