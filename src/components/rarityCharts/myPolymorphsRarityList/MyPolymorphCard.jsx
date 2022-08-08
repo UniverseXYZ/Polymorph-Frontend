@@ -165,9 +165,9 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
             </span>
             <span>
               {isOnPolygon ? (
-                <Image src={polygonIcon} width={20} height={20} />
+                <Image src={polygonIcon} width={20} height={20} alt=''/>
               ) : (
-                <Image src={ethIcon} width={18} height={18} />
+                <Image src={ethIcon} width={18} height={18} alt=''/>
               )}
             </span>
             <span>{`ID: ${item.tokenid}`}</span>
