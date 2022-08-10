@@ -13,11 +13,19 @@ import { useAuthStore } from "src/stores/authStore";
 import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
+import {
+  queryPolymorphicFacesGraph,
+  queryPolymorphicFacesGraphPolygon,
+  singleMorphedPolymorphicFace,
+  polymorphicFaceOwner,
+} from "@legacy/graphql/polymorphicFacesQueries";
+import { utils } from "ethers";
+import polymorphicFaces from "../../../abis/PolymorphicFacesRoot.json";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
-const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
+const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef(null);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -25,10 +33,12 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [userIsOwner, setUserIsOwner] = useState(false);
-  const [polymorphOwner, setPolymorphOwner] = useState("");
+  const [polymorphOwnerAddress, setPolymorphOwnerAddress] = useState("");
   const [morphPrice, setMorphPrice] = useState("");
+  const [contract, setContract] = useState("");
 
-  const { polymorphicFacesContract } = useContractsStore();
+  const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
+    useContractsStore();
   const { userPolymorphicFacesAll } = usePolymorphStore();
 
   const showScrambleOptions = () => {
@@ -60,17 +70,45 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
   }, [userPolymorphicFacesAll]);
 
   useEffect(async () => {
-    if (polymorphicFacesContract) {
-      const morphPrice = await polymorphicFacesContract.priceForGenomeChange(
+    if (isV1 && blockchain === "Ethereum") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_ETHEREUM
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_ADDRESS,
+        polymorphicFaces?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorphicData.tokenid
       );
-      setMorphPrice(ethers.utils.formatEther(morphPrice));
-      const ownerAddress = await polymorphicFacesContract.ownerOf(
-        polymorphicData.tokenid
-      );
-      setPolymorphOwner(ownerAddress);
+      const price = utils.formatEther(fetchedPrice.toNumber());
+      const owner = await contractInstance.ownerOf(polymorphicData.tokenid);
+      setMorphPrice(price);
+      setPolymorphOwnerAddress(owner);
+      setContract(polymorphicFacesContract);
     }
-  }, [polymorphicFacesContract]);
+    if (isV1 && blockchain === "Polygon") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_POLYGON
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_POLYGON_ADDRESS,
+        polymorphicFaces?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
+        polymorphicData.tokenid
+      );
+      const price = utils.formatEther(fetchedPrice.toNumber());
+      const owner = await contractInstance.ownerOf(polymorphicData.tokenid);
+      setMorphPrice(price);
+      setPolymorphOwnerAddress(owner);
+      setContract(polymorphicFacesContractPolygon);
+    }
+  }, [blockchain]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -143,8 +181,17 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update }) => {
         )}
         {selectedTabIndex === 1 && (
           <PolymorphMetadataTab
+            contractAddress={
+              blockchain === "Ethereum"
+                ? process.env.REACT_APP_POLYMORPHIC_FACES_CONTRACT_ADDRESS
+                : process.env
+                    .REACT_APP_POLYMORPHIC_FACES_CONTRACT_POLYGON_ADDRESS
+            }
+            tokenId={polymorphicData.tokenid.toString()}
+            tokenStandard={"ERC-721"}
+            network={blockchain}
             morphPrice={morphPrice}
-            owner={polymorphOwner}
+            owner={polymorphOwnerAddress}
             genome={polymorphicData?.currentgene}
           />
         )}

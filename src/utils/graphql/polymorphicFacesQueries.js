@@ -14,6 +14,19 @@ export const morphedPolymorphicFaces = `
   }
 `;
 
+export const singleMorphedPolymorphicFace = (tokenId) => `
+  query Polymorphs {
+    tokenMorphedEntities(first: 100, orderBy: timestamp, orderDirection: desc, where: { tokenId: "${tokenId}", eventType: ${1}}) {
+      id
+      newGene
+      oldGene
+      tokenId
+      eventType
+      price
+    }
+  }
+`;
+
 export const claimedPolymorphicFaces = `
   query Polymorphs {
     burnCount(id: 1) {
@@ -38,14 +51,6 @@ export const polymorphicFaceOwner = (tokenId) => `
   query Polymorphs {
     transferEntities(where: { tokenId: "${tokenId}" }) {
       to
-    }
-    tokenMorphedEntities(where: {tokenId: ${tokenId}, eventType_not: 2}, orderBy: timestamp, orderDirection: asc) {
-      priceForGenomeChange
-      newGene
-      tokenId
-      oldGene
-      timestamp
-      price
     }
   }
 `;
