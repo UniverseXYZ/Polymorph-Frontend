@@ -14,10 +14,12 @@ import { BigNumber, utils, ethers } from "ethers";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
 import polymorphV1 from "../../../abis/PolymorphWithGeneChanger.json";
 import polymorphV2 from "../../../abis/PolymorphRoot.json";
+import { Tooltip } from "@chakra-ui/react";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 import { usePolymorphStore } from "src/stores/polymorphStore";
+import { useAuthStore } from "src/stores/authStore";
 
 const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
   const router = useRouter();
@@ -32,11 +34,13 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
   const [morphPrice, setMorphPrice] = useState("");
   const [isOnPolygon, setIsOnPolygon] = useState(false);
   const [contract, setContract] = useState("");
+  const [disableMorphing, setDisableMorphing] = useState(true);
 
   const { polymorphContract, polymorphContractV2, polymorphContractV2Polygon } =
     useContractsStore();
   const { setUserSelectedPolymorphsToBurn, userPolymorphsAll } =
     usePolymorphStore();
+  const { activeNetwork } = useAuthStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -135,6 +139,17 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
       setContract(polymorphContractV2Polygon);
     }
   }, [blockchain]);
+
+  useEffect(() => {
+    if (activeNetwork && polymorphData.network) {
+      if (activeNetwork !== polymorphData.network) {
+        setDisableMorphing(true);
+      }
+      if (activeNetwork === polymorphData.network) {
+        setDisableMorphing(false);
+      }
+    }
+  }, [activeNetwork, polymorphData.network]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -248,13 +263,24 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
                 Scrambling will be enabled after you burn your polymorph
               </div>
             )}
-            <Button
-              className="light-button"
-              disabled={isV1}
-              onClick={() => setShowScramblePopup(true)}
+            <Tooltip
+              hasArrow
+              label={`${
+                disableMorphing
+                  ? `Only available on ${polymorphData.network}`
+                  : ""
+              }`}
             >
-              Scramble
-            </Button>
+              <span>
+                <Button
+                  className="light-button"
+                  disabled={isV1}
+                  onClick={() => setShowScramblePopup(true)}
+                >
+                  Scramble
+                </Button>
+              </span>
+            </Tooltip>
           </div>
         </div>
       ) : null}

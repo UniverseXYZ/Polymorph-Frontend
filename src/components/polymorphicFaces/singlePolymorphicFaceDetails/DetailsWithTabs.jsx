@@ -21,6 +21,7 @@ import {
 } from "@legacy/graphql/polymorphicFacesQueries";
 import { utils } from "ethers";
 import polymorphicFaces from "../../../abis/PolymorphicFacesRoot.json";
+import { Tooltip } from "@chakra-ui/react";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -36,10 +37,12 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
   const [polymorphOwnerAddress, setPolymorphOwnerAddress] = useState("");
   const [morphPrice, setMorphPrice] = useState("");
   const [contract, setContract] = useState("");
+  const [disableMorphing, setDisableMorphing] = useState(true);
 
   const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
     useContractsStore();
   const { userPolymorphicFacesAll } = usePolymorphStore();
+  const { activeNetwork } = useAuthStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -109,6 +112,17 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
       setContract(polymorphicFacesContractPolygon);
     }
   }, [blockchain]);
+
+  useEffect(() => {
+    if (activeNetwork && polymorphicData.network) {
+      if (activeNetwork !== polymorphicData.network) {
+        setDisableMorphing(true);
+      }
+      if (activeNetwork === polymorphicData.network) {
+        setDisableMorphing(false);
+      }
+    }
+  }, [activeNetwork, polymorphicData.network]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -201,12 +215,24 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
         <div className="polymorph--actions">
           <div className="polymorph--actions--gradient"></div>
           <div className="scramble--btn">
-            <Button
-              className="light-button"
-              onClick={() => setShowScramblePopup(true)}
+            <Tooltip
+              hasArrow
+              label={`${
+                disableMorphing
+                  ? `Only available on ${polymorphicData.network}`
+                  : ""
+              }`}
             >
-              Scramble
-            </Button>
+              <span>
+                <Button
+                  className="light-button"
+                  onClick={() => setShowScramblePopup(true)}
+                  disabled={disableMorphing}
+                >
+                  Scramble
+                </Button>
+              </span>
+            </Tooltip>
           </div>
         </div>
       ) : null}
