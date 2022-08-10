@@ -10,14 +10,16 @@ import PolymorphScramblePopup from "../../popups/PolymorphScramblePopup";
 import LoadingPopup from "../../popups/LoadingPopup";
 import PolymorphScrambleCongratulationPopup from "../../popups/PolymorphScrambleCongratulationPopup";
 import { useContractsStore } from "src/stores/contractsStore";
-import { ethers } from "ethers";
+import { BigNumber, utils, ethers } from "ethers";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
+import polymorphV1 from "../../../abis/PolymorphWithGeneChanger.json";
+import polymorphV2 from "../../../abis/PolymorphRoot.json";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 import { usePolymorphStore } from "src/stores/polymorphStore";
 
-const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
+const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef(null);
@@ -26,10 +28,13 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
   const [showLoading, setShowLoading] = useState(false);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [userIsOwner, setUserIsOwner] = useState(false);
-  const [polymorphOwner, setPolymorphOwner] = useState("");
+  const [polymorphOwnerAddress, setPolymorphOwnerAddress] = useState("");
   const [morphPrice, setMorphPrice] = useState("");
+  const [isOnPolygon, setIsOnPolygon] = useState(false);
+  const [contract, setContract] = useState("");
 
-  const { polymorphContract, polymorphContractV2 } = useContractsStore();
+  const { polymorphContract, polymorphContractV2, polymorphContractV2Polygon } =
+    useContractsStore();
   const { setUserSelectedPolymorphsToBurn, userPolymorphsAll } =
     usePolymorphStore();
 
@@ -72,27 +77,64 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
   }, [userPolymorphsAll]);
 
   useEffect(async () => {
-    if (isV1 && polymorphContract) {
-      const morphPrice = await polymorphContract.priceForGenomeChange(
+    if (isV1 && blockchain === "Ethereum") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_ETHEREUM
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
+        polymorphV1?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorphData.tokenid
       );
-      setMorphPrice(ethers.utils.formatEther(morphPrice));
-      const ownerAddress = await polymorphContract.ownerOf(
-        polymorphData.tokenid
-      );
-      setPolymorphOwner(ownerAddress);
+      const price = utils.formatEther(fetchedPrice.toNumber());
+      const owner = await contractInstance.ownerOf(polymorphData.tokenid);
+      setMorphPrice(price);
+      setPolymorphOwnerAddress(owner);
+      setContract(polymorphContract);
     }
-    if (!isV1 && polymorphContractV2) {
-      const morphPrice = await polymorphContractV2.priceForGenomeChange(
+    if (!isV1 && blockchain === "Ethereum") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_ETHEREUM
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS,
+        polymorphV2?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorphData.tokenid
       );
-      setMorphPrice(ethers.utils.formatEther(morphPrice));
-      const ownerAddress = await polymorphContractV2.ownerOf(
-        polymorphData.tokenid
-      );
-      setPolymorphOwner(ownerAddress);
+      const price = utils.formatEther(fetchedPrice.toNumber());
+      const owner = await contractInstance.ownerOf(polymorphData.tokenid);
+      setMorphPrice(price);
+      setPolymorphOwnerAddress(owner);
+      setContract(polymorphContractV2);
     }
-  }, [isV1, polymorphContract, polymorphContractV2]);
+    if (!isV1 && blockchain === "Polygon") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_POLYGON
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_POLYGON_ADDRESS,
+        polymorphV2?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
+        polymorphData.tokenid
+      );
+      const price = utils.formatEther(fetchedPrice.toNumber());
+      const owner = await contractInstance.ownerOf(polymorphData.tokenid);
+      setMorphPrice(price);
+      setPolymorphOwnerAddress(owner);
+      setContract(polymorphContractV2Polygon);
+    }
+  }, [blockchain]);
 
   return (
     <div className="polymorph--details--with--tabs">
@@ -167,8 +209,20 @@ const DetailsWithTabs = ({ polymorphData, isV1, update }) => {
         )}
         {selectedTabIndex === 1 && (
           <PolymorphMetadataTab
+            contractAddress={
+              isV1
+                ? process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS
+                : !isV1 && blockchain === "Ethereum"
+                ? process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_ADDRESS
+                : !isV1 && blockchain === "Polygon"
+                ? process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_POLYGON_ADDRESS
+                : ""
+            }
+            tokenId={polymorphData.tokenid.toString()}
+            tokenStandard={"ERC-721"}
+            network={blockchain}
             morphPrice={morphPrice}
-            owner={polymorphOwner}
+            owner={polymorphOwnerAddress}
             genome={polymorphData?.currentgene}
           />
         )}
