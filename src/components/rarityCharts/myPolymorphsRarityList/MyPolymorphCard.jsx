@@ -222,6 +222,7 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
                   <button
                     className={disableScrambleButton ? "disabled" : ""}
                     onClick={handleScrambleClick}
+                    disabled={disableScrambleButton}
                   >
                     <img src={ScrambleIconSvg} alt="scramble-icon" />
                     Scramble

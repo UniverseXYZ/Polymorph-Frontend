@@ -12,6 +12,7 @@ import { convertPolymorphObjects } from "../../utils/helpers/polymorphs";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useContractsStore } from "src/stores/contractsStore";
 import Image from "next/image";
+import polymorphV2 from "../../abis/PolymorphRoot.json";
 
 const GENE_POSITIONS_MAP = {
   BACKGROUND: 1,
@@ -45,20 +46,15 @@ const PolymorphScramblePopup = ({
   setShowLoading,
 }) => {
   const userPolymorphs = usePolymorphStore((s) => s.userPolymorphs);
-  const polymorphContractV2 = useContractsStore((s) => s.polymorphContractV2);
+  const { polymorphContractV2, polymorphContractV2Polygon } =
+    useContractsStore();
 
   const [singleTraitTabSelected, setSingleTraitSelected] = useState(true);
   const [allTraitsTabSelected, setAllTraitsTabSelected] = useState(false);
   const [selectedTrait, setSelectedTrait] = useState("");
   const [randomizeGenePrise, setRandomizeGenePrice] = useState("");
   const [morphSingleGenePrise, setMorphSingleGenePrice] = useState("");
-
-  // const traits = Object.keys(WEAR_TO_GENE_POSITION_MAP).map((key) => ({
-  //   label: `${key}: ${
-  //     polymorph?.data?.attributes.find((attr) => attr?.trait_type === key).value
-  //   }`,
-  //   value: key,
-  // }));
+  const [contract, setContract] = useState("");
 
   const traits = Object.keys(WEAR_TO_GENE_POSITION_MAP).map((key) => ({
     label: `${key.charAt(0).toUpperCase() + key.slice(1)}`,
@@ -85,74 +81,101 @@ const PolymorphScramblePopup = ({
   ];
 
   useEffect(async () => {
-    try {
-      // Fetch randomize Price
-      const amount = await polymorphContractV2.randomizeGenomePrice();
-      const formatedEther = utils.formatEther(amount);
-      setRandomizeGenePrice(formatedEther);
-
-      // Set first trait to be selected
-      // setSelectedTrait(traits[0]);
-
-      // Fetch single genom change price
-      const genomChangePrice = await polymorphContractV2.priceForGenomeChange(
-        id
+    if (polymorph.network === "Ethereum") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_ETHEREUM
       );
-      const genomChangePriceToEther = utils.formatEther(genomChangePrice);
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
+        polymorphV2?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
+        polymorph.tokenid
+      );
+      const genomChangePriceToEther = utils.formatEther(
+        fetchedPrice.toNumber()
+      );
       setMorphSingleGenePrice(genomChangePriceToEther);
-    } catch (e) {
-      alert(e);
+      const amount = await contractInstance.randomizeGenomePrice();
+      const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
+      setRandomizeGenePrice(formatedRandomizeGenomePriceToEther);
+      setContract(polymorphContractV2);
+    }
+    if (polymorph.network === "Polygon") {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.REACT_APP_INFURA_RPC_PROVIDER_POLYGON
+      );
+      // create instance of contract with infura provider
+      const contractInstance = new ethers.Contract(
+        process.env.REACT_APP_POLYMORPHS_CONTRACT_V2_POLYGON_ADDRESS,
+        polymorphV2?.abi,
+        provider
+      );
+      const fetchedPrice = await contractInstance.priceForGenomeChange(
+        polymorph.tokenid
+      );
+      const genomChangePriceToEther = utils.formatEther(
+        fetchedPrice.toNumber()
+      );
+      setMorphSingleGenePrice(genomChangePriceToEther);
+      const amount = await contractInstance.randomizeGenomePrice();
+      const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
+      setRandomizeGenePrice(formatedRandomizeGenomePriceToEther);
+      setContract(polymorphContractV2Polygon);
     }
   }, []);
 
   const onScramble = async () => {
-    onClose();
-    setShowLoading(true);
-
-    try {
-      if (singleTraitTabSelected) {
-        // Take the Gene Position
-        const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
-        if (!genePosition) {
-          alert("There is no such Gene !");
-          return;
-        }
-
-        // Morph a Gene
-        const genomeChangePrice =
-          await polymorphContractV2.priceForGenomeChange(id);
-        const morphGeneTx = await polymorphContractV2.morphGene(
-          id,
-          genePosition,
-          {
-            value: genomeChangePrice,
+    if (contract) {
+      onClose();
+      setShowLoading(true);
+      try {
+        if (singleTraitTabSelected) {
+          // Take the Gene Position
+          const genePosition = WEAR_TO_GENE_POSITION_MAP[selectedTrait?.value];
+          if (!genePosition) {
+            alert("There is no such Gene !");
+            return;
           }
-        );
-        const txReceipt = await morphGeneTx.wait();
-        if (txReceipt.status !== 1) {
-          console.log("Morph Polymorph transaction failed");
-          return;
+
+          // Morph a Gene
+          const genomeChangePrice =
+            await polymorphContractV2.priceForGenomeChange(id);
+          const morphGeneTx = await polymorphContractV2.morphGene(
+            id,
+            genePosition,
+            {
+              value: genomeChangePrice,
+            }
+          );
+          const txReceipt = await morphGeneTx.wait();
+          if (txReceipt.status !== 1) {
+            console.log("Morph Polymorph transaction failed");
+            return;
+          }
+        } else {
+          if (!id) return;
+          // Randomize Genom
+          const amount = await polymorphContractV2.randomizeGenomePrice();
+          const randomizeTx = await polymorphContractV2.randomizeGenome(id, {
+            value: amount,
+          });
+          const txReceipt = await randomizeTx.wait();
+          if (txReceipt.status !== 1) {
+            console.log("Scramble Polymorph transaction failed");
+            return;
+          }
         }
-      } else {
-        if (!id) return;
-        // Randomize Genom
-        const amount = await polymorphContractV2.randomizeGenomePrice();
-        const randomizeTx = await polymorphContractV2.randomizeGenome(id, {
-          value: amount,
-        });
-        const txReceipt = await randomizeTx.wait();
-        if (txReceipt.status !== 1) {
-          console.log("Scramble Polymorph transaction failed");
-          return;
-        }
+        // Update the view //
+        setShowLoading(false);
+        setShowCongratulations(true);
+      } catch (err) {
+        setShowLoading(false);
+        setShowCongratulations(false);
+        alert(err.message || err);
       }
-      // Update the view //
-      setShowLoading(false);
-      setShowCongratulations(true);
-    } catch (err) {
-      setShowLoading(false);
-      setShowCongratulations(false);
-      alert(err.message || err);
     }
   };
 
