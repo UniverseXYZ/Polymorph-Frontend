@@ -13,20 +13,16 @@ import { useAuthStore } from "src/stores/authStore";
 import { ethers } from "ethers";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
-import {
-  queryPolymorphicFacesGraph,
-  queryPolymorphicFacesGraphPolygon,
-  singleMorphedPolymorphicFace,
-  polymorphicFaceOwner,
-} from "@legacy/graphql/polymorphicFacesQueries";
 import { utils } from "ethers";
 import polymorphicFaces from "../../../abis/PolymorphicFacesRoot.json";
 import { Tooltip } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
 
 const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
+  const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef(null);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
