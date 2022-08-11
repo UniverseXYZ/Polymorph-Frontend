@@ -58,6 +58,9 @@ export const SinglePolymorphicFaceDetails = ({ polymorphicMeta }) => {
                   polymorphicData={metadata ? metadata[0] : polymorphicMeta[0]}
                   isV1={true}
                   update={updateHandler}
+                  blockchain={
+                    metadata ? metadata[0].network : polymorphicMeta[0].network
+                  }
                 />
               </>
             </div>

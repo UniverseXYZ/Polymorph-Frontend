@@ -37,6 +37,9 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
     useContractsStore();
   const { activeNetwork } = useAuthStore();
   const [isOnPolygon, setIsOnPolygon] = useState();
+  const [disableScrambleButton, setDisableScrambleButton] = useState(
+    activeNetwork !== polymorphItem.network ? true : false
+  );
 
   const showScrambleOptions = () => {
     setUpdate(true);
@@ -207,15 +210,29 @@ const MyPolymorphCard = ({ polymorphItem, redirect }) => {
               </Tooltip>
             )}
             {isV2 && (
+              <Tooltip
+                hasArrow
+                label={`${
+                  disableScrambleButton
+                    ? `Only available on ${polymorphItem.network}`
+                    : ""
+                }`}
+              >
+                <span>
+                  <button
+                    className={disableScrambleButton ? "disabled" : ""}
+                    onClick={handleScrambleClick}
+                  >
+                    <img src={ScrambleIconSvg} alt="scramble-icon" />
+                    Scramble
+                  </button>
+                </span>
+              </Tooltip>
+            )}
+            {isV2 && (
               <button onClick={() => router.push("/polymorphic-bridge")}>
                 <img src={bridgeIcon} alt="bridge" />
                 Bridge NFT
-              </button>
-            )}
-            {isV2 && (
-              <button onClick={handleScrambleClick}>
-                <img src={ScrambleIconSvg} alt="scramble-icon" />
-                Scramble
               </button>
             )}
             <button

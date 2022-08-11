@@ -5,12 +5,14 @@ const PolymorphMetadataCard = ({ metadata }) => {
   return (
     <div className="polymorph--metadata--card">
       <div className="card--label">{metadata?.label}</div>
-      {metadata?.price ? (
+      {metadata?.price && (
         <div className="card--price">
           <img src={ethIcon} alt="eth" />
           {metadata?.price}
         </div>
-      ) : (
+      )}
+      {metadata?.value && <div className="card--price">{metadata?.value}</div>}
+      {metadata.address && (
         <div className="card--address">{`${
           metadata?.address ? metadata.address.substring(0, 13) : ""
         }...${

@@ -311,7 +311,10 @@
     .polymorph--metadata--tab {
       display: grid;
       grid-template-columns: 1fr;
-      grid-gap: 16px;
+      padding: 12px 24px;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
     }
     &.pb {
       @include sm {
