@@ -16,6 +16,8 @@ import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
 import { usePolymorphStore } from "../../../stores/polymorphStore";
 import polygonIcon from "../../../assets/images/polygon-badge-icon.png";
 import ethIcon from "../../../assets/images/eth-badge-icon.png";
+import { useAuthStore } from "../../../stores/authStore";
+import { Tooltip } from "@chakra-ui/react";
 
 const marketplaceLinkOut =
   process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
@@ -32,6 +34,10 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   const [contract, setContract] = useState("");
   const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
     useContractsStore();
+  const { activeNetwork } = useAuthStore();
+  const [disableScrambleButton, setDisableScrambleButton] = useState(
+    activeNetwork !== polymorphItem.network ? true : false
+  );
 
   const { userPolymorphicFacesPolygon } = usePolymorphStore();
   const [isOnPolygon, setIsOnPolygon] = useState();
@@ -144,10 +150,25 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
         </div>
         {dropdownOpen ? (
           <div className={"dropdown faces--dropdown"}>
-            <button onClick={handleScrambleClick}>
-              <img src={ScrambleIconSvg} alt="link-icon" />
-              Scramble
-            </button>
+            <Tooltip
+              hasArrow
+              label={`${
+                disableScrambleButton
+                  ? `Only available on ${polymorphItem.network}`
+                  : ""
+              }`}
+            >
+              <span>
+                <button
+                  className={disableScrambleButton ? "disabled" : ""}
+                  onClick={handleScrambleClick}
+                  disabled={disableScrambleButton}
+                >
+                  <img src={ScrambleIconSvg} alt="link-icon" />
+                  Scramble
+                </button>
+              </span>
+            </Tooltip>
             <button onClick={() => router.push("/polymorphic-bridge")}>
               <img src={bridgeIcon} alt="bridge" />
               Bridge NFT
