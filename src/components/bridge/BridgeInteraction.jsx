@@ -4,26 +4,26 @@ import ethereumIcon from "../../assets/images/eth-icon-blue.png";
 import { usePolymorphStore } from "src/stores/polymorphStore";
 import { useEffect } from "react";
 
-const BridgeInteraction = ({ activeNetwork }) => {
+const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const { setUserSelectedNFTsToBridge, userSelectedNFTsToBridge } =
     usePolymorphStore();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
-  }, [activeNetwork]);
+  }, [bridgeFromNetwork]);
 
   return (
     <div className="bridge--interaction--container">
       <div className="header">
         <div>To Network</div>
         <div className="network">
-          {activeNetwork === "Ethereum" && (
+          {bridgeFromNetwork === "Ethereum" && (
             <>
               <Image src={polygonIcon} width={24} height={24} alt="" />
               <div>Polygon</div>
             </>
           )}
-          {activeNetwork === "Polygon" && (
+          {bridgeFromNetwork === "Polygon" && (
             <>
               <Image src={ethereumIcon} width={24} height={24} alt="" />
               <div>Ethereum</div>
@@ -57,7 +57,7 @@ const BridgeInteraction = ({ activeNetwork }) => {
           <div>Step 2</div>
           <button className="light-button">Transfer</button>
         </div>
-        {activeNetwork === "polygon" && (
+        {bridgeFromNetwork === "Polygon" && (
           <div className="step">
             <div>Step 3</div>
             <button className="light-button">Unlock</button>
