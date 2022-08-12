@@ -30,6 +30,8 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const [tunnelContract, setTunnelContract] = useState("");
   const [approved, setApproved] = useState(false);
   const [loadingApproved, setLoadingApproved] = useState(false);
+  const [transferred, setTransferred] = useState(false);
+  const [loadingTransfer, setLoadingTransfer] = useState(false);
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -54,6 +56,28 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       setApproved(false);
       setLoadingApproved(false);
       setStep(1);
+    }
+  };
+
+  const transferHandler = async () => {
+    try {
+      setLoadingTransfer(true);
+      const nftsToBridge = userSelectedNFTsToBridge.map((nft) => nft.tokenId);
+      const tx = await tunnelContract.moveThroughWormhole(nftsToBridge);
+      const txReceipt = await tx.wait();
+      if (txReceipt.status !== 1) {
+        setTransferred(false);
+        console.log("Error transfering tokens");
+        return;
+      }
+      setTransferred(true);
+      setLoadingTransfer(false);
+      bridgeFromNetwork === "Polygon" ? setStep(3) : null;
+    } catch (error) {
+      console.log(error);
+      setTransferred(false);
+      setLoadingTransfer(false);
+      setStep(2);
     }
   };
 
@@ -137,8 +161,13 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
         </div>
         <div className="step">
           <div>Step 2</div>
-          <button className="light-button" disabled={step !== 2}>
-            Transfer
+          <button
+            className="light-button"
+            disabled={step !== 2}
+            onClick={transferHandler}
+          >
+            {loadingTransfer ? <LoadingSpinner /> : null}
+            <span>Transfer</span>
           </button>
         </div>
         {bridgeFromNetwork === "Polygon" && (
