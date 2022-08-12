@@ -13,7 +13,6 @@ import LoadingPopup from "@legacy/popups/LoadingPopup.jsx";
 import PolymorphScrambleCongratulationPopup from "@legacy/popups/PolymorphScrambleCongratulationPopup.jsx";
 import Image from "next/image";
 import bridgeIcon from "../../../assets/images/bridge/bridge-icon.png";
-import { usePolymorphStore } from "../../../stores/polymorphStore";
 import polygonIcon from "../../../assets/images/polygon-badge-icon.png";
 import ethIcon from "../../../assets/images/eth-badge-icon.png";
 import { useAuthStore } from "../../../stores/authStore";
@@ -31,15 +30,12 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [item, setItem] = useState(polymorphItem);
   const [update, setUpdate] = useState(false);
-  const [contract, setContract] = useState("");
-  const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
-    useContractsStore();
+  const { polymorphicFacesContract } = useContractsStore();
   const { activeNetwork } = useAuthStore();
   const [disableScrambleButton, setDisableScrambleButton] = useState(
     activeNetwork !== polymorphItem.network ? true : false
   );
 
-  const { userPolymorphicFacesPolygon } = usePolymorphStore();
   const [isOnPolygon, setIsOnPolygon] = useState();
 
   const showScrambleOptions = () => {
@@ -65,15 +61,10 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
 
   useEffect(() => {
     if (item) {
-      const [polymorphicFacePolygon] = userPolymorphicFacesPolygon.filter(
-        (token) => token.id === item.tokenid
-      );
-      if (polymorphicFacePolygon) {
-        setContract(polymorphicFacesContractPolygon?.address);
-        setIsOnPolygon(true);
-      } else {
-        setContract(polymorphicFacesContractPolygon?.address);
+      if (polymorphItem.network === "Ethereum") {
         setIsOnPolygon(false);
+      } else {
+        setIsOnPolygon(true);
       }
     }
   }, [item]);
