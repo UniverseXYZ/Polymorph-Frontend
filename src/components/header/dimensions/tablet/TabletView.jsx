@@ -135,7 +135,7 @@ const TabletView = (props) => {
                 setIsAccountDropdownOpened(!isAccountDropdownOpened)
               }
             >
-              <Image src={walletIcon} height={34} width={34} />
+              <Image src={walletIcon} height={34} width={34} alt="" />
               <span className="nav__link__title">
                 <div className="ethereum__address__tablet">
                   {yourEnsDomain
@@ -152,7 +152,7 @@ const TabletView = (props) => {
               <div ref={ref} className="dropdown drop-account">
                 <div className="dropdown__header">
                   <div className="copy-div">
-                    <Image src={walletIcon} height={34} width={34} />
+                    <Image src={walletIcon} height={34} width={34} alt="" />
                     <div className="ethereum__address">
                       {yourEnsDomain
                         ? shortenEnsDomain(yourEnsDomain)

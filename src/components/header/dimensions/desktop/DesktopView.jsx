@@ -209,7 +209,7 @@ const DesktopView = ({
                   setIsAccountDropdownOpened(!isAccountDropdownOpened)
                 }
               >
-                <Image src={walletIcon} height={34} width={34} />
+                <Image src={walletIcon} height={34} width={34} alt="" />
                 <span className="nav__link__title">
                   <div className="ethereum__address">
                     {yourEnsDomain
@@ -239,7 +239,7 @@ const DesktopView = ({
                         setIsAccountDropdownOpened(false);
                       }}
                     >
-                      <Image src={walletIcon} height={34} width={34} />
+                      <Image src={walletIcon} height={34} width={34} alt="" />
                     </button>
                     <div className="ethereum__address">
                       {yourEnsDomain
