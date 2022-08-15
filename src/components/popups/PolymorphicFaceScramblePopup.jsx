@@ -10,6 +10,10 @@ import { useContractsStore } from "src/stores/contractsStore";
 import Image from "next/image";
 import { ethers } from "ethers";
 import polymorphicFaces from "../../abis/PolymorphicFacesRoot.json";
+import { useUserBalanceStore } from "src/stores/balanceStore";
+import { Tooltip } from "@chakra-ui/react";
+import { useAuthStore } from "src/stores/authStore";
+import LoadingSpinner from "@legacy/svgs/LoadingSpinnerBlack";
 
 const GENE_POSITIONS_MAP = {
   background: 0,
@@ -82,16 +86,23 @@ const PolymorphicFaceScramblePopup = ({
   id,
   setShowCongratulations,
   setShowLoading,
+  morphPrice,
 }) => {
-  const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
-    useContractsStore();
-
+  const {
+    polymorphicFacesContract,
+    polymorphicFacesContractPolygon,
+    wrappedEthContract,
+  } = useContractsStore();
+  const { polygonWethAllowanceInWeiForFaces } = useUserBalanceStore();
+  const { address } = useAuthStore();
   const [singleTraitTabSelected, setSingleTraitSelected] = useState(true);
   const [allTraitsTabSelected, setAllTraitsTabSelected] = useState(false);
   const [selectedTrait, setSelectedTrait] = useState("");
   const [randomizeGenePrice, setRandomizeGenePrice] = useState("");
   const [morphSingleGenePrice, setMorphSingleGenePrice] = useState("");
   const [contract, setContract] = useState("");
+  const [showApproveButton, setShowApproveButton] = useState(false);
+  const [loadingApproved, setLoadingApproved] = useState(false);
 
   const traits = WEAR_TO_GENE_POSITION_MAP.map((key) => ({
     label: key.title,
@@ -210,6 +221,48 @@ const PolymorphicFaceScramblePopup = ({
     }
   };
 
+  const approveHandler = async () => {
+    setLoadingApproved(true);
+    try {
+      const userWrappedEthBalance = await wrappedEthContract.balanceOf(address);
+      const tx = await wrappedEthContract.increaseAllowance(
+        polymorphicFacesContractPolygon.address,
+        userWrappedEthBalance
+      );
+      const txReceipt = await tx.wait();
+      if (txReceipt.status !== 1) {
+        console.log("Error approving tokens");
+        return;
+      }
+      setShowApproveButton(false);
+      setLoadingApproved(false);
+      console.log(userWrappedEthBalance);
+    } catch (error) {
+      console.log(error);
+      setLoadingApproved(false);
+    }
+  };
+
+  useEffect(() => {
+    if (singleTraitTabSelected) {
+      if (utils.formatEther(polygonWethAllowanceInWeiForFaces) < morphPrice) {
+        setShowApproveButton(true);
+      } else {
+        setShowApproveButton(false);
+      }
+    }
+    if (allTraitsTabSelected) {
+      if (
+        utils.formatEther(polygonWethAllowanceInWeiForFaces) <
+        randomizeGenePrice
+      ) {
+        setShowApproveButton(true);
+      } else {
+        setShowApproveButton(false);
+      }
+    }
+  }, [singleTraitTabSelected, morphPrice]);
+
   const currentTrait = polymorph?.data?.attributes.find(
     (attr) => attr?.trait_type === selectedTrait.label
   );
@@ -267,13 +320,30 @@ const PolymorphicFaceScramblePopup = ({
                     ? morphSingleGenePrice
                     : randomizeGenePrice}
                 </div>
-                <Button
-                  className="light-button"
-                  onClick={onScramble}
-                  disabled={!selectedTrait && singleTraitTabSelected}
-                >
-                  {singleTraitTabSelected ? "Morph" : "Scramble"}
-                </Button>
+
+                {showApproveButton ? (
+                  <Tooltip
+                    className="tooltip"
+                    variant={"black"}
+                    hasArrow
+                    label={`You need to approve spending your wrapped ETH first`}
+                  >
+                    <span className={"tooltip-span"}>
+                      <Button className="light-button" onClick={approveHandler}>
+                        {loadingApproved ? <LoadingSpinner /> : null}
+                        <span>Approve</span>
+                      </Button>
+                    </span>
+                  </Tooltip>
+                ) : (
+                  <Button
+                    className="light-button"
+                    onClick={onScramble}
+                    disabled={!selectedTrait && singleTraitTabSelected}
+                  >
+                    {singleTraitTabSelected ? "Morph" : "Scramble"}
+                  </Button>
+                )}
               </div>
 
               {singleTraitTabSelected ? (
