@@ -201,15 +201,14 @@ const PolymorphScramblePopup = ({
       }
       setShowApproveButton(false);
       setLoadingApproved(false);
-      console.log(userWrappedEthBalance);
     } catch (error) {
       console.log(error);
       setLoadingApproved(false);
     }
   };
-  console.log("allowance", polygonWethAllowanceInWeiForPolymorphs);
+
   useEffect(() => {
-    if (singleTraitTabSelected) {
+    if (singleTraitTabSelected && polymorph.network !== "Ethereum") {
       if (
         utils.formatEther(polygonWethAllowanceInWeiForPolymorphs) < morphPrice
       ) {
@@ -218,7 +217,7 @@ const PolymorphScramblePopup = ({
         setShowApproveButton(false);
       }
     }
-    if (allTraitsTabSelected) {
+    if (allTraitsTabSelected && polymorph.network !== "Ethereum") {
       if (
         utils.formatEther(polygonWethAllowanceInWeiForPolymorphs) <
         randomizeGenePrice
@@ -228,7 +227,7 @@ const PolymorphScramblePopup = ({
         setShowApproveButton(false);
       }
     }
-  }, [singleTraitTabSelected, morphPrice]);
+  }, [singleTraitTabSelected, polymorph.network]);
 
   const currentTrait = polymorph?.data?.attributes.find(
     (attr) => attr?.trait_type === selectedTrait.label

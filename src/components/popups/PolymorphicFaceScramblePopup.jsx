@@ -244,14 +244,14 @@ const PolymorphicFaceScramblePopup = ({
   };
 
   useEffect(() => {
-    if (singleTraitTabSelected) {
+    if (singleTraitTabSelected && polymorph.network !== "Ethereum") {
       if (utils.formatEther(polygonWethAllowanceInWeiForFaces) < morphPrice) {
         setShowApproveButton(true);
       } else {
         setShowApproveButton(false);
       }
     }
-    if (allTraitsTabSelected) {
+    if (allTraitsTabSelected && polymorph.network !== "Ethereum") {
       if (
         utils.formatEther(polygonWethAllowanceInWeiForFaces) <
         randomizeGenePrice
@@ -261,7 +261,7 @@ const PolymorphicFaceScramblePopup = ({
         setShowApproveButton(false);
       }
     }
-  }, [singleTraitTabSelected, morphPrice]);
+  }, [singleTraitTabSelected, polymorph.network]);
 
   const currentTrait = polymorph?.data?.attributes.find(
     (attr) => attr?.trait_type === selectedTrait.label

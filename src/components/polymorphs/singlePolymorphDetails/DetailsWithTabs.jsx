@@ -266,7 +266,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
             <Tooltip
               hasArrow
               label={`${
-                disableMorphing
+                disableMorphing && !isV1
                   ? `Only available on ${polymorphData.network}`
                   : ""
               }`}
@@ -274,7 +274,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
               <span>
                 <Button
                   className="light-button"
-                  disabled={isV1}
+                  disabled={isV1 || disableMorphing}
                   onClick={() => setShowScramblePopup(true)}
                 >
                   Scramble
