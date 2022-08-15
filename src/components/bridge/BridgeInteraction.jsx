@@ -8,12 +8,16 @@ import { Tooltip } from "@chakra-ui/react";
 import { useContractsStore } from "src/stores/contractsStore";
 import { useMyNftsStore } from "src/stores/myNftsStore";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinnerBlack";
+import Popup from "reactjs-popup";
+import NftsBridgedSuccessPopup from "../popups/NftsBridgedSuccessPopup";
+
+const etherscanTxLink = "https://etherscan.io/tx/";
 
 const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const { setUserSelectedNFTsToBridge, userSelectedNFTsToBridge } =
     usePolymorphStore();
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
-  const { activeNetwork } = useAuthStore();
+  const { address, activeNetwork } = useAuthStore();
   const {
     polymorphContractV2,
     polymorphContractV2Polygon,
@@ -32,6 +36,10 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const [loadingApproved, setLoadingApproved] = useState(false);
   const [transferred, setTransferred] = useState(false);
   const [loadingTransfer, setLoadingTransfer] = useState(false);
+  const [showSuccessTranfserModal, setShowSuccessTransferModal] =
+    useState(false);
+  const [txHash, setTxHash] = useState("");
+  const [isApprovedForAll, setIsApprovedForAll] = useState();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -72,7 +80,12 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       }
       setTransferred(true);
       setLoadingTransfer(false);
-      bridgeFromNetwork === "Polygon" ? setStep(3) : null;
+      if (bridgeFromNetwork === "Polygon") {
+        setStep(3);
+      } else if (bridgeFromNetwork === "Ethereum") {
+        setShowSuccessTransferModal(true);
+        setTxHash(etherscanTxLink + txReceipt.transactionHash);
+      }
     } catch (error) {
       console.log(error);
       setTransferred(false);
@@ -100,86 +113,131 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     }
   }, [myNFTsSelectedTabIndex, bridgeFromNetwork]);
 
+  useEffect(async () => {
+    if (
+      activeNetwork === bridgeFromNetwork &&
+      activeNetwork === "Ethereum" &&
+      myNFTsSelectedTabIndex === 0
+    ) {
+      const hasApprovedAll = await polymorphContractV2.isApprovedForAll(
+        address,
+        polymorphRootTunnel.address
+      );
+      if (hasApprovedAll) {
+        setStep(2);
+      } else {
+        setStep(1);
+      }
+      setIsApprovedForAll(hasApprovedAll);
+    }
+    if (
+      activeNetwork === bridgeFromNetwork &&
+      activeNetwork === "Ethereum" &&
+      myNFTsSelectedTabIndex === 1
+    ) {
+      const hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
+        address,
+        polymorphRootTunnel.address
+      );
+      if (hasApprovedAll === true) {
+        setStep(2);
+      } else {
+        setStep(1);
+      }
+      setIsApprovedForAll(hasApprovedAll);
+    }
+  }, [activeNetwork, bridgeFromNetwork, myNFTsSelectedTabIndex]);
+
   return (
-    <div className="bridge--interaction--container">
-      <div className="header">
-        <div>To Network</div>
-        <div className="network">
-          {bridgeFromNetwork === "Ethereum" && (
-            <>
-              <Image src={polygonIcon} width={24} height={24} alt="" />
-              <div>Polygon</div>
-            </>
-          )}
-          {bridgeFromNetwork === "Polygon" && (
-            <>
-              <Image src={ethereumIcon} width={24} height={24} alt="" />
-              <div>Ethereum</div>
-            </>
-          )}
-        </div>
-      </div>
-      <div className="body">
-        <div className="selected--amount">
-          <div>Selected NFTs</div>
-          <div>
-            {userSelectedNFTsToBridge ? userSelectedNFTsToBridge.length : "0"} /
-            20
+    <>
+      <div className="bridge--interaction--container">
+        <div className="header">
+          <div>To Network</div>
+          <div className="network">
+            {bridgeFromNetwork === "Ethereum" && (
+              <>
+                <Image src={polygonIcon} width={24} height={24} alt="" />
+                <div>Polygon</div>
+              </>
+            )}
+            {bridgeFromNetwork === "Polygon" && (
+              <>
+                <Image src={ethereumIcon} width={24} height={24} alt="" />
+                <div>Ethereum</div>
+              </>
+            )}
           </div>
         </div>
-        <div className="estimate--indicators">
-          <div>
-            <div>Gas cost</div>
-            <div>~ $5.24</div>
+        <div className="body">
+          <div className="selected--amount">
+            <div>Selected NFTs</div>
+            <div>
+              {userSelectedNFTsToBridge ? userSelectedNFTsToBridge.length : "0"}{" "}
+              / 20
+            </div>
           </div>
-          <div>
-            <div>Transfer time</div>
-            <div>~ 2 min</div>
+          <div className="estimate--indicators">
+            <div>
+              <div>Gas cost</div>
+              <div>~ $5.24</div>
+            </div>
+            <div>
+              <div>Transfer time</div>
+              <div>~ 2 min</div>
+            </div>
           </div>
-        </div>
-        <div className="step">
-          <div>Step 1</div>
-          <Tooltip
-            hasArrow
-            label={`${
-              activeNetwork !== bridgeFromNetwork
-                ? `Please switch you network to ${bridgeFromNetwork} for bridging NFTs from ${bridgeFromNetwork} to ${activeNetwork}.`
-                : ""
-            }`}
-          >
-            <span>
-              <button
-                className="light-button"
-                disabled={step !== 1}
-                onClick={approveHandler}
-              >
-                {loadingApproved ? <LoadingSpinner /> : null}
-                <span>Approve</span>
-              </button>
-            </span>
-          </Tooltip>
-        </div>
-        <div className="step">
-          <div>Step 2</div>
-          <button
-            className="light-button"
-            disabled={step !== 2}
-            onClick={transferHandler}
-          >
-            {loadingTransfer ? <LoadingSpinner /> : null}
-            <span>Transfer</span>
-          </button>
-        </div>
-        {bridgeFromNetwork === "Polygon" && (
           <div className="step">
-            <div>Step 3</div>
-            <button className="light-button" disabled={step !== 3}>
-              Unlock
+            <div>Step 1</div>
+            <Tooltip
+              hasArrow
+              label={`${
+                activeNetwork !== bridgeFromNetwork
+                  ? `Please switch your network to ${bridgeFromNetwork} for bridging NFTs from ${bridgeFromNetwork} to ${activeNetwork}.`
+                  : ""
+              }`}
+            >
+              <span>
+                <button
+                  className="light-button"
+                  disabled={step !== 1}
+                  onClick={approveHandler}
+                >
+                  {loadingApproved ? <LoadingSpinner /> : null}
+                  <span>Approve</span>
+                </button>
+              </span>
+            </Tooltip>
+          </div>
+          <div className="step">
+            <div>Step 2</div>
+            <button
+              className="light-button"
+              disabled={step !== 2}
+              onClick={transferHandler}
+            >
+              {loadingTransfer ? <LoadingSpinner /> : null}
+              <span>Transfer</span>
             </button>
           </div>
-        )}
+          {bridgeFromNetwork === "Polygon" && (
+            <div className="step">
+              <div>Step 3</div>
+              <button className="light-button" disabled={step !== 3}>
+                Unlock
+              </button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <Popup closeOnDocumentClick={false} open={showSuccessTranfserModal}>
+        {(close) => (
+          <NftsBridgedSuccessPopup
+            onClose={() => setShowSuccessTransferModal(false)}
+            txHash={txHash}
+          />
+        )}
+      </Popup>
+    </>
   );
 };
 
