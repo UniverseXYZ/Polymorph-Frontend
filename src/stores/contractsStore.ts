@@ -5,6 +5,7 @@ import PolymorphV2Contract from "../abis/PolymorphRoot.json";
 import PolymorphicFacesContract from "../abis/PolymorphicFacesRoot.json";
 import PolymorphRootTunnelContract from "../abis/PolymorphRootTunnel.json";
 import PolymorphChildTunnelContract from "../abis/PolymorphChildTunnel.json";
+import WrappedEthContract from "../abis/WrappedEthContract.json";
 
 interface IContracts {
   // Getters
@@ -17,6 +18,7 @@ interface IContracts {
   polymorphicFacesContractPolygon: Contract | null;
   polymorphicFacesRootTunnel: Contract | null;
   polymorphicFacesChildTunnel: Contract | null;
+  wrappedEthContract: Contract | null;
 }
 
 interface IContractsStore extends IContracts {
@@ -35,6 +37,7 @@ export const useContractsStore = create<IContractsStore>((set) => ({
   polymorphicFacesContractPolygon: null,
   polymorphicFacesRootTunnel: null,
   polymorphicFacesChildTunnel: null,
+  wrappedEthContract: null,
 
   setContracts: (signer, network) => {
     const polymorphContractInstance = new Contract(
@@ -87,7 +90,12 @@ export const useContractsStore = create<IContractsStore>((set) => ({
 
     const polymorphicFacesChildTunnelContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHIC_FACES_CHILD_TUNNEL_ADDRESS as any,
-      PolymorphChildTunnelContract?.abi,
+      PolymorphChildTunnelContract?.abi
+    );
+
+    const wrappedEthContractInstance = new Contract(
+      process.env.REACT_APP_POLYGON_WRAPPED_ETH_CONTRACT_ADDRESS as any,
+      WrappedEthContract?.abi,
       signer
     );
 
@@ -102,6 +110,7 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       polymorphicFacesContractPolygon: polymorphicFacesContractPolygonInstance,
       polymorphicFacesRootTunnel: polymorphicFacesRootTunnelContractInstance,
       polymorphicFacesChildTunnel: polymorphicFacesChildTunnelContractInstance,
+      wrappedEthContract: wrappedEthContractInstance,
     }));
   },
   clearContracts: () => {
@@ -115,6 +124,7 @@ export const useContractsStore = create<IContractsStore>((set) => ({
       polymorphicFacesContractPolygon: null,
       polymorphicFacesRootTunnel: null,
       polymorphicFacesChildTunnel: null,
+      wrappedEthContract: null,
     }));
   },
 }));
