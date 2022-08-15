@@ -148,11 +148,11 @@ const SelectPolymorphsToBridge = ({ queryNft }) => {
               results={results}
               apiPage={apiPage}
               getSelectedCards={getSelectedCards}
-              activeNetwork={bridgeFromNetwork}
-              setActiveNetwork={setBridgeFromNetwork}
+              bridgeFromNetwork={bridgeFromNetwork}
+              setBridgeFromNetwork={setBridgeFromNetwork}
               queryNft={queryNft}
             />
-            <BridgeInteraction activeNetwork={bridgeFromNetwork} />
+            <BridgeInteraction bridgeFromNetwork={bridgeFromNetwork} />
           </div>
         </div>
       )}
