@@ -292,6 +292,7 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
           id={polymorphData.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
+          morphPrice={morphPrice}
         />
       </Popup>
 
