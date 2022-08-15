@@ -281,6 +281,11 @@ export const useAuthStore = create<
       useUserBalanceStore
         .getState()
         .setYourBalance(Number(utils.formatEther(balance)));
+      useUserBalanceStore.getState().setPolygonWethAllowanceInWeiForFaces();
+      useUserBalanceStore
+        .getState()
+        .setPolygonWethAllowanceInWeiForPolymorphs();
+
       usePolymorphStore.getState().setUserPolymorphs([]);
     },
     resetConnectionState: () => {
