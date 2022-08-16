@@ -34,11 +34,16 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
   const [morphPrice, setMorphPrice] = useState("");
   const [contract, setContract] = useState("");
   const [disableMorphing, setDisableMorphing] = useState(true);
+  const [showApproveButton, setShowApproveButton] = useState(false);
+  const [loadingApproved, setLoadingApproved] = useState(false);
 
-  const { polymorphicFacesContract, polymorphicFacesContractPolygon } =
-    useContractsStore();
+  const {
+    polymorphicFacesContract,
+    polymorphicFacesContractPolygon,
+    wrappedEthContract,
+  } = useContractsStore();
   const { userPolymorphicFacesAll } = usePolymorphStore();
-  const { activeNetwork } = useAuthStore();
+  const { address, activeNetwork } = useAuthStore();
 
   const showScrambleOptions = () => {
     setShowScramblePopup(true);
@@ -240,6 +245,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
           id={polymorphicData.tokenid.toString()}
           setShowCongratulations={setShowCongratulations}
           setShowLoading={setShowLoading}
+          morphPrice={morphPrice}
         />
       </Popup>
 

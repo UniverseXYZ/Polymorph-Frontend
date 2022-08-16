@@ -10,7 +10,6 @@ export const SinglePolymorphDetails = ({
   polymorphMeta,
   animationUrl,
   isV1,
-  blockchain,
 }) => {
   const router = useRouter();
   const [update, setUpdate] = useState(false);
@@ -69,7 +68,9 @@ export const SinglePolymorphDetails = ({
                   polymorphData={metadata ? metadata[0] : polymorphMeta[0]}
                   isV1={isV1}
                   update={updateHandler}
-                  blockchain={blockchain}
+                  blockchain={
+                    metadata ? metadata[0].network : polymorphMeta[0].network
+                  }
                 />
               </>
             </div>
@@ -119,7 +120,6 @@ export async function getStaticProps({ params }) {
       polymorphMeta: polymorphMeta,
       animationUrl: animationUrl || null,
       isV1: isV1,
-      blockchain: "Ethereum",
     },
     revalidate: 60,
   };

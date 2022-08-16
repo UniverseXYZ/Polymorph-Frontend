@@ -146,10 +146,21 @@
               img {
                 margin-right: 10px;
               }
+              margin-right: 24px;
+            }
+
+            .tooltip-span {
+              width: 100%;
             }
 
             .light-button {
-              width: 80%;
+              display: flex;
+              width: 100%;
+              svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+              }
             }
           }
 

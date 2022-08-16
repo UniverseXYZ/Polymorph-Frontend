@@ -162,6 +162,7 @@ const MobileView = (props) => {
               src={walletIcon}
               height={40}
               width={40}
+              alt=""
             />
           </div>
 
@@ -177,6 +178,7 @@ const MobileView = (props) => {
                         src={walletIcon}
                         height={40}
                         width={40}
+                        alt=""
                       />
                       <div className="ethereum__address">
                         {yourEnsDomain
