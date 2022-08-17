@@ -137,7 +137,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     ) {
       const hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
         address,
-        polymorphRootTunnel.address
+        polymorphicFacesRootTunnel.address
       );
       if (hasApprovedAll === true) {
         setStep(2);
