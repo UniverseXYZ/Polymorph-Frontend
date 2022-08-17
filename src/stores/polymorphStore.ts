@@ -15,6 +15,7 @@ import {
   queryPolymorphicFacesGraphPolygon,
   mintedPolymorphicFaces,
   transferPolymorphicFaces,
+  transferPolymorphicFacesBeingBridgedToEthereum,
 } from "../utils/graphql/polymorphicFacesQueries";
 import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 
@@ -32,6 +33,7 @@ type IPolymorphStore = {
   userPolymorphicFacesAll: [];
   userPolymorphicFacesClaimed: [];
   userSelectedNFTsToBridge: [];
+  userFacesBeingBridgedToEthereum: [];
 
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void;
@@ -46,7 +48,9 @@ type IPolymorphStore = {
   setUserPolymorphicFacesAll: (userPolymorphicFacesAll: []) => void;
   setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
   setUserSelectedNFTsToBridge: (setUserSelectedNFTsToBridge: []) => void;
-
+  setUserFacesBeingBridgedToEthereum: (
+    userFacesBeingBridgedToEthereum: []
+  ) => void;
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
   loadMetadata: () => Promise<void>;
@@ -66,6 +70,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphicFacesAll: [],
     userPolymorphicFacesClaimed: [],
     userSelectedNFTsToBridge: [],
+    userFacesBeingBridgedToEthereum: [],
 
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
@@ -140,6 +145,12 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userSelectedNFTsToBridge,
       }));
     },
+    setUserFacesBeingBridgedToEthereum: (userFacesBeingBridgedToEthereum) => {
+      set((state) => ({
+        ...state,
+        userFacesBeingBridgedToEthereum,
+      }));
+    },
     fetchUserPolymorphsTheGraph: async (newAddress) => {
       set((state) => ({
         ...state,
@@ -209,6 +220,23 @@ export const usePolymorphStore = create<IPolymorphStore>(
         tokenId: nft.tokenId,
         id: parseInt(nft.id, 16),
       }));
+
+      const facesBridgedToEthereum = await queryPolymorphicFacesGraphPolygon(
+        transferPolymorphicFacesBeingBridgedToEthereum(newAddress)
+      );
+
+      const facesIdsBridgedToEthereum =
+        facesBridgedToEthereum?.transferEntities.map((nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+        }));
+
+      const facesIdsInBridgingProgressToEthereum =
+        facesIdsBridgedToEthereum.filter(
+          ({ tokenId: id1 }: any) =>
+            !polymorphV2Ids.some(({ tokenId: id2 }: any) => id2 === id1)
+        );
+
       set((state) => ({
         ...state,
         userPolymorphs: polymorphV1Ids || [],
@@ -220,6 +248,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFacesPolygon: facesPolygonIds || [],
         userPolymorphicFacesAll: allFacesIds || [],
         userPolymorphicFacesClaimed: claimedFacesIds || [],
+        userFacesBeingBridgedToEthereum:
+          facesIdsInBridgingProgressToEthereum || [],
       }));
     },
     // This is a new function for loading the metadata of the polymorphs
