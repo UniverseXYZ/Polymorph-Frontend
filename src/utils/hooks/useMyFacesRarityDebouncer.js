@@ -78,7 +78,7 @@ const buildRarityUrl = (
 
 export const useSearchPolymorphicFaces = (fromNetwork) => {
 
-  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll } = usePolymorphStore();
+  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll, userFacesBeingBridgedToEthereum } = usePolymorphStore();
 
   const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length; 
   const [inputText, setInputText] = useStateIfMounted('');
@@ -132,7 +132,7 @@ export const useSearchPolymorphicFaces = (fromNetwork) => {
       if(fromNetwork === "Ethereum") {
         ids = userPolymorphicFaces.map((p) => p.id)
       } else if (fromNetwork === "Polygon") {
-        ids = userPolymorphicFacesPolygon.map((p) => p.id)
+        ids = userPolymorphicFacesPolygon.concat(userFacesBeingBridgedToEthereum).map((p) => p.id)
       } else {
         ids = userPolymorphicFacesAll.map((p) => p.id)
       }

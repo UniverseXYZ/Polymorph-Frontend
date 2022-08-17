@@ -165,12 +165,24 @@
       padding: 24px;
 
       .card {
+        position: relative;
         cursor: pointer;
         background: $white;
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         padding: 0px;
         transition: 0.3s ease-in-out;
+
+        .pending-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: rgb(0, 0, 0, 0.1);
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+        }
 
         &.selected {
           position: relative;

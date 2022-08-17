@@ -31,9 +31,10 @@ const PolymorphCard = ({ item, selected, setSelected, nft }) => {
       className={`card ${selected ? "selected" : ""} ${
         nft === "polymorphic-faces" ? "card--faces" : ""
       }`}
-      onClick={() => setSelected(item.tokenid)}
+      onClick={() => item.network !== "Pending" && setSelected(item.tokenid)}
       aria-hidden="true"
     >
+      {item.network === "Pending" && <div className="pending-overlay"></div>}
       {nft === "polymorphs" && (
         <div className="card--header">
           <div className="card--number">{`#${item.rank}`}</div>
@@ -95,7 +96,6 @@ const PolymorphCard = ({ item, selected, setSelected, nft }) => {
           </div>
         ) : null}
       </div>
-
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
       </Popup>
