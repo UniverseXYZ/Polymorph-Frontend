@@ -82,7 +82,7 @@ const List = ({
 
   useEffect(() => {
     setSelectedCards([]);
-  }, [bridgeFromNetwork]);
+  }, [bridgeFromNetwork, myNFTsSelectedTabIndex]);
 
   return (
     <>
