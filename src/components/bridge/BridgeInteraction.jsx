@@ -203,7 +203,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               <span>
                 <button
                   className="light-button"
-                  disabled={step !== 1}
+                  disabled={step !== 1 || activeNetwork !== bridgeFromNetwork}
                   onClick={approveHandler}
                 >
                   {loadingApproved ? <LoadingSpinner /> : null}
@@ -214,23 +214,26 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           </div>
           <div className="step">
             <div>Step 2</div>
-            <button
-              className="light-button"
-              disabled={step !== 2}
-              onClick={transferHandler}
+            <Tooltip
+              hasArrow
+              label={`${
+                activeNetwork !== bridgeFromNetwork
+                  ? `Please switch your network to ${bridgeFromNetwork} for bridging NFTs from ${bridgeFromNetwork} to ${activeNetwork}.`
+                  : ""
+              }`}
             >
-              {loadingTransfer ? <LoadingSpinner /> : null}
-              <span>Transfer</span>
-            </button>
+              <span>
+                <button
+                  className="light-button"
+                  disabled={step !== 2 || activeNetwork !== bridgeFromNetwork}
+                  onClick={transferHandler}
+                >
+                  {loadingTransfer ? <LoadingSpinner /> : null}
+                  <span>Transfer</span>
+                </button>
+              </span>
+            </Tooltip>
           </div>
-          {bridgeFromNetwork === "Polygon" && (
-            <div className="step">
-              <div>Step 3</div>
-              <button className="light-button" disabled={step !== 3}>
-                Unlock
-              </button>
-            </div>
-          )}
         </div>
         <div className={"pending-nfts"}>
           <div className={"recent-transactions"}>Recent Transactions</div>

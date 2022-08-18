@@ -33,6 +33,8 @@ const CheckPendingStatus = ({ id, nft }) => {
             setProofObject(data.transferStatus);
             setIsReady(true);
             setIsChecking(false);
+          } else {
+            setIsChecking(false);
           }
         });
     } catch (err) {
@@ -56,6 +58,7 @@ const CheckPendingStatus = ({ id, nft }) => {
           console.log("Error bridging tokens");
           return;
         }
+        setIsUnlocking(false);
       }
     } catch (err) {
       console.log(err);
@@ -69,7 +72,7 @@ const CheckPendingStatus = ({ id, nft }) => {
         <Image src={polygonIcon} width={18} height={18} alt="" />
         <Image src={arrowRight} width={12} height={12} alt="" />
         <Image src={ethereumIcon} width={18} height={18} alt="" />
-        <span>Face #{id}</span>
+        <span>Polymorphic Face #{id}</span>
       </div>
       {!isReady && (
         <button className="light-button" onClick={() => checkIfReady(id)}>
@@ -84,14 +87,16 @@ const CheckPendingStatus = ({ id, nft }) => {
             activeNetwork !== "Ethereum" ? "Only available on Ethereum" : ""
           }`}
         >
-          <button
-            className="light-button"
-            onClick={unlockHandler}
-            disabled={activeNetwork !== "Ethereum"}
-          >
-            {isUnlocking ? <LoadingSpinner /> : null}
-            <span>Unlock</span>
-          </button>
+          <span>
+            <button
+              className="light-button"
+              onClick={unlockHandler}
+              disabled={activeNetwork !== "Ethereum"}
+            >
+              {isUnlocking ? <LoadingSpinner /> : null}
+              <span>Unlock</span>
+            </button>
+          </span>
         </Tooltip>
       )}
     </div>
