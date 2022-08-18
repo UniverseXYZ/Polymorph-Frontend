@@ -81,4 +81,39 @@
       }
     }
   }
+  .pending-nfts {
+    padding: 24px;
+    .recent-transactions {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 24px;
+    }
+    .pending-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .images {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        span {
+          margin-left: 8px;
+        }
+      }
+      button {
+        display: flex;
+        padding: 5px 12px;
+        border-radius: 10px;
+        svg {
+          width: 12px;
+          height: 12px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
 }

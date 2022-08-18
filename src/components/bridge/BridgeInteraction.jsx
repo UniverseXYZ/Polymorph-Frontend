@@ -10,12 +10,16 @@ import { useMyNftsStore } from "src/stores/myNftsStore";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinnerBlack";
 import Popup from "reactjs-popup";
 import NftsBridgedSuccessPopup from "../popups/NftsBridgedSuccessPopup";
+import CheckPendingStatus from "./CheckPendingStatus";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
 
 const BridgeInteraction = ({ bridgeFromNetwork }) => {
-  const { setUserSelectedNFTsToBridge, userSelectedNFTsToBridge } =
-    usePolymorphStore();
+  const {
+    setUserSelectedNFTsToBridge,
+    userSelectedNFTsToBridge,
+    userFacesBeingBridgedToEthereum,
+  } = usePolymorphStore();
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
   const { address, activeNetwork } = useAuthStore();
   const {
@@ -227,6 +231,12 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               </button>
             </div>
           )}
+        </div>
+        <div className={"pending-nfts"}>
+          <div className={"recent-transactions"}>Recent Transactions</div>
+          {userFacesBeingBridgedToEthereum?.map((face) => {
+            return <CheckPendingStatus id={face.tokenId} nft="face" />;
+          })}
         </div>
       </div>
       <Popup closeOnDocumentClick={false} open={showSuccessTranfserModal}>
