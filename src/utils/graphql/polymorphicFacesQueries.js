@@ -59,10 +59,23 @@ export const transferPolymorphicFacesBeingBridgedToEthereum = (ownerAddress) => 
   }
 `;
 
+export const transferPolymorphicFacesBeingBridgedToPolygon = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}", to: "${process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS}"}) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
 export const polymorphicFaceOwner = (tokenId) => `
   query Polymorphs {
     transferEntities(where: { tokenId: "${tokenId}" }) {
+      tokenId
       to
+      from
     }
   }
 `;
