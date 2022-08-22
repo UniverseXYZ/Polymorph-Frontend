@@ -275,7 +275,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         );
         facesObjects.push(facesTransferredToBridge.transferEntities[i]);
       }
-      const promises = await Promise.all(metadataPromises);
+      const promises: any = await Promise.all(metadataPromises);
 
       // Make a new array containing the tokens that
       // have been trasferred to the Root Tunnel,
@@ -283,9 +283,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
       const facesBeingBridgedFirstTime: any = [];
       for (let i = 0; i <= promises.length - 1; i++) {
         if (promises[i].transferEntities.length === 0) {
-          // facesBeingBridgedFirstTime.push(facesObjects[i]);
           facesBeingBridgedFirstTime.push({
-            id: parseInt(Number(facesObjects[i].id)),
+            id: Number(facesObjects[i].id),
             tokenId: facesObjects[i].tokenId,
             from: facesObjects[i].from,
             to: facesObjects[i].to,
