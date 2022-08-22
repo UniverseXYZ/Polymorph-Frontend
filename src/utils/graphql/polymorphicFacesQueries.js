@@ -1,5 +1,6 @@
 import { gql, ApolloClient, InMemoryCache } from '@apollo/client';
 import { request, gql as gql2 } from 'graphql-request';
+import { ZERO_ADDRESS } from '@legacy/constants';
 
 export const morphedPolymorphicFaces = `
   query Polymorphs {
@@ -47,10 +48,34 @@ export const transferPolymorphicFaces = (ownerAddress) => `
   }
 `;
 
+export const transferPolymorphicFacesBeingBridgedToEthereum = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}", to: "${ZERO_ADDRESS}"}) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
+export const transferPolymorphicFacesBeingBridgedToPolygon = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}", to: "${process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS}"}) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
 export const polymorphicFaceOwner = (tokenId) => `
   query Polymorphs {
     transferEntities(where: { tokenId: "${tokenId}" }) {
+      tokenId
       to
+      from
     }
   }
 `;

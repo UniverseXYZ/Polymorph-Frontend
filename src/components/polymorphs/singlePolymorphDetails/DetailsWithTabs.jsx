@@ -248,13 +248,24 @@ const DetailsWithTabs = ({ polymorphData, isV1, update, blockchain }) => {
           <div className="polymorph--actions--gradient"></div>
           {isV1 && (
             <div className="burn--to--mint--btn mr">
-              <Button
-                className="light-button"
-                disabled={!isV1}
-                onClick={handleBurnToMintClick}
+              <Tooltip
+                hasArrow
+                label={`${
+                  activeNetwork !== "Ethereum"
+                    ? `Only available on Ethereum`
+                    : ""
+                }`}
               >
-                Burn to Mint
-              </Button>
+                <span>
+                  <Button
+                    className="light-button"
+                    disabled={!isV1 || activeNetwork !== "Ethereum"}
+                    onClick={handleBurnToMintClick}
+                  >
+                    Burn to Mint
+                  </Button>
+                </span>
+              </Tooltip>
             </div>
           )}
           <div className="scramble--btn">

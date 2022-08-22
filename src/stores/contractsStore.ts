@@ -90,7 +90,8 @@ export const useContractsStore = create<IContractsStore>((set) => ({
 
     const polymorphicFacesChildTunnelContractInstance = new Contract(
       process.env.REACT_APP_POLYMORPHIC_FACES_CHILD_TUNNEL_ADDRESS as any,
-      PolymorphChildTunnelContract?.abi
+      PolymorphChildTunnelContract?.abi,
+      signer
     );
 
     const wrappedEthContractInstance = new Contract(
