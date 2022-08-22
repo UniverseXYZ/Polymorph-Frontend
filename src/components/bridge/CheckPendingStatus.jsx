@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContractsStore } from "src/stores/contractsStore";
 import LoadingSpinner from "@legacy/svgs/LoadingSpinnerBlack";
 import polygonIcon from "../../assets/images/polygon-icon.png";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Tooltip } from "@chakra-ui/react";
 import { useAuthStore } from "src/stores/authStore";
 
-const CheckPendingStatus = ({ id, nft }) => {
+const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
   const { polymorphicFacesRootTunnel } = useContractsStore();
   const { activeNetwork } = useAuthStore();
 
@@ -17,6 +17,7 @@ const CheckPendingStatus = ({ id, nft }) => {
   const [isReady, setIsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
+  const [direction, setDirection] = useState();
 
   const checkIfReady = async (id) => {
     setIsChecking(true);
@@ -66,21 +67,40 @@ const CheckPendingStatus = ({ id, nft }) => {
     }
   };
 
+  useEffect(() => {
+    if (pendingEntity) {
+      setDirection(pendingEntity[0].Direction);
+      console.log("here", pendingEntity[0].Direction);
+    }
+  }, [pendingEntity]);
+
   return (
     <div className={"pending-item"}>
       <div className="images">
-        <Image src={polygonIcon} width={18} height={18} alt="" />
-        <Image src={arrowRight} width={12} height={12} alt="" />
-        <Image src={ethereumIcon} width={18} height={18} alt="" />
-        <span>Polymorphic Face #{id}</span>
+        {direction === "Ethereum" && (
+          <>
+            <Image src={polygonIcon} width={18} height={18} alt="" />
+            <Image src={arrowRight} width={12} height={12} alt="" />
+            <Image src={ethereumIcon} width={18} height={18} alt="" />
+            <span>Polymorphic Face #{id}</span>
+          </>
+        )}
+        {direction === "Polygon" && (
+          <>
+            <Image src={ethereumIcon} width={18} height={18} alt="" />
+            <Image src={arrowRight} width={12} height={12} alt="" />
+            <Image src={polygonIcon} width={18} height={18} alt="" />
+            <span>Polymorphic Face #{id}</span>
+          </>
+        )}
       </div>
-      {!isReady && (
+      {!isReady && direction === "Ethereum" && (
         <button className="light-button" onClick={() => checkIfReady(id)}>
           {isChecking ? <LoadingSpinner /> : null}
           <span>Check</span>
         </button>
       )}
-      {isReady && (
+      {isReady && direction === "Ethereum" && (
         <Tooltip
           hasArrow
           label={`${

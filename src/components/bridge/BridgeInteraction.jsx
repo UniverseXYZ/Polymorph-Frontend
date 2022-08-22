@@ -46,6 +46,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     useState(false);
   const [txHash, setTxHash] = useState("");
   const [isApprovedForAll, setIsApprovedForAll] = useState();
+  const [fetchedPendingFaces, setFetchedPendingFaces] = useState();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -87,6 +88,20 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       }
       setTransferred(true);
       setLoadingTransfer(false);
+      const request = await fetch(
+        `${
+          process.env.REACT_APP_PENDING_DIRECTION_URL
+        }ids=${nftsToBridge}&type=${myNFTsSelectedTabIndex}&direction=${
+          bridgeFromNetwork === "Polygon" ? "Ethereum" : "Polygon"
+        }`,
+        {
+          method: "Post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await request.json();
       if (bridgeFromNetwork === "Polygon") {
         setStep(3);
         setShowSuccessTransferModal(true);
@@ -157,6 +172,22 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     }
   }, [activeNetwork, bridgeFromNetwork, myNFTsSelectedTabIndex]);
 
+  useEffect(async () => {
+    const queryTokens = userFacesBeingBridged.map((face) => face.tokenId);
+    if (userFacesBeingBridged) {
+      const response = await fetch(
+        `${process.env.REACT_APP_PENDING_DIRECTION_URL}ids=${queryTokens}&type=1`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setFetchedPendingFaces(data);
+    }
+  }, [userFacesBeingBridged]);
+
   return (
     <>
       <div className="bridge--interaction--container">
@@ -192,7 +223,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </div>
             <div>
               <div>Transfer time</div>
-              <div>~ 2 min</div>
+              <div>~ 1 hour</div>
             </div>
           </div>
           <div className="step">
@@ -250,12 +281,23 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </Tooltip>
           </div>
         </div>
-        <div className={"pending-nfts"}>
-          <div className={"recent-transactions"}>Recent Transactions</div>
-          {userFacesBeingBridged?.map((face) => {
-            return <CheckPendingStatus id={face.tokenId} nft="face" />;
-          })}
-        </div>
+        {userFacesBeingBridged && (
+          <div className={"pending-nfts"}>
+            <div className={"recent-transactions"}>Recent Transactions</div>
+            {userFacesBeingBridged?.map((face) => {
+              return (
+                <CheckPendingStatus
+                  id={face.tokenId}
+                  nft="face"
+                  pendingEntity={fetchedPendingFaces?.filter(
+                    (fetchedFace) =>
+                      fetchedFace.TokenId.toString() === face.tokenId
+                  )}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
       <Popup closeOnDocumentClick={false} open={showSuccessTranfserModal}>
         {(close) => (
