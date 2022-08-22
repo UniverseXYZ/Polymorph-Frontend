@@ -70,7 +70,6 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
   useEffect(() => {
     if (pendingEntity) {
       setDirection(pendingEntity[0].Direction);
-      console.log("here", pendingEntity[0].Direction);
     }
   }, [pendingEntity]);
 
