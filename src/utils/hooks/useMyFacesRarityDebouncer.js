@@ -78,9 +78,9 @@ const buildRarityUrl = (
 
 export const useSearchPolymorphicFaces = (fromNetwork) => {
 
-  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll, userFacesBeingBridgedToEthereum } = usePolymorphStore();
+  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll, userFacesBeingBridged } = usePolymorphStore();
 
-  const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length; 
+  const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length + userFacesBeingBridged.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('tokenid');
@@ -132,7 +132,7 @@ export const useSearchPolymorphicFaces = (fromNetwork) => {
       if(fromNetwork === "Ethereum") {
         ids = userPolymorphicFaces.map((p) => p.id)
       } else if (fromNetwork === "Polygon") {
-        ids = userPolymorphicFacesPolygon.concat(userFacesBeingBridgedToEthereum).map((p) => p.id)
+        ids = userPolymorphicFacesPolygon.concat(userFacesBeingBridged).map((p) => p.id)
       } else {
         ids = userPolymorphicFacesAll.map((p) => p.id)
       }

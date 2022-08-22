@@ -18,7 +18,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
     setUserSelectedNFTsToBridge,
     userSelectedNFTsToBridge,
-    userFacesBeingBridgedToEthereum,
+    userFacesBeingBridged,
   } = usePolymorphStore();
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
   const { address, activeNetwork } = useAuthStore();
@@ -237,7 +237,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
         </div>
         <div className={"pending-nfts"}>
           <div className={"recent-transactions"}>Recent Transactions</div>
-          {userFacesBeingBridgedToEthereum?.map((face) => {
+          {userFacesBeingBridged?.map((face) => {
             return <CheckPendingStatus id={face.tokenId} nft="face" />;
           })}
         </div>
