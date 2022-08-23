@@ -335,16 +335,61 @@ export const usePolymorphStore = create<IPolymorphStore>(
           )
       );
 
-      // All pending tokens
       const allFacesInBridgingProgress = filteredResults
         .concat(facesBeingBridgedFirstTime)
         .concat(tradedOnPolygonAndSentToEth);
 
       // Filter out the tokens not sent
       // in pending status by the user
-      const allUserFacesInBridgingProgress = allFacesInBridgingProgress.filter(
-        (faces) => faces.from === newAddress
+      const filteredFacesInBridgingProgress = allFacesInBridgingProgress.filter(
+        (faces: any) => faces.from === newAddress
       );
+
+      // =========================================================//
+      // HANDLE CASES WHERE A TOKEN WAS TRANSFERRED TO A NEW OWNER
+      // ON ETHEREUM, AFTER BRIDGED BACK TO ETHEREUM BY OLD OWNER
+      // =========================================================//
+
+      // Get all ethereum entities of tokens that were
+      // sent to ethereum and then traded
+      let metadataPromises2: any = [];
+      for (let i = 0; i <= tradedOnPolygonAndSentToEth.length - 1; i++) {
+        metadataPromises2.push(
+          queryPolymorphicFacesGraph(
+            polymorphicFaceOwner(tradedOnPolygonAndSentToEth[i].tokenId)
+          )
+        );
+      }
+      const promises2: any = await Promise.all(metadataPromises2);
+      // console.log("promise2", promises2);
+
+      let filteredResults2 = [];
+      for (let i = 0; i <= promises.length - 1; i++) {
+        promises2[i]?.transferEntities.map((face: any) => {
+          if (
+            face.to !==
+              process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS.toLowerCase() &&
+            face.to !== newAddress
+          ) {
+            filteredResults2.push({
+              id: Number(face.tokenId),
+              tokenId: face.tokenId,
+              from: face.from,
+              to: face.to,
+            });
+          } else {
+            return {};
+          }
+        });
+      }
+
+      // Filter out the tokens that were first bridged back from Polygon to Ethereum
+      // and then transferred toa new owner on Ethereum
+      const allUserFacesInBridgingProgress =
+        filteredFacesInBridgingProgress.filter(
+          ({ tokenId: id1 }: any) =>
+            !filteredResults2?.some(({ tokenId: id2 }: any) => id2 === id1)
+        );
 
       set((state) => ({
         ...state,
