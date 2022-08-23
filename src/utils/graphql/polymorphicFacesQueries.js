@@ -50,7 +50,7 @@ export const transferPolymorphicFaces = (ownerAddress) => `
 
 export const transferPolymorphicFacesBeingBridgedToEthereum = (ownerAddress) => `
   query Polymorphs {
-    transferEntities(first: 1000, where: { from: "${ownerAddress}", to: "${ZERO_ADDRESS}"}) {
+    transferEntities(first: 1000, where: { to: "${ZERO_ADDRESS}"}) {
       from
       id
       to
