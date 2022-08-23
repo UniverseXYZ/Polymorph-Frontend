@@ -18,6 +18,8 @@ import {
   transferPolymorphicFacesBeingBridgedToEthereum,
   polymorphicFaceOwner,
   transferPolymorphicFacesBeingBridgedToPolygon,
+  transferPolymorphicFacesSentToNullByUser,
+  transferPolymorphicFacesSentToUserByBridge,
 } from "../utils/graphql/polymorphicFacesQueries";
 import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 import { utils } from "ethers";
@@ -292,9 +294,56 @@ export const usePolymorphStore = create<IPolymorphStore>(
         }
       }
 
+      // =========================================================//
+      // HANDLE CASES WHERE A TOKEN WAS TRANSFERRED TO ANOTHER USER
+      // ON POLYGON, THEN BRIDGED BY THE ITS NEW OWNER TO ETHEREUM
+      // =========================================================//
+
+      // get All entities from user to 0x00
+      const sentToNullByUser = await queryPolymorphicFacesGraphPolygon(
+        transferPolymorphicFacesSentToNullByUser(newAddress)
+      );
+      const idsSentToNullByUser = sentToNullByUser?.transferEntities.map(
+        (nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+          from: nft.from,
+          to: nft.to,
+        })
+      );
+      // get all entities   from: $bridge ----> to: $user   AND   from: $user ----> to: $bridge
+
+      const bridgeToUserEntities = await queryPolymorphicFacesGraph(
+        transferPolymorphicFacesSentToUserByBridge(newAddress)
+      );
+      const idsBridgeToUserEntities =
+        bridgeToUserEntities?.transferEntities.map((nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+          from: nft.from,
+          to: nft.to,
+        }));
+      const bridgeToUserAndViceVersaEntities =
+        facesIdsTransferredToBridge.concat(idsBridgeToUserEntities);
+
+      // if there is an entity that was sent to 0x00, but not from user to bridge AND not from bridge to user,
+      // then the user must have bought it on polygon and transferred it to eth
+      const tradedOnPolygonAndSentToEth = idsSentToNullByUser.filter(
+        ({ tokenId: id1 }: any) =>
+          !bridgeToUserAndViceVersaEntities.some(
+            ({ tokenId: id2 }: any) => id2 === id1
+          )
+      );
+
       // All pending tokens
-      const allFacesInBridgingProgress = filteredResults.concat(
-        facesBeingBridgedFirstTime
+      const allFacesInBridgingProgress = filteredResults
+        .concat(facesBeingBridgedFirstTime)
+        .concat(tradedOnPolygonAndSentToEth);
+
+      // Filter out the tokens not sent
+      // in pending status by the user
+      const allUserFacesInBridgingProgress = allFacesInBridgingProgress.filter(
+        (faces) => faces.from === newAddress
       );
 
       set((state) => ({
@@ -308,7 +357,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFacesPolygon: facesPolygonIds || [],
         userPolymorphicFacesAll: allFacesIds || [],
         userPolymorphicFacesClaimed: claimedFacesIds || [],
-        userFacesBeingBridged: allFacesInBridgingProgress || [],
+        userFacesBeingBridged: allUserFacesInBridgingProgress || [],
       }));
     },
     // This is a new function for loading the metadata of the polymorphs

@@ -48,6 +48,29 @@ export const transferPolymorphicFaces = (ownerAddress) => `
   }
 `;
 
+export const transferPolymorphicFacesSentToNullByUser = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}" to: "${ZERO_ADDRESS}"}) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
+
+export const transferPolymorphicFacesSentToUserByBridge= (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS}" to: "${ownerAddress}"}) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
 export const transferPolymorphicFacesBeingBridgedToEthereum = (ownerAddress) => `
   query Polymorphs {
     transferEntities(first: 1000, where: { to: "${ZERO_ADDRESS}"}) {
