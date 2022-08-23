@@ -269,9 +269,9 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </Tooltip>
           </div>
         </div>
-        {userFacesBeingBridged && (
+        {userFacesBeingBridged.length ? (
           <div className={"pending-nfts"}>
-            <div className={"recent-transactions"}>Recent Transactions</div>
+            <div className={"recent-transactions"}>Pending Transactions</div>
             {userFacesBeingBridged?.map((face) => {
               return (
                 <CheckPendingStatus
@@ -285,7 +285,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               );
             })}
           </div>
-        )}
+        ) : null}
       </div>
       <Popup closeOnDocumentClick={false} open={showSuccessTranfserModal}>
         {(close) => (
