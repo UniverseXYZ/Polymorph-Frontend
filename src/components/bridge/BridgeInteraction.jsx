@@ -13,6 +13,7 @@ import NftsBridgedSuccessPopup from "../popups/NftsBridgedSuccessPopup";
 import CheckPendingStatus from "./CheckPendingStatus";
 
 const etherscanTxLink = "https://etherscan.io/tx/";
+const polygonscanTxLink = "https://polygonscan.com/tx/";
 
 const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
@@ -86,6 +87,8 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       setLoadingTransfer(false);
       if (bridgeFromNetwork === "Polygon") {
         setStep(3);
+        setShowSuccessTransferModal(true);
+        setTxHash(polygonscanTxLink + txReceipt.transactionHash);
       } else if (bridgeFromNetwork === "Ethereum") {
         setShowSuccessTransferModal(true);
         setTxHash(etherscanTxLink + txReceipt.transactionHash);
