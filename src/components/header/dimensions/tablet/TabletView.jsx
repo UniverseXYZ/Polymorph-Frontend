@@ -61,10 +61,13 @@ const TabletView = (props) => {
       activeNetwork: s.activeNetwork,
     }));
 
-  const { yourBalance, usdEthBalance } = useUserBalanceStore((state) => ({
-    yourBalance: state.yourBalance,
-    usdEthBalance: state.usdEthBalance,
-  }));
+  const { yourBalance, usdEthBalance, yourPolygonBalance, usdMaticBalance } =
+    useUserBalanceStore((state) => ({
+      yourBalance: state.yourBalance,
+      usdEthBalance: state.usdEthBalance,
+      yourPolygonBalance: state.yourPolygonBalance,
+      usdMaticBalance: state.usdMaticBalance,
+    }));
 
   const [isAccountDropdownOpened, setIsAccountDropdownOpened] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -185,12 +188,26 @@ const TabletView = (props) => {
                     </div>
                   </div>
                   <div className="group1">
-                    <img src={Group1} alt="ETH" />
+                    {activeNetwork === "Ethereum" ? (
+                      <img src={Group1} alt="ETH" />
+                    ) : (
+                      <img
+                        src={polygonIcon}
+                        width={30}
+                        height={30}
+                        alt="MATIC"
+                      />
+                    )}
                     <span className="first-span">
-                      {toFixed(yourBalance, 2)} ETH
+                      {activeNetwork === "Ethereum"
+                        ? toFixed(yourBalance, 2) + " ETH"
+                        : toFixed(yourPolygonBalance, 2) + " MATIC"}
                     </span>
                     <span className="second-span">
-                      ${toFixed(usdEthBalance, 2)}
+                      ~$
+                      {activeNetwork === "Ethereum"
+                        ? toFixed(usdEthBalance, 2)
+                        : toFixed(usdMaticBalance, 2)}
                     </span>
                   </div>
                 </div>
