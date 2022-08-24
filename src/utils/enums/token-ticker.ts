@@ -1,8 +1,9 @@
 export enum TokenTicker {
-  ETH = 'ETH',
-  USDC = 'USDC',
-  DAI = 'DAI',
+  ETH = "ETH",
+  USDC = "USDC",
+  DAI = "DAI",
   // BOND = 'BOND',
-  XYZ = 'XYZ',
-  WETH = 'WETH',
+  XYZ = "XYZ",
+  WETH = "WETH",
+  MATIC = "MATIC",
 }

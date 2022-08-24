@@ -10,6 +10,7 @@ interface IErc20PriceStoreState {
   usdcUsdPrice: number;
   xyzUsdPrice: number;
   wethUsdPrice: number;
+  maticUsdPrice: number;
 
   // Helpers
   fetchPrices: () => void;
@@ -23,21 +24,27 @@ export const useErc20PriceStore = create<IErc20PriceStoreState>((set, get) => ({
   usdcUsdPrice: 0,
   xyzUsdPrice: 0,
   wethUsdPrice: 0,
+  maticUsdPrice: 0,
   // fetching functions
   fetchPrices: async () => {
     try {
-      const [ethPrice] = await Promise.all([
-        getEthPriceCoingecko(),
-      ]);
-      
+      const [ethPrice] = await Promise.all([getEthPriceCoingecko()]);
       set(() => ({
         ethUsdPrice: ethPrice?.market_data?.current_price?.usd ?? 0,
       }));
-
       const newUsdPrice = get().ethUsdPrice;
       useUserBalanceStore.getState().setUsdEthBalance(newUsdPrice);
+
+      const [maticPrice] = await Promise.all([
+        getERC20PriceCoingecko("matic-network"),
+      ]);
+      set(() => ({
+        maticUsdPrice: maticPrice?.market_data?.current_price?.usd ?? 0,
+      }));
+      const newUsdPriceMatic = get().maticUsdPrice;
+      useUserBalanceStore.getState().setUsdMaticBalance(newUsdPriceMatic);
     } catch (err) {
-      console.log('coingecko price fetching failed');
+      console.log("coingecko price fetching failed");
       console.log(err);
     }
   },
@@ -54,8 +61,10 @@ export const useErc20PriceStore = create<IErc20PriceStoreState>((set, get) => ({
         return get().wethUsdPrice;
       case TokenTicker.XYZ:
         return get().xyzUsdPrice;
+      case TokenTicker.MATIC:
+        return get().maticUsdPrice;
       default:
         return get().ethUsdPrice;
     }
-  }
-}))
+  },
+}));

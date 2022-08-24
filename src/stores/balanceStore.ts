@@ -8,20 +8,26 @@ import { useContractsStore } from "./contractsStore";
 interface IBalanceStore {
   // Getters
   yourBalance: number;
+  yourPolygonBalance: number;
   usdEthBalance: number;
+  usdMaticBalance: number;
   polygonWethAllowanceInWeiForPolymorphs: number;
   polygonWethAllowanceInWeiForFaces: number;
 
   // Setters
   setYourBalance: (newBalance: number) => void;
+  setYourPolygonBalance: (newBalance: number) => void;
   setUsdEthBalance: (newBalance: number) => void;
+  setUsdMaticBalance: (newBalance: number) => void;
   setPolygonWethAllowanceInWeiForPolymorphs: () => void;
   setPolygonWethAllowanceInWeiForFaces: () => void;
 }
 
 export const useUserBalanceStore = create<IBalanceStore>((set, get) => ({
   yourBalance: 0,
+  yourPolygonBalance: 0,
   usdEthBalance: 0,
+  usdMaticBalance: 0,
   polygonWethAllowanceInWeiForPolymorphs: 0,
   polygonWethAllowanceInWeiForFaces: 0,
   setYourBalance: (newBalance: number) => {
@@ -32,6 +38,14 @@ export const useUserBalanceStore = create<IBalanceStore>((set, get) => ({
       usdEthBalance: newBalance * usdEthBalance,
     }));
   },
+  setYourPolygonBalance: (newBalance: number) => {
+    const usdMaticBalance = useErc20PriceStore.getState().maticUsdPrice;
+    set((state) => ({
+      ...state,
+      yourPolygonBalance: newBalance,
+      usdMaticBalance: newBalance * usdMaticBalance,
+    }));
+  },
   setUsdEthBalance: (newPrice: number) => {
     const newUsdBalance = get().yourBalance * newPrice;
     set((state) => ({
@@ -39,6 +53,14 @@ export const useUserBalanceStore = create<IBalanceStore>((set, get) => ({
       usdEthBalance: newUsdBalance,
     }));
   },
+  setUsdMaticBalance: (newPrice: number) => {
+    const newUsdBalance = get().yourPolygonBalance * newPrice;
+    set((state) => ({
+      ...state,
+      usdMaticBalance: newUsdBalance,
+    }));
+  },
+
   setPolygonWethAllowanceInWeiForPolymorphs: async () => {
     const address = useAuthStore.getState().address;
     const wrappedEthContract = useContractsStore.getState().wrappedEthContract;
