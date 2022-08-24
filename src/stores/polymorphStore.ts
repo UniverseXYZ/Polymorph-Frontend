@@ -363,12 +363,12 @@ export const usePolymorphStore = create<IPolymorphStore>(
       const promises2: any = await Promise.all(metadataPromises2);
       // console.log("promise2", promises2);
 
-      let filteredResults2 = [];
+      let filteredResults2: any = [];
       for (let i = 0; i <= promises.length - 1; i++) {
         promises2[i]?.transferEntities.map((face: any) => {
           if (
             face.to !==
-              process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS.toLowerCase() &&
+              process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS?.toLowerCase() &&
             face.to !== newAddress
           ) {
             filteredResults2.push({
