@@ -245,7 +245,10 @@ const PolymorphicFaceScramblePopup = ({
 
   useEffect(() => {
     if (singleTraitTabSelected && polymorph.network !== "Ethereum") {
-      if (utils.formatEther(polygonWethAllowanceInWeiForFaces) < morphPrice) {
+      if (
+        utils.formatEther(polygonWethAllowanceInWeiForFaces) <
+        morphSingleGenePrice
+      ) {
         setShowApproveButton(true);
       } else {
         setShowApproveButton(false);
@@ -261,7 +264,7 @@ const PolymorphicFaceScramblePopup = ({
         setShowApproveButton(false);
       }
     }
-  }, [singleTraitTabSelected, polymorph.network]);
+  }, [singleTraitTabSelected, polymorph.network, morphSingleGenePrice]);
 
   const currentTrait = polymorph?.data?.attributes.find(
     (attr) => attr?.trait_type === selectedTrait.label
