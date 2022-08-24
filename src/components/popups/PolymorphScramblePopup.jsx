@@ -63,7 +63,7 @@ const PolymorphScramblePopup = ({
   const [allTraitsTabSelected, setAllTraitsTabSelected] = useState(false);
   const [selectedTrait, setSelectedTrait] = useState("");
   const [randomizeGenePrice, setRandomizeGenePrice] = useState("");
-  const [morphSingleGenePrise, setMorphSingleGenePrice] = useState("");
+  const [morphSingleGenePrice, setMorphSingleGenePrice] = useState("");
   const [contract, setContract] = useState("");
   const [showApproveButton, setShowApproveButton] = useState(false);
   const [loadingApproved, setLoadingApproved] = useState(false);
@@ -106,9 +106,7 @@ const PolymorphScramblePopup = ({
       const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorph.tokenid
       );
-      const genomChangePriceToEther = utils.formatEther(
-        fetchedPrice.toNumber()
-      );
+      const genomChangePriceToEther = utils.formatEther(fetchedPrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
       const amount = await contractInstance.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
@@ -128,9 +126,7 @@ const PolymorphScramblePopup = ({
       const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorph.tokenid
       );
-      const genomChangePriceToEther = utils.formatEther(
-        fetchedPrice.toNumber()
-      );
+      const genomChangePriceToEther = utils.formatEther(fetchedPrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
       const amount = await contractInstance.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
@@ -155,7 +151,7 @@ const PolymorphScramblePopup = ({
           // Morph a Gene
           const genomeChangePrice = await contract.priceForGenomeChange(id);
           const morphGeneTx = await contract.morphGene(id, genePosition, {
-            value: genomeChangePrice,
+            value: polymorph.network === "Ethereum" ? genomeChangePrice : 0,
           });
           const txReceipt = await morphGeneTx.wait();
           if (txReceipt.status !== 1) {
@@ -167,7 +163,7 @@ const PolymorphScramblePopup = ({
           // Randomize Genom
           const amount = await contract.randomizeGenomePrice();
           const randomizeTx = await contract.randomizeGenome(id, {
-            value: amount,
+            value: polymorph.network === "Ethereum" ? amount : 0,
           });
           const txReceipt = await randomizeTx.wait();
           if (txReceipt.status !== 1) {
@@ -227,7 +223,7 @@ const PolymorphScramblePopup = ({
         setShowApproveButton(false);
       }
     }
-  }, [singleTraitTabSelected, polymorph.network]);
+  }, [singleTraitTabSelected, polymorph.network, morphSingleGenePrice]);
 
   const currentTrait = polymorph?.data?.attributes.find(
     (attr) => attr?.trait_type === selectedTrait.label
@@ -283,7 +279,7 @@ const PolymorphScramblePopup = ({
                 <div className="scramble--price">
                   <img src={ethIcon} alt="" />
                   {singleTraitTabSelected
-                    ? morphSingleGenePrise
+                    ? morphSingleGenePrice
                     : randomizeGenePrice}
                 </div>
                 {showApproveButton ? (

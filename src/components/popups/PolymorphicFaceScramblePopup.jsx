@@ -142,9 +142,7 @@ const PolymorphicFaceScramblePopup = ({
       const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorph.tokenid
       );
-      const genomChangePriceToEther = utils.formatEther(
-        fetchedPrice.toNumber()
-      );
+      const genomChangePriceToEther = utils.formatEther(fetchedPrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
       const amount = await contractInstance.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
@@ -164,9 +162,7 @@ const PolymorphicFaceScramblePopup = ({
       const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorph.tokenid
       );
-      const genomChangePriceToEther = utils.formatEther(
-        fetchedPrice.toNumber()
-      );
+      const genomChangePriceToEther = utils.formatEther(fetchedPrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
       const amount = await contractInstance.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
@@ -186,11 +182,9 @@ const PolymorphicFaceScramblePopup = ({
             WEAR_TO_GENE_POSITION_MAP[selectedTrait.value].value;
 
           // Morph a Gene
-          const genomeChangePrice = utils
-            .parseEther(morphSingleGenePrice)
-            .toNumber();
+          const genomeChangePrice = utils.parseEther(morphSingleGenePrice);
           const morphGeneTx = await contract.morphGene(id, genePosition, {
-            value: genomeChangePrice,
+            value: polymorph.network === "Ethereum" ? genomeChangePrice : 0,
           });
           const txReceipt = await morphGeneTx.wait();
           if (txReceipt.status !== 1) {
@@ -202,7 +196,7 @@ const PolymorphicFaceScramblePopup = ({
           // Randomize Genom
           const amount = utils.parseEther(randomizeGenePrice).toNumber();
           const randomizeTx = await contract.randomizeGenome(id, {
-            value: amount,
+            value: polymorph.network === "Ethereum" ? amount : 0,
           });
           const txReceipt = await randomizeTx.wait();
           if (txReceipt.status !== 1) {
@@ -236,7 +230,6 @@ const PolymorphicFaceScramblePopup = ({
       }
       setShowApproveButton(false);
       setLoadingApproved(false);
-      console.log(userWrappedEthBalance);
     } catch (error) {
       console.log(error);
       setLoadingApproved(false);
