@@ -2,12 +2,11 @@ import Image from "next/image";
 import ethIcon from "../../assets/images/eth-icon-blue.png";
 import polygonIcon from "../../assets/images/polygon-icon.png";
 import closeIcon from "../../assets/images/cross.svg";
-import { useAuthStore } from "src/stores/authStore";
 import { utils } from "ethers";
 
 const ChangeNetworkPopup = ({ onClose }) => {
-  const ethereumNetwork = useAuthStore();
-  const { chainId } = ethereumNetwork.ethereumNetwork;
+  const { ethereum } = window;
+  const chainId = ethereum?.networkVersion;
 
   const switchChain = async (chain) => {
     const { ethereum } = window;
@@ -55,7 +54,7 @@ const ChangeNetworkPopup = ({ onClose }) => {
         <Image src={ethIcon} height={40} width={40} alt="eth-icon" />
         <div className="chain">
           <div>Ethereum</div>
-          {chainId === Number(process.env.REACT_APP_NETWORK_CHAIN_ID) && (
+          {chainId === process.env.REACT_APP_NETWORK_CHAIN_ID && (
             <p>Connected</p>
           )}
         </div>
@@ -67,7 +66,7 @@ const ChangeNetworkPopup = ({ onClose }) => {
         <Image src={polygonIcon} height={40} width={40} alt="polygon-icon" />
         <div className="chain">
           <div>Polygon</div>
-          {chainId === Number(process.env.REACT_APP_POLYGON_CHAIN_ID) && (
+          {chainId === process.env.REACT_APP_POLYGON_CHAIN_ID && (
             <p>Connected</p>
           )}
         </div>

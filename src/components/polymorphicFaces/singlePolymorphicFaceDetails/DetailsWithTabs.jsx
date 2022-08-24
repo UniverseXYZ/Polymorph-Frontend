@@ -106,7 +106,7 @@ const DetailsWithTabs = ({ polymorphicData, isV1, update, blockchain }) => {
       const fetchedPrice = await contractInstance.priceForGenomeChange(
         polymorphicData.tokenid
       );
-      const price = utils.formatEther(fetchedPrice.toNumber());
+      const price = utils.formatEther(fetchedPrice);
       const owner = await contractInstance.ownerOf(polymorphicData.tokenid);
       setMorphPrice(price);
       setPolymorphOwnerAddress(owner);
