@@ -281,6 +281,9 @@ export const useAuthStore = create<
       useUserBalanceStore
         .getState()
         .setYourBalance(Number(utils.formatEther(balance)));
+      useUserBalanceStore
+        .getState()
+        .setYourPolygonBalance(Number(utils.formatEther(balance)));
       useUserBalanceStore.getState().setPolygonWethAllowanceInWeiForFaces();
       useUserBalanceStore
         .getState()
