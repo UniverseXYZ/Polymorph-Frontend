@@ -72,12 +72,6 @@ const DesktopView = ({
       usdMaticBalance: state.usdMaticBalance,
     }));
 
-  console.log("polygon token", yourPolygonBalance);
-  console.log("matic balance", usdMaticBalance);
-
-  console.log("ethereum token", yourBalance);
-  console.log("ETH balance", usdEthBalance);
-
   return (
     <div className="desktop__nav">
       <ul>
