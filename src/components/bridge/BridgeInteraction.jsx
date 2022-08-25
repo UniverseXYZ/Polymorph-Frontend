@@ -21,6 +21,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     userSelectedNFTsToBridge,
     userFacesBeingBridged,
   } = usePolymorphStore();
+
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
   const { address, activeNetwork } = useAuthStore();
   const {
@@ -73,6 +74,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   };
 
   const transferHandler = async () => {
+    if (activeNetwork !== bridgeFromNetwork) return;
     try {
       setLoadingTransfer(true);
       const nftsToBridge = userSelectedNFTsToBridge.map((nft) => nft.tokenId);
@@ -206,7 +208,12 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               <span>
                 <button
                   className="light-button"
-                  disabled={step !== 1 || activeNetwork !== bridgeFromNetwork}
+                  disabled={
+                    step !== 1 ||
+                    activeNetwork !== bridgeFromNetwork ||
+                    userSelectedNFTsToBridge.length === 0 ||
+                    loadingApproved
+                  }
                   onClick={approveHandler}
                 >
                   {loadingApproved ? <LoadingSpinner /> : null}
@@ -228,7 +235,12 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               <span>
                 <button
                   className="light-button"
-                  disabled={step !== 2 || activeNetwork !== bridgeFromNetwork}
+                  disabled={
+                    step !== 2 ||
+                    activeNetwork !== bridgeFromNetwork ||
+                    loadingTransfer ||
+                    userSelectedNFTsToBridge.length === 0
+                  }
                   onClick={transferHandler}
                 >
                   {loadingTransfer ? <LoadingSpinner /> : null}
