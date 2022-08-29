@@ -18,9 +18,12 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
   const [isChecking, setIsChecking] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [direction, setDirection] = useState();
+  const [buttonName, setButtonName] = useState("Check");
 
   const checkIfReady = async (id) => {
     setIsChecking(true);
+    setButtonName("Check");
+
     try {
       const result = await axios
         .get(`/api/proofForFaces/${id}/`, {
@@ -36,6 +39,7 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
             setIsChecking(false);
           } else {
             setIsChecking(false);
+            setButtonName("Try again");
           }
         });
     } catch (err) {
@@ -94,9 +98,13 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
         )}
       </div>
       {!isReady && direction === "Ethereum" && (
-        <button className="light-button" onClick={() => checkIfReady(id)}>
+        <button
+          className="light-button"
+          onClick={() => checkIfReady(id)}
+          disabled={isChecking}
+        >
           {isChecking ? <LoadingSpinner /> : null}
-          <span>Check</span>
+          <span>{buttonName}</span>
         </button>
       )}
       {isReady && direction === "Ethereum" && (
