@@ -138,15 +138,20 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   }, [myNFTsSelectedTabIndex, bridgeFromNetwork]);
 
   useEffect(async () => {
-    if (
-      activeNetwork === bridgeFromNetwork &&
-      activeNetwork === "Ethereum" &&
-      myNFTsSelectedTabIndex === 0
-    ) {
-      const hasApprovedAll = await polymorphContractV2.isApprovedForAll(
-        address,
-        polymorphRootTunnel.address
-      );
+    if (activeNetwork === bridgeFromNetwork && myNFTsSelectedTabIndex === 0) {
+      let hasApprovedAll;
+      if (activeNetwork === "Ethereum") {
+        hasApprovedAll = await polymorphContractV2.isApprovedForAll(
+          address,
+          polymorphRootTunnel.address
+        );
+      }
+      if (activeNetwork === "Polygon") {
+        hasApprovedAll = await polymorphContractV2Polygon.isApprovedForAll(
+          address,
+          polymorphChildTunnel.address
+        );
+      }
       if (hasApprovedAll) {
         setStep(2);
       } else {
@@ -154,15 +159,21 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       }
       setIsApprovedForAll(hasApprovedAll);
     }
-    if (
-      activeNetwork === bridgeFromNetwork &&
-      activeNetwork === "Ethereum" &&
-      myNFTsSelectedTabIndex === 1
-    ) {
-      const hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
-        address,
-        polymorphicFacesRootTunnel.address
-      );
+
+    if (activeNetwork === bridgeFromNetwork && myNFTsSelectedTabIndex === 1) {
+      let hasApprovedAll;
+      if (activeNetwork === "Ethereum") {
+        hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
+          address,
+          polymorphicFacesRootTunnel.address
+        );
+      }
+      if (activeNetwork === "Polygon") {
+        hasApprovedAll = await polymorphicFacesContractPolygon.isApprovedForAll(
+          address,
+          polymorphicFacesChildTunnel.address
+        );
+      }
       if (hasApprovedAll === true) {
         setStep(2);
       } else {
