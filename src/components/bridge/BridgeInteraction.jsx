@@ -19,7 +19,8 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
     setUserSelectedNFTsToBridge,
     userSelectedNFTsToBridge,
-    userFacesBeingBridged,
+    userFacesBeingBridgedToPolygon,
+    userFacesBeingBridgedToEthereum,
   } = usePolymorphStore();
 
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
@@ -88,20 +89,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       }
       setTransferred(true);
       setLoadingTransfer(false);
-      const request = await fetch(
-        `${
-          process.env.REACT_APP_PENDING_DIRECTION_URL
-        }ids=${nftsToBridge}&type=${myNFTsSelectedTabIndex}&direction=${
-          bridgeFromNetwork === "Polygon" ? "Ethereum" : "Polygon"
-        }`,
-        {
-          method: "Post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await request.json();
       if (bridgeFromNetwork === "Polygon") {
         setStep(3);
         setShowSuccessTransferModal(true);
@@ -182,22 +169,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       setIsApprovedForAll(hasApprovedAll);
     }
   }, [activeNetwork, bridgeFromNetwork, myNFTsSelectedTabIndex]);
-
-  useEffect(async () => {
-    const queryTokens = userFacesBeingBridged.map((face) => face.tokenId);
-    if (userFacesBeingBridged) {
-      const response = await fetch(
-        `${process.env.REACT_APP_PENDING_DIRECTION_URL}ids=${queryTokens}&type=1`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setFetchedPendingFaces(data);
-    }
-  }, [userFacesBeingBridged]);
 
   return (
     <>
@@ -292,18 +263,25 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </Tooltip>
           </div>
         </div>
-        {userFacesBeingBridged.length ? (
+        {userFacesBeingBridgedToEthereum?.length ||
+        userFacesBeingBridgedToPolygon?.length ? (
           <div className={"pending-nfts"}>
             <div className={"recent-transactions"}>Pending Transactions</div>
-            {userFacesBeingBridged?.map((face) => {
+            {userFacesBeingBridgedToEthereum?.map((face) => {
               return (
                 <CheckPendingStatus
                   id={face.tokenId}
                   nft="face"
-                  pendingEntity={fetchedPendingFaces?.filter(
-                    (fetchedFace) =>
-                      fetchedFace.TokenId.toString() === face.tokenId
-                  )}
+                  direction="Ethereum"
+                />
+              );
+            })}
+            {userFacesBeingBridgedToPolygon?.map((face) => {
+              return (
+                <CheckPendingStatus
+                  id={face.tokenId}
+                  nft="face"
+                  direction="Polygon"
                 />
               );
             })}

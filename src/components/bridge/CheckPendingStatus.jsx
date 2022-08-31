@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Tooltip } from "@chakra-ui/react";
 import { useAuthStore } from "src/stores/authStore";
 
-const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
+const CheckPendingStatus = ({ id, nft, direction }) => {
   const { polymorphicFacesRootTunnel } = useContractsStore();
   const { activeNetwork } = useAuthStore();
 
@@ -17,7 +17,6 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
   const [isReady, setIsReady] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
-  const [direction, setDirection] = useState();
   const [buttonName, setButtonName] = useState("Check");
 
   const checkIfReady = async (id) => {
@@ -70,12 +69,6 @@ const CheckPendingStatus = ({ id, nft, pendingEntity }) => {
       setIsUnlocking(false);
     }
   };
-
-  useEffect(() => {
-    if (pendingEntity) {
-      setDirection(pendingEntity[0]?.Direction);
-    }
-  }, [pendingEntity]);
 
   return (
     <div className={"pending-item"}>
