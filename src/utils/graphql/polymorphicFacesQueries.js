@@ -48,6 +48,17 @@ export const transferPolymorphicFaces = (ownerAddress) => `
   }
 `;
 
+export const transferPolymorphicFacesFromUser = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}" }) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
 export const transferPolymorphicFacesSentToNullByUser = (ownerAddress) => `
   query Polymorphs {
     transferEntities(first: 1000, where: { from: "${ownerAddress}" to: "${ZERO_ADDRESS}"}) {
@@ -99,6 +110,18 @@ export const polymorphicFaceOwner = (tokenId) => `
       tokenId
       to
       from
+    }
+  }
+`;
+
+export const bridgeEntity = (tokenId) => `
+  query Polymorphs {
+    bridgeEntities(where: { tokenId: "${tokenId}" }) {
+      id
+      tokenId
+      ownerAddress
+      timestamp
+      bridged
     }
   }
 `;
