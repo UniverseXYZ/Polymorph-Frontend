@@ -290,8 +290,10 @@ export const usePolymorphStore = create<IPolymorphStore>(
         faceFromAndToUserOnPolygon
       );
 
-      const uniqueTokens = [
-        ...new Map(allTokens.map((token) => [token.tokenId, token])).values(),
+      const uniqueTokens: any = [
+        ...new Map(
+          allTokens.map((token: any) => [token.tokenId, token])
+        ).values(),
       ];
       // console.log("unique", uniqueTokens);
 
@@ -300,7 +302,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
 
       for (let i = 0; i <= uniqueTokens.length - 1; i++) {
         uniqueTokenPromisesEth.push(
-          queryPolymorphicFacesGraph(bridgeEntity(uniqueTokens[i].tokenId))
+          queryPolymorphicFacesGraph(bridgeEntity(uniqueTokens[i]?.tokenId))
         );
         uniqueTokenPromisesPolygon.push(
           queryPolymorphicFacesGraphPolygon(
@@ -309,10 +311,10 @@ export const usePolymorphStore = create<IPolymorphStore>(
         );
       }
 
-      const uniqueTokenPromisesEthResolved = await Promise.all(
+      const uniqueTokenPromisesEthResolved: any = await Promise.all(
         uniqueTokenPromisesEth
       );
-      const uniqueTokenPromisesPolygonResolved = await Promise.all(
+      const uniqueTokenPromisesPolygonResolved: any = await Promise.all(
         uniqueTokenPromisesPolygon
       );
 
@@ -365,15 +367,15 @@ export const usePolymorphStore = create<IPolymorphStore>(
       console.log("owned by user ", tokensOwnedByUser);
 
       const filteredUniqueTokenPromisesEthResolved =
-        uniqueTokenPromisesEthResolved.filter((obj) => {
-          return tokensOwnedByUser.some((token) => {
+        uniqueTokenPromisesEthResolved.filter((obj: any) => {
+          return tokensOwnedByUser.some((token: any) => {
             return obj.bridgeEntities[0].tokenId === token.tokenId;
           });
         });
 
       const filteredUniqueTokenPromisesPolygonResolved =
-        uniqueTokenPromisesPolygonResolved.filter((obj) => {
-          return tokensOwnedByUser.some((token) => {
+        uniqueTokenPromisesPolygonResolved.filter((obj: any) => {
+          return tokensOwnedByUser.some((token: any) => {
             return obj?.bridgeEntities[0]?.tokenId === token?.tokenId;
           });
         });
