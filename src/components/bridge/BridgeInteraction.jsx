@@ -265,7 +265,9 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           </div>
         </div>
         {userFacesBeingBridgedToEthereum?.length ||
-        userFacesBeingBridgedToPolygon?.length ? (
+        userFacesBeingBridgedToPolygon?.length ||
+        userPolymorphsBeingBridgedToEthereum?.length ||
+        userPolymorphsBeingBridgedToPolygon?.length ? (
           <div className={"pending-nfts"}>
             <div className={"recent-transactions"}>Pending Transactions</div>
             {userFacesBeingBridgedToEthereum?.map((face) => {

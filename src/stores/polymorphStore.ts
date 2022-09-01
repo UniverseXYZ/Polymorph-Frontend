@@ -692,6 +692,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
       }
       console.log("polymorphs pending to eth", polymorphsPendingToEth);
       console.log("polymorphs pending to polygon", polymorphsPendingToPolygon);
+      console.log("faces pending to eth", facesPendingToEth);
+      console.log("faces pending to polygon", facesPendingToPolygon);
 
       set((state) => ({
         ...state,
