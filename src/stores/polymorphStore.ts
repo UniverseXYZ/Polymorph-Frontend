@@ -18,6 +18,10 @@ import {
   transferPolymorphicFacesBeingBridgedToEthereum,
   polymorphicFaceOwner,
   transferPolymorphicFacesBeingBridgedToPolygon,
+  transferPolymorphicFacesSentToNullByUser,
+  transferPolymorphicFacesSentToUserByBridge,
+  transferPolymorphicFacesFromUser,
+  bridgeEntity,
 } from "../utils/graphql/polymorphicFacesQueries";
 import { ZERO_ADDRESS } from "../utils/constants/zero-address";
 import { utils } from "ethers";
@@ -36,7 +40,8 @@ type IPolymorphStore = {
   userPolymorphicFacesAll: [];
   userPolymorphicFacesClaimed: [];
   userSelectedNFTsToBridge: [];
-  userFacesBeingBridged: [];
+  userFacesBeingBridgedToEthereum: [];
+  userFacesBeingBridgedToPolygon: [];
 
   // Setters
   setUserPolymorphs: (userPolymorphs: []) => void;
@@ -51,7 +56,12 @@ type IPolymorphStore = {
   setUserPolymorphicFacesAll: (userPolymorphicFacesAll: []) => void;
   setUserPolymorphicFacesClaimed: (setUserPolymorphicFacesClaimed: []) => void;
   setUserSelectedNFTsToBridge: (setUserSelectedNFTsToBridge: []) => void;
-  setUserFacesBeingBridged: (userFacesBeingBridged: []) => void;
+  setUserFacesBeingBridgedToEthereum: (
+    userFacesBeingBridgedToEthereum: []
+  ) => void;
+  setUserFacesBeingBridgedToPolygon: (
+    userFacesBeingBridgedToPolygon: []
+  ) => void;
   // Helpers
   fetchUserPolymorphsTheGraph: (newAddress: string) => Promise<void>;
   loadMetadata: () => Promise<void>;
@@ -71,7 +81,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userPolymorphicFacesAll: [],
     userPolymorphicFacesClaimed: [],
     userSelectedNFTsToBridge: [],
-    userFacesBeingBridged: [],
+    userFacesBeingBridgedToEthereum: [],
+    userFacesBeingBridgedToPolygon: [],
 
     setUserPolymorphs: (userPolymorphs) => {
       set((state) => ({
@@ -146,10 +157,16 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userSelectedNFTsToBridge,
       }));
     },
-    setUserFacesBeingBridged: (userFacesBeingBridged) => {
+    setUserFacesBeingBridgedToEthereum: (userFacesBeingBridgedToEthereum) => {
       set((state) => ({
         ...state,
-        userFacesBeingBridged,
+        userFacesBeingBridgedToEthereum,
+      }));
+    },
+    setUserFacesBeingBridgedToPolygon: (userFacesBeingBridgedToPolygon) => {
+      set((state) => ({
+        ...state,
+        userFacesBeingBridgedToPolygon,
       }));
     },
     fetchUserPolymorphsTheGraph: async (newAddress) => {
@@ -213,6 +230,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
         (nft: any) => ({
           tokenId: nft.tokenId,
           id: parseInt(nft.id, 16),
+          to: nft.to,
+          from: nft.from,
         })
       );
       const allFacesIds = allFaces.map((nft: any) => ({
@@ -225,77 +244,194 @@ export const usePolymorphStore = create<IPolymorphStore>(
         id: parseInt(nft.id, 16),
       }));
 
-      // Get all faces sent from user to RootTunnel on ETH
-      const facesTransferredToBridge = await queryPolymorphicFacesGraph(
-        transferPolymorphicFacesBeingBridgedToPolygon(newAddress)
+      /// O W N E R S H I P
+      // get faces from: $userAddress on ETH
+      const facesFromUser = await queryPolymorphicFacesGraph(
+        transferPolymorphicFacesFromUser(newAddress)
       );
-      const facesIdsTransferredToBridge =
-        facesTransferredToBridge.transferEntities.map((nft: any) => ({
+
+      const facesFromUserIds = facesFromUser.transferEntities.map(
+        (nft: any) => ({
           tokenId: nft.tokenId,
           id: parseInt(nft.id, 16),
           from: nft.from,
           to: nft.to,
-        }));
-
-      // Get all faces sent from user to 0x00 in Polygon
-      const facesBridgedToEthereum = await queryPolymorphicFacesGraphPolygon(
-        transferPolymorphicFacesBeingBridgedToEthereum(newAddress)
+        })
       );
-      const facesIdsBridgedToEthereum =
-        facesBridgedToEthereum?.transferEntities.map((nft: any) => ({
+
+      // filter out the faces that have a to: different from the RootTunnelAddress
+      const faceFromUserIdsFiltered = facesFromUserIds.filter(
+        (entity: any) =>
+          entity.to.toLowerCase() ===
+          process.env.REACT_APP_POLYMORPHIC_FACES_ROOT_TUNNEL_ADDRESS?.toLowerCase()
+      );
+
+      // Merge the filtered from: $userAddress entities with
+      // the to: $userAddress entities
+      const facesFromAndToUserOnEth = facesIds.concat(faceFromUserIdsFiltered);
+
+      // get faces from: $userAddress on Polygon
+      const facesFromUserPolygon = await queryPolymorphicFacesGraphPolygon(
+        transferPolymorphicFacesFromUser(newAddress)
+      );
+      const facesFromUserPolygonIds = facesFromUserPolygon.transferEntities.map(
+        (nft: any) => ({
           tokenId: nft.tokenId,
           id: parseInt(nft.id, 16),
           from: nft.from,
           to: nft.to,
-        }));
-
-      // Filter the tokens that are present in both arrays
-      const filteredResults = facesIdsBridgedToEthereum.filter(
-        ({ tokenId: id1 }: any) =>
-          facesIdsTransferredToBridge.some(
-            ({ tokenId: id2 }: any) => id2 === id1
-          )
+        })
       );
 
-      // Query individually every token that has been
-      // transferred from the user to the Root Tunnel
-      const facesObjects: any = [];
-      const metadataPromises: any = [];
-      for (
-        let i = 0;
-        i <= facesTransferredToBridge.transferEntities.length - 1;
-        i++
-      ) {
-        metadataPromises.push(
+      // filter out the faces that have a to: different from the 0x00
+      const facesFromUserPolygonIdsFiltered = facesFromUserPolygonIds.filter(
+        (entity: any) => entity.to.toLowerCase() === ZERO_ADDRESS.toLowerCase()
+      );
+
+      // Merge the filtered from: $userAddress entities with
+      // the to: $userAddress entities
+      const faceFromAndToUserOnPolygon = facesPolygonIds.concat(
+        facesFromUserPolygonIdsFiltered
+      );
+
+      const allTokens = facesFromAndToUserOnEth.concat(
+        faceFromAndToUserOnPolygon
+      );
+
+      // Create a new array of tokens without duplicates
+      const uniqueTokens: any = [
+        ...new Map(
+          allTokens.map((token: any) => [token.tokenId, token])
+        ).values(),
+      ];
+
+      // Query both subgraphs for each token
+      let uniqueTokenPromisesEth: any = [];
+      let uniqueTokenPromisesPolygon: any = [];
+
+      for (let i = 0; i <= uniqueTokens.length - 1; i++) {
+        uniqueTokenPromisesEth.push(
+          queryPolymorphicFacesGraph(bridgeEntity(uniqueTokens[i]?.tokenId))
+        );
+        uniqueTokenPromisesPolygon.push(
           queryPolymorphicFacesGraphPolygon(
-            polymorphicFaceOwner(
-              facesTransferredToBridge.transferEntities[i].tokenId
-            )
+            bridgeEntity(uniqueTokens[i].tokenId)
           )
         );
-        facesObjects.push(facesTransferredToBridge.transferEntities[i]);
       }
-      const promises: any = await Promise.all(metadataPromises);
 
-      // Make a new array containing the tokens that
-      // have been trasferred to the Root Tunnel,
-      // but have never been minted on Polygon yet
-      const facesBeingBridgedFirstTime: any = [];
-      for (let i = 0; i <= promises.length - 1; i++) {
-        if (promises[i].transferEntities.length === 0) {
-          facesBeingBridgedFirstTime.push({
-            id: Number(facesObjects[i].id),
-            tokenId: facesObjects[i].tokenId,
-            from: facesObjects[i].from,
-            to: facesObjects[i].to,
-          });
+      const uniqueTokenPromisesEthResolved: any = await Promise.all(
+        uniqueTokenPromisesEth
+      );
+      const uniqueTokenPromisesPolygonResolved: any = await Promise.all(
+        uniqueTokenPromisesPolygon
+      );
+
+      let tokensOwnedByUser: any = [];
+
+      for (let i = 0; i <= uniqueTokenPromisesEthResolved.length - 1; i++) {
+        // Check if the user is owner of a token on both networks
+        // by checking the bridge entities owner
+        if (
+          uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]?.ownerAddress ===
+            uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress ||
+          uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities.length === 0
+        ) {
+          tokensOwnedByUser.push(
+            uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+          );
+        }
+
+        // if the owner is not the same on both networks
+        if (
+          uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]?.ownerAddress !==
+          uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]?.ownerAddress
+        ) {
+          // check if eth timestamp > polygon timestamp && if eth owner is the user
+          if (
+            uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]?.timestamp >
+              uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+                ?.timestamp &&
+            uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress === newAddress
+          ) {
+            tokensOwnedByUser.push(
+              uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            );
+          }
+          // check if polygon timestamp > eth timestamp && if polygon owner is the user
+          if (
+            uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.timestamp >
+              uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]?.timestamp &&
+            uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress === newAddress
+          ) {
+            tokensOwnedByUser.push(
+              uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+            );
+          }
         }
       }
 
-      // All pending tokens
-      const allFacesInBridgingProgress = filteredResults.concat(
-        facesBeingBridgedFirstTime
-      );
+      // Create 2 new arrays containing only the tokens owner by the user
+      const filteredUniqueTokenPromisesEthResolved =
+        uniqueTokenPromisesEthResolved.filter((obj: any) => {
+          return tokensOwnedByUser.some((token: any) => {
+            return obj.bridgeEntities[0].tokenId === token.tokenId;
+          });
+        });
+
+      const filteredUniqueTokenPromisesPolygonResolved =
+        uniqueTokenPromisesPolygonResolved.filter((obj: any) => {
+          return tokensOwnedByUser.some((token: any) => {
+            return obj?.bridgeEntities[0]?.tokenId === token?.tokenId;
+          });
+        });
+
+      // Check which of the tokens owned by the user are pending
+      let facesPendingToEth: any = [];
+      let facesPendingToPolygon: any = [];
+
+      for (
+        let i = 0;
+        i <= filteredUniqueTokenPromisesEthResolved.length - 1;
+        i++
+      ) {
+        // check if it is pending
+        if (
+          !filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            .bridged &&
+          !filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+            .bridged
+        ) {
+          // if the latest timestamp is on ETH, it must be pending towards Polygon
+          if (
+            filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              .timestamp >
+            filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              .timestamp
+          ) {
+            // add it to the faces pending to polygon
+            facesPendingToPolygon.push(
+              filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            );
+          }
+          // if the latest timestamp is on Polygon, it must be pending towards Eth
+          if (
+            filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              .timestamp >
+            filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              .timestamp
+          ) {
+            // add it to the faces pending to eth
+            facesPendingToEth.push(
+              filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+            );
+          }
+        }
+      }
 
       set((state) => ({
         ...state,
@@ -308,7 +444,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphicFacesPolygon: facesPolygonIds || [],
         userPolymorphicFacesAll: allFacesIds || [],
         userPolymorphicFacesClaimed: claimedFacesIds || [],
-        userFacesBeingBridged: allFacesInBridgingProgress || [],
+        userFacesBeingBridgedToPolygon: facesPendingToPolygon || [],
+        userFacesBeingBridgedToEthereum: facesPendingToEth || [],
       }));
     },
     // This is a new function for loading the metadata of the polymorphs

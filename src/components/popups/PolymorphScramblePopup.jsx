@@ -177,7 +177,14 @@ const PolymorphScramblePopup = ({
       } catch (err) {
         setShowLoading(false);
         setShowCongratulations(false);
-        alert(err.message || err);
+        {
+          err?.data?.message
+            ? alert(
+                err?.data?.message &&
+                  `You don't have enough WETH\n ${err?.data?.message}`
+              )
+            : alert(err.message);
+        }
       }
     }
   };

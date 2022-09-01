@@ -19,7 +19,8 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
     setUserSelectedNFTsToBridge,
     userSelectedNFTsToBridge,
-    userFacesBeingBridged,
+    userFacesBeingBridgedToPolygon,
+    userFacesBeingBridgedToEthereum,
   } = usePolymorphStore();
 
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
@@ -46,6 +47,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     useState(false);
   const [txHash, setTxHash] = useState("");
   const [isApprovedForAll, setIsApprovedForAll] = useState();
+  const [fetchedPendingFaces, setFetchedPendingFaces] = useState();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -123,15 +125,20 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   }, [myNFTsSelectedTabIndex, bridgeFromNetwork]);
 
   useEffect(async () => {
-    if (
-      activeNetwork === bridgeFromNetwork &&
-      activeNetwork === "Ethereum" &&
-      myNFTsSelectedTabIndex === 0
-    ) {
-      const hasApprovedAll = await polymorphContractV2.isApprovedForAll(
-        address,
-        polymorphRootTunnel.address
-      );
+    if (activeNetwork === bridgeFromNetwork && myNFTsSelectedTabIndex === 0) {
+      let hasApprovedAll;
+      if (activeNetwork === "Ethereum") {
+        hasApprovedAll = await polymorphContractV2.isApprovedForAll(
+          address,
+          polymorphRootTunnel.address
+        );
+      }
+      if (activeNetwork === "Polygon") {
+        hasApprovedAll = await polymorphContractV2Polygon.isApprovedForAll(
+          address,
+          polymorphChildTunnel.address
+        );
+      }
       if (hasApprovedAll) {
         setStep(2);
       } else {
@@ -139,15 +146,21 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
       }
       setIsApprovedForAll(hasApprovedAll);
     }
-    if (
-      activeNetwork === bridgeFromNetwork &&
-      activeNetwork === "Ethereum" &&
-      myNFTsSelectedTabIndex === 1
-    ) {
-      const hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
-        address,
-        polymorphicFacesRootTunnel.address
-      );
+
+    if (activeNetwork === bridgeFromNetwork && myNFTsSelectedTabIndex === 1) {
+      let hasApprovedAll;
+      if (activeNetwork === "Ethereum") {
+        hasApprovedAll = await polymorphicFacesContract.isApprovedForAll(
+          address,
+          polymorphicFacesRootTunnel.address
+        );
+      }
+      if (activeNetwork === "Polygon") {
+        hasApprovedAll = await polymorphicFacesContractPolygon.isApprovedForAll(
+          address,
+          polymorphicFacesChildTunnel.address
+        );
+      }
       if (hasApprovedAll === true) {
         setStep(2);
       } else {
@@ -192,7 +205,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </div>
             <div>
               <div>Transfer time</div>
-              <div>~ 2 min</div>
+              <div>~ 1 hour</div>
             </div>
           </div>
           <div className="step">
@@ -250,12 +263,30 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             </Tooltip>
           </div>
         </div>
-        <div className={"pending-nfts"}>
-          <div className={"recent-transactions"}>Recent Transactions</div>
-          {userFacesBeingBridged?.map((face) => {
-            return <CheckPendingStatus id={face.tokenId} nft="face" />;
-          })}
-        </div>
+        {userFacesBeingBridgedToEthereum?.length ||
+        userFacesBeingBridgedToPolygon?.length ? (
+          <div className={"pending-nfts"}>
+            <div className={"recent-transactions"}>Pending Transactions</div>
+            {userFacesBeingBridgedToEthereum?.map((face) => {
+              return (
+                <CheckPendingStatus
+                  id={face.tokenId}
+                  nft="face"
+                  direction="Ethereum"
+                />
+              );
+            })}
+            {userFacesBeingBridgedToPolygon?.map((face) => {
+              return (
+                <CheckPendingStatus
+                  id={face.tokenId}
+                  nft="face"
+                  direction="Polygon"
+                />
+              );
+            })}
+          </div>
+        ) : null}
       </div>
       <Popup closeOnDocumentClick={false} open={showSuccessTranfserModal}>
         {(close) => (

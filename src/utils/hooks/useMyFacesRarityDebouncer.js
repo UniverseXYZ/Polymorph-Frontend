@@ -78,9 +78,9 @@ const buildRarityUrl = (
 
 export const useSearchPolymorphicFaces = (fromNetwork) => {
 
-  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll, userFacesBeingBridged } = usePolymorphStore();
+  const { userPolymorphicFaces, userPolymorphicFacesPolygon, userPolymorphicFacesAll, userFacesBeingBridgedToEthereum, userFacesBeingBridgedToPolygon } = usePolymorphStore();
 
-  const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length + userFacesBeingBridged.length; 
+  const perPage = userPolymorphicFaces.length + userPolymorphicFacesPolygon.length + userFacesBeingBridgedToEthereum.length + userFacesBeingBridgedToPolygon.length; 
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('tokenid');
@@ -130,9 +130,9 @@ export const useSearchPolymorphicFaces = (fromNetwork) => {
     async (abortSignal, text) => {
       let ids;
       if(fromNetwork === "Ethereum") {
-        ids = userPolymorphicFaces.map((p) => p.id)
+        ids = userPolymorphicFaces.concat(userFacesBeingBridgedToEthereum).map((p) => p.id)
       } else if (fromNetwork === "Polygon") {
-        ids = userPolymorphicFacesPolygon.concat(userFacesBeingBridged).map((p) => p.id)
+        ids = userPolymorphicFacesPolygon.concat(userFacesBeingBridgedToPolygon).map((p) => p.id)
       } else {
         ids = userPolymorphicFacesAll.map((p) => p.id)
       }

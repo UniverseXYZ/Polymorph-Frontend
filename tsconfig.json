@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "downlevelIteration": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,21 +25,11 @@
         "src/userFlows/*",
         "src/utils/*"
       ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@app": [
-        "src/app"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@app/nft": [
-        "src/app/modules/nft/*"
-      ],
-      "@app/account": [
-        "src/app/modules/account/*"
-      ]
+      "@assets/*": ["src/assets/*"],
+      "@app": ["src/app"],
+      "@app/*": ["src/app/*"],
+      "@app/nft": ["src/app/modules/nft/*"],
+      "@app/account": ["src/app/modules/account/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next-sitemap.js"],
