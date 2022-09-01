@@ -19,8 +19,10 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
     setUserSelectedNFTsToBridge,
     userSelectedNFTsToBridge,
-    userFacesBeingBridgedToPolygon,
     userFacesBeingBridgedToEthereum,
+    userFacesBeingBridgedToPolygon,
+    userPolymorphsBeingBridgedToEthereum,
+    userPolymorphsBeingBridgedToPolygon,
   } = usePolymorphStore();
 
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
@@ -47,7 +49,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     useState(false);
   const [txHash, setTxHash] = useState("");
   const [isApprovedForAll, setIsApprovedForAll] = useState();
-  const [fetchedPendingFaces, setFetchedPendingFaces] = useState();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -281,6 +282,24 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
                 <CheckPendingStatus
                   id={face.tokenId}
                   nft="face"
+                  direction="Polygon"
+                />
+              );
+            })}
+            {userPolymorphsBeingBridgedToEthereum?.map((polymorph) => {
+              return (
+                <CheckPendingStatus
+                  id={polymorph.tokenId}
+                  nft="polymorph"
+                  direction="Ethereum"
+                />
+              );
+            })}
+            {userPolymorphsBeingBridgedToPolygon?.map((polymorph) => {
+              return (
+                <CheckPendingStatus
+                  id={polymorph.tokenId}
+                  nft="polymorph"
                   direction="Polygon"
                 />
               );

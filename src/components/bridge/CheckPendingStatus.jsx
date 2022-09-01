@@ -77,7 +77,9 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
             <Image src={polygonIcon} width={18} height={18} alt="" />
             <Image src={arrowRight} width={12} height={12} alt="" />
             <Image src={ethereumIcon} width={18} height={18} alt="" />
-            <span>Polymorphic Face #{id}</span>
+            <span>
+              {nft === "polymorph" ? "Polymorph" : "Polymorphic Face"} #{id}
+            </span>
           </>
         )}
         {direction === "Polygon" && (

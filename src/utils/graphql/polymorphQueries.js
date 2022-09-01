@@ -47,6 +47,17 @@ export const transferPolymorphs = (ownerAddress) => `
   }
 `;
 
+export const transferPolymorphsFromUser = (ownerAddress) => `
+  query Polymorphs {
+    transferEntities(first: 1000, where: { from: "${ownerAddress}" }) {
+      from
+      id
+      to
+      tokenId
+    }
+  }
+`;
+
 export const polymorphOwner = (tokenId) => `
   query Polymorphs {
     transferEntities(where: { tokenId: "${tokenId}" }) {
