@@ -260,7 +260,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
       );
 
       // filter out the faces that have a to: different from the RootTunnelAddress
-      // these were traded on ETH and are no longer owned by the user
       const faceFromUserIdsFiltered = facesFromUserIds.filter(
         (entity: any) =>
           entity.to.toLowerCase() ===
@@ -285,7 +284,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
       );
 
       // filter out the faces that have a to: different from the 0x00
-      // these were traded on Polygon and are no longer owned by the user
       const facesFromUserPolygonIdsFiltered = facesFromUserPolygonIds.filter(
         (entity: any) => entity.to.toLowerCase() === ZERO_ADDRESS.toLowerCase()
       );
@@ -296,20 +294,18 @@ export const usePolymorphStore = create<IPolymorphStore>(
         facesFromUserPolygonIdsFiltered
       );
 
-      // console.log("facesFromAndToUserOnEth", facesFromAndToUserOnEth);
-      // console.log("faceFromAndToUserOnPolygon", faceFromAndToUserOnPolygon);
-
       const allTokens = facesFromAndToUserOnEth.concat(
         faceFromAndToUserOnPolygon
       );
 
+      // Create a new array of tokens without duplicates
       const uniqueTokens: any = [
         ...new Map(
           allTokens.map((token: any) => [token.tokenId, token])
         ).values(),
       ];
-      // console.log("unique", uniqueTokens);
 
+      // Query both subgraphs for each token
       let uniqueTokenPromisesEth: any = [];
       let uniqueTokenPromisesPolygon: any = [];
 
@@ -334,7 +330,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
       let tokensOwnedByUser: any = [];
 
       for (let i = 0; i <= uniqueTokenPromisesEthResolved.length - 1; i++) {
-        // if the user is owner of a token on both networks
+        // Check if the user is owner of a token on both networks
+        // by checking the bridge entities owner
         if (
           uniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]?.ownerAddress ===
             uniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
@@ -377,8 +374,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
           }
         }
       }
-      console.log("owned by user ", tokensOwnedByUser);
 
+      // Create 2 new arrays containing only the tokens owner by the user
       const filteredUniqueTokenPromisesEthResolved =
         uniqueTokenPromisesEthResolved.filter((obj: any) => {
           return tokensOwnedByUser.some((token: any) => {
@@ -393,13 +390,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
           });
         });
 
-      // console.log("this is what i filter", uniqueTokenPromisesEthResolved);
-      console.log("filtered eth ones", filteredUniqueTokenPromisesEthResolved);
-      console.log(
-        "filtered polygon ones",
-        filteredUniqueTokenPromisesPolygonResolved
-      );
-
+      // Check which of the tokens owned by the user are pending
       let facesPendingToEth: any = [];
       let facesPendingToPolygon: any = [];
 
@@ -422,7 +413,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
             filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
               .timestamp
           ) {
-            console.log("Pending to polygon");
+            // add it to the faces pending to polygon
             facesPendingToPolygon.push(
               filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
             );
@@ -434,19 +425,13 @@ export const usePolymorphStore = create<IPolymorphStore>(
             filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
               .timestamp
           ) {
-            console.log("Pending to eth");
+            // add it to the faces pending to eth
             facesPendingToEth.push(
               filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
             );
           }
         }
       }
-
-      console.log("uniqueTokenPromisesEth", uniqueTokenPromisesEthResolved);
-      console.log(
-        "uniqueTokenPromisesPolygon",
-        uniqueTokenPromisesPolygonResolved
-      );
 
       set((state) => ({
         ...state,
