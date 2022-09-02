@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Tooltip } from "@chakra-ui/react";
 import { useAuthStore } from "src/stores/authStore";
 
-const CheckPendingStatus = ({ id, nft, direction }) => {
+const CheckPendingStatus = ({ id, entity, nft, direction }) => {
   const { polymorphicFacesRootTunnel, polymorphRootTunnel } =
     useContractsStore();
   const { activeNetwork } = useAuthStore();
@@ -20,14 +20,13 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [buttonName, setButtonName] = useState("Check");
 
-  const checkIfReady = async (id) => {
+  const checkIfReady = async (txHash) => {
     setIsChecking(true);
     setButtonName("Check");
-
     try {
       if (nft === "face") {
         const result = await axios
-          .get(`/api/proofForFaces/${id}/`, {
+          .get(`/api/proofForFaces/${txHash}/`, {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json;charset=UTF-8",
@@ -46,7 +45,7 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
       }
       if (nft === "polymorph") {
         const result = await axios
-          .get(`/api/proofForPolymorphs/${id}/`, {
+          .get(`/api/proofForPolymorphs/${txHash}/`, {
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json;charset=UTF-8",
@@ -128,7 +127,7 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
       {!isReady && direction === "Ethereum" && (
         <button
           className="light-button"
-          onClick={() => checkIfReady(id)}
+          onClick={() => checkIfReady(entity.transactionHash)}
           disabled={isChecking}
         >
           {isChecking ? <LoadingSpinner /> : null}
