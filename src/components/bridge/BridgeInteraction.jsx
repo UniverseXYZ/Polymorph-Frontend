@@ -201,10 +201,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           </div>
           <div className="estimate--indicators">
             <div>
-              <div>Gas cost</div>
-              <div>~ $5.24</div>
-            </div>
-            <div>
               <div>Transfer time</div>
               <div>~ 1 hour</div>
             </div>
