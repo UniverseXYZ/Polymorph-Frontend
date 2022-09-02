@@ -10,7 +10,8 @@ import { Tooltip } from "@chakra-ui/react";
 import { useAuthStore } from "src/stores/authStore";
 
 const CheckPendingStatus = ({ id, nft, direction }) => {
-  const { polymorphicFacesRootTunnel } = useContractsStore();
+  const { polymorphicFacesRootTunnel, polymorphRootTunnel } =
+    useContractsStore();
   const { activeNetwork } = useAuthStore();
 
   const [proofObject, setProofObject] = useState("");
@@ -24,23 +25,44 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
     setButtonName("Check");
 
     try {
-      const result = await axios
-        .get(`/api/proofForFaces/${id}/`, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-        })
-        .then(({ data }) => {
-          if (data.transferStatus.isCheckPointed === true) {
-            setProofObject(data.transferStatus);
-            setIsReady(true);
-            setIsChecking(false);
-          } else {
-            setIsChecking(false);
-            setButtonName("Try again");
-          }
-        });
+      if (nft === "face") {
+        const result = await axios
+          .get(`/api/proofForFaces/${id}/`, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          })
+          .then(({ data }) => {
+            if (data.transferStatus.isCheckPointed === true) {
+              setProofObject(data.transferStatus);
+              setIsReady(true);
+              setIsChecking(false);
+            } else {
+              setIsChecking(false);
+              setButtonName("Try again");
+            }
+          });
+      }
+      if (nft === "polymorph") {
+        const result = await axios
+          .get(`/api/proofForPolymorphs/${id}/`, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          })
+          .then(({ data }) => {
+            if (data.transferStatus.isCheckPointed === true) {
+              setProofObject(data.transferStatus);
+              setIsReady(true);
+              setIsChecking(false);
+            } else {
+              setIsChecking(false);
+              setButtonName("Try again");
+            }
+          });
+      }
     } catch (err) {
       console.log(err);
       setIsChecking(false);
@@ -63,6 +85,16 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
         }
         setIsUnlocking(false);
       }
+      if (nft === "polymorph") {
+        const tx = await polymorphRootTunnel.receiveMessage(proofObject.proof);
+        const txReceipt = await tx.wait();
+
+        if (txReceipt.status !== 1) {
+          console.log("Error bridging tokens");
+          return;
+        }
+        setIsUnlocking(false);
+      }
     } catch (err) {
       console.log(err);
       setIsUnlocking(false);
@@ -77,7 +109,9 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
             <Image src={polygonIcon} width={18} height={18} alt="" />
             <Image src={arrowRight} width={12} height={12} alt="" />
             <Image src={ethereumIcon} width={18} height={18} alt="" />
-            <span>Polymorphic Face #{id}</span>
+            <span>
+              {nft === "polymorph" ? "Polymorph" : "Polymorphic Face"} #{id}
+            </span>
           </>
         )}
         {direction === "Polygon" && (
@@ -85,7 +119,9 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
             <Image src={ethereumIcon} width={18} height={18} alt="" />
             <Image src={arrowRight} width={12} height={12} alt="" />
             <Image src={polygonIcon} width={18} height={18} alt="" />
-            <span>Polymorphic Face #{id}</span>
+            <span>
+              {nft === "polymorph" ? "Polymorph" : "Polymorphic Face"} #{id}
+            </span>
           </>
         )}
       </div>

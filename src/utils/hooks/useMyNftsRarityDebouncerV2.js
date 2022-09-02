@@ -80,9 +80,9 @@ const buildRarityUrl = (
 };
 
 export const useSearchPolymorphsV2 = (fromNetwork) => {
-  const { userPolymorphsV2, userPolymorphsV2Polygon } = usePolymorphStore();
+  const { userPolymorphsV2, userPolymorphsV2Polygon, userPolymorphsBeingBridgedToEthereum, userPolymorphsBeingBridgedToPolygon } = usePolymorphStore();
 
-  const perPage = userPolymorphsV2.length + userPolymorphsV2Polygon.length;
+  const perPage = userPolymorphsV2.length + userPolymorphsV2Polygon.length + userPolymorphsBeingBridgedToEthereum.length +  userPolymorphsBeingBridgedToPolygon.length;
   const [inputText, setInputText] = useStateIfMounted('');
   const [apiPage, setApiPage] = useStateIfMounted(1);
   const [sortField, setSortField] = useStateIfMounted('rarityscore');
@@ -131,9 +131,9 @@ export const useSearchPolymorphsV2 = (fromNetwork) => {
     async (abortSignal, text) => {
       let ids;
       if(fromNetwork === "Ethereum") {
-        ids = userPolymorphsV2.map((p) => p.id)
+        ids = userPolymorphsV2.concat(userPolymorphsBeingBridgedToEthereum).map((p) => p.id)
       } else if (fromNetwork === "Polygon") {
-        ids = userPolymorphsV2Polygon.map((p) => p.id)
+        ids = userPolymorphsV2Polygon.concat(userPolymorphsBeingBridgedToPolygon).map((p) => p.id)
       }
       // If the input is empty, return nothing immediately (without the debouncing delay!)
       // Else we use the debounced api

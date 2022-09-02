@@ -5,6 +5,7 @@ import {
   queryPolymorphsGraphV2,
   queryPolymorphsGraphV2Polygon,
   transferPolymorphs,
+  transferPolymorphsFromUser,
 } from "@legacy/graphql/polymorphQueries";
 import { convertPolymorphObjects } from "@legacy/helpers/polymorphs";
 import create from "zustand";
@@ -15,11 +16,6 @@ import {
   queryPolymorphicFacesGraphPolygon,
   mintedPolymorphicFaces,
   transferPolymorphicFaces,
-  transferPolymorphicFacesBeingBridgedToEthereum,
-  polymorphicFaceOwner,
-  transferPolymorphicFacesBeingBridgedToPolygon,
-  transferPolymorphicFacesSentToNullByUser,
-  transferPolymorphicFacesSentToUserByBridge,
   transferPolymorphicFacesFromUser,
   bridgeEntity,
 } from "../utils/graphql/polymorphicFacesQueries";
@@ -35,6 +31,8 @@ type IPolymorphStore = {
   userSelectedPolymorphsToBurn: [];
   userPolymorphsLoaded: boolean;
   userPolymorphWithMetadata: [];
+  userPolymorphsBeingBridgedToEthereum: [];
+  userPolymorphsBeingBridgedToPolygon: [];
   userPolymorphicFaces: [];
   userPolymorphicFacesPolygon: [];
   userPolymorphicFacesAll: [];
@@ -51,6 +49,12 @@ type IPolymorphStore = {
   setUserSelectedPolymorphsToBurn: (userSelectedPolymorphsToBurn: []) => void;
   setUserPolymorphsLoaded: (userPolymorphsLoaded: boolean) => void;
   setUserPolymorphsWithMetadata: (userPolymorphWithMetadata: []) => void;
+  setUserPolymorphsBeingBridgedToEthereum: (
+    userPolymorphsBeingBridgedToEthereum: []
+  ) => void;
+  setUserPolymorphsBeingBridgedToPolygon: (
+    userPolymorphsBeingBridgedToPolygon: []
+  ) => void;
   setUserPolymorphicFaces: (userPolymorphicFaces: []) => void;
   setUserPolymorphicFacesPolygon: (userPolymorphicFacesPolygon: []) => void;
   setUserPolymorphicFacesAll: (userPolymorphicFacesAll: []) => void;
@@ -76,6 +80,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
     userSelectedPolymorphsToBurn: [],
     userPolymorphsLoaded: false,
     userPolymorphWithMetadata: [],
+    userPolymorphsBeingBridgedToEthereum: [],
+    userPolymorphsBeingBridgedToPolygon: [],
     userPolymorphicFaces: [],
     userPolymorphicFacesPolygon: [],
     userPolymorphicFacesAll: [],
@@ -126,7 +132,22 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphWithMetadata,
       }));
     },
-
+    setUserPolymorphsBeingBridgedToEthereum: (
+      userPolymorphsBeingBridgedToEthereum
+    ) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsBeingBridgedToEthereum,
+      }));
+    },
+    setUserPolymorphsBeingBridgedToPolygon: (
+      userPolymorphsBeingBridgedToPolygon
+    ) => {
+      set((state) => ({
+        ...state,
+        userPolymorphsBeingBridgedToPolygon,
+      }));
+    },
     setUserPolymorphicFaces: (userPolymorphicFaces) => {
       set((state) => ({
         ...state,
@@ -244,7 +265,9 @@ export const usePolymorphStore = create<IPolymorphStore>(
         id: parseInt(nft.id, 16),
       }));
 
-      /// O W N E R S H I P
+      //================================================================//
+      //===O W N E R S H I P   A N D     P E N D I N G     F A C E S====//
+      //================================================================//
       // get faces from: $userAddress on ETH
       const facesFromUser = await queryPolymorphicFacesGraph(
         transferPolymorphicFacesFromUser(newAddress)
@@ -461,6 +484,246 @@ export const usePolymorphStore = create<IPolymorphStore>(
         }
       }
 
+      //===================================================================//
+      //O W N E R S H I P   A N D     P E N D I N G  V2 P O L Y M O R P H S//
+      //===================================================================//
+      // get polymorphs from: $userAddress on ETH
+      const polymorphsFromUser = await queryPolymorphsGraphV2(
+        transferPolymorphsFromUser(newAddress)
+      );
+
+      const polymorphsFromUserIds = polymorphsFromUser.transferEntities.map(
+        (nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+          from: nft.from,
+          to: nft.to,
+        })
+      );
+
+      // filter out the polymorphs that have a to: different from the RootTunnelAddress
+      const polymorphsFromUserIdsFiltered = polymorphsFromUserIds.filter(
+        (entity: any) =>
+          entity.to.toLowerCase() ===
+          process.env.REACT_APP_POLYMORPHS_ROOT_TUNNEL_ADDRESS?.toLowerCase()
+      );
+
+      // Merge the filtered from: $userAddress entities with
+      // the to: $userAddress entities
+      const polymorphsFromAndToUserOnEth = polymorphV2Ids.concat(
+        polymorphsFromUserIdsFiltered
+      );
+
+      // get polymorphs from: $userAddress on Polygon
+      const polymorphsFromUserPolygon = await queryPolymorphsGraphV2Polygon(
+        transferPolymorphsFromUser(newAddress)
+      );
+      const polymorphsFromUserPolygonIds =
+        polymorphsFromUserPolygon.transferEntities.map((nft: any) => ({
+          tokenId: nft.tokenId,
+          id: parseInt(nft.id, 16),
+          from: nft.from,
+          to: nft.to,
+        }));
+
+      // filter out the polymorphs that have a to: different from the 0x00
+      const polymorphsFromUserPolygonIdsFiltered =
+        polymorphsFromUserPolygonIds.filter(
+          (entity: any) =>
+            entity.to.toLowerCase() === ZERO_ADDRESS.toLowerCase()
+        );
+
+      // Merge the filtered from: $userAddress entities with
+      // the to: $userAddress entities
+      const polymorphsFromAndToUserOnPolygon = polymorphV2PolygonIds.concat(
+        polymorphsFromUserPolygonIdsFiltered
+      );
+
+      const allPolymorphsTokens = polymorphsFromAndToUserOnEth.concat(
+        polymorphsFromAndToUserOnPolygon
+      );
+
+      // Create a new array of tokens without duplicates
+      const uniquePolymorphTokens: any = [
+        ...new Map(
+          allPolymorphsTokens.map((token: any) => [token.tokenId, token])
+        ).values(),
+      ];
+
+      // Query both subgraphs for each token
+      let uniquePolymorphTokenPromisesEth: any = [];
+      let uniquePolymorphTokenPromisesPolygon: any = [];
+
+      for (let i = 0; i <= uniquePolymorphTokens.length - 1; i++) {
+        uniquePolymorphTokenPromisesEth.push(
+          queryPolymorphsGraphV2(
+            bridgeEntity(uniquePolymorphTokens[i]?.tokenId)
+          )
+        );
+        uniquePolymorphTokenPromisesPolygon.push(
+          queryPolymorphsGraphV2Polygon(
+            bridgeEntity(uniquePolymorphTokens[i].tokenId)
+          )
+        );
+      }
+
+      const uniquePolymorphTokenPromisesEthResolved: any = await Promise.all(
+        uniquePolymorphTokenPromisesEth
+      );
+      const uniquePolymorphTokenPromisesPolygonResolved: any =
+        await Promise.all(uniquePolymorphTokenPromisesPolygon);
+
+      let polymorphTokensOwnedByUser: any = [];
+
+      for (
+        let i = 0;
+        i <= uniquePolymorphTokenPromisesEthResolved.length - 1;
+        i++
+      ) {
+        // Check if the user is owner of a token on both networks
+        // by checking the bridge entities owner
+        if (
+          uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            ?.ownerAddress ===
+            uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress ||
+          uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities
+            .length === 0
+        ) {
+          polymorphTokensOwnedByUser.push(
+            uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+          );
+        }
+
+        // if the owner is not the same on both networks
+        if (
+          uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            ?.ownerAddress !==
+          uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+            ?.ownerAddress
+        ) {
+          // check if eth timestamp > polygon timestamp && if eth owner is the user
+          if (
+            uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              ?.timestamp >
+              uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+                ?.timestamp &&
+            uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress === newAddress
+          ) {
+            polymorphTokensOwnedByUser.push(
+              uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+            );
+          }
+          // check if polygon timestamp > eth timestamp && if polygon owner is the user
+          if (
+            uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.timestamp >
+              uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
+                ?.timestamp &&
+            uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+              ?.ownerAddress === newAddress
+          ) {
+            polymorphTokensOwnedByUser.push(
+              uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
+            );
+          }
+        }
+      }
+
+      // Create 2 new arrays containing only the tokens owner by the user
+      const filteredUniquePolymorphTokenPromisesEthResolved =
+        uniquePolymorphTokenPromisesEthResolved.filter((obj: any) => {
+          return polymorphTokensOwnedByUser.some((token: any) => {
+            return obj.bridgeEntities[0].tokenId === token.tokenId;
+          });
+        });
+
+      const filteredUniquePolymorphTokenPromisesPolygonResolved =
+        uniquePolymorphTokenPromisesPolygonResolved.filter((obj: any) => {
+          return polymorphTokensOwnedByUser.some((token: any) => {
+            return obj?.bridgeEntities[0]?.tokenId === token?.tokenId;
+          });
+        });
+
+      // Check which of the tokens owned by the user are pending
+      let polymorphsPendingToEth: any = [];
+      let polymorphsPendingToPolygon: any = [];
+
+      for (
+        let i = 0;
+        i <= filteredUniquePolymorphTokenPromisesEthResolved.length - 1;
+        i++
+      ) {
+        // check if the entity on ETH at the current index exists on polygon too
+        if (
+          filteredUniquePolymorphTokenPromisesPolygonResolved.some(
+            (tokenOnPolygon: any) =>
+              tokenOnPolygon.bridgeEntities[0].tokenId ===
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].tokenId
+          )
+        ) {
+          // extract the index of the entity in the polygon array
+          const mapping =
+            filteredUniquePolymorphTokenPromisesPolygonResolved.map(
+              (obj: any) => obj.bridgeEntities[0].tokenId
+            );
+          const index = mapping.indexOf(
+            filteredUniquePolymorphTokenPromisesEthResolved[i]
+              ?.bridgeEntities[0].tokenId
+          );
+          // check if it is pending
+          if (
+            !filteredUniquePolymorphTokenPromisesEthResolved[i]
+              ?.bridgeEntities[0].bridged &&
+            !filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+              ?.bridgeEntities[0].bridged
+          ) {
+            // if the latest timestamp is on ETH, it must be pending towards Polygon
+            if (
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].timestamp >
+              filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp
+            ) {
+              // add it to the polymorphs pending to polygon
+              polymorphsPendingToPolygon.push(
+                filteredUniquePolymorphTokenPromisesEthResolved[i]
+                  ?.bridgeEntities[0]
+              );
+            }
+            // if the latest timestamp is on Polygon, it must be pending towards Eth
+            if (
+              filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp >
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].timestamp
+            ) {
+              // add it to the polymorphs pending to eth
+              polymorphsPendingToEth.push(
+                filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                  ?.bridgeEntities[0]
+              );
+            }
+          }
+        } else {
+          if (
+            !filteredUniquePolymorphTokenPromisesEthResolved[i]
+              ?.bridgeEntities[0].bridged
+          ) {
+            polymorphsPendingToPolygon.push(
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0]
+            );
+          }
+        }
+      }
+      console.log("polymorphs pending to eth", polymorphsPendingToEth);
+      console.log("polymorphs pending to polygon", polymorphsPendingToPolygon);
+      console.log("faces pending to eth", facesPendingToEth);
+      console.log("faces pending to polygon", facesPendingToPolygon);
+
       set((state) => ({
         ...state,
         userPolymorphs: polymorphV1Ids || [],
@@ -468,6 +731,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
         userPolymorphsV2Polygon: polymorphV2PolygonIds || [],
         userPolymorphsAll: allPolymorphIds || [],
         userPolymorphsLoaded: true,
+        userPolymorphsBeingBridgedToEthereum: polymorphsPendingToEth || [],
+        userPolymorphsBeingBridgedToPolygon: polymorphsPendingToPolygon || [],
         userPolymorphicFaces: facesIds || [],
         userPolymorphicFacesPolygon: facesPolygonIds || [],
         userPolymorphicFacesAll: allFacesIds || [],

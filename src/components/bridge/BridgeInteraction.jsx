@@ -19,8 +19,10 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const {
     setUserSelectedNFTsToBridge,
     userSelectedNFTsToBridge,
-    userFacesBeingBridgedToPolygon,
     userFacesBeingBridgedToEthereum,
+    userFacesBeingBridgedToPolygon,
+    userPolymorphsBeingBridgedToEthereum,
+    userPolymorphsBeingBridgedToPolygon,
   } = usePolymorphStore();
 
   const { myNFTsSelectedTabIndex } = useMyNftsStore();
@@ -47,7 +49,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     useState(false);
   const [txHash, setTxHash] = useState("");
   const [isApprovedForAll, setIsApprovedForAll] = useState();
-  const [fetchedPendingFaces, setFetchedPendingFaces] = useState();
 
   useEffect(() => {
     setUserSelectedNFTsToBridge([]);
@@ -200,10 +201,6 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           </div>
           <div className="estimate--indicators">
             <div>
-              <div>Gas cost</div>
-              <div>~ $5.24</div>
-            </div>
-            <div>
               <div>Transfer time</div>
               <div>~ 1 hour</div>
             </div>
@@ -264,7 +261,9 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           </div>
         </div>
         {userFacesBeingBridgedToEthereum?.length ||
-        userFacesBeingBridgedToPolygon?.length ? (
+        userFacesBeingBridgedToPolygon?.length ||
+        userPolymorphsBeingBridgedToEthereum?.length ||
+        userPolymorphsBeingBridgedToPolygon?.length ? (
           <div className={"pending-nfts"}>
             <div className={"recent-transactions"}>Pending Transactions</div>
             {userFacesBeingBridgedToEthereum?.map((face) => {
@@ -281,6 +280,24 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
                 <CheckPendingStatus
                   id={face.tokenId}
                   nft="face"
+                  direction="Polygon"
+                />
+              );
+            })}
+            {userPolymorphsBeingBridgedToEthereum?.map((polymorph) => {
+              return (
+                <CheckPendingStatus
+                  id={polymorph.tokenId}
+                  nft="polymorph"
+                  direction="Ethereum"
+                />
+              );
+            })}
+            {userPolymorphsBeingBridgedToPolygon?.map((polymorph) => {
+              return (
+                <CheckPendingStatus
+                  id={polymorph.tokenId}
+                  nft="polymorph"
                   direction="Polygon"
                 />
               );
