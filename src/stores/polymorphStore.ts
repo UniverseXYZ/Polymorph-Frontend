@@ -390,15 +390,6 @@ export const usePolymorphStore = create<IPolymorphStore>(
           });
         });
 
-      console.log(
-        "owner bu yser on eth",
-        filteredUniqueTokenPromisesEthResolved
-      );
-      console.log(
-        "owner bu yser on polygon",
-        filteredUniqueTokenPromisesPolygonResolved
-      );
-
       // Check which of the tokens owned by the user are pending
       let facesPendingToEth: any = [];
       let facesPendingToPolygon: any = [];
