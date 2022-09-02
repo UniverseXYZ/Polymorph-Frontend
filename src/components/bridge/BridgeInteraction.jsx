@@ -270,6 +270,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               return (
                 <CheckPendingStatus
                   id={face.tokenId}
+                  entity={face}
                   nft="face"
                   direction="Ethereum"
                 />
@@ -279,6 +280,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               return (
                 <CheckPendingStatus
                   id={face.tokenId}
+                  entity={face}
                   nft="face"
                   direction="Polygon"
                 />
@@ -288,6 +290,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               return (
                 <CheckPendingStatus
                   id={polymorph.tokenId}
+                  entity={polymorph}
                   nft="polymorph"
                   direction="Ethereum"
                 />
@@ -297,6 +300,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
               return (
                 <CheckPendingStatus
                   id={polymorph.tokenId}
+                  entity={polymorph}
                   nft="polymorph"
                   direction="Polygon"
                 />

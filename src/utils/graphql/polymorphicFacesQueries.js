@@ -122,6 +122,7 @@ export const bridgeEntity = (tokenId) => `
       ownerAddress
       timestamp
       bridged
+      transactionHash
     }
   }
 `;
