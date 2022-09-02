@@ -587,8 +587,8 @@ export const usePolymorphStore = create<IPolymorphStore>(
             ?.ownerAddress ===
             uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
               ?.ownerAddress ||
-          uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities.length ===
-            0
+          uniquePolymorphTokenPromisesPolygonResolved[i]?.bridgeEntities
+            .length === 0
         ) {
           polymorphTokensOwnedByUser.push(
             uniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
@@ -655,36 +655,65 @@ export const usePolymorphStore = create<IPolymorphStore>(
         i <= filteredUniquePolymorphTokenPromisesEthResolved.length - 1;
         i++
       ) {
-        // check if it is pending
+        // check if the entity on ETH at the current index exists on polygon too
         if (
-          !filteredUniquePolymorphTokenPromisesEthResolved[i]?.bridgeEntities[0]
-            .bridged &&
-          !filteredUniquePolymorphTokenPromisesPolygonResolved[i]
-            ?.bridgeEntities[0].bridged
+          filteredUniquePolymorphTokenPromisesPolygonResolved.some(
+            (tokenOnPolygon: any) =>
+              tokenOnPolygon.bridgeEntities[0].tokenId ===
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].tokenId
+          )
         ) {
-          // if the latest timestamp is on ETH, it must be pending towards Polygon
-          if (
+          // extract the index of the entity in the polygon array
+          const mapping =
+            filteredUniquePolymorphTokenPromisesPolygonResolved.map(
+              (obj: any) => obj.bridgeEntities[0].tokenId
+            );
+          const index = mapping.indexOf(
             filteredUniquePolymorphTokenPromisesEthResolved[i]
-              ?.bridgeEntities[0].timestamp >
-            filteredUniquePolymorphTokenPromisesPolygonResolved[i]
-              ?.bridgeEntities[0].timestamp
+              ?.bridgeEntities[0].tokenId
+          );
+          // check if it is pending
+          if (
+            !filteredUniquePolymorphTokenPromisesEthResolved[i]
+              ?.bridgeEntities[0].bridged &&
+            !filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+              ?.bridgeEntities[0].bridged
           ) {
-            // add it to the polymorphs pending to polygon
+            // if the latest timestamp is on ETH, it must be pending towards Polygon
+            if (
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].timestamp >
+              filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp
+            ) {
+              // add it to the polymorphs pending to polygon
+              polymorphsPendingToPolygon.push(
+                filteredUniquePolymorphTokenPromisesEthResolved[i]
+                  ?.bridgeEntities[0]
+              );
+            }
+            // if the latest timestamp is on Polygon, it must be pending towards Eth
+            if (
+              filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp >
+              filteredUniquePolymorphTokenPromisesEthResolved[i]
+                ?.bridgeEntities[0].timestamp
+            ) {
+              // add it to the polymorphs pending to eth
+              polymorphsPendingToEth.push(
+                filteredUniquePolymorphTokenPromisesPolygonResolved[index]
+                  ?.bridgeEntities[0]
+              );
+            }
+          }
+        } else {
+          if (
+            !filteredUniquePolymorphTokenPromisesEthResolved[i]
+              ?.bridgeEntities[0].bridged
+          ) {
             polymorphsPendingToPolygon.push(
               filteredUniquePolymorphTokenPromisesEthResolved[i]
-                ?.bridgeEntities[0]
-            );
-          }
-          // if the latest timestamp is on Polygon, it must be pending towards Eth
-          if (
-            filteredUniquePolymorphTokenPromisesPolygonResolved[i]
-              ?.bridgeEntities[0].timestamp >
-            filteredUniquePolymorphTokenPromisesEthResolved[i]
-              ?.bridgeEntities[0].timestamp
-          ) {
-            // add it to the polymorphs pending to eth
-            polymorphsPendingToEth.push(
-              filteredUniquePolymorphTokenPromisesPolygonResolved[i]
                 ?.bridgeEntities[0]
             );
           }
