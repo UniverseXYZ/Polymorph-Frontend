@@ -390,6 +390,15 @@ export const usePolymorphStore = create<IPolymorphStore>(
           });
         });
 
+      console.log(
+        "owner bu yser on eth",
+        filteredUniqueTokenPromisesEthResolved
+      );
+      console.log(
+        "owner bu yser on polygon",
+        filteredUniqueTokenPromisesPolygonResolved
+      );
+
       // Check which of the tokens owned by the user are pending
       let facesPendingToEth: any = [];
       let facesPendingToPolygon: any = [];
@@ -399,35 +408,63 @@ export const usePolymorphStore = create<IPolymorphStore>(
         i <= filteredUniqueTokenPromisesEthResolved.length - 1;
         i++
       ) {
-        // check if it is pending
+        // check if the entity on ETH at the current index exists on polygon too
         if (
-          !filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
-            .bridged &&
-          !filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
-            .bridged
+          filteredUniqueTokenPromisesPolygonResolved.some(
+            (tokenOnPolygon) =>
+              tokenOnPolygon.bridgeEntities[0].tokenId ===
+              filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+                .tokenId
+          )
         ) {
-          // if the latest timestamp is on ETH, it must be pending towards Polygon
+          // extract the index of the entity in the polygon array
+          const mapping = filteredUniqueTokenPromisesPolygonResolved.map(
+            (obj) => obj.bridgeEntities[0].tokenId
+          );
+          const index = mapping.indexOf(
+            filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0].tokenId
+          );
+
+          // check if it is pending
           if (
-            filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
-              .timestamp >
-            filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
-              .timestamp
+            !filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              .bridged &&
+            !filteredUniqueTokenPromisesPolygonResolved[index]
+              ?.bridgeEntities[0].bridged
           ) {
-            // add it to the faces pending to polygon
+            // if the latest timestamp is on ETH, it must be pending towards Polygon
+            if (
+              filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+                .timestamp >
+              filteredUniqueTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp
+            ) {
+              // add it to the faces pending to polygon
+              facesPendingToPolygon.push(
+                filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              );
+            }
+            // if the latest timestamp is on Polygon, it must be pending towards Eth
+            if (
+              filteredUniqueTokenPromisesPolygonResolved[index]
+                ?.bridgeEntities[0].timestamp >
+              filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+                .timestamp
+            ) {
+              // add it to the faces pending to eth
+              facesPendingToEth.push(
+                filteredUniqueTokenPromisesPolygonResolved[index]
+                  ?.bridgeEntities[0]
+              );
+            }
+          }
+        } else {
+          if (
+            !filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
+              .bridged
+          ) {
             facesPendingToPolygon.push(
               filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
-            );
-          }
-          // if the latest timestamp is on Polygon, it must be pending towards Eth
-          if (
-            filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
-              .timestamp >
-            filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
-              .timestamp
-          ) {
-            // add it to the faces pending to eth
-            facesPendingToEth.push(
-              filteredUniqueTokenPromisesPolygonResolved[i]?.bridgeEntities[0]
             );
           }
         }
