@@ -51,7 +51,6 @@ const CheckPendingStatus = ({ id, nft, direction }) => {
   const unlockHandler = async () => {
     setIsUnlocking(true);
     try {
-      console.log(proofObject.proof);
       if (nft === "face") {
         const tx = await polymorphicFacesRootTunnel.receiveMessage(
           proofObject.proof

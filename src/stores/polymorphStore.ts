@@ -411,7 +411,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         // check if the entity on ETH at the current index exists on polygon too
         if (
           filteredUniqueTokenPromisesPolygonResolved.some(
-            (tokenOnPolygon) =>
+            (tokenOnPolygon: any) =>
               tokenOnPolygon.bridgeEntities[0].tokenId ===
               filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0]
                 .tokenId
@@ -419,7 +419,7 @@ export const usePolymorphStore = create<IPolymorphStore>(
         ) {
           // extract the index of the entity in the polygon array
           const mapping = filteredUniqueTokenPromisesPolygonResolved.map(
-            (obj) => obj.bridgeEntities[0].tokenId
+            (obj: any) => obj.bridgeEntities[0].tokenId
           );
           const index = mapping.indexOf(
             filteredUniqueTokenPromisesEthResolved[i]?.bridgeEntities[0].tokenId
