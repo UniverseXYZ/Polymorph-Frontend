@@ -3,18 +3,25 @@ import { usePolymorphStore } from "src/stores/polymorphStore";
 
 const TabsContainer = () => {
   const {
+    bridgeFromNetwork,
     myNFTsSelectedTabIndex,
     setMyNFTsSelectedTabIndex,
     activeTxHashes,
     setActiveTxHashes,
   } = useMyNftsStore((s) => ({
+    bridgeFromNetwork: s.bridgeFromNetwork,
     myNFTsSelectedTabIndex: s.myNFTsSelectedTabIndex,
     setMyNFTsSelectedTabIndex: s.setMyNFTsSelectedTabIndex,
     activeTxHashes: s.activeTxHashes,
     setActiveTxHashes: s.setActiveTxHashes,
   }));
 
-  const { userPolymorphsAll, userPolymorphicFacesAll } = usePolymorphStore();
+  const {
+    userPolymorphsV2, userPolymorphsV2Polygon,
+    userPolymorphicFaces, userPolymorphicFacesPolygon
+  } = usePolymorphStore();
+  const polymorphsArr = bridgeFromNetwork === "Polygon" ? userPolymorphsV2Polygon : userPolymorphsV2;
+  const polymorphicFacesArr = bridgeFromNetwork === "Polygon" ? userPolymorphicFacesPolygon : userPolymorphicFaces;
 
   return (
     <div className="tabs__container">
@@ -25,11 +32,11 @@ const TabsContainer = () => {
         }}
       >
         Polymorphs{" "}
-        {userPolymorphsAll.length ? (
+        {polymorphsArr.length ? (
           <div
             className={`count ${myNFTsSelectedTabIndex === 0 ? "active" : ""}`}
           >
-            {userPolymorphsAll.length || ""}
+            {polymorphsArr.length || ""}
           </div>
         ) : null}
       </span>
@@ -40,11 +47,11 @@ const TabsContainer = () => {
         }}
       >
         Polymorphic Faces{" "}
-        {userPolymorphicFacesAll.length ? (
+        {polymorphicFacesArr.length ? (
           <div
             className={`count ${myNFTsSelectedTabIndex === 1 ? "active" : ""}`}
           >
-            {userPolymorphicFacesAll.length || null}
+            {polymorphicFacesArr.length || null}
           </div>
         ) : null}
       </span>
