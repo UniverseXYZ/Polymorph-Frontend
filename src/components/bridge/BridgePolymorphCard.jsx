@@ -5,18 +5,11 @@ import RarityRankPopup from "../popups/RarityRankPopup.jsx";
 import { getPolymorphMeta } from "../../utils/api/polymorphs.js";
 import { renderLoaderWithData } from "../../containers/rarityCharts/renderLoaders.js";
 import SelectedSVG from "../../assets/images/activity-icons/Selected.svg";
-import ThreeDotsSVG from "../../assets/images/three-dots-horizontal.svg";
-import LinkOut from "../../assets/images/burn-to-mint-images/link-out.svg";
 import Image from "next/image";
-
-const marketplaceLinkOut =
-  process.env.REACT_APP_LINK_TO_POLYMORPH_IN_MARKETPLACE;
-const PolymorphV1Contract = process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS;
 
 const PolymorphCard = ({ item, selected, setSelected, nft }) => {
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const fetchMetadata = async () => {
     setLoading(true);
@@ -54,7 +47,7 @@ const PolymorphCard = ({ item, selected, setSelected, nft }) => {
           quality="25"
           width={500}
           height={500}
-        ></Image>
+        />
       </div>
       <div
         className={`card--footer ${
@@ -71,30 +64,7 @@ const PolymorphCard = ({ item, selected, setSelected, nft }) => {
             )}
             <span>{`ID: ${item.tokenid}`}</span>
           </div>
-          <button
-            onClick={(event) => {
-              event.stopPropagation();
-              setDropdownOpen(!dropdownOpen);
-            }}
-          >
-            <img src={ThreeDotsSVG} alt="dropdown-icon" />
-          </button>
         </div>
-        {dropdownOpen ? (
-          <div className={"dropdown"}>
-            <button
-              onClick={(event) => {
-                event.stopPropagation();
-                window.open(
-                  `${marketplaceLinkOut}${PolymorphV1Contract}/${item.tokenid}`
-                );
-              }}
-            >
-              <img src={LinkOut} alt="link-icon" />
-              View on marketplace
-            </button>
-          </div>
-        ) : null}
       </div>
       <Popup open={showPopup} closeOnDocumentClick={false}>
         <RarityRankPopup onClose={() => setShowPopup(false)} item={item} />
