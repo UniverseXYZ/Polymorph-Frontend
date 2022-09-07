@@ -25,6 +25,7 @@
     flex-wrap: wrap;
     position: relative;
     color: $black;
+    z-index: 1;
 
     h1.title {
       font-family: $sharpGroteskSemiBoldFont;
