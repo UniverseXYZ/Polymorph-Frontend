@@ -32,6 +32,12 @@
       // background: rgba(0, 0, 0, 0.05) !important;
     }
   }
+  &--disabled-gray:disabled {
+    background: rgba(0, 0, 0, 0.05);
+    &:hover {
+      background: rgba(0, 0, 0, 0.05) !important;
+    }
+  }
 }
 
 .light-border-button {

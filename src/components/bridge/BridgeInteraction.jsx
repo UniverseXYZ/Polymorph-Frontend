@@ -217,7 +217,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             >
               <span>
                 <button
-                  className="light-button"
+                  className="light-button light-button--disabled-gray"
                   disabled={
                     step !== 1 ||
                     activeNetwork !== bridgeFromNetwork ||
@@ -244,7 +244,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
             >
               <span>
                 <button
-                  className="light-button"
+                  className="light-button light-button--disabled-gray"
                   disabled={
                     step !== 2 ||
                     activeNetwork !== bridgeFromNetwork ||
