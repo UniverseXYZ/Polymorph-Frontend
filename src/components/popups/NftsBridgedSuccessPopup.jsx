@@ -6,9 +6,12 @@ import { useMyNftsStore } from "src/stores/myNftsStore";
 import Image from "next/image.js";
 import SuccessBubble from "../../assets/images/successful-claim-bubble.png";
 import { useRouter } from "next/router.js";
+import { useAuthStore } from "src/stores/authStore";
 
-const NftsBridgedSuccessPopup = ({ txHash, onClose }) => {
+const NftsBridgedSuccessPopup = ({ txHash, onClose,numberOfNFTsToBridge }) => {
   const router = useRouter();
+  const { activeNetwork } = useAuthStore();
+
   return (
     <div className="polymorph_popup">
       <img
@@ -25,11 +28,11 @@ const NftsBridgedSuccessPopup = ({ txHash, onClose }) => {
         style={{ marginTop: "32px", marginBottom: "32px" }}
         alt=""
       />
-      <h1>NFT(s) en route!</h1>
+      <h1>{numberOfNFTsToBridge == 1 ?"NFT is" : "NFTs are"} en route!</h1>
       <p className="desc">
-        Your NFTs are en route. It will take some time depending on network
+        Your {numberOfNFTsToBridge == 1 ?"NFT is" : "NFTs are"} en route. It will take some time depending on network
         congestion for the deposit to get completed. On completion, you’ll find
-        your NFTs in your Polygon wallet.
+        your {numberOfNFTsToBridge == 1 ?"NFT" : "NFTs"} in your { activeNetwork == "Polygon" ? "Ethereum" : "Polygon"} wallet.
       </p>
       <p className="desc">
         <span className="txHash" onClick={() => window.open(txHash)}>

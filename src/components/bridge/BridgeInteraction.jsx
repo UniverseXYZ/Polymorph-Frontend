@@ -44,6 +44,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
   const [approved, setApproved] = useState(false);
   const [loadingApproved, setLoadingApproved] = useState(false);
   const [transferred, setTransferred] = useState(false);
+  const [numberOfNFTsToBridge,setNumberOfNFTsToBridge] = useState(0);
   const [loadingTransfer, setLoadingTransfer] = useState(false);
   const [showSuccessTranfserModal, setShowSuccessTransferModal] =
     useState(false);
@@ -81,6 +82,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
     try {
       setLoadingTransfer(true);
       const nftsToBridge = userSelectedNFTsToBridge.map((nft) => nft.tokenId);
+      setNumberOfNFTsToBridge(userSelectedNFTsToBridge.length);
       const tx = await tunnelContract.moveThroughWormhole(nftsToBridge);
       const txReceipt = await tx.wait();
       if (txReceipt.status !== 1) {
@@ -314,6 +316,7 @@ const BridgeInteraction = ({ bridgeFromNetwork }) => {
           <NftsBridgedSuccessPopup
             onClose={() => setShowSuccessTransferModal(false)}
             txHash={txHash}
+            numberOfNFTsToBridge={numberOfNFTsToBridge}
           />
         )}
       </Popup>
