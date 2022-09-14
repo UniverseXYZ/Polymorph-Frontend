@@ -28,7 +28,7 @@ const NftsBridgedSuccessPopup = ({ txHash, onClose,numberOfNFTsToBridge }) => {
         style={{ marginTop: "32px", marginBottom: "32px" }}
         alt=""
       />
-      <h1>{numberOfNFTsToBridge == 1 ?"NFT is" : "NFTs are"} en route!</h1>
+      <h1>{numberOfNFTsToBridge == 1 ?"NFT" : "NFTs"} en route!</h1>
       <p className="desc">
         Your {numberOfNFTsToBridge == 1 ?"NFT is" : "NFTs are"} en route. It will take some time depending on network
         congestion for the deposit to get completed. On completion, you’ll find
