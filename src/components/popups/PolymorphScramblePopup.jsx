@@ -98,17 +98,18 @@ const PolymorphScramblePopup = ({
         process.env.REACT_APP_INFURA_RPC_PROVIDER_ETHEREUM
       );
       // create instance of contract with infura provider
-      const contractInstance = new ethers.Contract(
-        process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
-        polymorphV2?.abi,
-        provider
-      );
-      const fetchedPrice = await contractInstance.priceForGenomeChange(
+      // const contractInstance = new ethers.Contract(
+      //   process.env.REACT_APP_POLYMORPHS_CONTRACT_ADDRESS,
+      //   polymorphV2?.abi,
+      //   provider
+      // );
+      const fetchedPrice = await polymorphContractV2.priceForGenomeChange(
         polymorph.tokenid
       );
       const genomChangePriceToEther = utils.formatEther(fetchedPrice);
+      console.log(genomChangePriceToEther)
       setMorphSingleGenePrice(genomChangePriceToEther);
-      const amount = await contractInstance.randomizeGenomePrice();
+      const amount = await polymorphContractV2.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
       setRandomizeGenePrice(formatedRandomizeGenomePriceToEther);
       setContract(polymorphContractV2);
@@ -123,12 +124,12 @@ const PolymorphScramblePopup = ({
         polymorphV2?.abi,
         provider
       );
-      const fetchedPrice = await contractInstance.priceForGenomeChange(
+      const fetchedPrice = await polymorphContractV2Polygon.priceForGenomeChange(
         polymorph.tokenid
       );
       const genomChangePriceToEther = utils.formatEther(fetchedPrice);
       setMorphSingleGenePrice(genomChangePriceToEther);
-      const amount = await contractInstance.randomizeGenomePrice();
+      const amount = await polymorphContractV2Polygon.randomizeGenomePrice();
       const formatedRandomizeGenomePriceToEther = utils.formatEther(amount);
       setRandomizeGenePrice(formatedRandomizeGenomePriceToEther);
       setContract(polymorphContractV2Polygon);
