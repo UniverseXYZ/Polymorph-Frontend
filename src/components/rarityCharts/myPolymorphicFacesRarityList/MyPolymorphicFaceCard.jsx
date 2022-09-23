@@ -160,7 +160,10 @@ const MyPolymorphicFaceCard = ({ polymorphItem, redirect }) => {
                 </button>
               </span>
             </Tooltip>
-            <button onClick={() => router.push("/polymorphic-bridge")}>
+            <button onClick={(event) => {
+              event.stopPropagation();
+              router.push("/polymorphic-bridge");
+            }}>
               <img src={bridgeIcon} alt="bridge" />
               Bridge NFT
             </button>
